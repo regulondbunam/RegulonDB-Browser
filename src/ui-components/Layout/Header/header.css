@@ -1,0 +1,21 @@
+.rdb_Layout_Header{
+    height: 5vw;
+    display: flex;
+    justify-content: space-between;
+}
+.rdb_Layout_Header .Logo{
+    width: 30vw;
+    background-image: url("static/images/regulonDB.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.rdb_Layout_Header .Links{
+    width: 30vw;
+    display: flex;
+}
+
+@media only screen and (max-width: 480px) {
+    .rdb_Layout_Header{
+        display: none;
+    }
+    }

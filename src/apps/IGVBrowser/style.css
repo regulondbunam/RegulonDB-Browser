@@ -1,9 +1,0 @@
-.igv-menu-hide{
-    display: grid;
-    grid-template-columns: 55px auto;
-}
-
-.igv-menu-show{
-    display: grid;
-    grid-template-columns: 200px auto;
-}
