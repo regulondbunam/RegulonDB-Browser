@@ -3,6 +3,8 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import { ThemeProvider } from '@mui/material/styles';
+import { THEME } from "ui-components/Theme";
 
 //routing
 const router = createBrowserRouter([
@@ -15,7 +17,9 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <RouterProvider router={router} />
+    <ThemeProvider theme={THEME}>
+        <RouterProvider router={router} />
+    </ThemeProvider>
   );
 }
 

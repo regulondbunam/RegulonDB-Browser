@@ -1,0 +1,16 @@
+.rdb_Layout_Desktop{
+    display: flex;
+    background-color: #152a36;
+    padding-left: 10%;
+
+}
+
+.rdb_Layout_Desktop .options{
+    height: 4vw;
+    display: flex;
+    align-items: center;
+}
+
+.rdb_Layout_Desktop .home-buttom{
+    position: absolute;
+}
