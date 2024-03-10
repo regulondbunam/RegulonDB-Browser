@@ -1,0 +1,76 @@
+{
+    "id":"menuHelp",
+    "label": "Help",
+    "icon": "help",
+    "options": [
+        {
+            "id": "subMenuAboutUs",
+            "label": "ABOUT US!",
+            "options": [
+                {
+                    "id": "credits",
+                    "label": "Credits",
+                    "link" : "/manual/aboutUs/credits"
+                },
+                {
+                    "id": "Funding",
+                    "label": "RegulonDB Funding",
+                    "link" : "/manual/aboutUs/funding"
+                },
+                {
+                    "id":"How_to_cite",
+                    "label":"How to cite",
+                    "link": "/manual/aboutUs/howToCite"
+                },
+                {
+                    "id":"Terms_and_conditions",
+                    "label":"Terms and conditions",
+                    "link":"/manual/aboutUs/terms-conditions"
+                },
+                {
+                    "id":"What_is_RegulonDB",
+                    "label":"What is RegulonDB",
+                    "link":"/manual/aboutUs/whats-regulonDB"
+                }
+            ]
+        },
+        {
+            "id": "subHelp",
+            "label": "Help",
+            "options": [
+                {
+                    "id":"RegulonDB_Glossary",
+                    "label":"RegulonDB Glossary",
+                    "disabled": true,
+                    "link":"/manual/help/glossary"
+                },
+                {
+                    "id":"evidence&class",
+                    "label":"Evidence Classification",
+                    "link":"/manual/help/evidenceclassification"
+                },
+                {
+                    "id":"cookies_01",
+                    "label":"COOKIE POLICY",
+                    "link":"/manual/help/cookiePolicy"
+                }
+            ]
+        },
+        {
+            "id": "apiHelp",
+            "label": "Api & Software",
+            "options": [
+                {
+                    "id":"menu_docker_02",
+                    "label":"Docker Install",
+                    "link":"/manual/apiSoftware/docker"
+                },
+                {
+                    "id":"menu_webService_03",
+                    "label":"GraphQL Web Services",
+                    "link":"/doc_datamarts"
+                }
+            ]
+        }
+    ]
+}

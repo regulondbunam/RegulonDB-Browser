@@ -1,0 +1,41 @@
+{
+  "id": "downloadItemMenu",
+  "label": "Releases & Downloads",
+  "icon":"downloads",
+  "options": [
+    {
+      "id": "releases",
+      "label": "Releases",
+      "options": [
+        {
+          "id": "releasesNotes",
+          "label": "Note and Summary",
+          "link": "/releasesNote",
+          "state": true
+        },
+        {
+          "id": "summaryHistory",
+          "label": "Summary History",
+          "link": "/summaryHistory",
+          "state": true
+        }
+      ]
+    },
+    {
+        "id": "downloads_menu",
+        "label": "Downloads",
+        "options": [
+            {
+                "id": "experimentalDataset",
+                "label": "Experimental Datasets",
+                "link": "/datasets"
+            },
+            {
+                "id": "pssMS05",
+                "label": "TF PSSMs Browser",
+                "link": "/TF-PSSMs"
+            }
+        ]
+    }
+  ]
+}

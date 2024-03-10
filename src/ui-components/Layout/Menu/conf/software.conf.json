@@ -1,0 +1,36 @@
+{
+  "id": "sw_api_Button",
+  "label": "API & software",
+  "icon": "api",
+  "options": [
+    {
+      "id": "api_sw_docker",
+      "label": "Docker",
+      "link": "/docker",
+      "options":[
+        {
+          "id": "db_docker",
+          "label": "install a local instance",
+          "link" : "/manual/apiSoftware/docker"
+        }
+      ]
+    },
+    {
+      "id": "api_sw_backend",
+      "label": "Backend",
+      "options": [
+        {
+          "id": "ws_API",
+          "label": "GraphQL Web Services",
+          "link" : "/doc_datamarts"
+        },
+        {
+          "id": "db_ddfas",
+          "label": "Mongo Dump",
+          "link" : "/datamarts",
+          "disabled": true
+        }
+      ]
+    }
+  ]
+}

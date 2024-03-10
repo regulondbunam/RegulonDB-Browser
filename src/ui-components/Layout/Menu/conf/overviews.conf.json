@@ -1,0 +1,32 @@
+{
+    "id": "menuOverviews",
+    "label": "Overviews",
+    "icon": "bar_chart",
+    "disable": true,
+    "options":[
+        {
+            "id": "iocs",
+            "label": "Integrated Overview",
+            "link": "/Overviews",
+            "disable": true
+        },
+        {
+            "id": "trans",
+            "label": "Transcriptional Regulatory Network",
+            "link": "/trn",
+            "disable": true
+        },
+        {
+            "id": "cellSEns",
+            "label": "Cell Sensing",
+            "link": "/cellsensing",
+            "disable": true
+        },
+        {
+            "id": "oblic",
+            "label": "Additional Resources",
+            "disable": true,
+            "link": "/otherresoulces"
+        }
+    ]
+}
