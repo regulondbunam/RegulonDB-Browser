@@ -25,11 +25,10 @@ export default function Options({
               }}
               sx={{
                 height: "4vw",
-
                 borderRadius: 0,
-                maxHeight: "50px",
+                maxHeight: "60px",
               }}
-              color={menuId === menu.id ? "surface" : "primary"}
+              color={menuId === menu.id ? "primary700" : "primary800"}
               variant={menuId === menu.id ? "contained" : "text"}
             >
               <p
