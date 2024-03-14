@@ -2,12 +2,14 @@
     height: 5vw;
     display: flex;
     justify-content: space-between;
+    max-height: 53px;
 }
 .rdb_Layout_Header .Logo{
     width: 30vw;
     background-image: url("static/images/regulonDB.png");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
+    max-width: 300px;
 }
 .rdb_Layout_Header .Links{
     width: 30vw;

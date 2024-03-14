@@ -20,12 +20,13 @@ export default function Desktop() {
                 <div style={{ width: "5vw", }}>
 
                 </div>
-                <div className="home-buttom" >
+                <div className="home-button" >
                     <IconButton sx={{
-                        border: "0.5vw solid white",
                         height: "5vw",
                         width: "5vw",
-                    }} ><HomeIcon sx={{ color: "white", fontSize: "3vw" }} /></IconButton>
+                        maxHeight: "60px",
+                        maxWidth: "60px"
+                    }} ><HomeIcon className='home-button-icon' sx={{ color: "white" }} /></IconButton>
                 </div>
                 <Options menus={menus} menuId={menu?.id} handleSelectMenu={handleSelectMenu} handleCloseMenu={handleCloseMenu} />
             </div>
