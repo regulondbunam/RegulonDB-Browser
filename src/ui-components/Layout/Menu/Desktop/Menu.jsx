@@ -16,7 +16,8 @@ export default function Menu({menu, setMenu=()=>{}}) {
           padding: "20px 10% 15px 10%",
         }}
         onMouseLeave={() => {
-          setMenu(undefined);
+            console.log("out");
+          setMenu();
         }}
       >
         {menu.options.map((menu) => {          

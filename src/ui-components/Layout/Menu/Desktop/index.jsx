@@ -38,7 +38,7 @@ export default function Desktop() {
           handleCloseMenu={handleCloseMenu}
         />
       </div>
-      {menu && <Menu menu={menu} />}
+      {menu && <Menu menu={menu} setMenu={setMenu} />}
     </div>
   );
 }
