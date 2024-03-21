@@ -50,5 +50,8 @@ export const COLOR_PALETTE = {
     surface:{
       main: '#e0effc',
       contrastText: '#1f3d4e',
+    },
+    rest:{
+      main: '#ffffff'
     }
   }

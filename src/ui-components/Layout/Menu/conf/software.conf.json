@@ -1,7 +1,7 @@
 {
   "id": "sw_api_Button",
   "label": "API & software",
-  "icon": "api",
+  "icon": "software",
   "options": [
     {
       "id": "api_sw_docker",

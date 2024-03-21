@@ -8,7 +8,7 @@ import menus from "../conf";
 
 export default function Desktop() {
   const [menu, setMenu] = useState();
-  //console.log(menu?.id);
+  console.log(menu?.id);
   const handleSelectMenu = (menu) => {
     setMenu(menu);
   };

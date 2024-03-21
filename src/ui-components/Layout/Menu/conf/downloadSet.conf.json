@@ -1,5 +1,5 @@
 {
-  "id": "downloadItemMenu",
+  "id": "menu-down",
   "label": "Releases & Downloads",
   "icon":"downloads",
   "options": [

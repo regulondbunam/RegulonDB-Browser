@@ -1,7 +1,7 @@
 {
     "id": "menuOverviews",
     "label": "Overviews",
-    "icon": "bar_chart",
+    "icon": "overviews",
     "disable": true,
     "options":[
         {
