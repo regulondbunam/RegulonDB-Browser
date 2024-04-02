@@ -1,18 +1,23 @@
 import { Outlet } from "react-router-dom"
-import Footer from "./Footer"
-import Header from './Header'
-import React from 'react'
-import Menu from './Menu'
+import { isMobile } from 'react-device-detect';
+import Desktop from "./Desktop";
+import Movil from "./Movil";
 
 export default function Layout() {
+  if (isMobile) {
+    return (
+      <Movil>
+        <div className="rdb_Layout_Body">
+          <Outlet />
+        </div>
+      </Movil>
+    )
+  }
   return (
-    <div>
-      <Header />
-      <Menu />
+    <Desktop>
       <div className="rdb_Layout_Body">
         <Outlet />
       </div>
-      <Footer />
-    </div>
+    </Desktop>
   )
 }

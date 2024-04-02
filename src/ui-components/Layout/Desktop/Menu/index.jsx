@@ -3,12 +3,11 @@ import "./style.css";
 import IconButton from "@mui/material/IconButton";
 import HomeIcon from "@mui/icons-material/Home";
 import Options from "./Options";
-import Menu from "./Menu";
-import menus from "../conf";
+import Menus from "./Menu";
+import menus from "../../conf";
 
-export default function Desktop() {
+export default function Menu() {
   const [menu, setMenu] = useState();
-  console.log(menu?.id);
   const handleSelectMenu = (menu) => {
     setMenu(menu);
   };
@@ -38,7 +37,7 @@ export default function Desktop() {
           handleCloseMenu={handleCloseMenu}
         />
       </div>
-      {menu && <Menu menu={menu} setMenu={setMenu} />}
+      {menu && <Menus menu={menu} setMenu={setMenu} />}
     </div>
   );
 }

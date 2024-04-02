@@ -1,0 +1,23 @@
+.rdb_Layout_Movil_Header {
+    height: 5vh;
+    display: flex;
+    justify-content: space-between;
+    max-height: 60px;
+    padding: 1% 1% 0 1%;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.rdb_Layout_Movil_Header .Logo {
+    width: 30vh;
+    background-image: url("static/images/regulonDB.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    max-width: 300px;
+}
+
+.rdb_Layout_Header .Links {
+    width: 30vw;
+    display: flex;
+}
