@@ -3,6 +3,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import MenuIcon from '@mui/icons-material/Menu';
+import Menu from './Menu';
 
 export const NAV_OPTIONS = {
     EXPLORER:{
@@ -29,8 +30,8 @@ export const NAV_OPTIONS = {
 
     },
     MENU:{
-        label: "Browse",
+        label: "Menu",
         icon: MenuIcon,
-        component: <>Menu</>
+        component: <Menu />
     }
 }
