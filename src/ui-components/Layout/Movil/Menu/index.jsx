@@ -30,7 +30,7 @@ export default function Menu({handleSelectGoTo}) {
         }
         setMenuId(id)
     }
-    console.log(menuConf);
+    //console.log(menuConf);
     return (
         <div>
             <Typography variant='h1' >Go to</Typography>
