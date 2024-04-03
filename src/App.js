@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import { ThemeProvider } from '@mui/material/styles';
 import { THEME } from "ui-components/Theme";
+import Home from "apps/Home";
 
 //routing
 const router = createBrowserRouter([
@@ -15,7 +16,11 @@ const router = createBrowserRouter([
       {
         path: "*",
         element: <p>No site</p>,
-      }
+      },
+      {
+        index: true,
+        element: <Home />,
+      },
     ]
   }
 ])

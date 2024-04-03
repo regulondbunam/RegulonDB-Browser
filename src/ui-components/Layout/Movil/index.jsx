@@ -10,11 +10,11 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function Movil({ children }) {
-  const [selectOption, setSelectOption] = useState({ ...NAV_OPTIONS.EXPLORER, component: children })
+  const [selectOption, setSelectOption] = useState({ ...NAV_OPTIONS.EXPLORER })
   const navigate = useNavigate();
 
   const handleSelectGoTo = (link) => {
-    setSelectOption({ ...NAV_OPTIONS.EXPLORER, component: children })
+    setSelectOption({ ...NAV_OPTIONS.EXPLORER })
     setTimeout(() => {
       navigate(link);
     }, 100);
@@ -24,12 +24,19 @@ export default function Movil({ children }) {
       <CssBaseline />
       <Header />
       <Box>
-        {
-          React.cloneElement(
-            selectOption.component,
-            { handleSelectGoTo: handleSelectGoTo }
-          )
-        }
+        {selectOption.label === NAV_OPTIONS.EXPLORER.label ? (
+          <>{children}</>
+        ) : (
+          <>
+            {
+              React.cloneElement(
+                selectOption.component,
+                { handleSelectGoTo: handleSelectGoTo }
+              )
+            }
+          </>
+        )}
+
       </Box>
       <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
         <BottomNavigation
