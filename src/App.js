@@ -6,6 +6,7 @@ import {
 import { ThemeProvider } from '@mui/material/styles';
 import { THEME } from "ui-components/Theme";
 import Home from "apps/Home";
+import Search from "apps/Search";
 
 //routing
 const router = createBrowserRouter([
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
         index: true,
         element: <Home />,
       },
+      {
+        path: "search",
+        element: <Search />
+      }
     ]
   }
 ])

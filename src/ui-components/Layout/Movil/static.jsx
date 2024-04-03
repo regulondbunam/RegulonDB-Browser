@@ -4,6 +4,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import MenuIcon from '@mui/icons-material/Menu';
 import Menu from './Menu';
+import Search from 'apps/Search';
 
 export const NAV_OPTIONS = {
     EXPLORER:{
@@ -14,7 +15,7 @@ export const NAV_OPTIONS = {
     SEARCH:{
         label: "Search",
         icon: SearchIcon,
-        component: <>Search</>
+        component: <Search />
 
     },
     SAVES:{

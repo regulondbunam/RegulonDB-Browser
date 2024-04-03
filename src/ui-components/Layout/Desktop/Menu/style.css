@@ -1,5 +1,6 @@
 .rdb_Layout_Desktop {
   background-color: #152a36;
+  z-index: -99;
 }
 
 .rdb_Layout_Desktop .options {
