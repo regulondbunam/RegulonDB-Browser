@@ -3,10 +3,12 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import { Provider } from "urql";
+import { URQL_CLIENT } from "webServices";
 import { ThemeProvider } from '@mui/material/styles';
 import { THEME } from "ui-components/Theme";
 import Home from "apps/Home";
-import Search from "apps/Search";
+import {PATH_SEARCH} from "apps/Search";
 
 //routing
 const router = createBrowserRouter([
@@ -22,10 +24,7 @@ const router = createBrowserRouter([
         index: true,
         element: <Home />,
       },
-      {
-        path: "search",
-        element: <Search />
-      }
+      PATH_SEARCH
     ]
   }
 ])
@@ -33,7 +32,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <ThemeProvider theme={THEME}>
+      <Provider value={URQL_CLIENT} >
         <RouterProvider router={router} />
+      </Provider>
     </ThemeProvider>
   );
 }
