@@ -8,6 +8,20 @@ import { Typography, Divider, Button, ButtonGroup } from '@mui/material'
 import Accordion from 'ui-components/Web/Acordion'
 import DataVerifier from 'ui-components/utils';
 
+function markMatches(text = "",search = "") {
+    const words = search.split(" ")
+    let markedText = text
+    let score = 0
+    if(DataVerifier.isValidArray(words) && DataVerifier.isValidString(text)){
+        words.forEach((word)=>{
+            let matches = text.matchAll(word)
+            score += [...matches].length
+            markedText = markedText.replaceAll(word, "<b>" + word + "</b>")
+        })
+    }
+    return {markedText,score}
+}
+
 function process(data, search = "") {
     let results = []
     if (DataVerifier.isValidArray(data)) {
@@ -16,14 +30,14 @@ function process(data, search = "") {
             let score = 0
             if (DataVerifier.isValidArray(gene.products)) {
                 products = gene.products.map(product => { return product.name }).join(', ')
-                let matchesProducts = products.matchAll(search)
-                products = products.replaceAll(search, "<b>" + search + "</b>")
-                score += [...matchesProducts].length
+                let matchesProducts = markMatches(products,search)
+                products = matchesProducts.markedText
+                score += matchesProducts.score
             }
             let geneName = gene.gene.name;
-            let matcheName = geneName.matchAll(search)
-            geneName = geneName.replaceAll(search, "<b>" + search + "</b>")
-            score += [...matcheName].length
+            let matcheName = markMatches(geneName,search)
+            geneName = matcheName.markedText
+            score += matcheName.score
             results.push({
                 _id: gene._id,
                 data: gene,
