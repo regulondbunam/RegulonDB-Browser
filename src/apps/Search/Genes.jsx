@@ -53,15 +53,15 @@ function process(data, search = "") {
 }
 
 
-export default function Genes({ id = "genesResult", search = "", onComplete = () => { } }) {
+export default function Genes({ id = "genesResult", search = "", onCompleted= () => { } }) {
     const [page, setPage] = useState(1)
     const LIMIT = 5
-    const { genes, fetching, error } = useSearchGene(search,onComplete)
+    const { genes, loading, error } = useSearchGene(search,onCompleted)
 
 
     let nResults = 0
     let results = []
-    if (genes && !fetching) {
+    if (genes && !loading) {
         nResults = genes?.length ? genes.length : 0
         results = process(genes, search)
     }

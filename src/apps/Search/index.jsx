@@ -7,6 +7,7 @@ import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 import Divider from '@mui/material/Divider';
 import Results from './Results';
+import ResentSearch from './ResentSearch';
 
 export const PATH_SEARCH = {
   path: "search",
@@ -16,7 +17,7 @@ export const PATH_SEARCH = {
   ]
 }
 
-export function InputSearch({ search = "", setSearch }) {
+export function InputSearch({ search, setSearch }) {
   const [value, setValue] = useState(search)
   const handelOnSearch = () => {
     window.history.replaceState(null, null, "/" + PATH_SEARCH.path + "/" + value)
@@ -73,7 +74,10 @@ export default function Search() {
       </Cover>
       <div >
         <div className={style.resultContainer} >
-          <Results search={search} />
+          {search && (
+            <Results search={search} />
+          )}
+          <ResentSearch setSearch={setSearch} />
         </div>
       </div>
     </div>

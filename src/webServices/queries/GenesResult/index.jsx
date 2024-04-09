@@ -3,24 +3,20 @@ import { query_SEARCH_GENE } from './queries';
 import {DataVerifier} from 'ui-components/utils';
 import { useEffect } from 'react';
 
-export default function useSearchGene(keyword,onComplete=()=>{}) {
+export default function useSearchGene(keyword,onCompleted=()=>{}) {
   const {data, loading, error} = useQuery(query_SEARCH_GENE,{
     variables:{
       search: keyword
+    },
+    onCompleted: ()=>{
+      onCompleted({
+        nResults: genes?.length ? genes.length : 0,
+    })
     }
   });
 
   let genes
   
-  useEffect(() => {
-    if (!error && !loading) {
-      onComplete({
-        nResults: genes?.length ? genes.length : 0,
-    })
-    }
-  }, [loading, error, genes, onComplete])
-  
-
   if (error) {
     console.error("query genesResult Error, search Gene: ",error)
   }
