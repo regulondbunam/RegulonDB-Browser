@@ -1,4 +1,4 @@
-import { gql } from 'urql';
+import { gql } from  '@apollo/client';
 
 export const fragment_CITATIONS = gql`fragment CITATIONS on Citations {
     publication {

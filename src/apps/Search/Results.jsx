@@ -1,56 +1,44 @@
-import React, { useReducer, useState } from 'react'
+import React, { useState } from 'react'
 import { Typography, Divider } from '@mui/material'
 import Genes from './Genes'
-
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "UPDATE_COUNT":
-      const resultIndex = state.findIndex(r=>r.id===action.id)
-      const result = {...state[resultIndex], n: action.n}
-      state[resultIndex] = result
-      return state
-    default:
-      return state;
-  }
-};
+import { DataVerifier } from 'ui-components/utils';
 
 
 export default function Results({ search = "" }) {
-  const [state, dispatch] = useReducer(reducer, [
-    {
-      id: "genes",
-      n: 0,
-    }
-  ])
+  const [count, setCount] = useState(0)
 
-  const handleUpdateResultCount = (state)=>{
+
+  const handleUpdateResultCount = (state) => {
     console.log("state",state);
-    dispatch({type: "UPDATE_COUNT",id:state.id,n:state.nResults})
+    //dispatch({type: "UPDATE_COUNT",id:state.id,n:state.nResults})
+    //setCount(c=>c+state.nResults)
   }
 
-  const resultComponets = [
-    {
-      id: "genes",
-      component: <Genes id="genes" search={search} onGetResults={handleUpdateResultCount} />
-    }
-  ]
-  console.log(state);
+  //const count = countResults(state)
+  if (count > 0) {
+    // localStorage.setItem("resent")
+  }
 
   return (
     <div style={{ marginLeft: "5%", marginRight: "5%" }} >
 
       <Typography variant='h2' >
-        Results ()
+        Results ({count})
       </Typography>
-      <Divider sx={{borderTop: "1px solid #d59f0f"}} />
+      <Divider sx={{ borderTop: "1px solid #d59f0f" }} />
       <div>
-        {resultComponets.map(result=>{
-          return <div key={"searchResult-"+result.id}>
-            {result.component}
-          </div>
-        })}
+        <Genes id="genes" search={search} onComplete={handleUpdateResultCount} />
       </div>
     </div>
   )
+}
+
+function countResults(state) {
+  let count = 0
+  if (DataVerifier.isValidArray(state)) {
+    state.forEach(result => {
+      count += result.n
+    });
+  }
+  return count
 }

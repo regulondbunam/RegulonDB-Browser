@@ -3,8 +3,8 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import { Provider } from "urql";
-import { URQL_CLIENT } from "webServices";
+import {  ApolloProvider } from '@apollo/client';
+import { CLIENT } from "webServices";
 import { ThemeProvider } from '@mui/material/styles';
 import { THEME } from "ui-components/Theme";
 import Home from "apps/Home";
@@ -32,9 +32,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <ThemeProvider theme={THEME}>
-      <Provider value={URQL_CLIENT} >
+      <ApolloProvider client={CLIENT} >
         <RouterProvider router={router} />
-      </Provider>
+      </ApolloProvider>
     </ThemeProvider>
   );
 }

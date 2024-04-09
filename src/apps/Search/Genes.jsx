@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import { useSearchGene } from 'webServices/queries'
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -6,20 +6,20 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 import { Typography, Divider, Button, ButtonGroup } from '@mui/material'
 import Accordion from 'ui-components/Web/Acordion'
-import DataVerifier from 'ui-components/utils';
+import { DataVerifier } from 'ui-components/utils';
 
-function markMatches(text = "",search = "") {
+function markMatches(text = "", search = "") {
     const words = search.split(" ")
     let markedText = text
     let score = 0
-    if(DataVerifier.isValidArray(words) && DataVerifier.isValidString(text)){
-        words.forEach((word)=>{
+    if (DataVerifier.isValidArray(words) && DataVerifier.isValidString(text)) {
+        words.forEach((word) => {
             let matches = text.matchAll(word)
             score += [...matches].length
             markedText = markedText.replaceAll(word, "<b>" + word + "</b>")
         })
     }
-    return {markedText,score}
+    return { markedText, score }
 }
 
 function process(data, search = "") {
@@ -30,12 +30,12 @@ function process(data, search = "") {
             let score = 0
             if (DataVerifier.isValidArray(gene.products)) {
                 products = gene.products.map(product => { return product.name }).join(', ')
-                let matchesProducts = markMatches(products,search)
+                let matchesProducts = markMatches(products, search)
                 products = matchesProducts.markedText
                 score += matchesProducts.score
             }
             let geneName = gene.gene.name;
-            let matcheName = markMatches(geneName,search)
+            let matcheName = markMatches(geneName, search)
             geneName = matcheName.markedText
             score += matcheName.score
             results.push({
@@ -53,18 +53,15 @@ function process(data, search = "") {
 }
 
 
-export default function Genes({ id = "genesResult", search = "", onGetResults = () => { } }) {
+export default function Genes({ id = "genesResult", search = "", onComplete = () => { } }) {
     const [page, setPage] = useState(1)
     const LIMIT = 5
-    const { genes, fetching, error } = useSearchGene(search)
+    const { genes, fetching, error } = useSearchGene(search,onComplete)
+
+
     let nResults = 0
     let results = []
     if (genes && !fetching) {
-        onGetResults({
-            id: id,
-            nResults: genes?.length ? genes.length : 0,
-            error: error
-        })
         nResults = genes?.length ? genes.length : 0
         results = process(genes, search)
     }
@@ -89,14 +86,14 @@ export default function Genes({ id = "genesResult", search = "", onGetResults = 
         <Accordion title={<Typography variant='relevant' >{"Genes (" + nResults + ")"}</Typography>}
             actions={
                 <>
-                <Typography variant='irrelevant' > {`${LIMIT} results shown out of ${nResults}`} </Typography>
-                <ButtonGroup variant="contained" color='secondary' size='small' aria-label="Basic button group">
-                    <Button onClick={handelFirstPage} disabled={page===1} >{"<<"}</Button>
-                    <Button onClick={handelPrevPage} disabled={page<=1} >{"<"}</Button>
-                    <Typography> {".  "+page+"  ."} </Typography>
-                    <Button onClick={handelNextPage} disabled={nResults / LIMIT < page} >{">"}</Button>
-                    <Button onClick={handelLastPage} disabled={page === Math.ceil(nResults / LIMIT)} >{">>"}</Button>
-                </ButtonGroup>
+                    <Typography variant='irrelevant' > {`${LIMIT} results shown out of ${nResults}`} </Typography>
+                    <ButtonGroup variant="contained" color='secondary' size='small' aria-label="Basic button group">
+                        <Button onClick={handelFirstPage} disabled={page === 1} >{"<<"}</Button>
+                        <Button onClick={handelPrevPage} disabled={page <= 1} >{"<"}</Button>
+                        <Typography> {".  " + page + "  ."} </Typography>
+                        <Button onClick={handelNextPage} disabled={nResults / LIMIT < page} >{">"}</Button>
+                        <Button onClick={handelLastPage} disabled={page === Math.ceil(nResults / LIMIT)} >{">>"}</Button>
+                    </ButtonGroup>
                 </>
             }
         >
@@ -106,7 +103,7 @@ export default function Genes({ id = "genesResult", search = "", onGetResults = 
                         p: 0,
                     }}
                 >
-                    {results.slice((LIMIT*(page-1)),(LIMIT*page)).map((result) => {
+                    {results.slice((LIMIT * (page - 1)), (LIMIT * page)).map((result) => {
                         return (
                             <ListItem key={result._id} disablePadding>
                                 <ListItemButton

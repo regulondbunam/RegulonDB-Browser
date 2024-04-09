@@ -1,16 +1,26 @@
-import { useQuery } from 'urql';
+import { useQuery } from  '@apollo/client';
 import { query_SEARCH_GENE } from './queries';
-import DataVerifier from 'ui-components/utils';
+import {DataVerifier} from 'ui-components/utils';
+import { useEffect } from 'react';
 
-export default function useSearchGene(keyword) {
-  const [result] = useQuery({
-    query: query_SEARCH_GENE,
+export default function useSearchGene(keyword,onComplete=()=>{}) {
+  const {data, loading, error} = useQuery(query_SEARCH_GENE,{
     variables:{
       search: keyword
     }
   });
-  const { data, fetching, error } = result;
+
   let genes
+  
+  useEffect(() => {
+    if (!error && !loading) {
+      onComplete({
+        nResults: genes?.length ? genes.length : 0,
+    })
+    }
+  }, [loading, error, genes, onComplete])
+  
+
   if (error) {
     console.error("query genesResult Error, search Gene: ",error)
   }
@@ -19,5 +29,5 @@ export default function useSearchGene(keyword) {
       genes = data.getGenesBy.data
     }
   }
-  return {genes, data, fetching, error}
+  return {genes, data, loading, error}
 }

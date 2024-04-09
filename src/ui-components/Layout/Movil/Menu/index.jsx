@@ -18,7 +18,7 @@ import BiotechIcon from "@mui/icons-material/Biotech";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import PreviewIcon from "@mui/icons-material/Preview";
 import ApiIcon from "@mui/icons-material/Api";
-import DataVerifier from 'ui-components/utils';
+import {DataVerifier} from 'ui-components/utils';
 
 export default function Menu({handleSelectGoTo}) {
     const [menuId, setMenuId] = useState()

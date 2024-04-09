@@ -1,3 +1,3 @@
-import { URQL_CLIENT } from "./Client";
+import { CLIENT } from "./Client";
 
-export {URQL_CLIENT}
+export {CLIENT}
