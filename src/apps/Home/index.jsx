@@ -1,11 +1,12 @@
 import React from 'react'
 import Cover from './Cover'
+import InfoApp from './InfoApp'
 
 export default function Home() {
   return (
     <div>
         <Cover />
-        <div>DB Info</div>
+        <InfoApp />
         <div>Tools</div>
     </div>
   )
