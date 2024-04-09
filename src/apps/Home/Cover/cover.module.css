@@ -1,7 +1,22 @@
+.coverContainerDesktop{
+    position:absolute;
+    top: 0;
+    margin: 3vw;
+}
+
+.coverContainerMovile{
+    margin: 3vw;
+}
+
 .coverEcoliImg{
-    position: absolute;
     width: 55vw;
     max-width: 682px;
     right: 0;
     top: 0;
+}
+
+.ecoliImgContainer{
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 10px;
 }

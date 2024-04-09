@@ -5,8 +5,11 @@ import HomeIcon from "@mui/icons-material/Home";
 import Options from "./Options";
 import Menus from "./Menu";
 import menus from "../../conf";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Menu() {
+  const navigate = useNavigate();
   const [menu, setMenu] = useState();
   const handleSelectMenu = (menu) => {
     setMenu(menu);
@@ -26,6 +29,7 @@ export default function Menu() {
               maxHeight: "60px",
               maxWidth: "60px",
             }}
+            onClick={()=>navigate("/")}
           >
             <HomeIcon className="home-button-icon" sx={{ color: "white" }} />
           </IconButton>
