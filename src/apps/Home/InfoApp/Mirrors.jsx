@@ -1,16 +1,14 @@
 import React from "react";
-import AccountTreeIcon from "@mui/icons-material/AccountTree";
-import { styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
-import { Typography } from "@mui/material";
+import Typography from '@mui/material/Typography';
 import { Link } from "react-router-dom";
+import Card from '@mui/material/Card';
 
 
 const mirrorData = {
   id: "ligth_regulonDB",
   xs: 3,
   section: "tool",
-  title: "RegulonDB mirror sites ",
+  title: "Mirror sites ",
   description: `Our RegulonDB mirror sites in the cities of Cuernavaca Morelos and Querétaro. Additionally, you have the option to download and install a local instance of RegulonDB application on your computer.`,
   links: [
     {
@@ -28,25 +26,24 @@ const mirrorData = {
   ],
 };
 
-export default function PageMap() {
+export default function Mirrors({ unTitle = false }) {
   return (
-    <div>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <AccountTreeIcon />
-        <p>
+    <Card sx={{ minWidth: "300px", maxWidth: "700px" }} >
+      {!unTitle && (
+        <Typography variant="body1" >
           <b>{mirrorData.title}</b>
-        </p>
-      </div>
+        </Typography>
+      )}
       <div style={{ marginLeft: "10px" }}>
-        <p>{mirrorData.description} </p>
+        <Typography variant="body2">{mirrorData.description} </Typography>
         {mirrorData.links.map((link, index) => {
           return (
-            <Link key={"link_"+index} to={link.url}>
+            <Link key={"link_" + index} to={link.url}>
               <Typography color="secondary">{link.label}</Typography>
             </Link>
           );
         })}
       </div>
-    </div>
+    </Card>
   );
 }

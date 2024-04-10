@@ -1,0 +1,17 @@
+.rdb_home_infoApp {
+    margin: 2%;
+    display: grid;
+    grid-template-columns: 250px 250px auto;
+    column-gap: 3%;
+}
+
+
+@media only screen and (max-width: 800px) {
+    .rdb_home_infoApp {
+        margin: 1%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 10px;
+    }
+}

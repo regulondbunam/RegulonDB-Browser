@@ -3,7 +3,8 @@ import Box from "@mui/material/Box";
 import { gql, useQuery } from "@apollo/client";
 import Skeleton from "@mui/material/Skeleton";
 import { Link } from "react-router-dom";
-import { Typography } from "@mui/material";
+import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
 
 const query_GetDataBaseInfo = gql`
   {
@@ -17,7 +18,7 @@ const query_GetDataBaseInfo = gql`
   }
 `;
 
-export default function Release() {
+export default function Release({unTitle=false}) {
   const { data, loading, error } = useQuery(query_GetDataBaseInfo);
   if (error) {
     return null;
@@ -28,19 +29,23 @@ export default function Release() {
   if (data) {
     const dbInfo = data.getDatabaseInfo[0];
     return (
-
-        <Box >
-          <div style={{ marginLeft: "10px" }}>
-            {"date: " + dbInfo.releaseDate}
-            {"RegulonDB version: " + dbInfo.regulonDBVersion}
-            synchronized with:
-            {"    - Ecocyc version: " + dbInfo.ecocycVersion}
-            {"     - Lisen&Curate version: " + dbInfo.lcVersion}
-            <Link to={"/releasesNote"}>
-              <Typography color="secondary">Read release notes</Typography>
-            </Link>
-          </div>
-        </Box>
+      <Card sx={{minWidth: "250px"}} >
+        {!unTitle &&(
+          <Typography variant="body1" ><b>Release</b></Typography>
+        )}
+        <div style={{marginLeft: "10px"}} >
+        <Typography variant="body2">{"Date: " + dbInfo.releaseDate}</Typography>
+        <Typography variant="body2">{"Version: " + dbInfo.regulonDBVersion}</Typography>
+        </div>
+        <Typography variant="body2" >Synchronized with:</Typography>
+        <div style={{marginLeft: "10px"}} >
+        <Typography variant="body2">{"Ecocyc version: " + dbInfo.ecocycVersion}</Typography>
+        <Typography variant="body2">{"Lisen&Curate version: " + dbInfo.lcVersion}</Typography>
+        </div>
+        <Link to={"/releasesNote"}>
+          <Typography color="secondary">Read release notes</Typography>
+        </Link>
+      </Card>
 
     );
   }
