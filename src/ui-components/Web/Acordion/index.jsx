@@ -4,13 +4,14 @@ import AccordionActions from '@mui/material/AccordionActions';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import AccordionList from './List';
 
 //import Button from '@mui/material/Button';
 
-export default function Accordion({ children, title = "accordion Title", actions }) {
+export default function Accordion({ children, title = "accordion Title", actions, defaultExpanded=false }) {
     return (
         <div>
-            <MUIAccordion square>
+            <MUIAccordion square defaultExpanded={defaultExpanded}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     style={{ minHeight: "45px" }}
@@ -48,3 +49,5 @@ export default function Accordion({ children, title = "accordion Title", actions
         </div>
     );
 }
+
+export {AccordionList}

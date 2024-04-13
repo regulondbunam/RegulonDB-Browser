@@ -80,7 +80,12 @@ export default function Search() {
           {search && (
             <Results search={search} />
           )}
-          <ResentSearch setSearch={setSearch} />
+          <ResentSearch setSearch={(_search)=>{
+            setSearch(undefined)
+            setTimeout(() => {
+              setSearch(_search)
+            }, 100);
+          }} />
         </div>
       </div>
     </div>

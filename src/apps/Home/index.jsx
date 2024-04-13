@@ -7,7 +7,6 @@ export default function Home() {
     <div>
         <Cover />
         <InfoApp />
-        <div>Tools</div>
     </div>
   )
 }

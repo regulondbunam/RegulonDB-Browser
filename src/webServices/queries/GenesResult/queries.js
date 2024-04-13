@@ -306,3 +306,5 @@ export const query_SEARCH_GENE = gql`
     }
   }
 `;
+
+//export const query_ALL_GENES = gql``

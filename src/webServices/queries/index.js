@@ -1,3 +1,9 @@
 import useSearchGene from "./GenesResult";
+import useGetObjectList from "./ObjectList";
 
-export {useSearchGene}
+export {
+    //ResultGenes
+    useSearchGene,
+    //ObjectList
+    useGetObjectList
+}
