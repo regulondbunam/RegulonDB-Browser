@@ -5,7 +5,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 import { Typography, Button, ButtonGroup } from '@mui/material'
-import Accordion from 'ui-components/Web/Acordion'
+import Accordion from 'ui-components/Web/Accordion'
 
 /**data poperties
  * {
@@ -19,6 +19,7 @@ import Accordion from 'ui-components/Web/Acordion'
  */
 
 export default function AccordionList({
+    title = "List",
     data = [],
     pagination = true,
     limit: _limit = 5,
@@ -50,7 +51,7 @@ export default function AccordionList({
         setPage(Math.ceil(nResults / limit))
     }
     return (
-        <Accordion defaultExpanded={defaultExpanded} title={<Typography variant='relevant' >{"Genes (" + nResults + ")"}</Typography>}
+        <Accordion defaultExpanded={defaultExpanded} title={<Typography variant='relevant' >{title}</Typography>}
             actions={
                 pagination && (
                     <div style={{ display: "flex", alignItems: "center" }}>

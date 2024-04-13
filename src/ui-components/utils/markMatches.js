@@ -1,4 +1,4 @@
-import DataVerifier from "./DataVerifer"
+import DataVerifier from "./DataVerifier"
 
 export default function markMatches(text = "", search = "") {
 

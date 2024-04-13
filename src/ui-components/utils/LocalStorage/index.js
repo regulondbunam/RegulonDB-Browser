@@ -1,4 +1,4 @@
-import DataVerifier from "../DataVerifer";
+import DataVerifier from "../DataVerifier";
 import {STORAGE_TYPE} from "./static"
 
 export default class LocalStorage {

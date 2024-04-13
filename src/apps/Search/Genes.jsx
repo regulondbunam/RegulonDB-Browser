@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, useState } from 'react'
 import { useSearchGene } from 'webServices/queries'
-import {AccordionList} from "ui-components/Web/Acordion"
+import {AccordionList} from "ui-components/Web/Accordion"
 import { DataVerifier, markMatches } from 'ui-components/utils';
 
 function process(data, search = "") {
@@ -40,7 +40,7 @@ export default function Genes({ id = "genesResult", search = "", onCompleted = (
         let data = process(genes,search)
         console.log(data);
         return (
-            <AccordionList data={data} />
+            <AccordionList data={data} title={"Genes (" + data.length + ")"} />
         )
     }
     return "loading"
