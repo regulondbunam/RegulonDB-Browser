@@ -5,5 +5,7 @@ export const VIEW_TYPE = {
 }
 
 export const DISPATCH = {
-    UPDATE_VIEW: 0
+    UPDATE_VIEW: 0,
+    SEARCH: 1,
+    CLEAN_SEARCH: 2,
 }

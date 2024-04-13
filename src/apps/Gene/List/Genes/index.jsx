@@ -12,6 +12,6 @@ export default function GeneList({data}) {
               <Typography gutterBottom variant="relevant" component="div">
                 {"List (" + data.length + ")"}
               </Typography>}
-            defaultExpanded={true} pagination />
+             pagination />
   )
 }

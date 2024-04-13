@@ -1,6 +1,6 @@
 import React, { useReducer, useState } from 'react'
 import SearchList from './SearchList'
-import { useGetObjectList, useLazySearchGene } from "webServices/queries"
+import { useGetObjectList } from "webServices/queries"
 import { Cover } from 'ui-components/Web/Cover'
 import Typography from "@mui/material/Typography";
 import { DataVerifier, markMatches } from 'ui-components/utils';
@@ -48,37 +48,40 @@ function process(data, search = "") {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "COMPLETE":
-      return state
+    case DISPATCH.SEARCH:
+      const { search, data } = action
+      return { ...state, search: search, resultsSearch: data }
+    case DISPATCH.CLEAN_SEARCH:
+      return { ...state, search: "", resultsSearch: null }
     default:
       return state;
   }
 };
 
 
-export default function List({query}) {
+export default function List({ query }) {
   const { objectsList, loading, error } = useGetObjectList({
     datamartType: "gene",
   });
-  const [] = useLazySearchGene
-  const [state, dispatch] = useReducer(reducer,{
+
+  const [state, dispatch] = useReducer(reducer, {
+    resultsSearch: null,
     search: "",
     advanceSearch: {},
     viewType: VIEW_TYPE.LIST
   })
 
-  const handleSelectView = (viewType)=>{
-    dispatch({type:DISPATCH.UPDATE_VIEW,viewType})
-  }
-
-  const handleSearch = (search)=>{
-    dispatch()
-  }
-
   let data = []
-  if (objectsList && !loading && !error) {
-    data = process(objectsList, state.search)
+  if (state.resultsSearch !== null) {
+    data = process(state.resultsSearch, state.search)
+  } else {
+    if (objectsList && !loading && !error) {
+      data = process(objectsList, state.search)
+    }
+
   }
+
+  console.log(data);
   return (
     <div>
       <Cover state={loading ? "loading" : "done"} message={error && "Error to load gene list"} >
@@ -86,7 +89,7 @@ export default function List({query}) {
       </Cover>
       <div className={style.geneLayout}>
         <div className={style.geneFilters} style={{ minWidth: "420px" }} >
-          <SearchList />
+          <SearchList state={state} dispatch={dispatch} />
         </div>
         <Divider orientation="vertical" flexItem />
         <div style={{ minWidth: "376px", width: "100%" }} >
