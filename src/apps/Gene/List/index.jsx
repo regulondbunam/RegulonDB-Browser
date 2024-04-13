@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useReducer, useState } from 'react'
 import SearchList from './SearchList'
-import { useGetObjectList } from "webServices/queries"
+import { useGetObjectList, useLazySearchGene } from "webServices/queries"
 import { Cover } from 'ui-components/Web/Cover'
 import Typography from "@mui/material/Typography";
 import { DataVerifier, markMatches } from 'ui-components/utils';
-import {AccordionList} from 'ui-components/Web/Accordion';
+import GeneList from './Genes';
+import Divider from '@mui/material/Divider';
 import style from "./style.module.css"
+import { DISPATCH, VIEW_TYPE } from './static';
 
 function process(data, search = "") {
   let results = []
@@ -35,7 +37,7 @@ function process(data, search = "") {
         data: gene,
         type: "gene",
         primary: geneName,
-        secondary: synonyms+" "+products,
+        secondary: synonyms + " " + products,
         score: score
       })
     });
@@ -44,17 +46,38 @@ function process(data, search = "") {
   return results
 }
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "COMPLETE":
+      return state
+    default:
+      return state;
+  }
+};
 
 
-export default function List() {
+export default function List({query}) {
   const { objectsList, loading, error } = useGetObjectList({
     datamartType: "gene",
   });
-  const [search, setSearch] = useState("")
-  console.log(objectsList);
+  const [] = useLazySearchGene
+  const [state, dispatch] = useReducer(reducer,{
+    search: "",
+    advanceSearch: {},
+    viewType: VIEW_TYPE.LIST
+  })
+
+  const handleSelectView = (viewType)=>{
+    dispatch({type:DISPATCH.UPDATE_VIEW,viewType})
+  }
+
+  const handleSearch = (search)=>{
+    dispatch()
+  }
+
   let data = []
   if (objectsList && !loading && !error) {
-    data = process(objectsList,search)
+    data = process(objectsList, state.search)
   }
   return (
     <div>
@@ -62,14 +85,15 @@ export default function List() {
         <Typography variant="h1" sx={{ ml: "10%" }} >{"Genes"}</Typography>
       </Cover>
       <div className={style.geneLayout}>
-        <div className={style.geneFilters} style={{minWidth: "420px"}} >
-        <SearchList />
+        <div className={style.geneFilters} style={{ minWidth: "420px" }} >
+          <SearchList />
+        </div>
+        <Divider orientation="vertical" flexItem />
+        <div style={{ minWidth: "376px", width: "100%" }} >
+          <GeneList data={data} />
+        </div>
       </div>
-      <div style={{minWidth: "376px", width: "100%"}} >
-        <AccordionList data={data} title={"Genes List ("+data.length+")"} defaultExpanded={true} />
-      </div>
-      </div>
-      
+
     </div>
   )
 }

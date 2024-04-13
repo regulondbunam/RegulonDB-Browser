@@ -1,6 +1,5 @@
 .geneLayout{
     display: flex;
-    grid-template-columns: 25% auto;
 }
 
 .geneFilters{

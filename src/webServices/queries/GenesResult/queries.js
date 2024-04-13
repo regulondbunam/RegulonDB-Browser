@@ -273,6 +273,7 @@ export const query_SEARCH_GENE = gql`
         gene {
           _id
           name
+          synonyms
         }
         regulation {
           operon {

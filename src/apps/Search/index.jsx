@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useId } from 'react'
 import style from "./search.module.css"
 import { Cover } from 'ui-components/Web/Cover'
 import { Typography, Button, Paper } from '@mui/material'
@@ -18,14 +18,10 @@ const PATH_SEARCH = {
   ]
 }
 
-export {PATH_SEARCH, InputSearch}
+export { PATH_SEARCH, InputSearch }
 
-function InputSearchPage({ search, setSearch }) {
-  const [value, setValue] = useState(search)
-  const handelOnSearch = () => {
-    window.history.replaceState(null, null, "/" + PATH_SEARCH.path + "/" + value)
-    setSearch(value)
-  }
+function InputSearchPage({ inputTextId, setSearch, handleOnSearch }) {
+
   return (
     <Paper
       elevation={0}
@@ -36,25 +32,21 @@ function InputSearchPage({ search, setSearch }) {
         sx={{
           width: "80vw"
         }}
-        id="searchInput"
+        id={inputTextId}
         aria-describedby="input-searcht"
         InputProps={{
           startAdornment: <SearchIcon />,
           'aria-label': 'search-keyword',
         }}
-        value={value}
-        onChange={(e) => {
-          setValue(e.target.value)
-        }}
         onKeyUp={(event) => {
           if (event.key === "Enter") {
-            handelOnSearch()
+            handleOnSearch()
           }
         }}
       />
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
       <Button variant="contained" color='error'
-        onClick={handelOnSearch}
+        onClick={handleOnSearch}
       >
         search
       </Button>
@@ -64,7 +56,19 @@ function InputSearchPage({ search, setSearch }) {
 
 export default function Search() {
   let { keyword } = useParams()
+  const inputTextId = useId()
   const [search, setSearch] = useState(keyword)
+
+  const handleOnSearch = () => {
+    const inputText = document.getElementById(inputTextId)
+    if (inputTextId) {
+      const value = inputText.value
+      window.history.replaceState(null, null, "/" + PATH_SEARCH.path + "/" + value)
+      setSearch(value)
+    }
+
+  }
+
   return (
     <div>
       <Cover>
@@ -72,7 +76,7 @@ export default function Search() {
           Search
         </Typography>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <InputSearchPage search={search} setSearch={setSearch} />
+          <InputSearchPage inputTextId={inputTextId} setSearch={setSearch} handleOnSearch={handleOnSearch} />
         </div>
       </Cover>
       <div >
@@ -80,11 +84,12 @@ export default function Search() {
           {search && (
             <Results search={search} />
           )}
-          <ResentSearch setSearch={(_search)=>{
-            setSearch(undefined)
-            setTimeout(() => {
-              setSearch(_search)
-            }, 100);
+          <ResentSearch setSearch={(_search) => {
+            const inputText = document.getElementById(inputTextId)
+            if (inputTextId) {
+              inputText.value = _search
+              handleOnSearch()
+            }
           }} />
         </div>
       </div>
