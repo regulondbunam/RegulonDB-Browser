@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react'
+import React, { useReducer } from 'react'
 import SearchList from './SearchList'
 import { useGetObjectList } from "webServices/queries"
 import { Cover } from 'ui-components/Web/Cover'
@@ -9,7 +9,7 @@ import Divider from '@mui/material/Divider';
 import style from "./style.module.css"
 import { DISPATCH, VIEW_TYPE } from './static';
 
-function process(data, search = "") {
+async function process(data, search = "") {
   let results = []
   if (DataVerifier.isValidArray(data)) {
     data.forEach((gene) => {
@@ -17,9 +17,6 @@ function process(data, search = "") {
       let products = ""
       if (DataVerifier.isValidArray(gene.productsName)) {
         products += "Products: " + gene.productsName.join(", ")
-        let matchesProducts = markMatches(products, search)
-        products = matchesProducts.markedText
-        score += matchesProducts.score
       }
       let geneName = gene.name;
       let matchName = markMatches(geneName, search)
@@ -43,14 +40,22 @@ function process(data, search = "") {
     });
   }
   results.sort((a, b) => b.score - a.score);
+  //delay for state in program is very important
+  await setTimeout(() => { }, 100);
   return results
 }
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case DISPATCH.SET_LOADING:
+      const { loading } = action
+      return { ...state, loading: loading }
+    case DISPATCH.SET_GENE_LIST:
+      const { geneList } = action
+      return { ...state, geneList: geneList, loading: false }
     case DISPATCH.SEARCH:
-      const { search, data } = action
-      return { ...state, search: search, resultsSearch: data }
+      const { search, resultsSearch } = action
+      return { ...state, search: search, resultsSearch: resultsSearch, loading: false }
     case DISPATCH.CLEAN_SEARCH:
       return { ...state, search: "", resultsSearch: null }
     default:
@@ -60,28 +65,30 @@ const reducer = (state, action) => {
 
 
 export default function List({ query }) {
-  const { objectsList, loading, error } = useGetObjectList({
-    datamartType: "gene",
-  });
-
   const [state, dispatch] = useReducer(reducer, {
+    loading: false,
     resultsSearch: null,
+    geneList: [],
     search: "",
     advanceSearch: {},
     viewType: VIEW_TYPE.LIST
   })
 
-  let data = []
-  if (state.resultsSearch !== null) {
-    data = process(state.resultsSearch, state.search)
-  } else {
-    if (objectsList && !loading && !error) {
-      data = process(objectsList, state.search)
+  const { loading: objectListLoading, error } = useGetObjectList({
+    datamartType: "gene",
+    onCompleted: (data) => {
+      process(data.getObjectList, state.search).then((geneList) => {
+        dispatch({ type: DISPATCH.SET_GENE_LIST, geneList: geneList })
+      }).catch(() => {
+        dispatch({ type: DISPATCH.SET_LOADING, loading: false })
+      })
+      dispatch({ type: DISPATCH.SET_LOADING, loading: true })
     }
+  });
 
-  }
+  const loading = objectListLoading || state.loading
 
-  console.log(data);
+  console.log(state);
   return (
     <div>
       <Cover state={loading ? "loading" : "done"} message={error && "Error to load gene list"} >
@@ -93,7 +100,7 @@ export default function List({ query }) {
         </div>
         <Divider orientation="vertical" flexItem />
         <div style={{ minWidth: "376px", width: "100%" }} >
-          <GeneList data={data} />
+          <GeneList loading={loading} data={state.resultsSearch === null ? state.geneList : state.resultsSearch} />
         </div>
       </div>
 

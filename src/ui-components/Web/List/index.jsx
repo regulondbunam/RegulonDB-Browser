@@ -7,14 +7,14 @@ import ListItemButton from '@mui/material/ListItemButton';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import { Typography, Button, ButtonGroup } from '@mui/material'
+import { Typography, Button, ButtonGroup, Divider } from '@mui/material'
 
 export function List(props) {
     const {
         title = "",
         data = [],
         pagination = false,
-        limit: _limit = 5,
+        limit: _limit = 10,
     } = props
     const [page, setPage] = useState(1)
     // eslint-disable-next-line no-unused-vars
@@ -22,8 +22,6 @@ export function List(props) {
     let nResults = 0
     if (DataVerifier.isValidArray(data)) {
         nResults = data?.length ? data.length : 0
-    } else {
-        return <></>
     }
     const handelFirstPage = () => {
         setPage(1)
@@ -45,6 +43,7 @@ export function List(props) {
         <Card {...props}>
             <CardContent>
                 {title}
+                <Divider />
                 <MUIList
                     sx={{
                         p: 0,
@@ -87,10 +86,11 @@ export function List(props) {
                     )}
 
                 </MUIList>
+                <Divider/>
             </CardContent>
-            {pagination && (
+            {(pagination && DataVerifier.isValidArray(data)) && (
                 <CardActions>
-                    <div style={{ display: "flex", alignItems: "center" }}>
+                    <div style={{ display: "flex", alignItems: "center", width: "100%", justifyContent: "flex-end" }}>
                         <div style={{ marginRight: "10px" }} >
                             <Typography variant='irrelevant' > {`${limit} results shown out of ${nResults}`} </Typography>
                         </div>
