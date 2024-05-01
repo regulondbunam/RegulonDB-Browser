@@ -9,7 +9,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { THEME } from "ui-components/Theme";
 import Home from "apps/Home";
 import {PATH_SEARCH} from "apps/Search";
-import { PATH_GENE } from "apps/Gene";
+//import { PATH_GENE } from "apps/Gene";
 
 //routing
 const router = createBrowserRouter([
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       PATH_SEARCH,
-      PATH_GENE,
+     // PATH_GENE,
     ]
   }
 ])
