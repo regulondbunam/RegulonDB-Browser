@@ -1,4 +1,4 @@
-import useSearchGene, {useLazySearchGene} from "./GenesResult";
+import useSearchGene, {useLazySearchGene, useGetGeneByID} from "./GenesResult";
 import useGetObjectList from "./ObjectList";
 
 export {
@@ -6,5 +6,6 @@ export {
     useSearchGene,
     useLazySearchGene,
     //ObjectList
-    useGetObjectList
+    useGetObjectList,
+    useGetGeneByID
 }

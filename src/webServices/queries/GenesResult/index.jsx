@@ -2,6 +2,27 @@ import { useQuery, useLazyQuery } from '@apollo/client';
 import { query_SEARCH_GENE, query_GET_GENE_BY } from './queries';
 import { DataVerifier } from 'ui-components/utils';
 
+
+export function useGetGeneByID(geneId) {
+  const {data, loading, error: queryError} = useQuery(query_GET_GENE_BY,{
+    variables: {advancedSearch: geneId+"[_id]"}
+  })
+  let gene
+  let error
+  if (data && !queryError) {
+    if (DataVerifier.isValidArray(data.getGenesBy.data)) {
+      gene = data.getGenesBy.data[0]
+    }else{
+      error = { type: "error", message: "ERROR: "+geneId+" not found"}
+    }
+  }
+  if (queryError) {
+    console.error("query Error",query_GET_GENE_BY);
+    error = { type: "error", message: "query error"}
+  }
+  return { gene, data, loading, error }
+}
+
 export default function useSearchGene(keyword, onCompleted = () => { }) {
   const { data, loading, error } = useQuery(query_SEARCH_GENE, {
     variables: {
