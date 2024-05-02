@@ -38,6 +38,8 @@ export function useLazySearchGene() {
         if (data) {
           if (DataVerifier.isValidArray(data.getGenesBy.data)) {
             onCompleted(data.getGenesBy.data)
+          }else{
+            onCompleted([])
           }
         }
       },

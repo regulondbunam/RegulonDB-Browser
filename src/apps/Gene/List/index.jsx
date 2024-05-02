@@ -88,7 +88,7 @@ export default function List({ query }) {
 
   const loading = objectListLoading || state.loading
 
-  console.log(state);
+  //console.log(state);
   return (
     <div>
       <Cover state={loading ? "loading" : "done"} message={error && "Error to load gene list"} >
