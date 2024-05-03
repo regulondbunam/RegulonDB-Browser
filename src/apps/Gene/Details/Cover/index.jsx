@@ -1,19 +1,20 @@
 import React from "react";
 import { Typography, Divider } from "@mui/material";
 import { DataVerifier } from "ui-components/utils";
+import style from "./cover.module.css"
 
 export default function Cover({ gene, products }) {
-  const { name, synonyms, leftEndPosition, rightEndPosition, strand, bnumber } =
+  const { _id, name, synonyms, leftEndPosition, rightEndPosition, strand, externalCrossReferences } =
     gene;
 
   return (
-    <div style={{ marginLeft: "5%" }}>
-      <div style={{ display: "flex" }}>
+    <div className={style.base} >
+      <div className={style.title}>
         <div>
           <Typography variant="irrelevant">Gene</Typography>
           <Typography variant="h1">{name}</Typography>
         </div>
-        <div style={{ height: "50px", margin: "10px", display: "flex", alignItems: "center" }}>
+        <div className={style.divider}>
           <Divider orientation="vertical" />
         </div>
         {DataVerifier.isValidArray(products) && (
@@ -25,7 +26,7 @@ export default function Cover({ gene, products }) {
           </div>
         )}
       </div>
-      <div style={{ display: "flex", alignItems: "center", margin: "10px" }}>
+      <div className={style.mainInfo} >
         <div>
           {DataVerifier.isValidArray(synonyms) && (
             <div style={{ display: "flex", alignItems: "center" }}>
@@ -53,37 +54,72 @@ export default function Cover({ gene, products }) {
                 Position:
               </Typography>
               <Typography variant="relevant">
-                {`${rightEndPosition}${
-                  strand === "reverse" ? " <- " : " -> "
-                }${leftEndPosition}`}
+                {`${rightEndPosition}${strand === "reverse" ? " <- " : " -> "
+                  }${leftEndPosition}`}
               </Typography>
             </div>
           )}
           {DataVerifier.isValidArray(products) && (
             <div>
               {DataVerifier.isValidArray(products[0].cellularLocations) && (
-                <>
+                <div style={{ display: "flex", alignItems: "center" }}>
                   <Typography variant="irrelevant" sx={{ mr: 1 }}>
-                  Location:
+                    Location:
                   </Typography>
                   <Typography variant="relevant">
                     {products
                       .map((product) =>
                         DataVerifier.isValidArray(product.cellularLocations)
-                          ? product.cellularLocations.join(",")
+                          ? product.cellularLocations.join(", ")
                           : ""
                       )
                       .join(", ")}
                   </Typography>
-                </>
+                </div>
               )}
             </div>
           )}
         </div>
-        <div>
-            "hola"
+        <div className={style.references} >
+          <DropRef id={_id} externalCrossReferences={externalCrossReferences} />
         </div>
       </div>
     </div>
   );
+}
+
+const references = ["ECOCYC", "ecocyc", "REFSEQ", "refseq", "UniProt"];
+
+function DropRef({ id, externalCrossReferences }) {
+  //console.log(externalCrossReferences);
+  return (
+    <div>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <Typography variant="irrelevant" sx={{ mr: 1 }}>
+          RegulonDB ID:
+        </Typography>
+        <Typography variant="irrelevant">
+          {id}
+        </Typography>
+      </div>
+
+      {DataVerifier.isValidArray(externalCrossReferences) && (<div style={{display: "flex", flexDirection: "column"}}>
+        <Typography variant="irrelevant" sx={{ mr: 1 }}>
+          External IDs:
+        </Typography>
+        {externalCrossReferences.map(ref => (
+          references.find(name => name === ref.externalCrossReferenceName) ? (
+            <Typography key={ref.externalCrossReferenceId} variant="irrelevant" sx={{ mr: 1 }}>
+              <a
+                href={`${ref?.url}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >{`${ref?.externalCrossReferenceName}: ${ref?.objectId}`}</a>
+            </Typography>
+          ) : (null)
+        ))}
+      </div>)}
+
+    </div>
+  )
 }
