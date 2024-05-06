@@ -6,25 +6,27 @@ import { List } from 'ui-components/Web/List';
 import FilterTable from 'ui-components/Web/FilterTable';
 import TableRowsIcon from '@mui/icons-material/TableRows';
 import TableChartIcon from '@mui/icons-material/TableChart';
+import { DISPATCH, VIEW_TYPE } from '../static';
 
 const views = {
   list: {
     label: "List",
     tooltip: "view genes in list",
-    component: List,
-    icon: <TableRowsIcon/>,
+    icon: <TableRowsIcon />,
   },
   table: {
     label: "Table",
     tooltip: "view genes in table",
-    component: FilterTable,
-    icon: <TableChartIcon/>,
+    icon: <TableChartIcon />,
   }
 }
 
-export default function GeneList({ data, loading = false }) {
-  const [view, setView] = useState(views.list)
+export default function GenesView({ loading = false, dispatch, state }) {
+  const view = views[state.viewType]
   const { label, component } = view
+  const handleSelectView = (viewType) => {
+    dispatch({ type: DISPATCH.UPDATE_VIEW, viewType })
+  }
   return (
     <div style={{ padding: "16px 3% 16px 15px" }}>
       <div style={{ display: 'flex', alignItems: "center", justifyContent: "space-between" }} >
@@ -35,28 +37,38 @@ export default function GeneList({ data, loading = false }) {
             </Typography>
           </>) : (
             <Typography variant="relevant" component="div">
-              {"" + data.length + " genes"}
+              {state.resultsSearch === null ? state.geneList.length : state.resultsSearch.list.length+" genes"}
             </Typography>
           )}
         </div>
         <div>
-          <ButtonGroup size='small'   aria-label="Basic button group">
+          <ButtonGroup size='small' aria-label="Basic button group">
             {Object.keys(views).map((key) => (
               <Tooltip title={views[key].tooltip}>
-                <Button variant={view.label===views[key].label ? "contained":"outlined"} onClick={() => { setView(views[key]) }} >{views[key].icon}</Button>
+                <Button variant={view.label === views[key].label ? "contained" : "outlined"} onClick={() => { handleSelectView(key) }} >{views[key].icon}</Button>
               </Tooltip>
             ))}
           </ButtonGroup>
         </div>
       </div>
       {loading && (<LinearProgress />)}
-      <List
-        data={data}
-        pagination />
+      {state.viewType === VIEW_TYPE.LIST && (
+        <List
+          data={state.resultsSearch === null ? state.geneList : state.resultsSearch.list}
+          pagination />
+      )}
+      {state.viewType === VIEW_TYPE.TABLE && (
+        <FilterTable
+          data={state.resultsSearch === null ? state.geneTable.data : state.resultsSearch.table.data}
+          columns={state.resultsSearch === null ? state.geneTable.columns : state.resultsSearch.table.columns}
+          pagination />
+      )}
+
     </div>
   )
 }
 
 /* 
-      title=
+            <GeneList loading={loading} data={state.resultsSearch === null ? state.geneList : state.resultsSearch} />
+
 */

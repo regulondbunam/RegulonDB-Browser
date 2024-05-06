@@ -118,7 +118,7 @@ export function List(props) {
                     <Button onClick={handlePrevPage} >{"<"}</Button>
                 </Tooltip>
             </ButtonGroup>
-            <Typography sx={{ ml: 1, mr: 1 }} >{page + 1}</Typography>
+            <Typography sx={{ ml: 1, mr: 1 }} >{page}</Typography>
             <ButtonGroup size='small' color="secondary" variant="contained" aria-label="Basic button group">
                 <Tooltip title="Next page">
                     <Button onClick={handleNextPage} >{">"}</Button>

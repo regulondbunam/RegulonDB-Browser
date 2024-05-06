@@ -12,7 +12,15 @@ import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 
 
 async function process(genes, search) {
-  let resultsSearch = []
+  let list = []
+  let table = {
+    columns: [
+      {label: "name"},
+      {label: "synonyms"},
+      {label: "products"}
+    ],
+    data: []
+  }
   if (DataVerifier.isValidArray(genes)) {
     genes.forEach(gene => {
       let score = 0
@@ -34,7 +42,12 @@ async function process(genes, search) {
         synonyms = matchesSynonyms.markedText
         score += matchesSynonyms.score
       }
-      resultsSearch.push({
+      table.data.push({
+        name: geneName,
+        synonyms: synonyms,
+        products: products,
+      })
+      list.push({
         _id: gene._id,
         data: gene,
         type: "gene",
@@ -46,7 +59,7 @@ async function process(genes, search) {
   }
   //delay for state in program is very important
   await setTimeout(() => { }, 100);
-  return resultsSearch
+  return {list, table}
 }
 
 export default function SearchList({ data, dispatch, state }) {
@@ -62,10 +75,6 @@ export default function SearchList({ data, dispatch, state }) {
     }
   }, [loading, error, dispatch])
 
-
-  const handleSelectView = (viewType) => {
-    dispatch({ type: DISPATCH.UPDATE_VIEW, viewType })
-  }
 
   const handleClean = ()=>{
     dispatch({ type: DISPATCH.SEARCH, search: "", resultsSearch: null })

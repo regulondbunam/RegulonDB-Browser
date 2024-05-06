@@ -4,13 +4,21 @@ import { useGetObjectList } from "webServices/queries"
 import { Cover } from 'ui-components/Web/Cover'
 import Typography from "@mui/material/Typography";
 import { DataVerifier, markMatches } from 'ui-components/utils';
-import GeneList from './Genes';
+import GenesView from './Genes';
 import Divider from '@mui/material/Divider';
 import style from "./style.module.css"
 import { DISPATCH, VIEW_TYPE } from './static';
 
 async function process(data, search = "") {
-  let results = []
+  let list = []
+  let table = {
+    columns: [
+      {label: "name"},
+      {label: "synonyms"},
+      {label: "products"}
+    ],
+    data: []
+  }
   if (DataVerifier.isValidArray(data)) {
     data.forEach((gene) => {
       let score = 0
@@ -29,7 +37,12 @@ async function process(data, search = "") {
         synonyms = matchesSynonyms.markedText
         score += matchesSynonyms.score
       }
-      results.push({
+      table.data.push({
+        name: geneName,
+        synonyms: synonyms,
+        products: products,
+      })
+      list.push({
         _id: gene._id,
         data: gene,
         type: "gene",
@@ -39,10 +52,10 @@ async function process(data, search = "") {
       })
     });
   }
-  results.sort((a, b) => b.score - a.score);
+  list.sort((a, b) => b.score - a.score);
   //delay for state in program is very important
   await setTimeout(() => { }, 100);
-  return results
+  return {list, table}
 }
 
 const reducer = (state, action) => {
@@ -51,8 +64,8 @@ const reducer = (state, action) => {
       const { loading } = action
       return { ...state, loading: loading }
     case DISPATCH.SET_GENE_LIST:
-      const { geneList } = action
-      return { ...state, geneList: geneList, loading: false }
+      const { geneList, geneTable } = action
+      return { ...state, geneList: geneList, geneTable: geneTable, loading: false }
     case DISPATCH.SEARCH:
       const { search, resultsSearch } = action
       return { ...state, search: search, resultsSearch: resultsSearch, loading: false }
@@ -69,16 +82,17 @@ export default function List({ query }) {
     loading: false,
     resultsSearch: null,
     geneList: [],
+    geneTable:{},
     search: "",
     advanceSearch: {},
-    viewType: VIEW_TYPE.LIST
+    viewType: VIEW_TYPE.TABLE
   })
 
   const { loading: objectListLoading, error } = useGetObjectList({
     datamartType: "gene",
     onCompleted: (data) => {
-      process(data.getObjectList, state.search).then((geneList) => {
-        dispatch({ type: DISPATCH.SET_GENE_LIST, geneList: geneList })
+      process(data.getObjectList, state.search).then((gene) => {
+        dispatch({ type: DISPATCH.SET_GENE_LIST, geneList: gene.list, geneTable: gene.table })
       }).catch(() => {
         dispatch({ type: DISPATCH.SET_LOADING, loading: false })
       })
@@ -100,7 +114,7 @@ export default function List({ query }) {
         </div>
         <Divider orientation="vertical" flexItem />
         <div style={{ minWidth: "376px", width: "100%" }} >
-          <GeneList loading={loading} data={state.resultsSearch === null ? state.geneList : state.resultsSearch} />
+          <GenesView loading={loading}  state={state} dispatch={dispatch} />
         </div>
       </div>
 

@@ -47,7 +47,8 @@ export function InputSearch({ handleSearch = () => { }, handleClean = ()=>{} }) 
                     }}
                 />
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between", marginTop: "10px" }}>
+            <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "10px" }}>
+                {/*
                 <Button
                     size='small'
                     color='primary'
@@ -55,6 +56,7 @@ export function InputSearch({ handleSearch = () => { }, handleClean = ()=>{} }) 
                 >
                     Advance Search
                 </Button>
+                */}
                 {isSearch ? (
                     <Button
                         size='small'
