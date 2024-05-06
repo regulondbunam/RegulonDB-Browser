@@ -1,7 +1,6 @@
 import React from "react";
 import { Cover } from "ui-components/Web/Cover";
 import { useGetGeneByID } from "webServices/queries";
-import { DataVerifier } from "ui-components/utils";
 import Typography from "@mui/material/Typography";
 
 import CoverGene from "./Cover";

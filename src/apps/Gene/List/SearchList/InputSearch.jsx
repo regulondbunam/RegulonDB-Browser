@@ -1,22 +1,28 @@
 import React, { useState } from 'react'
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
-import Typography from "@mui/material/Typography";
-import Divider from '@mui/material/Divider';
+//import Typography from "@mui/material/Typography";
+//import Divider from '@mui/material/Divider';
 import { Button } from '@mui/material'
-import { PATH_GENE } from 'apps/Gene';
+import { DataVerifier } from 'ui-components/utils';
+//import { PATH_GENE } from 'apps/Gene';
 
-export function InputSearch({ handleSearch = () => { } }) {
+export function InputSearch({ handleSearch = () => { }, handleClean = ()=>{} }) {
     const [value, setValue] = useState("")
+    const [isSearch, setIsSearch] = useState(false)
+
+    const handleOnClean =()=>{
+        handleClean()
+        setValue("")
+        setIsSearch(false)
+    }
 
     const handelOnSearch = () => {
         handleSearch(value)
+        setIsSearch(true)
     }
     return (
         <div>
-            <Typography sx={{ml: 2}} gutterBottom variant="normal" component="div">
-                Search
-            </Typography>
             <div>
                 <TextField
                     size='small'
@@ -49,14 +55,26 @@ export function InputSearch({ handleSearch = () => { } }) {
                 >
                     Advance Search
                 </Button>
-                <Button
-                    size='small'
-                    variant="contained"
-                    color='secondary'
-                    onClick={handelOnSearch}
-                >
-                    search
-                </Button>
+                {isSearch ? (
+                    <Button
+                        size='small'
+                        variant="contained"
+                        color='error'
+                        onClick={handleOnClean}
+                    >
+                        clean
+                    </Button>
+                ) : (
+                    <Button
+                        size='small'
+                        variant="contained"
+                        color='secondary'
+                        onClick={handelOnSearch}
+                    >
+                        search
+                    </Button>
+                )}
+
             </div>
 
         </div>

@@ -5,8 +5,9 @@ import { DISPATCH } from '../static';
 import { InputSearch } from './InputSearch';
 import { DataVerifier, markMatches } from 'ui-components/utils';
 import { Button, Tooltip, Divider } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
-import MenuIcon from '@mui/icons-material/Menu';
+//import MenuIcon from '@mui/icons-material/Menu';
 
 
 
@@ -50,7 +51,7 @@ async function process(genes, search) {
 
 export default function SearchList({ data, dispatch, state }) {
   const [getGenes, { loading, error }] = useLazySearchGene()
-  const [hide, setHide] = useState(false)
+  const [hide, setHide] = useState(true)
 
   useEffect(() => {
     if (loading) {
@@ -64,6 +65,10 @@ export default function SearchList({ data, dispatch, state }) {
 
   const handleSelectView = (viewType) => {
     dispatch({ type: DISPATCH.UPDATE_VIEW, viewType })
+  }
+
+  const handleClean = ()=>{
+    dispatch({ type: DISPATCH.SEARCH, search: "", resultsSearch: null })
   }
 
   const handleSearch = (search) => {
@@ -83,16 +88,16 @@ export default function SearchList({ data, dispatch, state }) {
       <div style={{ display: 'flex', alignItems: "center", justifyContent: "space-between" }} >
         {!hide && (
           <Typography variant="relevant" component="div">
-            Options
+            Search
           </Typography>
         )}
 
-        <Tooltip title={!hide ? "hide options" : "show options"}>
+        <Tooltip title={!hide ? "hide options" : "show search options"}>
           <Button size='small' sx={{minWidth: 35}} variant={hide ? "contained" : "outlined"} onClick={() => { setHide(!hide) }} >
             {!hide ? (
               <MenuOpenIcon />
             ):(
-              <MenuIcon/>
+              <SearchIcon/>
             )}
             
           </Button>
@@ -101,7 +106,7 @@ export default function SearchList({ data, dispatch, state }) {
       {!hide && (
         <div>
           <Divider />
-          <InputSearch handleSearch={handleSearch} />
+          <InputSearch handleSearch={handleSearch} handleClean={handleClean} />
         </div>
       )}
     </div>
