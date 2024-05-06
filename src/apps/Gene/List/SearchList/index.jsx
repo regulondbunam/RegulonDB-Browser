@@ -1,19 +1,23 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Typography from "@mui/material/Typography";
 import { useLazySearchGene } from "webServices/queries"
 import { DISPATCH } from '../static';
 import { InputSearch } from './InputSearch';
 import { DataVerifier, markMatches } from 'ui-components/utils';
+import { Button, Tooltip, Divider } from '@mui/material';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import MenuIcon from '@mui/icons-material/Menu';
 
 
-async function process(genes,search) {
+
+async function process(genes, search) {
   let resultsSearch = []
   if (DataVerifier.isValidArray(genes)) {
-    genes.forEach(gene=>{
+    genes.forEach(gene => {
       let score = 0
       let products = ""
       if (DataVerifier.isValidArray(gene.products)) {
-        products += "Products: " + gene.products.map(product=>product.name).join(", ")
+        products += "Products: " + gene.products.map(product => product.name).join(", ")
         let matchesProducts = markMatches(products, search)
         products = matchesProducts.markedText
         score += matchesProducts.score
@@ -40,45 +44,66 @@ async function process(genes,search) {
     })
   }
   //delay for state in program is very important
-  await setTimeout(()=>{},100);
+  await setTimeout(() => { }, 100);
   return resultsSearch
 }
 
-export default function SearchList({data,dispatch,state}) {
-  const [getGenes, {loading, error}] = useLazySearchGene()
+export default function SearchList({ data, dispatch, state }) {
+  const [getGenes, { loading, error }] = useLazySearchGene()
+  const [hide, setHide] = useState(false)
 
   useEffect(() => {
     if (loading) {
-      dispatch({type: DISPATCH.SET_LOADING, loading: true})
+      dispatch({ type: DISPATCH.SET_LOADING, loading: true })
     }
     if (error) {
-      dispatch({type: DISPATCH.SET_LOADING, loading: false})
+      dispatch({ type: DISPATCH.SET_LOADING, loading: false })
     }
-  }, [loading,error,dispatch])
-  
+  }, [loading, error, dispatch])
 
-  const handleSelectView = (viewType)=>{
-    dispatch({type:DISPATCH.UPDATE_VIEW,viewType})
+
+  const handleSelectView = (viewType) => {
+    dispatch({ type: DISPATCH.UPDATE_VIEW, viewType })
   }
 
-  const handleSearch = (search)=>{
+  const handleSearch = (search) => {
     if (DataVerifier.isValidString(search)) {
       getGenes(search,
-      (genes)=>{
-        process(genes,search).then((resultsSearch)=>{
-          dispatch({type: DISPATCH.SEARCH, search: search, resultsSearch: resultsSearch})
-        })
-      }
+        (genes) => {
+          process(genes, search).then((resultsSearch) => {
+            dispatch({ type: DISPATCH.SEARCH, search: search, resultsSearch: resultsSearch })
+          })
+        }
       )
     }
-    
+
   }
   return (
-    <div style={{ padding: "16px" }}>
-      <Typography gutterBottom variant="relevant" component="div">
-        Options
-      </Typography>
-      <InputSearch handleSearch={handleSearch} />
+    <div style={!hide ? { padding: "16px",  minWidth: "420px" } : {paddingTop: "16px"}}>
+      <div style={{ display: 'flex', alignItems: "center", justifyContent: "space-between" }} >
+        {!hide && (
+          <Typography variant="relevant" component="div">
+            Options
+          </Typography>
+        )}
+
+        <Tooltip title={!hide ? "hide options" : "show options"}>
+          <Button size='small' sx={{minWidth: 35}} variant={hide ? "contained" : "outlined"} onClick={() => { setHide(!hide) }} >
+            {!hide ? (
+              <MenuOpenIcon />
+            ):(
+              <MenuIcon/>
+            )}
+            
+          </Button>
+        </Tooltip>
+      </div>
+      {!hide && (
+        <div>
+          <Divider />
+          <InputSearch handleSearch={handleSearch} />
+        </div>
+      )}
     </div>
   )
 }

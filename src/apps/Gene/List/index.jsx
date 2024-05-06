@@ -95,7 +95,7 @@ export default function List({ query }) {
         <Typography variant="h1" sx={{ ml: "10%" }} >{"Genes"}</Typography>
       </Cover>
       <div className={style.geneLayout}>
-        <div className={style.geneFilters} style={{ minWidth: "420px" }} >
+        <div className={style.geneFilters} >
           <SearchList state={state} dispatch={dispatch} />
         </div>
         <Divider orientation="vertical" flexItem />

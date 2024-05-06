@@ -4,16 +4,21 @@ import LinearProgress from '@mui/material/LinearProgress';
 import { Button, ButtonGroup, Tooltip } from '@mui/material'
 import { List } from 'ui-components/Web/List';
 import FilterTable from 'ui-components/Web/FilterTable';
+import TableRowsIcon from '@mui/icons-material/TableRows';
+import TableChartIcon from '@mui/icons-material/TableChart';
+
 const views = {
   list: {
     label: "List",
     tooltip: "view genes in list",
-    component: List
+    component: List,
+    icon: <TableRowsIcon/>,
   },
   table: {
     label: "Table",
     tooltip: "view genes in table",
-    component: FilterTable
+    component: FilterTable,
+    icon: <TableChartIcon/>,
   }
 }
 
@@ -35,15 +40,16 @@ export default function GeneList({ data, loading = false }) {
           )}
         </div>
         <div>
-          <ButtonGroup size='small' color="secondary" variant="contained" aria-label="Basic button group">
+          <ButtonGroup size='small'   aria-label="Basic button group">
             {Object.keys(views).map((key) => (
               <Tooltip title={views[key].tooltip}>
-                <Button onClick={() => { setView(views[key]) }} >{views[key].label}</Button>
+                <Button variant={view.label===views[key].label ? "contained":"outlined"} onClick={() => { setView(views[key]) }} >{views[key].icon}</Button>
               </Tooltip>
             ))}
           </ButtonGroup>
         </div>
       </div>
+      {loading && (<LinearProgress />)}
       <List
         data={data}
         pagination />
