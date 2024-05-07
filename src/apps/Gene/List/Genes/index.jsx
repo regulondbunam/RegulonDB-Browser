@@ -7,6 +7,7 @@ import FilterTable from 'ui-components/Web/FilterTable';
 import TableRowsIcon from '@mui/icons-material/TableRows';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import { DISPATCH, VIEW_TYPE } from '../static';
+import { DataVerifier } from 'ui-components/utils';
 
 const views = {
   list: {
@@ -23,10 +24,10 @@ const views = {
 
 export default function GenesView({ loading = false, dispatch, state }) {
   const view = views[state.viewType]
-  const { label, component } = view
   const handleSelectView = (viewType) => {
-    dispatch({ type: DISPATCH.UPDATE_VIEW, viewType })
+    dispatch({ type: DISPATCH.UPDATE_VIEW, viewType: viewType })
   }
+
   return (
     <div style={{ padding: "16px 3% 16px 15px" }}>
       <div style={{ display: 'flex', alignItems: "center", justifyContent: "space-between" }} >
@@ -37,7 +38,7 @@ export default function GenesView({ loading = false, dispatch, state }) {
             </Typography>
           </>) : (
             <Typography variant="relevant" component="div">
-              {state.resultsSearch === null ? state.geneList.length : state.resultsSearch.list.length+" genes"}
+              {state.resultsSearch === null ? state.geneList.length : state.resultsSearch.list.length}{" genes"}
             </Typography>
           )}
         </div>
@@ -51,18 +52,26 @@ export default function GenesView({ loading = false, dispatch, state }) {
           </ButtonGroup>
         </div>
       </div>
-      {loading && (<LinearProgress />)}
-      {state.viewType === VIEW_TYPE.LIST && (
-        <List
-          data={state.resultsSearch === null ? state.geneList : state.resultsSearch.list}
-          pagination />
+      {loading ? (<LinearProgress />) : (
+        <div>
+          {state.viewType === VIEW_TYPE.LIST && (
+            <List
+              data={state.resultsSearch === null ? state.geneList : state.resultsSearch.list}
+              pagination />
+          )}
+          {state.viewType === VIEW_TYPE.TABLE && (
+            <div>
+              {DataVerifier.isValidArray(state.resultsSearch === null ? state.geneTable.columns : state.resultsSearch.table.columns) && (
+                <FilterTable
+                  data={state.resultsSearch === null ? state.geneTable.data : state.resultsSearch.table.data}
+                  columns={state.resultsSearch === null ? state.geneTable.columns : state.resultsSearch.table.columns}
+                  pagination />
+              )}
+            </div>
+          )}
+        </div>
       )}
-      {state.viewType === VIEW_TYPE.TABLE && (
-        <FilterTable
-          data={state.resultsSearch === null ? state.geneTable.data : state.resultsSearch.table.data}
-          columns={state.resultsSearch === null ? state.geneTable.columns : state.resultsSearch.table.columns}
-          pagination />
-      )}
+
 
     </div>
   )

@@ -8,6 +8,7 @@ import { DataVerifier } from 'ui-components/utils';
 import Options from './Options';
 import { deleteFilter } from './Thead/Options/filters/deleteFilter';
 import { Typography } from '@mui/material';
+import { useEffect } from 'react';
 
 
 
@@ -57,7 +58,7 @@ function reducer(state, action) {
           isOnlyContent: false,
         }
       }
-      const { newFilters, newData } = deleteFilter(action.filter,state)
+      const { newFilters, newData } = deleteFilter(action.filter, state)
       return { ...state, columns: columns, currentData: [...newData], filters: newFilters, nRows: newData.length, totalPages: Math.ceil(newData.length / state.items) - 1, }
     }
     case REDUCER_TYPES.setFilter: {
@@ -72,12 +73,14 @@ function reducer(state, action) {
       return { ...state, columns: columns, currentData: [...action.newData], filters: newFilters, nRows: action.newData.length, totalPages: Math.ceil(action.newData.length / state.items) - 1, page: 0, }
 
     }
+    case "reset":
+      return {...action.newState}
     default:
       return state
   }
 }
 
-function initialState(columns = [], data = [], tableId) {
+function initialState({ columns = [], data = [], tableId }) {
   let newColumns = [];
   let currentData = [];
   let mapData = {};
@@ -119,12 +122,19 @@ function initialState(columns = [], data = [], tableId) {
   }
 }
 
+
+
 export default function FilterTable({ columns, data, tableName = "Table", titleVariant = "h2" }) {
 
   const tableId = useId()
-  const [state, dispatch] = useReducer(reducer, initialState(columns, data, tableId))
+  const [state, dispatch] = useReducer(reducer, { columns, data, tableId }, initialState)
 
-  console.log(state);
+  useEffect(() => {
+    return () => {
+      dispatch({ type: "reset", newState: initialState({ columns, data, tableId }) })
+    }
+  }, [columns, data, tableId])
+
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }} >

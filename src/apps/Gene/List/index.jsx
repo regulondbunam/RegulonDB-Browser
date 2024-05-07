@@ -8,11 +8,13 @@ import GenesView from './Genes';
 import Divider from '@mui/material/Divider';
 import style from "./style.module.css"
 import { DISPATCH, VIEW_TYPE } from './static';
+import { Link } from 'react-router-dom/dist';
 
 async function process(data, search = "") {
   let list = []
   let table = {
     columns: [
+      {label: "id"},
       {label: "name"},
       {label: "synonyms"},
       {label: "products"}
@@ -32,22 +34,23 @@ async function process(data, search = "") {
       score += matchName.score
       let synonyms = ""
       if (DataVerifier.isValidArray(gene.synonyms)) {
-        synonyms += "Synonyms: " + gene.synonyms.join(", ")
+        synonyms += gene.synonyms.join(", ")
         let matchesSynonyms = markMatches(synonyms, search)
         synonyms = matchesSynonyms.markedText
         score += matchesSynonyms.score
       }
       table.data.push({
-        name: geneName,
-        synonyms: synonyms,
-        products: products,
+        id: <Link to={"/gene/"+gene._id} >{gene._id}</Link>,
+        name: <p dangerouslySetInnerHTML={{__html: geneName}} />,
+        synonyms: <p dangerouslySetInnerHTML={{__html: synonyms}} />,
+        products: <p dangerouslySetInnerHTML={{__html: products}} />,
       })
       list.push({
         _id: gene._id,
         data: gene,
         type: "gene",
         primary: geneName,
-        secondary: synonyms + " " + products,
+        secondary: "Synonyms: " + synonyms + " " + products,
         score: score
       })
     });
@@ -71,6 +74,8 @@ const reducer = (state, action) => {
       return { ...state, search: search, resultsSearch: resultsSearch, loading: false }
     case DISPATCH.CLEAN_SEARCH:
       return { ...state, search: "", resultsSearch: null }
+    case DISPATCH.UPDATE_VIEW:
+      return {...state, viewType: action.viewType }
     default:
       return state;
   }
@@ -106,7 +111,7 @@ export default function List({ query }) {
   return (
     <div>
       <Cover state={loading ? "loading" : "done"} message={error && "Error to load gene list"} >
-        <Typography variant="h1" sx={{ ml: "10%" }} >{"Genes"}</Typography>
+        <Typography variant="h1" sx={{ ml: "10%" }} >{"Gene"}</Typography>
       </Cover>
       <div className={style.geneLayout}>
         <div className={style.geneFilters} >
