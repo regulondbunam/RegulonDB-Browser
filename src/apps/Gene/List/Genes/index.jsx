@@ -29,7 +29,7 @@ export default function GenesView({ loading = false, dispatch, state }) {
   }
 
   return (
-    <div style={{ padding: "16px 3% 16px 15px" }}>
+    <div style={{ margin: "0 3% 0 15px", height: "100%" }}>
       <div style={{ display: 'flex', alignItems: "center", justifyContent: "space-between" }} >
         <div>
           {loading ? (<>
@@ -53,23 +53,24 @@ export default function GenesView({ loading = false, dispatch, state }) {
         </div>
       </div>
       {loading ? (<LinearProgress />) : (
-        <div>
+        <>
           {state.viewType === VIEW_TYPE.LIST && (
             <List
               data={state.resultsSearch === null ? state.geneList : state.resultsSearch.list}
               pagination />
           )}
           {state.viewType === VIEW_TYPE.TABLE && (
-            <div>
+            <div id='filterTableContainer' style={{height: "100%"}} >
               {DataVerifier.isValidArray(state.resultsSearch === null ? state.geneTable.columns : state.resultsSearch.table.columns) && (
                 <FilterTable
                   data={state.resultsSearch === null ? state.geneTable.data : state.resultsSearch.table.data}
                   columns={state.resultsSearch === null ? state.geneTable.columns : state.resultsSearch.table.columns}
+                  idContainer="filterTableContainer"
                   pagination />
               )}
             </div>
           )}
-        </div>
+        </>
       )}
 
 

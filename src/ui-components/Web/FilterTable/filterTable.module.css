@@ -1,4 +1,7 @@
 .table {
+    width: 100%;
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
     table-layout: fixed;
     position: relative;
 }

@@ -80,10 +80,17 @@ function reducer(state, action) {
   }
 }
 
-function initialState({ columns = [], data = [], tableId }) {
+function initialState({ columns = [], data = [], tableId, idContainer }) {
   let newColumns = [];
   let currentData = [];
   let mapData = {};
+  let items = 10
+  if (DataVerifier.isValidString(idContainer)) {
+    const container = document.getElementById(idContainer)
+    if (container) {
+      items = Math.ceil(container.clientHeight/50)
+    }
+  }
   columns.forEach((column, index) => {
     newColumns.push({
       id: "column_" + index + "_" + tableId,
@@ -115,8 +122,8 @@ function initialState({ columns = [], data = [], tableId }) {
     nRows: data.length,
     //Pagination
     page: 0,
-    items: 10,
-    totalPages: Math.ceil(data.length / 10) - 1,
+    items: items,
+    totalPages: Math.ceil(data.length / items) - 1,
     //filter
     filters: []
   }
@@ -124,16 +131,18 @@ function initialState({ columns = [], data = [], tableId }) {
 
 
 
-export default function FilterTable({ columns, data, tableName = "Table", titleVariant = "h2" }) {
+export default function FilterTable({ columns, data, tableName = "Table", titleVariant = "h2", idContainer }) {
 
   const tableId = useId()
-  const [state, dispatch] = useReducer(reducer, { columns, data, tableId }, initialState)
+  const [state, dispatch] = useReducer(reducer, { columns, data, tableId, idContainer }, initialState)
+
+  console.log(state.items);
 
   useEffect(() => {
     return () => {
-      dispatch({ type: "reset", newState: initialState({ columns, data, tableId }) })
+      dispatch({ type: "reset", newState: initialState({ columns, data, tableId, idContainer }) })
     }
-  }, [columns, data, tableId])
+  }, [columns, data, tableId, idContainer])
 
   return (
     <div>
@@ -143,7 +152,7 @@ export default function FilterTable({ columns, data, tableName = "Table", titleV
         </div>
         <Options state={state} dispatch={dispatch} tableName={tableName} tableId={tableId} />
       </div>
-      <div style={{ width: "99vw", height: (state.items * 39) + "px", maxHeight: "70vh", overflow: "auto", position: "relative" }}>
+      <div style={{ height: (state.items * 39) + "px", maxHeight: "70vh", overflow: "auto", position: "relative" }}>
         <div style={{ position: "absolute" }} >
           <table className={Style.table}>
             <Thead state={state} dispatch={dispatch} tableId={tableId} />

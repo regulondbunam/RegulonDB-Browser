@@ -14,9 +14,9 @@ async function process(data, search = "") {
   let list = []
   let table = {
     columns: [
-      {label: "id"},
-      {label: "name"},
-      {label: "synonyms"},
+      {label: "id",width:30},
+      {label: "name", width:40},
+      {label: "synonyms", width: 40},
       {label: "products"}
     ],
     data: []
@@ -26,7 +26,7 @@ async function process(data, search = "") {
       let score = 0
       let products = ""
       if (DataVerifier.isValidArray(gene.productsName)) {
-        products += "Products: " + gene.productsName.join(", ")
+        products =  gene.productsName.join(", ")
       }
       let geneName = gene.name;
       let matchName = markMatches(geneName, search)
@@ -40,17 +40,17 @@ async function process(data, search = "") {
         score += matchesSynonyms.score
       }
       table.data.push({
-        id: <Link to={"/gene/"+gene._id} >{gene._id}</Link>,
-        name: <p dangerouslySetInnerHTML={{__html: geneName}} />,
-        synonyms: <p dangerouslySetInnerHTML={{__html: synonyms}} />,
-        products: <p dangerouslySetInnerHTML={{__html: products}} />,
+        id: <Link value={gene._id} to={"/gene/"+gene._id} >{gene._id}</Link>,
+        name: <p value={geneName} dangerouslySetInnerHTML={{__html: geneName}} />,
+        synonyms: <p value={synonyms} dangerouslySetInnerHTML={{__html: synonyms}} />,
+        products: <p value={products} dangerouslySetInnerHTML={{__html: products}} />,
       })
       list.push({
         _id: gene._id,
         data: gene,
         type: "gene",
         primary: geneName,
-        secondary: "Synonyms: " + synonyms + " " + products,
+        secondary: "Synonyms: " + synonyms + " Products: " + products,
         score: score
       })
     });
@@ -107,13 +107,14 @@ export default function List({ query }) {
 
   const loading = objectListLoading || state.loading
 
+
   //console.log(state);
   return (
     <div>
       <Cover state={loading ? "loading" : "done"} message={error && "Error to load gene list"} >
         <Typography variant="h1" sx={{ ml: "10%" }} >{"Gene"}</Typography>
       </Cover>
-      <div className={style.geneLayout}>
+      <div className={style.geneLayout} style={{height: `${window.screen.height-180}px`}} > 
         <div className={style.geneFilters} >
           <SearchList state={state} dispatch={dispatch} />
         </div>

@@ -24,7 +24,7 @@ export default function Pagination({ state, dispatch }) {
                     onChange={(e)=>{dispatch({type: REDUCER_TYPES.setItems, value: e.target.value})}}
                     label="Items"
                 >
-                    <MenuItem value={10}>10</MenuItem>
+                    <MenuItem value={state.items}>{state.items}</MenuItem>
                     {state.nRows > 40 && (
                         <MenuItem value={20}>20</MenuItem>
                     )}
