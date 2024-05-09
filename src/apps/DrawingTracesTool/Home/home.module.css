@@ -1,0 +1,20 @@
+.body{
+    display: flex;
+}
+
+.about{
+    display: block;
+    width: 30%;
+    min-width: 300px;
+}
+
+.options{
+    width: 70%;
+    min-width: 400px;
+}
+
+@media only screen and (max-width: 796px) {
+    .about{
+        display: none;
+    }
+  }

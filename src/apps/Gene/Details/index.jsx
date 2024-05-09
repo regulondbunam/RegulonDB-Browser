@@ -2,7 +2,6 @@ import React from "react";
 import { Cover } from "ui-components/Web/Cover";
 import { useGetGeneByID } from "webServices/queries";
 import Typography from "@mui/material/Typography";
-
 import CoverGene from "./Cover";
 
 export default function Details({ geneId }) {

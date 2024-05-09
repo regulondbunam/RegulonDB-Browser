@@ -10,6 +10,7 @@ import { THEME } from "ui-components/Theme";
 import Home from "apps/Home";
 import {PATH_SEARCH} from "apps/Search";
 import { PATH_GENE } from "apps/Gene";
+import { PATH_DTT } from "apps/DrawingTracesTool";
 
 //routing
 const router = createBrowserRouter([
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       },
       PATH_SEARCH,
       PATH_GENE,
+      PATH_DTT,
     ]
   }
 ])
