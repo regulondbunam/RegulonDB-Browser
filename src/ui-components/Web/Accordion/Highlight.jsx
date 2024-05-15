@@ -1,33 +1,20 @@
-import * as React from 'react';
-import MUIAccordion from '@mui/material/Accordion';
+import React from 'react'
+import Accordion from '@mui/material/Accordion';
 import AccordionActions from '@mui/material/AccordionActions';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import AccordionList from './List';
-import AccordionHighlight from './Highlight';
 
-//import Button from '@mui/material/Button';
-
-export default function Accordion({ children, title = "accordion Title", actions, defaultExpanded=false }) {
+export default function AccordionHighlight({children, actions, title, defaultExpanded=false, level=0}) {
+    const colorLevel=["#47718a","#61859c","#7b9bb0","#9db8c9"]
     return (
         <div>
-            <MUIAccordion square defaultExpanded={defaultExpanded}>
+            <Accordion square defaultExpanded={defaultExpanded}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
-                    style={{ minHeight: "45px" }}
                     sx={{
-                        height: "45px",
-
-                        ".Mui-expanded": {
-                            height: "45px",
-
-                        },
-                        ".MuiAccordionSummary-content": {
-                            height: "45px",
-                            display: "flex",
-                            alignItems: "center",
-                        }
+                        backgroundColor: colorLevel[level],
+                        flexDirection: "row-reverse",
                     }}
 
                 >
@@ -46,9 +33,7 @@ export default function Accordion({ children, title = "accordion Title", actions
                 </AccordionActions>
                 )}
                 
-            </MUIAccordion>
+            </Accordion>
         </div>
     );
 }
-
-export {AccordionList, AccordionHighlight}

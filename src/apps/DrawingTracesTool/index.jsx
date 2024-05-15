@@ -1,5 +1,6 @@
 import React from 'react'
 import Home from './Home';
+import Ecoli from './Ecoli';
 
 
 
@@ -10,5 +11,5 @@ export const PATH_DTT = {
 };
 
 export default function DTT() {
-  return <Home />
+  return <Ecoli />
 }

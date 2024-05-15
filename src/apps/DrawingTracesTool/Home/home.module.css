@@ -13,6 +13,35 @@
     min-width: 400px;
 }
 
+.cardContainer{
+    display: grid;
+    grid-template-columns: 10vw auto 150px;
+}
+
+.cardOptions{
+    display: flex;
+    align-items: stretch;
+    flex-direction: column-reverse;
+}
+
+.ecoli{
+    background-image: url("static/icons/ecoli.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 10vw;
+    max-width: 300px;
+    height: 10vw;
+}
+
+.uploadFile{
+    background-image: url("static/icons/upload_file.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 10vw;
+    max-width: 300px;
+    height: 10vw;
+}
+
 @media only screen and (max-width: 796px) {
     .about{
         display: none;

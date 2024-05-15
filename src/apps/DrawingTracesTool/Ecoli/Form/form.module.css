@@ -1,0 +1,17 @@
+.parametersContent{
+    display: flex;
+    flex-direction: row;
+}
+
+.parametersActions{
+    width: 200px;
+    display: flex;
+    align-items: stretch;
+    flex-direction: column-reverse;
+}
+
+@media only screen and (max-width: 400px) {
+    .parametersContent{
+        flex-direction: column;
+    }
+  }

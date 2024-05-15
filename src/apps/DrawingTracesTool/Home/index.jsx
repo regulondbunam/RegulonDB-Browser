@@ -4,7 +4,6 @@ import Typography from "@mui/material/Typography";
 import style from "./home.module.css";
 import { Divider, Button } from "@mui/material";
 import Paper from "@mui/material/Paper";
-import logoEcoli from "static/icons/ecoli.svg"
 
 export default function Home() {
   return (
@@ -25,23 +24,31 @@ export default function Home() {
         <div className={style.options}>
           <div>
             <Paper elevation={3} sx={{ m: 2, p: 1 }}>
-              <div>
+              <div className={style.cardContainer} >
+                <div className={style.ecoli} />
                 <div>
-                   
+                  <Typography variant="h2">RegulonDB data (ecoli)</Typography>
+                  <Typography variant="relevant">description</Typography>
                 </div>
-                <div>
-                <Typography variant="h2">RegulonDB data (ecoli)</Typography>
-              <Typography variant="relevant">description</Typography>
-                </div>
-                <div>
-                    <Button color="secondary" variant="contained" >GO!</Button>
+                <div className={style.cardOptions} >
+                  <Button color="secondary" variant="contained" >GO!</Button>
                 </div>
               </div>
             </Paper>
           </div>
           <div>
           <Paper elevation={3} sx={{ m: 2, p: 1 }}>
-              <Typography variant="h2">Upload your data</Typography>
+              <div className={style.cardContainer} >
+                <div className={style.uploadFile} />
+                <div>
+                  <Typography variant="h2">Upload you data</Typography>
+                  <Typography variant="relevant">description</Typography>
+                </div>
+                <div className={style.cardOptions} >
+                  <Button color="secondary" variant="contained" >GO!</Button>
+                  <Button size="small" color="primary" variant="contained" >Format Info</Button>
+                </div>
+              </div>
             </Paper>
           </div>
         </div>
