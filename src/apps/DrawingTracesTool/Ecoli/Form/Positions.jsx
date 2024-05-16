@@ -123,7 +123,7 @@ export default function Positions({ state, dispatch }) {
                         >
                             <MenuItem value={STRAND.both}>
                                 <Tooltip title={STRAND.both} placement="right">
-                                    <CompareArrowsIcon /> Both
+                                    <><CompareArrowsIcon /> Both</>
                                 </Tooltip>
                             </MenuItem>
                             <MenuItem value={STRAND.forward}>

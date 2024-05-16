@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import Form from "./Form";
+import Track from "./Track";
 import { STRAND, RANGE, GE_DEFs, FORM_ACTIONS } from "./definitions";
-//import DrawTrace from "./drawTrace";
 import { Cover } from "ui-components/Web/Cover";
 import { Typography } from "@mui/material";
 
@@ -71,7 +71,7 @@ export default function RDBdata({ dataForm }) {
         </Typography>
       </Cover>
       <Form state={state} dispatch={dispatch} initForm={initForm} />
-      {//state.draw && <DrawTrace state={state} />
+      {state.draw && <Track state={state} dispatch={dispatch} />
       }
     </div>
   );
