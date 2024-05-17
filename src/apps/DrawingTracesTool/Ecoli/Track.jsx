@@ -1,5 +1,5 @@
 import React from 'react'
-import { useGetGeneticElements } from 'webServices/queries'
+import DrawingTraces from './DrawingTraces';
 
 
 export default function Track({state,dispatch}) {
@@ -9,10 +9,25 @@ export default function Track({state,dispatch}) {
       objectType.push(ge.key)
     }
   });
-  const {geneticElements} = useGetGeneticElements({...state, objectType: objectType})
-  console.log(geneticElements);
-  return (
-    <div>Track</div>
+  return(
+    <div>
+      <DrawingTraces {...state} objectType={objectType} />
+    </div>
   )
+  /*
+  const idTrack = "dtt_tool"
+  const {geneticElements} = useGetGeneticElements({...state, objectType: objectType})
+  if (!geneticElements) {
+    return "loading..."
+  }
+  return (
+    <div>
+      <div>Controls</div>
+      <div><DrawTrack idTrack={idTrack} geneticElements={geneticElements} leftEndPosition={state.leftEndPosition} rightEndPosition={state.rightEndPosition} /></div>
+    </div>
+  )
+  */
 }
+
+
 

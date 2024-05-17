@@ -1,6 +1,6 @@
 import useSearchGene, {useLazySearchGene, useGetGeneByID} from "./GenesResult";
 import useGetObjectList from "./ObjectList";
-import { useGetGeneticElements } from "./DTTData";
+import { useGetGeneticElements, useLazyGetGeneticElements } from "./DTTData";
 
 export {
     //ResultGenes
@@ -11,4 +11,5 @@ export {
     useGetGeneByID,
     //DTT
     useGetGeneticElements,
+    useLazyGetGeneticElements,
 }
