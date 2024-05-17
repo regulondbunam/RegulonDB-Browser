@@ -1,44 +1,50 @@
 import React, { useReducer } from 'react'
 import { useGetGeneticElements } from 'webServices/queries'
-import { MOVE, REDUCER } from './static';
+import { MOVE, REDUCER, ZOOM } from './static';
+import DrawTrack from 'apps/DrawingTracesTool/DrawingEngine';
+import Controls from './Controls';
 
 
 function reducer(state, action) {
     switch (action.type) {
         case REDUCER.MoveLeft:
-            const moveL = Math.ceil((state.rightEndPosition - state.leftEndPosition)*MOVE)
-            return {...state, rightEndPosition: state.rightEndPosition - moveL, leftEndPosition: state.leftEndPosition-moveL }
+            const moveL = Math.ceil((state.rightEndPosition - state.leftEndPosition) * MOVE)
+            return { ...state, rightEndPosition: state.rightEndPosition - moveL, leftEndPosition: state.leftEndPosition - moveL }
         case REDUCER.MoveRight:
-            const moveR = 2
-            break;
+            const moveR = Math.ceil((state.rightEndPosition - state.leftEndPosition) * MOVE)
+            return { ...state, rightEndPosition: state.rightEndPosition + moveR, leftEndPosition: state.leftEndPosition + moveR }
         case REDUCER.ZoomIn:
-
-            break;
+            const zoomIn = Math.ceil((state.rightEndPosition - state.leftEndPosition) * ZOOM)
+            return { ...state, rightEndPosition: state.rightEndPosition - zoomIn, leftEndPosition: state.leftEndPosition + zoomIn }
         case REDUCER.ZoomOut:
-
-            break;
+            const zoomOut = Math.ceil((state.rightEndPosition - state.leftEndPosition) * ZOOM)
+            return { ...state, rightEndPosition: state.rightEndPosition + zoomOut, leftEndPosition: state.leftEndPosition - zoomOut }
         case REDUCER.Reset:
-
-            break;
-
+            return { ...action.porps }
         default:
-            break;
+            return state
     }
 }
 
 
 export default function DrawingTraces(props) {
-    
+
     const [state, dispatch] = useReducer(reducer, { ...props })
     const { geneticElements, loading, error } = useGetGeneticElements({
         ...state
     })
-    console.log(loading);
-    console.log(state);
     console.log(geneticElements);
     return (
         <div>
-            <button onClick={()=>{dispatch({type:REDUCER.MoveLeft})}}>LEft</button>
+            <div>
+                <Controls state={state} dispatch={dispatch} initialProps={props} />
+            </div>
+            <div>
+                {geneticElements && (
+                    <DrawTrack idTrack={"DTT"} geneticElements={geneticElements} {...state} />
+                )}
+
+            </div>
         </div>
     )
 }
