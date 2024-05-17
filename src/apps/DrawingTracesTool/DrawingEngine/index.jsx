@@ -3,7 +3,7 @@ import { Track } from './GeneticElementsGraphicLibrary'
 
 export default function DrawTrack({
   idTrack,
-  geneticElements = [],
+  geneticElements,
   leftEndPosition,
   rightEndPosition,
   height = 300
@@ -19,12 +19,7 @@ export default function DrawTrack({
         track.draw(geneticElements,leftEndPosition,rightEndPosition)
       }
     }
-    return ()=>{
-      const drawPlace = document.getElementById(drawPlaceId)
-    if (drawPlace) {
-      drawPlace.innerHTML = ""
-    }
-    }
+
   }, [drawPlaceId, geneticElements,height,leftEndPosition,rightEndPosition])
   
 

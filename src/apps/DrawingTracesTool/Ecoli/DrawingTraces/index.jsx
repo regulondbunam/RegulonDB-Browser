@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react'
 import { useGetGeneticElements } from 'webServices/queries'
+import Skeleton from '@mui/material/Skeleton';
 import { MOVE, REDUCER, ZOOM } from './static';
 import DrawTrack from 'apps/DrawingTracesTool/DrawingEngine';
 import Controls from './Controls';
@@ -20,7 +21,7 @@ function reducer(state, action) {
             const zoomOut = Math.ceil((state.rightEndPosition - state.leftEndPosition) * ZOOM)
             return { ...state, rightEndPosition: state.rightEndPosition + zoomOut, leftEndPosition: state.leftEndPosition - zoomOut }
         case REDUCER.Reset:
-            return { ...action.porps }
+            return { ...action.initialProps }
         default:
             return state
     }
@@ -40,10 +41,7 @@ export default function DrawingTraces(props) {
                 <Controls state={state} dispatch={dispatch} initialProps={props} />
             </div>
             <div>
-                {geneticElements && (
-                    <DrawTrack idTrack={"DTT"} geneticElements={geneticElements} {...state} />
-                )}
-
+            <DrawTrack idTrack={"DTT"} geneticElements={geneticElements} {...state} height={300} />
             </div>
         </div>
     )

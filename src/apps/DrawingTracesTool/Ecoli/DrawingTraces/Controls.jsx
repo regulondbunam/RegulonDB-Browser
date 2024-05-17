@@ -62,7 +62,7 @@ export default function Controls({ state, dispatch, initialProps, context }) {
           <Tooltip title={"Reset Graphic"}>
             <Button
               className="iconButton"
-              onClick={() =>dispatch({type: REDUCER.Reset, props: initialProps})}
+              onClick={() =>dispatch({type: REDUCER.Reset, initialProps: initialProps})}
             >
               <RestartAltIcon  />
             </Button>
