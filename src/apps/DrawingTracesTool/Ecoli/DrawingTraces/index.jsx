@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { useId, useReducer } from 'react'
 import { useGetGeneticElements } from 'webServices/queries'
 import Skeleton from '@mui/material/Skeleton';
 import { MOVE, REDUCER, ZOOM } from './static';
@@ -29,19 +29,19 @@ function reducer(state, action) {
 
 
 export default function DrawingTraces(props) {
-
     const [state, dispatch] = useReducer(reducer, { ...props })
     const { geneticElements, loading, error } = useGetGeneticElements({
         ...state
     })
+    const name = "regulonDB_dtt-"+state.leftEndPosition+"-"+state.rightEndPosition
     console.log(geneticElements);
     return (
         <div>
-            <div>
-                <Controls state={state} dispatch={dispatch} initialProps={props} />
+            <div style={{display: "flex", flexDirection: "row-reverse"}}>
+                <Controls idTrack={props.id} name={name} geneticElements={geneticElements} state={state} dispatch={dispatch} initialProps={props} />
             </div>
             <div>
-            <DrawTrack idTrack={"DTT"} geneticElements={geneticElements} {...state} height={300} />
+            <DrawTrack idTrack={props.id} geneticElements={geneticElements} {...state} height={300} />
             </div>
         </div>
     )

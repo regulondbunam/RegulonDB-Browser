@@ -8,24 +8,23 @@ export default function DrawTrack({
   rightEndPosition,
   height = 300
 }) {
-  const drawPlaceId = "drawPlace_" + idTrack
 
   useEffect(() => {
-    const drawPlace = document.getElementById(drawPlaceId)
+    const drawPlace = document.getElementById(idTrack)
     if (drawPlace) {
       if (Array.isArray(geneticElements)) {
         const width = drawPlace.clientWidth
-        const track = new Track(drawPlace,drawPlaceId,"canvas_"+drawPlaceId,width,height)
+        const track = new Track(drawPlace,idTrack,"canvas_"+idTrack,width,height)
         track.draw(geneticElements,leftEndPosition,rightEndPosition)
       }
     }
 
-  }, [drawPlaceId, geneticElements,height,leftEndPosition,rightEndPosition])
+  }, [idTrack, geneticElements,height,leftEndPosition,rightEndPosition])
   
 
   return (
     <div
-      id={drawPlaceId}
+      id={idTrack}
       style={{ height: height + "px", width: "100%" }}
     />
   )
