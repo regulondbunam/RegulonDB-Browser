@@ -28,7 +28,9 @@ export default function Thead({ labelStyle, state, dispatch, tableId }) {
                                 <p style={{ ...LABEL_STYLE, ...labelStyle }} >{column.label}</p>
                             </Box>
                         </Tooltip>
-                        <Options state={state} column={column} dispatch={dispatch} index={index} tableId={tableId} />
+                        {column.options ? 
+                        (<Options state={state} column={column} dispatch={dispatch} index={index} tableId={tableId} />)
+                    : (<div style={{backgroundColor: "#cadce7"}} ></div>)}
                         <ResizeColumn column={column} dispatch={dispatch} index={index} />
                     </Box>
                 </th>)

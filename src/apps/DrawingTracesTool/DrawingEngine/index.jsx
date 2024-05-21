@@ -29,16 +29,14 @@ export default function DrawTrack({
   return (
     <div>
       <div id={trackId} style={{ height: height + "px", width: "100%" }} />
-      <div id={trackId+"_TABLE"} style={{height: "400px"}} >
-        {geneticElements && (
-          <TableDTT
-            trackId={trackId}
-            idContainer={trackId+"_TABLE"}
-            geneticElements={geneticElements}
-            leftEndPosition={leftEndPosition}
-            rightEndPosition={rightEndPosition}
-          />
-        )}
+      <div id={trackId + "_TABLE"} style={{ height: "400px" }}>
+        <TableDTT
+          trackId={trackId}
+          idContainer={trackId + "_TABLE"}
+          geneticElements={geneticElements}
+          leftEndPosition={leftEndPosition}
+          rightEndPosition={rightEndPosition}
+        />
       </div>
     </div>
   );

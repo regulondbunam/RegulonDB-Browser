@@ -99,6 +99,7 @@ function initialState({ columns = [], data = [], tableId, idContainer }) {
       hide: false,
       isOnlyContent: false,
       filterType: FILTER.TYPES.TEXT,
+      options: true,
       ...column
     })
   });
@@ -145,12 +146,10 @@ export default function FilterTable({
   const tableId = useId()
   const [state, dispatch] = useReducer(reducer, { columns, data, tableId, idContainer }, initialState)
 
-  console.log(state);
+  //console.log(state);
 
   useEffect(() => {
-    return () => {
-      dispatch({ type: "reset", newState: initialState({ columns, data, tableId, idContainer }) })
-    }
+    dispatch({ type: "reset", newState: initialState({ columns, data, tableId, idContainer }) })
   }, [columns, data, tableId, idContainer])
 
   return (
