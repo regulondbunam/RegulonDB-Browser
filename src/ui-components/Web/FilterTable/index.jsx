@@ -131,7 +131,14 @@ function initialState({ columns = [], data = [], tableId, idContainer }) {
 
 
 
-export default function FilterTable({ columns, data, tableName = "Table", titleVariant = "h2", idContainer }) {
+export default function FilterTable({ 
+  columns, 
+  data,
+  idContainer,
+  tableName = "Table", 
+  titleVariant = "h2",
+  selection = "cell"
+}) {
 
   const tableId = useId()
   const [state, dispatch] = useReducer(reducer, { columns, data, tableId, idContainer }, initialState)
@@ -156,7 +163,7 @@ export default function FilterTable({ columns, data, tableName = "Table", titleV
         <div style={{ position: "absolute" }} >
           <table className={Style.table}>
             <Thead state={state} dispatch={dispatch} tableId={tableId} />
-            <Tbody state={state} dispatch={dispatch} tableId={tableId} />
+            <Tbody state={state} dispatch={dispatch} tableId={tableId} selection={selection} />
           </table>
         </div>
       </div>

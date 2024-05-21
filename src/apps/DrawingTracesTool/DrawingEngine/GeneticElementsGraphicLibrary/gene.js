@@ -9,6 +9,7 @@ import { gene_dp } from "./features_default_properties";
 
 export default function DrawGene({
   id,
+  trackId = "track",
   canva,
   anchor,
   dna,
@@ -93,7 +94,7 @@ export default function DrawGene({
   );
   //console.log(posX);
   gene.move(posX, posY);
-  gene.id(id);
+  gene.id(`track_${trackId}_draw_${id}`);
   gene.fill(color);
   gene.stroke(stroke);
   gene.opacity(opacity);

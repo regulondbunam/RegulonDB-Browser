@@ -17,9 +17,9 @@ import DrawTransnationalAttenuator from "./transnationalAttenuator";
 
 class Track {
 
-  constructor(drawPlace,drawPlaceId,canvasId,width,height) {
+  constructor(drawPlace,trackId,canvasId,width,height) {
     this.drawPlace = drawPlace;
-    this.id = drawPlaceId;
+    this.id = trackId;
     this.canvasId = canvasId;
     this.width = width;
     this.height = height
@@ -78,7 +78,7 @@ class Track {
     geneticElements.forEach(object => {
       switch (object.objectType) {
         case gene_dp.objectType:
-          DrawGene({...object, id:object._id, dna: dna, canva: canvas})
+          DrawGene({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas})
           break;
         case operon_dp.objectType:
           DrawOperon({...object, id:object._id, dna: dna, canva: canvas})

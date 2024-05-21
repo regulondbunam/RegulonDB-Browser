@@ -1,31 +1,45 @@
-import React, { useEffect } from 'react'
-import { Track } from './GeneticElementsGraphicLibrary'
+import React, { useEffect } from "react";
+import { Track } from "./GeneticElementsGraphicLibrary";
+import TableDTT from "./Table";
 
 export default function DrawTrack({
-  idTrack,
+  trackId,
   geneticElements,
   leftEndPosition,
   rightEndPosition,
-  height = 300
+  height = 300,
 }) {
-
   useEffect(() => {
-    const drawPlace = document.getElementById(idTrack)
+    const drawPlace = document.getElementById(trackId);
     if (drawPlace) {
       if (Array.isArray(geneticElements)) {
-        const width = drawPlace.clientWidth
-        const track = new Track(drawPlace,idTrack,"canvas_"+idTrack,width,height)
-        track.draw(geneticElements,leftEndPosition,rightEndPosition)
+        const width = drawPlace.clientWidth;
+        const track = new Track(
+          drawPlace,
+          trackId,
+          "canvas_" + trackId,
+          width,
+          height
+        );
+        track.draw(geneticElements, leftEndPosition, rightEndPosition);
       }
     }
-
-  }, [idTrack, geneticElements,height,leftEndPosition,rightEndPosition])
-  
+  }, [trackId, geneticElements, height, leftEndPosition, rightEndPosition]);
 
   return (
-    <div
-      id={idTrack}
-      style={{ height: height + "px", width: "100%" }}
-    />
-  )
+    <div>
+      <div id={trackId} style={{ height: height + "px", width: "100%" }} />
+      <div id={trackId+"_TABLE"} style={{height: "400px"}} >
+        {geneticElements && (
+          <TableDTT
+            trackId={trackId}
+            idContainer={trackId+"_TABLE"}
+            geneticElements={geneticElements}
+            leftEndPosition={leftEndPosition}
+            rightEndPosition={rightEndPosition}
+          />
+        )}
+      </div>
+    </div>
+  );
 }

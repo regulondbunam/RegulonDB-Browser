@@ -1,5 +1,6 @@
 import React from "react";
 import Box from "@mui/material/Box";
+import style from "./style.module.css"
 
 const LABEL_STYLE = {
   fontSize: "12px",
@@ -7,13 +8,13 @@ const LABEL_STYLE = {
   textWrap: "nowrap",
 }
 
-export default function Tbody({ state, dispatch, cellTextStyle, tableId }) {
+export default function Tbody({ state, dispatch, cellTextStyle, tableId, selection }) {
   return (
     <tbody>
       {state.currentData.slice((state.page * state.items), (state.page * state.items) + state.items).map((row) => {
         let rowProperties = row["_properties" + tableId]
         return (
-          <tr key={rowProperties.key}>
+          <tr key={rowProperties.key} className={selection === "row" ? style.tr : ""} >
             {state.columns.map((column) => {
               if (column.hide) {
                 return null
@@ -22,28 +23,21 @@ export default function Tbody({ state, dispatch, cellTextStyle, tableId }) {
                 <td
                   key={rowProperties.key + "column_" + column.key}
                   style={{ width: column.width }}
+                  className={selection === "cell" ? style.td : ""}
                 >
                   <Box sx={{
                     height: "30px",
-                    width: "100%",
                     ":hover": {
                       cursor: "cell",
                     },
                   }}>
                     <Box
-
                       sx={{
                         display: "flex",
                         alignItems: "center",
                         height: "30px",
-                        minWidth: column.width,
+                        minWidth: column.width+"px",
                         overflow: "hidden",
-                        ":hover": {
-                          zIndex: 99,
-                          position: "absolute",
-                          backgroundColor: "#f5f5f5",
-                          boxShadow: "1px 1px 5px 0px rgba(0,0,0,0.75)",
-                        },
                       }}
                     >
                       <p className={`cell_${column.id}`} style={{ ...LABEL_STYLE, ...cellTextStyle }}

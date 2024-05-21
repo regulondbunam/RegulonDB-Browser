@@ -20,7 +20,7 @@ import Divider from "@mui/material/Divider";
 import { ReImg } from "reimg";
 import { REDUCER, ZOOM } from "./static";
 
-export default function Controls({ geneticElements, name, state, dispatch, idTrack, initialProps, context }) {
+export default function Controls({ geneticElements, name, state, dispatch, idTrack, context }) {
     return (
         <div>
             <ButtonGroup
@@ -62,7 +62,7 @@ export default function Controls({ geneticElements, name, state, dispatch, idTra
           <Tooltip title={"Reset Graphic"}>
             <Button
               className="iconButton"
-              onClick={() =>dispatch({type: REDUCER.Reset, initialProps: initialProps})}
+              onClick={() =>dispatch({type: REDUCER.Reset, initialProps: state.initialProps})}
             >
               <RestartAltIcon  sx={{color: "white"}} />
             </Button>

@@ -33,7 +33,7 @@ export default function Form({ state = { ...STATE_FORM }, dispatch }) {
             </div>
             <div>
                 <AccordionHighlight defaultExpanded
-                    title={<Typography variant='relevant' sx={{ color: "white" }} >Data Parameters</Typography>}
+                    title={<Typography variant='relevant' sx={{ color: "white" }} >Track Parameters</Typography>}
                 >
                     <div className={style.parametersContent} >
                         <Positions state={state} dispatch={dispatch} />
