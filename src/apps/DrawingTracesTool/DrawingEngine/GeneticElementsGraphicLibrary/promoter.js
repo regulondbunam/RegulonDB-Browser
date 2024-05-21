@@ -8,6 +8,7 @@ import { promoter_dp } from "./features_default_properties";
 
 export default function DrawPromoter({
   id,
+  trackId = "track",
   canva,
   anchor,
   dna,
@@ -112,7 +113,7 @@ export default function DrawPromoter({
   arrow.fill("none");
   arrow.stroke(stroke);
   promoter.add(arrow);
-  let rect = canva.rect(10,10).fill("none").move(txtPosX,txtPosY).id(id)
+  let rect = canva.rect(10,10).fill("none").move(txtPosX,txtPosY).id(`track_${trackId}_draw_${id}`)
   promoter.add(rect)
   //Actions
   promoter.opacity(opacity);

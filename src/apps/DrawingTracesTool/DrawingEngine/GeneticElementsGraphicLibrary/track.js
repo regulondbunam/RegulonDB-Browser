@@ -81,32 +81,32 @@ class Track {
           DrawGene({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas})
           break;
         case operon_dp.objectType:
-          DrawOperon({...object, id:object._id, dna: dna, canva: canvas})
+          DrawOperon({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas})
          break;
         case ppgpp_dp.objectType:
-          DrawPpgpp({...object, id:object._id, dna: dna, canva: canvas})
+          DrawPpgpp({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas})
          break;
         case promoter_dp.objectType:
-          DrawPromoter({...object, id:object._id, dna: dna, canva: canvas})
+          DrawPromoter({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas})
          break;
         case riboswitch_dp.objectType:
-          DrawRiboswitch({...object, id:object._id, dna: dna, canva: canvas})
+          DrawRiboswitch({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas})
          break;
         case srna_dp.objectType:
-          DrawSrna({...object, id:object._id, dna: dna, canva: canvas})
+          DrawSrna({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas})
          break;
         case terminator_dp.objectType:
-          DrawTerminator({...object, id:object._id, dna: dna, canva: canvas})
+          DrawTerminator({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas})
          break;
         case tfBindingSite_dp.objectType:
-          DrawTfBindingSite({...object, id:object._id, dna: dna, canva: canvas})
+          DrawTfBindingSite({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas})
          break;
          /*
         case transcriptionalAttenuator_dp.objectType:
-          DrawTranscriptionalAttenuator({...object, id:object._id, dna: dna, canva: canvas})
+          DrawTranscriptionalAttenuator({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas})
          break;
         case transnationalAttenuator_dp.objectType:
-          DrawTransnationalAttenuator({...object, id:object._id, dna: dna, canva: canvas})
+          DrawTransnationalAttenuator({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas})
          break;
          */
         default:

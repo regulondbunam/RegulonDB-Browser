@@ -108,6 +108,8 @@ function initialState({ columns = [], data = [], tableId, idContainer }) {
       id: "row_" + index + "_" + tableId,
       key: "rowKey_" + index + "_" + tableId,
       height: 30,
+      onMouseEnter: () => {},
+      onMouseLeave: () => {},
       ...row?._properties
     }
     mapData["rowKey_" + index + "_" + tableId] = newRow
@@ -143,7 +145,7 @@ export default function FilterTable({
   const tableId = useId()
   const [state, dispatch] = useReducer(reducer, { columns, data, tableId, idContainer }, initialState)
 
-  console.log(state.items);
+  console.log(state);
 
   useEffect(() => {
     return () => {

@@ -6,6 +6,7 @@ export default function TableDTT({
   leftEndPosition,
   rightEndPosition,
   idContainer,
+  trackId,
 }) {
   const columns = [
     { label: "id" },
@@ -26,7 +27,33 @@ export default function TableDTT({
       "Object type": element.objectType,
       Strand: element.strand,
       Options: <>optionsTool</>,
+      _properties: {
+        onMouseEnter: () => {
+          const draw = document.getElementById(
+            `track_${trackId}_draw_${element._id}`
+          );
+          console.log(`track_${trackId}_draw_${element._id}`);
+          if (draw) {
+            draw.setAttribute("stroke", "#d59f0f");
+            draw.setAttribute("stroke-width", "5");
+          }
+        },
+        onMouseLeave: () => {
+          const draw = document.getElementById(
+            `track_${trackId}_draw_${element._id}`
+          );
+          if (draw) {
+            draw.setAttribute("stroke", "");
+            draw.setAttribute("stroke-width", "0");
+          }
+        },
+      },
     });
+    /*
+    track_DttTool_draw_RDBECOLIGNC00610
+    onMouseEnter={}
+    onMouseLeave={}
+    */
   });
   console.log(geneticElements);
   return (

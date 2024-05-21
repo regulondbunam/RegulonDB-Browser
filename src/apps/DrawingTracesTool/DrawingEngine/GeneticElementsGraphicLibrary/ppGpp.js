@@ -6,6 +6,7 @@ import { ppgpp_dp } from "./features_default_properties";
 
 export default function DrawPpGpp({
   id,
+  trackId = "track",
   canva,
   anchor,
   dna,
@@ -56,7 +57,8 @@ export default function DrawPpGpp({
       .ellipse(ell_w + 3, ell_h + 2)
       .move(posX, posY)
       .stroke(stroke)
-      .fill(color);
+      .fill(color)
+      .id(`track_${trackId}_draw_${id}`);
     font.size += 2;
     label({
       canvas: canva,

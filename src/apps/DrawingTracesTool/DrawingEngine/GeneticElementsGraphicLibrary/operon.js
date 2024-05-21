@@ -9,6 +9,7 @@ import { operon_dp } from "./features_default_properties";
 
 export default function DrawOperon({
   id,
+  trackId = "track",
   canva,
   anchor,
   dna,
@@ -78,7 +79,7 @@ export default function DrawOperon({
       " z"
   );
   operon.move(posX, posY);
-  operon.id(id);
+  operon.id(`track_${trackId}_draw_${id}`);
   operon.fill(color);
   operon.stroke(stroke);
   operon.opacity(opacity);
