@@ -50,6 +50,7 @@ export default function TableDTT({
           },
         },
       });
+      data = data.sort((a,b)=>a["Left position"] - b["Left position"])
       /*
       track_DttTool_draw_RDBECOLIGNC00610
       onMouseEnter={}
