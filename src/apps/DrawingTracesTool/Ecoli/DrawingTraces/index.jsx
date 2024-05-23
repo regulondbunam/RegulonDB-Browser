@@ -1,7 +1,6 @@
 import React, { useId, useReducer } from "react";
 import { useGetGeneticElements } from "webServices/queries";
-import Skeleton from "@mui/material/Skeleton";
-import { MOVE, REDUCER, ZOOM } from "./static";
+import { MOVE, REDUCER, ZOOM, OBJECT_TYPES } from "./static";
 import DrawTrack from "apps/DrawingTracesTool/DrawingEngine";
 import Controls from "./Controls";
 
@@ -57,13 +56,51 @@ function processObjectType(props) {
       objectType.push(ge.key);
     }
   });
-  const newProps = {...props, objectType: objectType}
-  return { ...newProps, initialProps: newProps};
+  const newProps = { ...props, objectType: objectType };
+  return { ...newProps, initialProps: newProps };
 }
-
-export default function DrawingTraces(props) {
-  const [state, dispatch] = useReducer(reducer, { ...props },processObjectType);
-  const { geneticElements, loading, error } = useGetGeneticElements({
+/**
+ *
+ * @param {
+ * covered
+ * parentDispatch
+ * draw
+ * id
+ * leftEndPosition
+ * objectType
+ * rightEndPosition
+ * strand
+ * } = props
+ * @returns
+ */
+export default function DrawingTraces({
+  covered = false,
+  parentDispatch = () => {},
+  draw = true,
+  id = "trackExample",
+  leftEndPosition,
+  rightEndPosition,
+  objectType = OBJECT_TYPES,
+  strand = "both",
+  showTable = true,
+  focusElements,
+}) {
+  const [state, dispatch] = useReducer(
+    reducer,
+    {
+      covered,
+      parentDispatch,
+      draw,
+      id,
+      leftEndPosition,
+      objectType,
+      rightEndPosition,
+      strand,
+      showTable,
+    },
+    processObjectType
+  );
+  const { geneticElements } = useGetGeneticElements({
     ...state,
   });
   const name =
@@ -73,7 +110,7 @@ export default function DrawingTraces(props) {
     <div>
       <div style={{ display: "flex", flexDirection: "row-reverse" }}>
         <Controls
-          idTrack={props.id}
+          idTrack={id}
           name={name}
           geneticElements={geneticElements}
           state={state}
@@ -82,10 +119,12 @@ export default function DrawingTraces(props) {
       </div>
       <div>
         <DrawTrack
-          trackId={props.id}
+          focusElements={focusElements}
+          trackId={id}
           geneticElements={geneticElements}
           {...state}
           height={300}
+          showTable={state.showTable}
         />
       </div>
     </div>

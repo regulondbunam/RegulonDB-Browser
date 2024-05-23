@@ -8,6 +8,8 @@ export default function DrawTrack({
   leftEndPosition,
   rightEndPosition,
   height = 300,
+  showTable = false,
+  focusElements
 }) {
   useEffect(() => {
     const drawPlace = document.getElementById(trackId);
@@ -29,7 +31,8 @@ export default function DrawTrack({
   return (
     <div>
       <div id={trackId} style={{ height: height + "px", width: "100%" }} />
-      <div id={trackId + "_TABLE"} style={{ height: height + "px" }}>
+      {showTable&&(
+        <div id={trackId + "_TABLE"} style={{ height: height + "px" }}>
         <TableDTT
           trackId={trackId}
           idContainer={trackId + "_TABLE"}
@@ -38,6 +41,7 @@ export default function DrawTrack({
           rightEndPosition={rightEndPosition}
         />
       </div>
+      )}
     </div>
   );
 }

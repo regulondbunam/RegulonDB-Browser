@@ -11,8 +11,8 @@ import DrawRiboswitch from "./riboswitch";
 import DrawSrna from "./srna";
 import DrawTerminator from "./terminator";
 import DrawTfBindingSite from "./tfBindingSite";
-import DrawTranscriptionalAttenuator from "./transcriptionalAttenuator";
-import DrawTransnationalAttenuator from "./transnationalAttenuator";
+//import DrawTranscriptionalAttenuator from "./transcriptionalAttenuator";
+//import DrawTransnationalAttenuator from "./transnationalAttenuator";
 
 
 class Track {

@@ -8,3 +8,51 @@ export const REDUCER ={
     ZoomOut: 3,
     Reset: 4,
 }
+
+export const OBJECT_TYPES = [
+    {
+        "key": "gene",
+        "label": "Gene",
+        "isCheck": true
+    },
+    {
+        "key": "promoter",
+        "label": "Promoter",
+        "isCheck": true
+    },
+    {
+        "key": "tf_binding_site",
+        "label": "TF Binding Site",
+        "isCheck": true
+    },
+    {
+        "key": "operon",
+        "label": "Operon",
+        "isCheck": true
+    },
+    {
+        "key": "rna",
+        "label": "RNA",
+        "isCheck": true
+    },
+    {
+        "key": "riboswitch",
+        "label": "Riboswitch",
+        "isCheck": true
+    },
+    {
+        "key": "translational_attenuator",
+        "label": "Translational Attenuator",
+        "isCheck": true
+    },
+    {
+        "key": "transcriptional_attenuator",
+        "label": "Transcriptional Attenuator",
+        "isCheck": true
+    },
+    {
+        "key": "ppGpp",
+        "label": "ppGpp",
+        "isCheck": true
+    }
+]

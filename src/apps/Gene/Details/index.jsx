@@ -3,10 +3,12 @@ import { Cover } from "ui-components/Web/Cover";
 import { useGetGeneByID } from "webServices/queries";
 import Typography from "@mui/material/Typography";
 import CoverGene from "./Cover";
+import DrawTrace from "./DrawTrace";
+import { DataVerifier } from "ui-components/utils";
 
 export default function Details({ geneId }) {
   const { loading, gene, error } = useGetGeneByID(geneId);
-  console.log(gene);
+
   if (error) {
     return (
       <div>
@@ -35,6 +37,15 @@ export default function Details({ geneId }) {
           </Typography>
         )}
       </Cover>
+      {DataVerifier.isValidObjectWith_id(gene) && (
+        <div>
+          <DrawTrace
+            id={gene._id}
+            leftEndPosition={gene.gene.leftEndPosition-1000}
+            rightEndPosition={gene.gene.rightEndPosition+1000}
+          />
+        </div>
+      )}
     </div>
   );
 }
