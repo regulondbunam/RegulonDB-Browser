@@ -3,6 +3,7 @@ import Typography from "@mui/material/Typography";
 import LinearProgress from '@mui/material/LinearProgress';
 import { Button, ButtonGroup, Tooltip } from '@mui/material'
 import { List } from 'ui-components/Web/List';
+import { RowVirtualizerFixed } from 'ui-components/Web/List';
 import FilterTable from 'ui-components/Web/FilterTable';
 import TableRowsIcon from '@mui/icons-material/TableRows';
 import TableChartIcon from '@mui/icons-material/TableChart';
@@ -57,7 +58,7 @@ export default function GenesView({ loading = false, dispatch, state }) {
           {state.viewType === VIEW_TYPE.LIST && (
             <List
               data={state.resultsSearch === null ? state.geneList : state.resultsSearch.list}
-              pagination />
+            />
           )}
           {state.viewType === VIEW_TYPE.TABLE && (
             <div id='filterTableContainer' style={{height: "100%"}} >
