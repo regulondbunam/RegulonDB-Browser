@@ -7,6 +7,7 @@ import { DataVerifier, markMatches } from 'ui-components/utils';
 import { Button, Tooltip, Divider } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import { Link } from 'react-router-dom';
 //import MenuIcon from '@mui/icons-material/Menu';
 
 
@@ -15,6 +16,7 @@ async function process(genes, search) {
   let list = []
   let table = {
     columns: [
+      {label: "ID"},
       {label: "name"},
       {label: "synonyms"},
       {label: "products"}
@@ -43,6 +45,7 @@ async function process(genes, search) {
         score += matchesSynonyms.score
       }
       table.data.push({
+        ID: <Link value={gene._id} to={"/gene/"+gene._id} >{gene._id}</Link>,
         name: geneName,
         synonyms: synonyms,
         products: products,
