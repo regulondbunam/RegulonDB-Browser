@@ -32,9 +32,10 @@ export default function Tbody({
                 if (column.hide) {
                   return null;
                 }
+                const cell = row[column.key]
                 return (
                   <td
-                    key={rowProperties.key + "column_" + column.key}
+                    key={rowProperties.key + "cell" + cell.key}
                     style={{ width: column.width }}
                     className={selection === "cell" ? style.td : ""}
                   >
@@ -67,7 +68,7 @@ export default function Tbody({
                             selection.addRange(range);
                           }}
                         >
-                          {row[column.label]}
+                          {row[column.key]}
                         </p>
                       </Box>
                     </Box>

@@ -92,9 +92,10 @@ function initialState({ columns = [], data = [], tableId, idContainer }) {
     }
   }
   columns.forEach((column, index) => {
+    const key = column?.key ? column.key : column.label
     newColumns.push({
       id: "column_" + index + "_" + tableId,
-      key: "columnKey_" + index + "_" + tableId,
+      key: key,
       width: 100,
       hide: false,
       isOnlyContent: false,
@@ -104,16 +105,17 @@ function initialState({ columns = [], data = [], tableId, idContainer }) {
     })
   });
   data.forEach((row, index) => {
+    const key = "rowKey_" + index + "_" + tableId
     let newRow = { ...row }
     newRow["_properties" + tableId] = {
       id: "row_" + index + "_" + tableId,
-      key: "rowKey_" + index + "_" + tableId,
+      key: key,
       height: 30,
       onMouseEnter: () => {},
       onMouseLeave: () => {},
       ...row?._properties
     }
-    mapData["rowKey_" + index + "_" + tableId] = newRow
+    mapData[key] = newRow
     currentData.push(newRow)
   });
 

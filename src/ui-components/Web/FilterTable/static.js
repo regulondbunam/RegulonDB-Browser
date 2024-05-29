@@ -28,16 +28,16 @@ export const FILTER = {
     }
 }
 
-export function getCellValue(row, columnLabel) {
-    if (typeof (row[columnLabel]) === "object") {
-        if (row[columnLabel]?.props) {
-            if (row[columnLabel].props?.value) {
-                return row[columnLabel].props?.value
+export function getCellValue(row, key) {
+    if (typeof (row[key]) === "object") {
+        if (row[key]?.props) {
+            if (row[key].props?.value) {
+                return row[key].props?.value
             } else {
                 console.warn("cell react object has no value as a props");
             }
         }
     } else {
-        return row[columnLabel]
+        return row[key]
     }
 }

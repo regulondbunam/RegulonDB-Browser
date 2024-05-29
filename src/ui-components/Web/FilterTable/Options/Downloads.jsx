@@ -40,7 +40,7 @@ export default function Downloads({ state, dispatch, tableName, tableId }) {
         let newRow = {}
         state.columns.forEach((column)=>{
             if (!column.hide) {
-                newRow[column.label] = getCellValue(row,column.label)
+                newRow[column.key] = getCellValue(row,column.key)
             }
         })
         return newRow

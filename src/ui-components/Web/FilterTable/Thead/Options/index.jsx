@@ -35,9 +35,9 @@ export default function Options({ state, column, dispatch, index, tableId }) {
 
     const handleSortAZ = () => {
         const newData = state.currentData.sort((a, b) => {
-            let valueA = a[column.label] ? a[column.label] : "zzz"
+            let valueA = a[column.key] ? getCellValue(a,column.key) : "zzz"
             valueA = valueA.toLowerCase();
-            let valueB = b[column.label] ? b[column.label] : "zzz"
+            let valueB = b[column.key] ? getCellValue(b,column.key) : "zzz"
             valueB = valueB.toLowerCase();
 
             if (valueA > valueB) {
@@ -53,9 +53,9 @@ export default function Options({ state, column, dispatch, index, tableId }) {
 
     const handleSortZA = () => {
         const newData = state.currentData.sort((a, b) => {
-            let valueA = a[column.label] ? a[column.label] : ""
+            let valueA = a[column.key] ? getCellValue(a,column.key) : ""
             valueA = valueA.toLowerCase();
-            let valueB = b[column.label] ? b[column.label] : ""
+            let valueB = b[column.key] ? getCellValue(b,column.key) : ""
             valueB = valueB.toLowerCase();
 
             if (valueA < valueB) {
