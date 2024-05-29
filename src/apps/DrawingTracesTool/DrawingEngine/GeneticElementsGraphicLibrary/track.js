@@ -25,7 +25,7 @@ class Track {
     this.height = height
   }
 
-  draw(geneticElements, covered_LeftPosition, covered_RightPosition) {
+  draw(geneticElements, covered_LeftPosition, covered_RightPosition, focusElements = []) {
     //validar objetos
     geneticElements = validateElements(geneticElements);
     if (!geneticElements) {
@@ -76,37 +76,38 @@ class Track {
     
     
     geneticElements.forEach(object => {
+      const focus = focusElements.find(element=>element===object._id)
       switch (object.objectType) {
         case gene_dp.objectType:
-          DrawGene({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas})
+          DrawGene({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas, focus:focus })
           break;
         case operon_dp.objectType:
-          DrawOperon({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas})
+          DrawOperon({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus})
          break;
         case ppgpp_dp.objectType:
-          DrawPpgpp({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas})
+          DrawPpgpp({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus})
          break;
         case promoter_dp.objectType:
-          DrawPromoter({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas})
+          DrawPromoter({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus})
          break;
         case riboswitch_dp.objectType:
-          DrawRiboswitch({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas})
+          DrawRiboswitch({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus})
          break;
         case srna_dp.objectType:
-          DrawSrna({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas})
+          DrawSrna({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus})
          break;
         case terminator_dp.objectType:
-          DrawTerminator({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas})
+          DrawTerminator({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus})
          break;
         case tfBindingSite_dp.objectType:
-          DrawTfBindingSite({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas})
+          DrawTfBindingSite({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus})
          break;
          /*
         case transcriptionalAttenuator_dp.objectType:
-          DrawTranscriptionalAttenuator({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas})
+          DrawTranscriptionalAttenuator({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus})
          break;
         case transnationalAttenuator_dp.objectType:
-          DrawTransnationalAttenuator({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas})
+          DrawTransnationalAttenuator({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus})
          break;
          */
         default:

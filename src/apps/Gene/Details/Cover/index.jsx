@@ -12,7 +12,7 @@ export default function Cover({ gene, products }) {
       <div className={style.title}>
         <div>
           <Typography variant="irrelevant">Gene</Typography>
-          <Typography variant="h1">{name}</Typography>
+          <Typography variant="h1"><span dangerouslySetInnerHTML={{__html: name}} /></Typography>
         </div>
         <div className={style.divider}>
           <Divider orientation="vertical" />
@@ -21,7 +21,7 @@ export default function Cover({ gene, products }) {
           <div>
             <Typography variant="irrelevant">Product</Typography>
             <Typography variant="h1">
-              {products.map((product) => product.name).join(", ")}
+              <span dangerouslySetInnerHTML={{__html: products.map((product) => product.name).join(", ")}} />
             </Typography>
           </div>
         )}

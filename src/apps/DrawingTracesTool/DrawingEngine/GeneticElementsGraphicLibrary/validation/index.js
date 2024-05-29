@@ -5,7 +5,10 @@ import { validateDNA } from "./dna";
 
 export {validateElements, validateDNA}
 
-export function stroke_validate(stroke, strokeDefault) {
+export function stroke_validate(stroke, strokeDefault, focus = false) {
+  if (focus) {
+    return {color: "#d59f0f", width: 4}
+  }
   stroke.color = color_validate(stroke?.color);
   if (!stroke?.width) {
     stroke.width = strokeDefault.width;
@@ -77,9 +80,10 @@ export function opacity_define(feature) {
   if(feature?.opacity){
     return feature?.opacity
   }
-  let op = 1;
-  if (feature.OverlapObjects !== []) {
-    op = 0.7;
+  if ( Array.isArray(feature?.OverlapObjects)) {
+    if (feature.OverlapObjects.length>0) {
+      return 0.7;
+    }
   }
-  return op;
+  return 1;
 }

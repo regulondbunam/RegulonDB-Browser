@@ -23,10 +23,10 @@ export default function DrawTrack({
           width,
           height
         );
-        track.draw(geneticElements, leftEndPosition, rightEndPosition);
+        track.draw(geneticElements, leftEndPosition, rightEndPosition, focusElements);
       }
     }
-  }, [trackId, geneticElements, height, leftEndPosition, rightEndPosition]);
+  }, [trackId, geneticElements, height, leftEndPosition, rightEndPosition, focusElements]);
 
   return (
     <div>

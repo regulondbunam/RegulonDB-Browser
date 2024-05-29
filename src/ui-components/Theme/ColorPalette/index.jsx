@@ -45,7 +45,7 @@ export const COLOR_PALETTE = {
     },
     secondary: {
       main: '#d59f0f',
-      contrastText: '#000000',
+      contrastText: '#ffffff',
     },
     surface:{
       main: '#e0effc',

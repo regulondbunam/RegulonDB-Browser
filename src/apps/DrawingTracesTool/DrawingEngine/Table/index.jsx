@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import FilterTable from "ui-components/Web/FilterTable";
 import { toNumber } from "../utils";
 

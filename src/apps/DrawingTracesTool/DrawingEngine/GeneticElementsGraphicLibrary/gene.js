@@ -23,6 +23,7 @@ export default function DrawGene({
   opacity = 1,
   stroke = {},
   font = {},
+  focus = false,
   height,
   tooltip = "",
   onClick
@@ -34,7 +35,7 @@ export default function DrawGene({
   if(objectRGBColor){
     color = objectRGBColor;
   }
-  stroke = stroke_validate(stroke, gene_dp.stroke);
+  stroke = stroke_validate(stroke, gene_dp.stroke, focus);
   font = font_validate(font, gene_dp.font);
   color = color_validate(color, gene_dp.color);
   //anchor
