@@ -34,7 +34,7 @@ export default function HideColumns({ state, dispatch, tableName, tableId }) {
                 onClose={handleClose}
             >
                 {state.columns.map((column,index) => (
-                    <MenuItem onClick={()=>{handleHideColumn(column,index)}} >
+                    <MenuItem key={"key_"+column.key+"_"+index} onClick={()=>{handleHideColumn(column,index)}} >
                         <ListItemIcon key={"HideOption_"+column.key} >
                             {!column.hide && (
                                 <Check />

@@ -1,10 +1,11 @@
 import React from "react";
 import { Typography, Divider } from "@mui/material";
 import { DataVerifier } from "ui-components/utils";
+import Info from "./Info";
 import style from "./cover.module.css"
 
 export default function Cover({ gene, products }) {
-  const { _id, name, synonyms, leftEndPosition, rightEndPosition, strand, externalCrossReferences } =
+  const { _id, name, synonyms, bnumber, externalCrossReferences } =
     gene;
 
   return (
@@ -30,7 +31,7 @@ export default function Cover({ gene, products }) {
         <div>
           {DataVerifier.isValidArray(synonyms) && (
             <div style={{ display: "flex", alignItems: "center" }}>
-              <Typography variant="irrelevant" sx={{ mr: 1 }}>
+              <Typography variant="relevantB" sx={{ mr: 1 }}>
                 Synonyms:
               </Typography>
               <Typography variant="relevant">
@@ -38,24 +39,13 @@ export default function Cover({ gene, products }) {
               </Typography>
             </div>
           )}
-          {DataVerifier.isValidNumber(leftEndPosition) && (
+          {DataVerifier.isValidString(bnumber) && (
             <div style={{ display: "flex", alignItems: "center" }}>
-              <Typography variant="irrelevant" sx={{ mr: 1 }}>
-                Length:
+              <Typography variant="relevantB" sx={{ mr: 1 }}>
+                Bnumber:
               </Typography>
               <Typography variant="relevant">
-                {1 + rightEndPosition - leftEndPosition + " bp"}
-              </Typography>
-            </div>
-          )}
-          {DataVerifier.isValidNumber(leftEndPosition) && (
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <Typography variant="irrelevant" sx={{ mr: 1 }}>
-                Position:
-              </Typography>
-              <Typography variant="relevant">
-                {`${rightEndPosition}${strand === "reverse" ? " <- " : " -> "
-                  }${leftEndPosition}`}
+                {bnumber}
               </Typography>
             </div>
           )}
@@ -63,7 +53,7 @@ export default function Cover({ gene, products }) {
             <div>
               {DataVerifier.isValidArray(products[0].cellularLocations) && (
                 <div style={{ display: "flex", alignItems: "center" }}>
-                  <Typography variant="irrelevant" sx={{ mr: 1 }}>
+                  <Typography variant="relevantB" sx={{ mr: 1 }}>
                     Location:
                   </Typography>
                   <Typography variant="relevant">
@@ -79,6 +69,7 @@ export default function Cover({ gene, products }) {
               )}
             </div>
           )}
+          <Info {...gene} />
         </div>
         <div className={style.references} >
           <DropRef id={_id} externalCrossReferences={externalCrossReferences} />

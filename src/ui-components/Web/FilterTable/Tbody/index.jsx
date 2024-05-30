@@ -32,10 +32,9 @@ export default function Tbody({
                 if (column.hide) {
                   return null;
                 }
-                const cell = row[column.key]
                 return (
                   <td
-                    key={rowProperties.key + "cell" + cell.key}
+                    key={rowProperties.key + "column_" + column.key}
                     style={{ width: column.width }}
                     className={selection === "cell" ? style.td : ""}
                   >
@@ -56,20 +55,24 @@ export default function Tbody({
                           overflow: "hidden",
                         }}
                       >
-                        <p
-                          className={`cell_${column.id}`}
-                          style={{ ...LABEL_STYLE, ...cellTextStyle }}
-                          onDoubleClick={(e) => {
-                            e.preventDefault();
-                            const range = document.createRange();
-                            const selection = window.getSelection();
-                            range.selectNodeContents(e.target);
-                            selection.removeAllRanges();
-                            selection.addRange(range);
-                          }}
-                        >
-                          {row[column.key]}
-                        </p>
+                        {typeof (row[column.key]) === "object" ? (
+                          <>{row[column.key]}</>
+                        ) : (
+                          <p
+                            className={`cell_${column.id}`}
+                            style={{ ...LABEL_STYLE, ...cellTextStyle }}
+                            onDoubleClick={(e) => {
+                              e.preventDefault();
+                              const range = document.createRange();
+                              const selection = window.getSelection();
+                              range.selectNodeContents(e.target);
+                              selection.removeAllRanges();
+                              selection.addRange(range);
+                            }}
+                          >
+                            {row[column.key]}
+                          </p>
+                        )}
                       </Box>
                     </Box>
                   </td>

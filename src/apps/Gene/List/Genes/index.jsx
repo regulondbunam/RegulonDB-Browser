@@ -1,14 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Typography from "@mui/material/Typography";
 import LinearProgress from '@mui/material/LinearProgress';
 import { Button, ButtonGroup, Tooltip } from '@mui/material'
 import { List } from 'ui-components/Web/List';
-import { RowVirtualizerFixed } from 'ui-components/Web/List';
 import FilterTable from 'ui-components/Web/FilterTable';
 import TableRowsIcon from '@mui/icons-material/TableRows';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import { DISPATCH, VIEW_TYPE } from '../static';
-import { DataVerifier } from 'ui-components/utils';
 
 const views = {
   list: {
@@ -46,7 +44,7 @@ export default function GenesView({ loading = false, dispatch, state }) {
         <div>
           <ButtonGroup size='small' aria-label="Basic button group">
             {Object.keys(views).map((key) => (
-              <Tooltip title={views[key].tooltip}>
+              <Tooltip key={"button_"+views[key].label} title={views[key].tooltip}>
                 <Button variant={view.label === views[key].label ? "contained" : "outlined"} onClick={() => { handleSelectView(key) }} >{views[key].icon}</Button>
               </Tooltip>
             ))}

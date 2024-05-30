@@ -83,6 +83,7 @@ export default function DrawingTraces({
   objectType = OBJECT_TYPES,
   strand = "both",
   showTable = true,
+  height = 300,
   focusElements,
 }) {
   const [state, dispatch] = useReducer(
@@ -123,7 +124,7 @@ export default function DrawingTraces({
           trackId={id}
           geneticElements={geneticElements}
           {...state}
-          height={300}
+          height={height}
           showTable={state.showTable}
         />
       </div>
