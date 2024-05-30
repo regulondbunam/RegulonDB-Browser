@@ -2,9 +2,11 @@ import React from "react";
 import { Typography, Divider } from "@mui/material";
 import { DataVerifier } from "ui-components/utils";
 import Info from "./Info";
+import ExternalReferences from "./ExternalReferences";
 import style from "./cover.module.css"
 
 export default function Cover({ gene, products }) {
+  console.log(gene);
   const { _id, name, synonyms, bnumber, externalCrossReferences } =
     gene;
 
@@ -72,45 +74,10 @@ export default function Cover({ gene, products }) {
           <Info {...gene} />
         </div>
         <div className={style.references} >
-          <DropRef id={_id} externalCrossReferences={externalCrossReferences} />
+          <ExternalReferences id={_id} externalCrossReferences={externalCrossReferences} />
         </div>
       </div>
+      <div style={{height: "18px"}} />
     </div>
   );
-}
-
-const references = ["ECOCYC", "ecocyc", "REFSEQ", "refseq", "UniProt"];
-
-function DropRef({ id, externalCrossReferences }) {
-  //console.log(externalCrossReferences);
-  return (
-    <div>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <Typography variant="irrelevant" sx={{ mr: 1 }}>
-          RegulonDB ID:
-        </Typography>
-        <Typography variant="irrelevant">
-          {id}
-        </Typography>
-      </div>
-
-      {DataVerifier.isValidArray(externalCrossReferences) && (<div style={{display: "flex", flexDirection: "column"}}>
-        <Typography variant="irrelevant" sx={{ mr: 1 }}>
-          External IDs:
-        </Typography>
-        {externalCrossReferences.map(ref => (
-          references.find(name => name === ref.externalCrossReferenceName) ? (
-            <Typography key={ref.externalCrossReferenceId} variant="irrelevant" sx={{ mr: 1 }}>
-              <a
-                href={`${ref?.url}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >{`${ref?.externalCrossReferenceName}: ${ref?.objectId}`}</a>
-            </Typography>
-          ) : (null)
-        ))}
-      </div>)}
-
-    </div>
-  )
 }
