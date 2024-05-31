@@ -1,5 +1,11 @@
 export const MOVE = 0.15
 export const ZOOM = 0.25
+export const CONTROLS_POSITIONS ={
+    UP_RIGHT: "ur",
+    UP_LEFT: "ul",
+    BOTTOM_RIGHT: "br",
+    BOTTOM_LEFT: "bl"
+}
 
 export const REDUCER ={
     MoveLeft: 0,

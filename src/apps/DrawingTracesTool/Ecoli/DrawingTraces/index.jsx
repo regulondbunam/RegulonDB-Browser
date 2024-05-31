@@ -1,6 +1,6 @@
-import React, { useId, useReducer } from "react";
+import React, { useReducer } from "react";
 import { useGetGeneticElements } from "webServices/queries";
-import { MOVE, REDUCER, ZOOM, OBJECT_TYPES } from "./static";
+import { MOVE, REDUCER, ZOOM, OBJECT_TYPES, CONTROLS_POSITIONS } from "./static";
 import DrawTrack from "apps/DrawingTracesTool/DrawingEngine";
 import Controls from "./Controls";
 
@@ -75,16 +75,18 @@ function processObjectType(props) {
  */
 export default function DrawingTraces({
   covered = false,
-  parentDispatch = () => {},
+  controlsPosition = CONTROLS_POSITIONS.UP_RIGHT,
   draw = true,
+  focusElements,
+  height = 300,
   id = "trackExample",
   leftEndPosition,
-  rightEndPosition,
   objectType = OBJECT_TYPES,
+  parentDispatch = () => { },
+  rightEndPosition,
   strand = "both",
   showTable = true,
-  height = 300,
-  focusElements,
+  showControls = true,
 }) {
   const [state, dispatch] = useReducer(
     reducer,
@@ -98,6 +100,7 @@ export default function DrawingTraces({
       rightEndPosition,
       strand,
       showTable,
+      showControls,
     },
     processObjectType
   );
@@ -106,18 +109,26 @@ export default function DrawingTraces({
   });
   const name =
     "regulonDB_dtt-" + state.leftEndPosition + "-" + state.rightEndPosition;
+  let controlStyle = { display: "flex" }
+  if (controlsPosition.includes("r")) {
+    controlStyle["flexDirection"] = "row-reverse"
+  }
+  if (!showControls) {
+    controlStyle.display = "none"
+  }
   //console.log(state.initialProps);
+  const controls = <div style={controlStyle}>
+    <Controls
+      idTrack={id}
+      name={name}
+      geneticElements={geneticElements}
+      state={state}
+      dispatch={dispatch}
+    />
+  </div>
   return (
     <div>
-      <div style={{ display: "flex", flexDirection: "row-reverse" }}>
-        <Controls
-          idTrack={id}
-          name={name}
-          geneticElements={geneticElements}
-          state={state}
-          dispatch={dispatch}
-        />
-      </div>
+      {controlsPosition.includes("u") && controls}
       <div>
         <DrawTrack
           focusElements={focusElements}
@@ -128,6 +139,9 @@ export default function DrawingTraces({
           showTable={state.showTable}
         />
       </div>
+      {controlsPosition.includes("b") && controls}
     </div>
   );
 }
+
+export { CONTROLS_POSITIONS }
