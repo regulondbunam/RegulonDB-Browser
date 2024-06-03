@@ -5,18 +5,17 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-export default function AccordionHighlight({children, actions, title, defaultExpanded=false, level=0}) {
-    const colorLevel=["#47718a","#61859c","#7b9bb0","#9db8c9"]
+export default function AccordionHighlight({ children, actions, title, defaultExpanded = false, level = 0 }) {
+    const colorLevel = ["#47718a", "#61859c", "#7b9bb0", "#9db8c9"]
     return (
         <div>
-            <Accordion square defaultExpanded={defaultExpanded}>
+            <Accordion square disableGutters defaultExpanded={defaultExpanded}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     sx={{
                         backgroundColor: colorLevel[level],
                         flexDirection: "row-reverse",
                     }}
-
                 >
                     {title}
                 </AccordionSummary>
@@ -27,12 +26,12 @@ export default function AccordionHighlight({children, actions, title, defaultExp
                 >
                     {children}
                 </AccordionDetails>
-                {actions&&(
+                {actions && (
                     <AccordionActions>
                         {actions}
-                </AccordionActions>
+                    </AccordionActions>
                 )}
-                
+
             </Accordion>
         </div>
     );

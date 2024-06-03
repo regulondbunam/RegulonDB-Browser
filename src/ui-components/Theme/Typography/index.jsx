@@ -1,37 +1,37 @@
 export const TYPOGRAPHY = {
   h1: {
     fontFamily: "Roboto",
-    fontSize: 36,
+    fontSize: 32,
     fontWeight: 300,
     color: "#000000",
   },
   h2: {
     fontFamily: "Roboto",
-    fontSize: 32,
+    fontSize: 24,
     fontWeight: 300,
     color: "#000000",
   },
   h3: {
     fontFamily: "Roboto",
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: 300,
     color: "#000000",
   },
   h4: {
     fontFamily: "Roboto",
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: 300,
     color: "#000000",
   },
   h5: {
     fontFamily: "Roboto",
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 300,
     color: "#000000",
   },
   h6: {
     fontFamily: "Roboto",
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 500,
     color: "#000000",
   },
@@ -49,7 +49,7 @@ export const TYPOGRAPHY = {
   },
   relevant: {
     fontFamily: "Roboto",
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 300,
     color: "#000000",
   },
@@ -61,13 +61,13 @@ export const TYPOGRAPHY = {
   },
   body1: {
     fontFamily: "Roboto",
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 300,
     color: "#000000",
   },
   normal: {
     fontFamily: "Roboto",
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 300,
     color: "#000000",
   },
@@ -85,7 +85,7 @@ export const TYPOGRAPHY = {
   },
   button: {
     fontFamily: "Roboto",
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 300,
   },
   citation: {
