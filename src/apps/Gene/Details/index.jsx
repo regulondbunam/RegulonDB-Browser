@@ -1,10 +1,13 @@
 import React from "react";
 import { Cover } from "ui-components/Web/Cover";
 import { useGetGeneByID } from "webServices/queries";
+import { DataVerifier } from "ui-components/utils";
 import Typography from "@mui/material/Typography";
 import CoverGene from "./Cover";
 import DrawTrace from "./DrawTrace";
-import { DataVerifier } from "ui-components/utils";
+import Sequence from "./Sequence";
+
+
 
 export default function Details({ geneId }) {
   const { loading, gene, error } = useGetGeneByID(geneId);
@@ -44,6 +47,9 @@ export default function Details({ geneId }) {
             leftEndPosition={gene.gene.leftEndPosition-1000}
             rightEndPosition={gene.gene.rightEndPosition+1000}
           />
+          <div>
+            <Sequence sequence={gene.sequence} />
+          </div>
         </div>
       )}
     </div>
