@@ -7,6 +7,7 @@ import CoverGene from "./Cover";
 import DrawTrace from "./DrawTrace";
 import Sequence from "./Sequence";
 import MultifunTerms from "./MultifunTerms";
+import Regulation from "./Regulation";
 import AnchorNav from "ui-components/Web/AnchorNav";
 
 
@@ -64,15 +65,15 @@ export default function Details({ geneId }) {
               title: "MultifunTerms",
               component: <MultifunTerms multifunTerms={gene.gene.multifunTerms}/>
             },
-            {id: "section3",
+            {id: gene._id+"_RegulationSection",
               title: "Regulation",
-              component: <>section1</>
+              component: <Regulation {...gene.regulation}/>
             },
             {id: "section3",
               title: "Product",
               component: <>section1</>
             },
-            {id: "section3",
+            {id: "section4",
               title: "All Citations",
               component: <>section1</>
             },
