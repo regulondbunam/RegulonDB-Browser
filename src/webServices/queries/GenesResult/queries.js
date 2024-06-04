@@ -1,6 +1,7 @@
 import { gql } from  '@apollo/client';
 import { fragment_CITATIONS, fragment_PAGINATION, fragment_ExternalCrossReferences } from "../commonQueries";
 export const fragment_PRODUCTS = gql`fragment PRODUCTS on Products {
+    abbreviatedName
     anticodon
     cellularLocations
     citations {
