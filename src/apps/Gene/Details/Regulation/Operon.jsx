@@ -11,11 +11,11 @@ export default function Operon({ _id, name, arrangement, statistics }) {
       <div className={style.operonContent}>
         <div className={style.operonName}>
           <Typography variant="h3">Operon</Typography>
-          <Link to={"/operon/" + _id}>
-            <Typography variant="h2">
+          <Typography variant="h2" sx={{ m: 1 }}>
+            <Link to={"/operon/" + _id}>
               <span dangerouslySetInnerHTML={{ __html: name }} />
-            </Typography>
-          </Link>
+            </Link>
+          </Typography>
         </div>
         <div className={style.operonStatistics}>
           <Typography variant="h4">statistics</Typography>
@@ -34,18 +34,18 @@ export default function Operon({ _id, name, arrangement, statistics }) {
 function Statistics({ statistics }) {
   if (!DataVerifier.isValidObject(statistics)) return null;
   return (
-    <div style={{display: "flex", gap: "10px"}}>
-        {Object.keys(statistics).map((key, index) => {
-            if (key==="__typename") {
-                return null
-            }
-            return (
-                <div key={"statistic_" + key + "_" + index}>
-                    <Typography variant="irrelevant" >{key}:</Typography>
-                    <Typography variant="normal" >{` ${statistics[key]}`}</Typography>
-                </div>
-            );
-          })}
+    <div style={{ display: "flex", gap: "10px" }}>
+      {Object.keys(statistics).map((key, index) => {
+        if (key === "__typename") {
+          return null;
+        }
+        return (
+          <div key={"statistic_" + key + "_" + index}>
+            <Typography variant="irrelevant">{key}:</Typography>
+            <Typography variant="normal">{` ${statistics[key]}`}</Typography>
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -86,7 +86,13 @@ function TUs({ arrangement }) {
     });
 
     table.data.push({
-      Name: arr.transcriptionUnit.name,
+      Name: (
+        <div value={arr.transcriptionUnit.name}>
+          <Link to={"/tu/" + arr.transcriptionUnit._id}>
+            {arr.transcriptionUnit.name}
+          </Link>
+        </div>
+      ),
       Promoters: arr.promoters.map((pro) => pro.name).join(", "),
       Regulators: (
         <div value={regulators.map((reg) => reg.label).join("; ")}>
