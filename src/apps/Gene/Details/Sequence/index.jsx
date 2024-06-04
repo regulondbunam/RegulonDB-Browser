@@ -154,7 +154,7 @@ export default function Sequence({ sequence, _id, name, products }) {
           idSequence={idSequence}
         />
       </div>
-      <div style={{overflow: 'auto', maxHeight: "700px"}} >{domSequence}</div>
+      <div style={{overflow: 'auto', maxHeight: "700px", display:"flex", justifyContent:"center"}} >{domSequence}</div>
     </div>
   );
 }

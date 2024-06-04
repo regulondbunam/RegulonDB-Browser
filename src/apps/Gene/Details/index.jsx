@@ -6,6 +6,7 @@ import {Typography, Divider} from "@mui/material";
 import CoverGene from "./Cover";
 import DrawTrace from "./DrawTrace";
 import Sequence from "./Sequence";
+import MultifunTerms from "./MultifunTerms";
 import AnchorNav from "ui-components/Web/AnchorNav";
 
 
@@ -59,9 +60,9 @@ export default function Details({ geneId }) {
                 <Sequence sequence={gene.gene.sequence} products={gene.products} name={gene.gene.name} _id={gene._id}  />
               </div>
             },
-            {id: "section2",
+            {id: gene._id+"_MultifunTermsSection",
               title: "MultifunTerms",
-              component: <>section1</>
+              component: <MultifunTerms multifunTerms={gene.gene.multifunTerms}/>
             },
             {id: "section3",
               title: "Regulation",
