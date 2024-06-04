@@ -1,0 +1,46 @@
+.rdb_p_sequence {
+	font-family: var(--fontFamily-sequence);
+	font-size: 14px;
+    color: black;
+  }
+
+.rdb_sequence_A{
+    color: white;
+    background-color: #179F55;
+}
+.rdb_sequence_a{
+    background-color: #C9F0D4;
+}
+.rdb_sequence_C{
+    color: white;
+    background-color: #4150F0;
+}
+.rdb_sequence_c{
+    background-color: #D5D8F0;
+}
+.rdb_sequence_T{
+    color: white;
+    background-color: #B39A12;
+}
+.rdb_sequence_t{
+    background-color: #EDE6CA;
+}
+.rdb_sequence_G{
+    color: white;
+    background-color: #F03A3A;
+}
+.rdb_sequence_g{
+    background-color: #F0C0C0;
+}
+.rdb_sequence_U{
+    color: white;
+    background-color: #FA8B41;
+}
+.rdb_sequence_u{
+    background-color: #FBB98C;
+}
+
+
+
+
+

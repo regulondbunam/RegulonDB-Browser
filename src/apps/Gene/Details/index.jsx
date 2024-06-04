@@ -56,7 +56,7 @@ export default function Details({ geneId }) {
             {id: gene._id+"_SequenceSection",
               title: "Sequence",
               component: <div>
-                <Sequence sequence={gene.gene.sequence}  />
+                <Sequence sequence={gene.gene.sequence} products={gene.products} name={gene.gene.name} _id={gene._id}  />
               </div>
             },
             {id: "section2",
