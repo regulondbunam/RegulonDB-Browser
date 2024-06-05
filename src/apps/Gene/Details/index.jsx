@@ -13,13 +13,14 @@ import AnchorNav from "ui-components/Web/AnchorNav";
 
 export default function Details({ geneId }) {
   const { loading, gene, error } = useGetGeneByID(geneId);
+  console.log(gene);
   let products = [];
   if (DataVerifier.isValidArray(gene?.products)) {
     gene.products.forEach((product) => {
       products.push({
         id: gene._id+"_sectionProduct_"+product._id,
         title: "Product: "+product.name,
-        component: <Product {...product}/>,
+        component: <Product {...product} allCitations={gene.allCitations}/>,
       });
     });
   }

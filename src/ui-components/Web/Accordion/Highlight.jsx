@@ -11,7 +11,7 @@ export default function AccordionHighlight({ children, actions, title, defaultEx
         <div>
             <Accordion square disableGutters defaultExpanded={defaultExpanded}>
                 <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
+                    expandIcon={<ExpandMoreIcon sx={{color: "white"}} />}
                     sx={{
                         backgroundColor: colorLevel[level],
                         flexDirection: "row-reverse",

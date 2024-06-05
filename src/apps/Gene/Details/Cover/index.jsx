@@ -6,7 +6,6 @@ import ExternalReferences from "./ExternalReferences";
 import style from "./cover.module.css"
 
 export default function Cover({ gene, products }) {
-  console.log(gene);
   const { _id, name, synonyms, bnumber, externalCrossReferences } =
     gene;
 

@@ -1,6 +1,8 @@
 import React from "react";
 import { Typography } from "@mui/material";
 import { DataVerifier } from "ui-components/utils";
+import { AccordionHighlight } from "ui-components/Web/Accordion";
+import Note from "ui-components/Web/Note";
 
 export default function Product({
   _id,
@@ -14,7 +16,7 @@ export default function Product({
   isoelectricPoint,
   molecularWeight,
   motifs,
-  name,
+  //name,
   note,
   regulonId,
   sequence,
@@ -33,6 +35,18 @@ export default function Product({
               </td>
               <td>
                 <Typography variant="relevant">{abbreviatedName}</Typography>
+              </td>
+            </tr>
+          )}
+          {DataVerifier.isValidArray(synonyms) && (
+            <tr>
+              <td>
+                <Typography variant="relevantB">Synonyms:</Typography>
+              </td>
+              <td>
+                <Typography variant="relevant">
+                  {synonyms.join(", ")}
+                </Typography>
               </td>
             </tr>
           )}
@@ -58,17 +72,26 @@ export default function Product({
               </td>
             </tr>
           )}
-
-
-
-          {DataVerifier.isValidArray(synonyms) && (
+          {isRegulator!==null && (
             <tr>
               <td>
-                <Typography variant="relevantB">Synonyms:</Typography>
+                <Typography variant="relevantB">Is regulator:</Typography>
               </td>
               <td>
                 <Typography variant="relevant">
-                  {synonyms.join(", ")}
+                  {isRegulator ? "True" : "False"}
+                </Typography>
+              </td>
+            </tr>
+          )}
+          {DataVerifier.isValidNumber(isoelectricPoint) && (
+            <tr>
+              <td>
+                <Typography variant="relevantB">Isoelectric point:</Typography>
+              </td>
+              <td>
+                <Typography variant="relevant">
+                  {isoelectricPoint}
                 </Typography>
               </td>
             </tr>
@@ -83,19 +106,22 @@ export default function Product({
               </td>
             </tr>
           )}
-          
-          {DataVerifier.isValidString(anticodon) && (
-            <tr>
-              <td>
-                <Typography variant="relevantB">Anticodon:</Typography>
-              </td>
-              <td>
-                <Typography variant="relevant">{anticodon}</Typography>
-              </td>
-            </tr>
-          )}
         </tbody>
       </table>
+      {DataVerifier.isValidString(note) && (
+            <AccordionHighlight title={<Typography variant="h3" color={"#ffffff"} >Note</Typography>} level={1} >
+              <Note note={note} allCitations={allCitations} />
+            </AccordionHighlight>
+          )}
+          {
+            /**
+             * Sequence
+             * Terms
+             * Motifs
+             * external references
+             * citations
+             */
+          }
     </div>
   );
 }
