@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Typography } from "@mui/material";
 import { DataVerifier } from "ui-components/utils";
 import { AccordionHighlight } from "ui-components/Web/Accordion";
 import Note from "ui-components/Web/Note";
+import { indexedReferences } from "ui-components/utils/References";
 
 export default function Product({
   _id,
@@ -24,6 +25,9 @@ export default function Product({
   type,
   allCitations,
 }) {
+  const references = useMemo(() => {
+    return indexedReferences(allCitations)
+  }, [allCitations])
   return (
     <div>
       <table>
@@ -110,7 +114,7 @@ export default function Product({
       </table>
       {DataVerifier.isValidString(note) && (
             <AccordionHighlight title={<Typography variant="h3" color={"#ffffff"} >Note</Typography>} level={1} >
-              <Note note={note} allCitations={allCitations} />
+              <Note note={note} references={references} />
             </AccordionHighlight>
           )}
           {

@@ -1,11 +1,12 @@
 import React from 'react'
-//import { NoteCitations } from 'ui-components/utils/citations'
+import { insertCitations } from 'ui-components/utils/References'
 import { Typography } from '@mui/material'
 
-export default function Note({note, allCitations}) {
+export default function Note({note, references}) {
+  
   return (
     <div style={{marginTop: "10px"}}>
-      <Typography><span dangerouslySetInnerHTML={{__html: note}} /></Typography>
+      <Typography variant='normal' ><span dangerouslySetInnerHTML={{__html: insertCitations(note,references)}} /></Typography>
     </div>
   )
 }
