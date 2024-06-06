@@ -19,4 +19,5 @@ export const OPTIONS = {
   countItems: 1,
   fasta_CharactersPerLine: 2,
   genbank_Columns: 3,
+  setFragment: 4,
 };

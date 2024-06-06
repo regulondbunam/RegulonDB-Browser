@@ -3,24 +3,12 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import Divider from "@mui/material/Divider";
 import DownloadOptions from "./DownloadOptions";
 import { FastaSequence, GenebankSequence } from "ui-components/utils/Sequences";
 import {FORMATS, OPTIONS} from "./static"
 import MenuOptions from "./MenuOptions";
 
-
-
-/**
- * Object defining the initial options for sequence display and manipulation.
- *
- * @type {{ color: boolean; countItems: boolean; fasta_CharactersPerLine: number; genbankColumns: number; }}
- */
-const initOptions = {
-  color: false,
-  countItems: false,
-  fasta_CharactersPerLine: 60,
-  genbankColumns: 6,
-};
 
 /**
  * Reducer function for managing sequence display and manipulation options.
@@ -32,70 +20,71 @@ const initOptions = {
 function reducerOptions(state, action) {
   switch (action.type) {
     case OPTIONS.reset:
-      return initOptions;
+      return {
+        ...state,
+        color: false,
+        countItems: false,
+        fasta_CharactersPerLine: 60,
+        genbankColumns: 6,
+      };
     case OPTIONS.color:
       return { ...state, color: !state.color };
     case OPTIONS.countItems:
       return { ...state, countItems: !state.countItems };
     case OPTIONS.fasta_CharactersPerLine:
       return { ...state, fasta_CharactersPerLine: action.value };
+      case OPTIONS.setFragment:
+        return{...state,name: action.fragment.name, sequence: action.fragment.sequence, indexFragment: action.indexFragment}
     default:
       return state;
   }
 }
 
 
+function initState({ sequence, _id, name, products, fragments }) {
+  let _products = products.map((product) => product.name).join(", ")
+  return {
+    indexFragment: -1,
+    name : name,
+    _products: _products,
+    sequence: sequence,
+    color: false,
+    countItems: false,
+    fasta_CharactersPerLine: 60,
+    genbankColumns: 6,
+  }
+}
 
-export default function Sequence({ sequence, _id, name, products }) {
-  const [state, dispatch] = React.useReducer(reducerOptions, initOptions);
+function setTitle(_id,name,_products) {
+  return `RegulonDB ${_id} | gene: ${name} | product: ${_products} `
+}
+
+
+
+export default function Sequence({ sequence, _id, name, products, fragments }) {
+  const [state, dispatch] = React.useReducer(reducerOptions,{ sequence, _id, name, products, fragments },initState);
   const [format, setFormat] = React.useState(FORMATS.fasta);
 
-  /**
-   * ID for the sequence element in the DOM.
-   *
-   * @type {string}
-   */
   const idSequence = "sequence_rdb_" + _id;
 
-  /**
-   * Event handler for changing the sequence format.
-   *
-   * @param {object} event - The event object triggered by the format change.
-   */
   const handleChange = (event) => {
     setFormat(event.target.value);
   };
 
-  /**
-   * Title for the sequence panel.
-   *
-   * @type {string}
-   */
-  let title = "";
+  const handleSelectSequence = (event)=>{
+    const indexFragment = event.target.value
+    let fragment = indexFragment === -1 ? {name: name, sequence: sequence} : fragments[indexFragment]
+    dispatch({type: OPTIONS.setFragment, fragment: fragment, indexFragment: indexFragment})
+  }
 
-  /**
-   * JSX element representing the sequence content.
-   *
-   * @type {React.JSX}
-   */
   let domSequence = <></>;
+  let title = setTitle(_id,state.name,state._products)
   switch (format) {
     case FORMATS.genbank:
-      title = `gene: ${name}; product: ${products
-        .map(
-          /**
-           * Generates the product name for the Genbank format sequence.
-           *
-           * @param {object} product - The product object.
-           * @returns {string} - The product name.
-           */
-          (product) => product.name
-        )
-        .join(", ")}`;
       domSequence = (
         <GenebankSequence
           id={idSequence}
-          sequence={sequence}
+          sequence={state.sequence}
           color={state.color}
           countItems={state.countItems}
           title={title}
@@ -103,21 +92,10 @@ export default function Sequence({ sequence, _id, name, products }) {
       );
       break;
     default:
-      title = `RegulonDB|${_id}|gene: ${name}|product: ${products
-        .map(
-          /**
-           * Generates the product name for the Genbank format sequence.
-           *
-           * @param {object} product - The product object.
-           * @returns {string} - The product name.
-           */
-          (product) => product.name
-        )
-        .join(", ")}`;
       domSequence = (
         <FastaSequence
           id={idSequence}
-          sequence={sequence}
+          sequence={state.sequence}
           color={state.color}
           countItems={state.countItems}
           title={title}
@@ -130,12 +108,29 @@ export default function Sequence({ sequence, _id, name, products }) {
   return (
     <div>
       <div style={{ display: "flex", alignItems: "center", margin: "12px" }}>
+      <FormControl
+          sx={{ m: 1, minWidth: 200, margin: "0 5px 0 0" }}
+        >
+          <InputLabel sx={{ fontSize: 16 }}>Set Sequence</InputLabel>
+          <Select
+            sx={{ height: 35 }}
+            labelId="demo-select-sequence-label"
+            id="demo-select-sequence"
+            value={state.indexFragment}
+            label="setSequence"
+            onChange={handleSelectSequence}
+          >
+            <MenuItem value={-1}>All fragments ({name})</MenuItem>
+            {fragments.map((f,index)=> <MenuItem value={index}>{f.name}</MenuItem>)}
+          </Select>
+        </FormControl>
+        <Divider orientation="vertical" sx={{height: "35px", mr:"5px"}} />
         <FormControl
           sx={{ m: 1, minWidth: 120, margin: "0 5px 0 0" }}
         >
           <InputLabel sx={{ fontSize: 14 }}>Format</InputLabel>
           <Select
-            sx={{ height: 30 }}
+            sx={{ height: 35 }}
             labelId="demo-select-small-label"
             id="demo-select-small"
             value={format}

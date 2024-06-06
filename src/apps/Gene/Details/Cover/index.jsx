@@ -1,20 +1,22 @@
 import React from "react";
-import { Typography, Divider } from "@mui/material";
+import { Typography, Divider, Tooltip } from "@mui/material";
 import { DataVerifier } from "ui-components/utils";
 import Info from "./Info";
 import ExternalReferences from "./ExternalReferences";
-import style from "./cover.module.css"
+import style from "./cover.module.css";
 
 export default function Cover({ gene, products }) {
-  const { _id, name, synonyms, bnumber, externalCrossReferences } =
+  const { _id, name, synonyms, bnumber, externalCrossReferences, fragments } =
     gene;
-
+  console.log(fragments);
   return (
-    <div className={style.base} >
+    <div className={style.base}>
       <div className={style.title}>
         <div>
           <Typography variant="irrelevant">Gene</Typography>
-          <Typography variant="h1"><span dangerouslySetInnerHTML={{__html: name}} /></Typography>
+          <Typography variant="h1">
+            <span dangerouslySetInnerHTML={{ __html: name }} />
+          </Typography>
         </div>
         <div className={style.divider}>
           <Divider orientation="vertical" />
@@ -23,12 +25,16 @@ export default function Cover({ gene, products }) {
           <div>
             <Typography variant="irrelevant">Product</Typography>
             <Typography variant="h1">
-              <span dangerouslySetInnerHTML={{__html: products.map((product) => product.name).join(", ")}} />
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: products.map((product) => product.name).join(", "),
+                }}
+              />
             </Typography>
           </div>
         )}
       </div>
-      <div className={style.mainInfo} >
+      <div className={style.mainInfo}>
         <div>
           {DataVerifier.isValidArray(synonyms) && (
             <div style={{ display: "flex", alignItems: "center" }}>
@@ -45,9 +51,7 @@ export default function Cover({ gene, products }) {
               <Typography variant="relevantB" sx={{ mr: 1 }}>
                 Bnumber:
               </Typography>
-              <Typography variant="relevant">
-                {bnumber}
-              </Typography>
+              <Typography variant="relevant">{bnumber}</Typography>
             </div>
           )}
           {DataVerifier.isValidArray(products) && (
@@ -71,12 +75,59 @@ export default function Cover({ gene, products }) {
             </div>
           )}
           <Info {...gene} />
+          {DataVerifier.isValidArray(fragments)&& (
+            <div>
+              <Typography variant="relevantB" sx={{ mr: 1 }}>
+                    {`Fragmented gene in ${fragments.length} parts`}
+                  </Typography>
+                  {fragments.map(fragment=><Fragment key={"fragment_info_gene_"+fragment.id} {...fragment} strand={gene.strand} />)}
+            </div>
+          )}
         </div>
-        <div className={style.references} >
-          <ExternalReferences id={_id} externalCrossReferences={externalCrossReferences} />
+        <div className={style.references}>
+          <ExternalReferences
+            id={_id}
+            externalCrossReferences={externalCrossReferences}
+          />
         </div>
       </div>
-      <div style={{height: "18px"}} />
+      <div style={{ height: "18px" }} />
+    </div>
+  );
+}
+
+function Fragment({
+  centisomePosition,
+  leftEndPosition,
+  name,
+  rightEndPosition,
+  strand
+}) {
+  return (
+    <div>
+      <Typography variant="relevantB" sx={{ mr: 1 }}>
+        {`${name} : `}
+      </Typography>
+      <Tooltip title="left position">
+        <Typography variant="relevant">{leftEndPosition} &nbsp;</Typography>
+      </Tooltip>
+      <Typography variant="relevant">
+        {strand === "reverse" ? "<-" : "->"} &nbsp;
+      </Typography>
+      
+      <Tooltip title="right position">
+        <Typography variant="relevant">{rightEndPosition} &nbsp;</Typography>
+      </Tooltip>
+      <Tooltip title="centisome position">
+        <Typography variant="relevant">
+          ({centisomePosition}&nbsp;centisome)&nbsp;
+        </Typography>
+      </Tooltip>
+      <Tooltip title="length">
+        <Typography variant="relevant">
+          ({1 + rightEndPosition - leftEndPosition + " bp"})
+        </Typography>
+      </Tooltip>
     </div>
   );
 }

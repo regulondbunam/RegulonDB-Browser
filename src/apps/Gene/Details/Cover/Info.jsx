@@ -18,17 +18,17 @@ export default function Info({
                         <Typography variant="relevantB" sx={{ mr: 1 }}>
                             Position:
                         </Typography>
-                        <Tooltip title="right position">
+                        <Tooltip title="left position">
                             <Typography variant="relevant">
-                                {rightEndPosition} &nbsp;
+                                {leftEndPosition} &nbsp;
                             </Typography>
                         </Tooltip>
                         <Typography variant="relevant">
                             {strand === "reverse" ? "<-" : "->"} &nbsp;
                         </Typography>
-                        <Tooltip title="left position">
+                        <Tooltip title="right position">
                             <Typography variant="relevant">
-                                {leftEndPosition} &nbsp;
+                                {rightEndPosition} &nbsp;
                             </Typography>
                         </Tooltip>
                         <Tooltip title="centisome position">

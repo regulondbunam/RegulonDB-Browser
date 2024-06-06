@@ -11,7 +11,7 @@ import label from "./label";
  * @returns {string} - The text with citations replaced by links.
  */
 export default function insertCitations(text, references) {
-    console.log(references);
+    //console.log(references);
 
     // Replace new line characters with <br></br>
     text = text.replace(/\n/g, "<br></br>");

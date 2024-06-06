@@ -18,9 +18,9 @@ export default function Details({ geneId }) {
   if (DataVerifier.isValidArray(gene?.products)) {
     gene.products.forEach((product) => {
       products.push({
-        id: gene._id+"_sectionProduct_"+product._id,
-        title: "Product: "+product.name,
-        component: <Product {...product} allCitations={gene.allCitations}/>,
+        id: gene._id + "_sectionProduct_" + product._id,
+        title: "Product: " + product.name,
+        component: <Product {...product} allCitations={gene.allCitations} />,
       });
     });
   }
@@ -58,6 +58,7 @@ export default function Details({ geneId }) {
             id={gene._id}
             leftEndPosition={gene.gene.leftEndPosition - 1000}
             rightEndPosition={gene.gene.rightEndPosition + 1000}
+            fragments={gene.gene.fragments}
           />
           <br />
           <Divider />
@@ -70,6 +71,7 @@ export default function Details({ geneId }) {
                 component: (
                   <div>
                     <Sequence
+                      fragments={gene.gene.fragments}
                       sequence={gene.gene.sequence}
                       products={gene.products}
                       name={gene.gene.name}
