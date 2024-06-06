@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer } from "react";
 import DrawingTraces, { CONTROLS_POSITIONS } from "apps/DrawingTracesTool/Ecoli/DrawingTraces";
 import { DataVerifier } from "ui-components/utils";
 

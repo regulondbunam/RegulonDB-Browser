@@ -13,7 +13,7 @@ export default function Pagination({ state, dispatch }) {
         const eventType = event.target.value
         dispatch({ type: eventType - 0 })
     }
-    if (state.nRows < state.items) {
+    if (state.nRows <= state.items) {
         return null
     }
     return (

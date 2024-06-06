@@ -85,6 +85,10 @@ function initialState({ columns = [], data = [], tableId, idContainer }) {
   let currentData = [];
   let mapData = {};
   let items = 10
+  if (data.length < 10) {
+    items = data.length+1
+  }
+  
   if (DataVerifier.isValidString(idContainer)) {
     const container = document.getElementById(idContainer)
     if (container) {
