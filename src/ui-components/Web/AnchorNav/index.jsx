@@ -52,6 +52,7 @@ export default function AnchorNav({
             <div className={style.body}>
                 {DataVerifier.isValidArray(sections) && (
                     <>{state.sections.map((section) => {
+                        if (!section.visible){return null}
                         return (
                             <div className={style.section}>
                                 <AccordionHighlight

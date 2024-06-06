@@ -19,6 +19,7 @@ export default function Details({ geneId }) {
     gene.products.forEach((product) => {
       products.push({
         id: gene._id + "_sectionProduct_" + product._id,
+        visible: true,
         title: "Product: " + product.name,
         component: <Product {...product} allCitations={gene.allCitations} />,
       });
@@ -68,6 +69,7 @@ export default function Details({ geneId }) {
               {
                 id: gene._id + "_SequenceSection",
                 title: "Sequence",
+                visible: DataVerifier.isValidString(gene.gene.sequence),
                 component: (
                   <div>
                     <Sequence
@@ -83,13 +85,18 @@ export default function Details({ geneId }) {
               {
                 id: gene._id + "_MultifunTermsSection",
                 title: "MultifunTerms",
+                visible: DataVerifier.isValidArray(gene.gene.multifunTerms),
                 component: (
-                  <MultifunTerms multifunTerms={gene.gene.multifunTerms} />
+                  <div>
+                    <MultifunTerms multifunTerms={gene.gene.multifunTerms} />
+                  </div>
+                  
                 ),
               },
               {
                 id: gene._id + "_RegulationSection",
                 title: "Regulation",
+                visible: DataVerifier.isValidObject(gene.regulation),
                 component: <Regulation {...gene.regulation} />,
               },
               ...products,
