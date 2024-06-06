@@ -4,6 +4,7 @@ import { DataVerifier } from "ui-components/utils";
 import { AccordionHighlight } from "ui-components/Web/Accordion";
 import Note from "ui-components/Web/Note";
 import { indexedReferences } from "ui-components/utils/References";
+import Sequence from "./Sequence";
 
 export default function Product({
   _id,
@@ -26,13 +27,13 @@ export default function Product({
   allCitations,
 }) {
   const references = useMemo(() => {
-    return indexedReferences(allCitations)
-  }, [allCitations])
+    return indexedReferences(allCitations);
+  }, [allCitations]);
   return (
     <div>
       <table>
         <tbody>
-        {DataVerifier.isValidString(abbreviatedName) && (
+          {DataVerifier.isValidString(abbreviatedName) && (
             <tr>
               <td>
                 <Typography variant="relevantB">Abbreviated name:</Typography>
@@ -76,7 +77,7 @@ export default function Product({
               </td>
             </tr>
           )}
-          {isRegulator!==null && (
+          {isRegulator !== null && (
             <tr>
               <td>
                 <Typography variant="relevantB">Is regulator:</Typography>
@@ -94,9 +95,7 @@ export default function Product({
                 <Typography variant="relevantB">Isoelectric point:</Typography>
               </td>
               <td>
-                <Typography variant="relevant">
-                  {isoelectricPoint}
-                </Typography>
+                <Typography variant="relevant">{isoelectricPoint}</Typography>
               </td>
             </tr>
           )}
@@ -113,19 +112,37 @@ export default function Product({
         </tbody>
       </table>
       {DataVerifier.isValidString(note) && (
-            <AccordionHighlight title={<Typography variant="h3" color={"#ffffff"} >Note</Typography>} level={1} >
-              <Note note={note} references={references} />
-            </AccordionHighlight>
-          )}
-          {
-            /**
-             * Sequence
-             * Terms
-             * Motifs
-             * external references
-             * citations
-             */
+        <AccordionHighlight
+          title={
+            <Typography variant="h3" color={"#ffffff"}>
+              Note
+            </Typography>
           }
+          level={1}
+        >
+          <Note note={note} references={references} />
+        </AccordionHighlight>
+      )}
+      {DataVerifier.isValidString(sequence) && (
+        <AccordionHighlight
+          title={
+            <Typography variant="h3" color={"#ffffff"}>
+              Features
+            </Typography>
+          }
+          defaultExpanded={true}
+          level={1}
+        >
+          <Sequence sequence={sequence} motifs={motifs} />
+        </AccordionHighlight>
+      )}
+      {/**
+       * Sequence
+       * Terms
+       * Motifs
+       * external references
+       * citations
+       */}
     </div>
   );
 }

@@ -6,9 +6,9 @@ import Select from "@mui/material/Select";
 import Divider from "@mui/material/Divider";
 import DownloadOptions from "./DownloadOptions";
 import { FastaSequence, GenebankSequence } from "ui-components/utils/Sequences";
-import {FORMATS, OPTIONS} from "./static"
+import { FORMATS, OPTIONS } from "./static";
 import MenuOptions from "./MenuOptions";
-
+import { DataVerifier } from "ui-components/utils";
 
 /**
  * Reducer function for managing sequence display and manipulation options.
@@ -33,36 +33,42 @@ function reducerOptions(state, action) {
       return { ...state, countItems: !state.countItems };
     case OPTIONS.fasta_CharactersPerLine:
       return { ...state, fasta_CharactersPerLine: action.value };
-      case OPTIONS.setFragment:
-        return{...state,name: action.fragment.name, sequence: action.fragment.sequence, indexFragment: action.indexFragment}
+    case OPTIONS.setFragment:
+      return {
+        ...state,
+        name: action.fragment.name,
+        sequence: action.fragment.sequence,
+        indexFragment: action.indexFragment,
+      };
     default:
       return state;
   }
 }
 
-
 function initState({ sequence, _id, name, products, fragments }) {
-  let _products = products.map((product) => product.name).join(", ")
+  let _products = products.map((product) => product.name).join(", ");
   return {
     indexFragment: -1,
-    name : name,
+    name: name,
     _products: _products,
     sequence: sequence,
     color: false,
     countItems: false,
     fasta_CharactersPerLine: 60,
     genbankColumns: 6,
-  }
+  };
 }
 
-function setTitle(_id,name,_products) {
-  return `RegulonDB ${_id} | gene: ${name} | product: ${_products} `
+function setTitle(_id, name, _products) {
+  return `RegulonDB ${_id} | gene: ${name} | product: ${_products} `;
 }
-
-
 
 export default function Sequence({ sequence, _id, name, products, fragments }) {
-  const [state, dispatch] = React.useReducer(reducerOptions,{ sequence, _id, name, products, fragments },initState);
+  const [state, dispatch] = React.useReducer(
+    reducerOptions,
+    { sequence, _id, name, products, fragments },
+    initState
+  );
   const [format, setFormat] = React.useState(FORMATS.fasta);
 
   const idSequence = "sequence_rdb_" + _id;
@@ -71,14 +77,21 @@ export default function Sequence({ sequence, _id, name, products, fragments }) {
     setFormat(event.target.value);
   };
 
-  const handleSelectSequence = (event)=>{
-    const indexFragment = event.target.value
-    let fragment = indexFragment === -1 ? {name: name, sequence: sequence} : fragments[indexFragment]
-    dispatch({type: OPTIONS.setFragment, fragment: fragment, indexFragment: indexFragment})
-  }
+  const handleSelectSequence = (event) => {
+    const indexFragment = event.target.value;
+    let fragment =
+      indexFragment === -1
+        ? { name: name, sequence: sequence }
+        : fragments[indexFragment];
+    dispatch({
+      type: OPTIONS.setFragment,
+      fragment: fragment,
+      indexFragment: indexFragment,
+    });
+  };
 
   let domSequence = <></>;
-  let title = setTitle(_id,state.name,state._products)
+  let title = setTitle(_id, state.name, state._products);
   switch (format) {
     case FORMATS.genbank:
       domSequence = (
@@ -108,7 +121,8 @@ export default function Sequence({ sequence, _id, name, products, fragments }) {
   return (
     <div>
       <div style={{ display: "flex", alignItems: "center", margin: "12px" }}>
-      <FormControl
+        {DataVerifier.isValidArray(fragments) && (<>
+          <FormControl
           sx={{ m: 1, minWidth: 200, margin: "0 5px 0 0" }}
         >
           <InputLabel sx={{ fontSize: 16 }}>Set Sequence</InputLabel>
@@ -125,9 +139,8 @@ export default function Sequence({ sequence, _id, name, products, fragments }) {
           </Select>
         </FormControl>
         <Divider orientation="vertical" sx={{height: "35px", mr:"5px"}} />
-        <FormControl
-          sx={{ m: 1, minWidth: 120, margin: "0 5px 0 0" }}
-        >
+        </>)}
+        <FormControl sx={{ m: 1, minWidth: 120, margin: "0 5px 0 0" }}>
           <InputLabel sx={{ fontSize: 14 }}>Format</InputLabel>
           <Select
             sx={{ height: 35 }}
@@ -149,7 +162,16 @@ export default function Sequence({ sequence, _id, name, products, fragments }) {
           idSequence={idSequence}
         />
       </div>
-      <div style={{overflow: 'auto', maxHeight: "700px", display:"flex", justifyContent:"center"}} >{domSequence}</div>
+      <div
+        style={{
+          overflow: "auto",
+          maxHeight: "700px",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        {domSequence}
+      </div>
     </div>
   );
 }
