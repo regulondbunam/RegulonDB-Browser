@@ -5,6 +5,7 @@ import { Typography } from '@mui/material'
 import Anchors from './Anchors'
 import style from "./style.module.css"
 import { ACTION } from './static'
+import { isMobile } from 'react-device-detect'
 
 function initSections({ sections = [], showAnchors = true }) {
     let newSections = []
@@ -31,7 +32,7 @@ function reducer(state, action) {
                     selected: action.sectionIndex === index
                 })
             });
-            return {...state, sections: newSections}
+            return { ...state, sections: newSections }
         default:
             return state
     }
@@ -46,13 +47,16 @@ export default function AnchorNav({
     const [state, dispatch] = useReducer(reducer, { sections, showAnchors }, initSections)
     return (
         <div className={style.container}>
-            <div className={style.anchors} >
-                <Anchors state={state} dispatch={dispatch} />
-            </div>
+            {!isMobile && (
+                <div className={style.anchors} >
+                    <Anchors state={state} dispatch={dispatch} />
+                </div>
+            )}
+
             <div className={style.body}>
                 {DataVerifier.isValidArray(sections) && (
                     <>{state.sections.map((section) => {
-                        if (!section.visible){return null}
+                        if (!section.visible) { return null }
                         return (
                             <div className={style.section}>
                                 <AccordionHighlight
@@ -67,9 +71,12 @@ export default function AnchorNav({
                     })}</>
                 )}
             </div>
-            <div className={style.aside} >
+            {isMobile && (
+                <div className={style.aside} >
 
-            </div>
+                </div>
+            )}
+
         </div>
     )
 }
