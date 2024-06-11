@@ -1,8 +1,21 @@
 .base {
-    background-color: black;
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 40px;
     color: white;
+}
+
+.imageLogo {
+    margin: 10px;
+    height: 70px;
+}
+
+.press{
+display: flex;
+justify-content: space-between;
+margin: 0 3% 0 3%;
+}
+
+.links{
+    margin: 20px;
 }

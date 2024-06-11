@@ -70,8 +70,8 @@ export default function Cover() {
             </div>
 
             <div className={isMobile ? style.coverContainerMovile : style.coverContainerDesktop} >
-                <Typography variant="h1" color={"white"} >The RegulonDB Database</Typography>
-                <Typography variant="relevant" color={"white"}>
+                <Typography variant="h1" color={"white"} sx={{fontSize: "5vw"}} >The RegulonDB Database</Typography>
+                <Typography variant="relevant" sx={{fontSize: "2vw"}} color={"white"}>
                     Escherichia coli K-12 Transcriptional Regulatory Network
                 </Typography>
                 {!isMobile &&  (

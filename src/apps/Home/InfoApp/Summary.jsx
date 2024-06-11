@@ -15,9 +15,6 @@ const query_GetDataBaseStatistics = gql`
         operon {
           total
         }
-        regulons {
-          total
-        }
         promoters {
           total
         }
