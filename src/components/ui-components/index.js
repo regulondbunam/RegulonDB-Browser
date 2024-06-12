@@ -5,9 +5,11 @@ version control 0.0.6
 import {Button, IconButton, DropDown, Split} from "./buttons"
 import Card from "./card";
 import Accordion from "./accordion";
+import { Cover } from "./cover/Cover";
 import DataVerifier from "./utils";
-//import NavigationTabs from "./tab/NavigationTabs";
-//import FilterTable from "./filterTable";
+import NavigationTabs from "./tab/NavigationTabs";
+
+import FilterTable from "./filterTable";
 import Circular from "./spinners";
 //import { Tabs } from "./web/tab/tabs";
 //import Header from "./web/layout/header";
@@ -18,8 +20,10 @@ import Circular from "./spinners";
 export {
   Accordion,
   Button, IconButton, DropDown, Split,
+  Cover,
   Circular,
   Card,
   DataVerifier,
-  //NavigationTabs
+  FilterTable,
+  NavigationTabs
 };

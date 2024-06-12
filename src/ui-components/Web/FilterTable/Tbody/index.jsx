@@ -56,7 +56,7 @@ export default function Tbody({
                         }}
                       >
                         {typeof (row[column.key]) === "object" ? (
-                          <>{row[column.key]}</>
+                          <div className={`cell_${column.id}`}>{row[column.key]}</div>
                         ) : (
                           <p
                             className={`cell_${column.id}`}

@@ -25,6 +25,9 @@ export default function ResizeColumn({column,dispatch,index}) {
 
     const handleAdjustWidth = ()=>{
         const cells = document.getElementsByClassName(`cell_${column.id}`)
+        if (cells.length < 1) {
+            return null
+        }
         let maxWidth=0
         for (let i = 0; i < cells.length; i++) {
             let width = cells[i].offsetWidth;

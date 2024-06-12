@@ -75,7 +75,7 @@ import InputSearch from "../../../apps/search/InputSearch";
  * @param {{ title: any; }} { title }
  * @returns {*}
  */
-export function HeaderNav({ title }) {
+function HeaderNav({ title }) {
     return (
         <div id="headerNav" style={{display: "none"}}  >
             <div>

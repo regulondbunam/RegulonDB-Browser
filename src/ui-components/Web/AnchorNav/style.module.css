@@ -1,6 +1,6 @@
 .container{
-    display: grid;
-    grid-template-columns: auto auto;
+    display: flex;
+
 }
 
 .header{
@@ -11,7 +11,9 @@
 }
 
 .anchors{
+    width: 15%;
     max-width: 235px;
+    min-width: 235px;
     margin-right: 15px;
     position: relative;
 }

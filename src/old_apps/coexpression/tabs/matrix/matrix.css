@@ -1,0 +1,14 @@
+.cellMatrix {
+    background-color: rgb(224, 234, 241);
+    height: 30px;
+    width: 150px;
+    border: 2px solid #ffffff;
+}
+
+.titleCells{
+    background-color: rgb(224,234,241);
+    border: 1px solid rgb(97,152,187);
+    color: rgb(97,152,187);
+    text-align: center;
+    padding: 5px;
+}

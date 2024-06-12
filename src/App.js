@@ -13,6 +13,8 @@ import { PATH_GENE } from "apps/Gene";
 import { PATH_DTT } from "apps/DrawingTracesTool";
 //old apps
 import Manual from './old_apps/manual';
+import Coexpression from "./old_apps/coexpression"
+
 
 //routing
 const router = createBrowserRouter([
@@ -46,6 +48,14 @@ const router = createBrowserRouter([
           }
         ]
       },
+      {
+        path: "/coexpression",
+        element: <Coexpression />,
+        children:[
+          {path: ":genesId"}
+        ]
+      },
+
     ]
   }
 ])

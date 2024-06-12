@@ -52,8 +52,7 @@ function TestCell(cell,height) {
     >
         <div id={"cell_" + cell.id + "_item"}
         style={{
-          overflow: "auto",
-          height: height
+          
         }}
         >
           {typeof cell.getValue() === "object" ? (

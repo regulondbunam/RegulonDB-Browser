@@ -113,7 +113,7 @@ setRawConf: A callback function that allows the function to update the rawConf s
 
 
 __Return:__  
-​__[Type]:__ [Name]
+ __[Type]:__ [Name]
 No explicit return value, as it operates asynchronously. It updates the rawConf state via the setRawConf callback.
 
 
@@ -175,10 +175,10 @@ export default function Manual() {
   //console.log(section);
   useEffect(() => {
     window.scrollTo(0, 0);
-    return ()=>{
+    return () => {
       setRawConf(undefined)
     }
-  }, [site,section]);
+  }, [site, section]);
 
   if (!rawConf) {
     downloadConf(setRawConf);
@@ -220,7 +220,7 @@ export default function Manual() {
   return (
     <div>
       <Cover>
-        <Typography  sx={{ ml: "10%" }} variant="h1" >Manual topics</Typography>
+        <Typography sx={{ ml: "10%" }} variant="h1" >Manual topics</Typography>
       </Cover>
       <ManualNav sites={sites} site={site} />
     </div>
@@ -237,23 +237,19 @@ function ManualNav({ sites = [], site }) {
 
   const sections = useMemo(() => {
     let sections = sites.map((section, i) => {
-      if(!DataVerifier.isValidArray(section.sections)){
-        return null
+      if (!DataVerifier.isValidArray(section.sections)) {
+        return []
       }
       return {
         id: "section_" + i,
         label: section.title,
         title: section.title,
         visible: true,
-        component: (
-          <div id={section._url} style={{ margin: "0% 1% 1% 2%" }}>
-            <Topics
-              section={section}
-              sections={section.sections}
-              img={section.imgUrl}
-            />
-          </div>
-        ),
+        component: <Topics
+          section={section}
+          sections={section.sections}
+          img={section.imgUrl}
+        />,
       };
     });
     return sections;
@@ -276,9 +272,9 @@ function Topics({ section, sections, img }) {
     <div>
       <p>{section.description}</p>
       {sections.map((site, i) => (
-        <div style={{marginLeft: "10px"}} key={"site_n_" + i}>
+        <div key={"site_n_" + i}>
           <Link to={"/manual/" + section._url + "/" + site._url}>
-            <h3 style={{color: "#72a7c7"}} >{site.title}</h3>
+            <h3 style={{ color: "#72a7c7" }} >{site.title}</h3>
           </Link>
           <p>{site.description}</p>
         </div>

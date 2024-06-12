@@ -11,11 +11,15 @@ import { isMobile } from 'react-device-detect'
 
 function initSections({ sections = [], showAnchors = true }) {
     let newSections = []
-    sections.forEach((section) => {
+    sections.forEach((section, index) => {
+        let id = "section_"+index
         if (!section?.id) {
-            console.error(section.title, " anchor Nav no id");
+            console.error("Anchor nav component Error: section no id");
+        }else{
+            id = section.id
         }
         newSections.push({
+            id: id,
             expand: true,
             selected: false,
             ...section
@@ -102,11 +106,11 @@ export default function AnchorNav({
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
-        handleScroll();
+        
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, []);
+    });
 
 
     //console.log(state);

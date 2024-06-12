@@ -1,5 +1,5 @@
 import { useQuery, useLazyQuery } from '@apollo/client';
-import { query_SEARCH_GENE, query_GET_GENE_BY } from './queries';
+import { query_SEARCH_GENE, query_GET_GENE_BY, query_getMainGeneBySearch } from './queries';
 import { DataVerifier } from 'ui-components/utils';
 
 
@@ -79,4 +79,26 @@ export function useLazySearchGene() {
     }
   }
   return [getGenes, { genes, data, loading, error }]
+}
+
+export function useGetMainGenesBySearch(search) {
+  const { data, loading, error } = useQuery(query_getMainGeneBySearch, {
+    variables: { search: search },
+  });
+  let genesData = [];
+  try {
+    if (data) {
+      if (data.getGenesBy.data) {
+        genesData = data.getGenesBy.data;
+      }
+    }
+  } catch (error) {
+    console.error("assign geneData value:", error);
+    console.log("query getGeneBySearch", query_getMainGeneBySearch);
+  }
+  if (error) {
+    console.error("query getGeneBy: ", error);
+    console.log("query getGeneBySearch", query_getMainGeneBySearch);
+  }
+  return { genesData, loading, error };
 }

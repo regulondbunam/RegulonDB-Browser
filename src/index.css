@@ -6,6 +6,7 @@ html {
     margin: 0;
     margin-bottom: 40px;
     height: 100vh;
+    font-family: "Roboto", sans-serif;
   }
   footer {
     background-color: #1f3d4e;

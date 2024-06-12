@@ -77,7 +77,7 @@ StyledTab: it is another custom component created using MUI styled. This custom 
 import React, { useState } from "react";
 import Style from "./info.module.css";
 import Box from "@mui/material/Box";
-import { HeaderNav } from "./headerNav";
+
 import { headerStyle, StyledTab, StyledTabs } from "./style"
 
 
@@ -114,7 +114,6 @@ function NavigationTabs({ tabSelect = "init", tabs = [], title = "" }) {
   return (
     <div id={idNavTabs}>
       <div id="headerNavTabs" className="noPrint">
-        <HeaderNav title={title} />
         <div id={idNavTabs} className={Style.tabHeader} style={headerStyle}>
           <Box>
             <StyledTabs
