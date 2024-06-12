@@ -74,25 +74,24 @@ function reducer(state, action) {
 
     }
     case "reset":
-      return {...action.newState}
+      return { ...action.newState }
     default:
       return state
   }
 }
 
-function initialState({ columns = [], data = [], tableId, idContainer }) {
+function initialState({ columns = [], data = [], tableId, idContainer, items = 10 }) {
   let newColumns = [];
   let currentData = [];
   let mapData = {};
-  let items = 10
   if (data.length < 10) {
-    items = data.length+1
+    items = data.length + 1
   }
-  
+
   if (DataVerifier.isValidString(idContainer)) {
     const container = document.getElementById(idContainer)
     if (container) {
-      items = Math.ceil(container.clientHeight/50)
+      items = Math.ceil(container.clientHeight / 50)
     }
   }
   columns.forEach((column, index) => {
@@ -115,8 +114,8 @@ function initialState({ columns = [], data = [], tableId, idContainer }) {
       id: "row_" + index + "_" + tableId,
       key: key,
       height: 30,
-      onMouseEnter: () => {},
-      onMouseLeave: () => {},
+      onMouseEnter: () => { },
+      onMouseLeave: () => { },
       ...row?._properties
     }
     mapData[key] = newRow
@@ -140,23 +139,24 @@ function initialState({ columns = [], data = [], tableId, idContainer }) {
 
 
 
-export default function FilterTable({ 
-  columns, 
+export default function FilterTable({
+  columns,
   data,
   idContainer,
-  tableName = "Table", 
+  tableName = "Table",
   titleVariant = "h2",
-  selection = "cell"
+  selection = "cell",
+  items = 10
 }) {
 
   const tableId = useId()
-  const [state, dispatch] = useReducer(reducer, { columns, data, tableId, idContainer }, initialState)
+  const [state, dispatch] = useReducer(reducer, { columns, data, tableId, idContainer, items }, initialState)
 
   //console.log(state);
 
   useEffect(() => {
-    dispatch({ type: "reset", newState: initialState({ columns, data, tableId, idContainer }) })
-  }, [columns, data, tableId, idContainer])
+    dispatch({ type: "reset", newState: initialState({ columns, data, tableId, idContainer, items }) })
+  }, [columns, data, tableId, idContainer, items])
 
   return (
     <div>

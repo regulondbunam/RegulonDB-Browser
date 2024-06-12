@@ -4,87 +4,24 @@ import OTModal from "../ontologyTermsModal";
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
 import { useGetMainGenesBySearch } from "webServices/queries";
-import { DataVerifier, FilterTable } from "../../../components/ui-components";
+import { DataVerifier } from "../../../components/ui-components";
+import FilterTable from "ui-components/Web/FilterTable";
 
-const COLUMNS = [
-  {
-    id: "coexpression_rank",
-    filter: "fuzzyText",
-    header: "Coexpression Rank",
-    accessorKey: "_rank",
-    cell: (info) => (
-      <p dangerouslySetInnerHTML={{ __html: info.getValue() }} />
-    ),
-  },
-  {
-    id: "locusTag",
-    filter: "fuzzyText",
-    header: "Gene locusTag",
-    accessorKey: "_locusTag",
-    cell: (info) => (
-      <p dangerouslySetInnerHTML={{ __html: info.getValue() }} />
-    ),
-  },
-  {
-    id: "gene_name",
-    filter: "fuzzyText",
-    header: "Gene name",
-    accessorKey: "_geneName",
-    cell: (info) => (
-      <Link to={"/gene/" + info.row.original.geneId}>
-        <p dangerouslySetInnerHTML={{ __html: info.getValue() }} />
-      </Link>
-    ),
-  },
-  {
-    id: "gene_products",
-    filter: "fuzzyText",
-    header: "Products",
-    accessorKey: "_products",
-    cell: (info) => (
-      <p dangerouslySetInnerHTML={{ __html: info.getValue() }} />
-    ),
-  },
-  {
-    id: "gene_operon",
-    filter: "fuzzyText",
-    header: "Operon",
-    accessorKey: "_operon",
-    cell: (info) => (
-      <Link to={"/operon/" + info.row.original.operonId}>
-        {info.getValue()}
-      </Link>
-    ),
-  },
-  {
-    id: "gene_regulators",
-    filter: "fuzzyText",
-    header: "Regulators",
-    accessorKey: "_regulators",
-    cell: (info) => {
-      const regulators = info.row.original.regulators;
-      return (
-        <div>
-          {regulators.map((regulator, index) => {
-            return (
-              <Link to={"/regulon/" + regulator._id}><span style={{marginRight: "10px"}} dangerouslySetInnerHTML={{__html: regulator.name}}/></Link>
-            );
-          })}
-        </div>
-      );
-    },
-  },
-  {
-    id: "ontologyTerms",
-    filter: "fuzzyText",
-    header: "Ontology Terms",
-    accessorKey: "_terms",
-    cell: (info) => <OTModal products={info.row.original.products} />,
-  },
-];
 
 function formatData(rankings, genesData) {
-  let data = [];
+  let table = {
+    columns: [
+      {key:"rank",label:"RANK"},
+      {key:"locus",label:"Locus Tag"},
+      {key:"gene",label:"Gene"},
+      {key:"product",label:"Products"},
+      {key:"operon",label:"Operon"},
+      {key:"regulators",label:"Regulators"},
+      {key:"terms",label:"Ontology Terms"},
+
+    ],
+    data: []
+  }
   rankings.forEach((rank) => {
     const geneData = genesData.find((gn) => gn._id === rank.gene[0]._id);
     if (geneData) {
@@ -105,22 +42,29 @@ function formatData(rankings, genesData) {
           regulators = geneData.regulation.regulators;
         }
       }
-
-      data.push({
-        id: geneData.gene._id,
-        geneId: geneData.gene._id,
-        _rank: rank.rank.toFixed(2),
-        _locusTag: rank.gene[0].locusTag,
-        _geneName: geneData.gene.name,
-        products: products,
-        _products: _products,
-        operonId: operon._id,
-        _operon: operon?.name ? operon.name : "",
-        regulators: regulators,
-      });
+      const _operon = operon?.name ? operon.name : ""
+      table.data.push({
+        rank:rank.rank.toFixed(2),
+        locus: rank.gene[0].locusTag,
+        gene:<Link value={geneData.gene.name} to={"/gene/" + geneData.gene._id}>
+        <span dangerouslySetInnerHTML={{ __html: geneData.gene.name }} />
+      </Link>,
+        products:_products,
+        operon: <Link value={_operon} to={"/operon/" + operon._id}>
+        {_operon}
+      </Link>,
+        regulators: <div value={regulators.map((r)=>r.name).join("; ")} >
+        {regulators.map((regulator) => {
+          return (
+            <Link key={"regulator_lisTable_"+regulator._id} to={"/regulon/" + regulator._id}><span style={{marginRight: "10px"}} dangerouslySetInnerHTML={{__html: regulator.name}}/></Link>
+          );
+        })}
+      </div>,
+        terms: <OTModal value="" products={products} />,
+      })
     }
   });
-  return data;
+  return table;
 }
 
 export default function CoexpressionTable({ rankings }) {
@@ -129,7 +73,6 @@ export default function CoexpressionTable({ rankings }) {
   );
   return (
     <div>
-        <h2>TOP 50 COEXPRESSION RANKING</h2>
       {loading && (
         <Box sx={{ width: "100%" }}>
           <LinearProgress />
@@ -143,6 +86,6 @@ export default function CoexpressionTable({ rankings }) {
 }
 
 function Table(rankings,genesData) {
-    const data = formatData(rankings,genesData)
-    return <FilterTable columns={COLUMNS} data={data} />
+    const table = formatData(rankings,genesData)
+    return <FilterTable {...table} tableName="Top 50 Coexpression Ranking" titleVariant="h2" items={50}/>
 }

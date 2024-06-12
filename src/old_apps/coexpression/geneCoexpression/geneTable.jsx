@@ -2,53 +2,9 @@ import { Link } from "react-router-dom";
 import { useMemo } from "react";
 import { DataVerifier, FilterTable } from "../../../components/ui-components";
 import OTModal from "../ontologyTermsModal";
-
-const COLUMNS = [
-  {
-    id: "gene_products",
-    header: "products",
-    accessorKey: "_products",
-    cell: (info) => <p dangerouslySetInnerHTML={{ __html: info.getValue() }} />,
-  },
-  {
-    id: "operon",
-    header: "Operon",
-    accessorKey: "_operon",
-    cell: (info) => (
-      <Link to={"/operon/" + info.row.original.operonId}>
-       <p> {info.getValue()}</p>
-      </Link>
-    ),
-  },
-  {
-    id: "regulators",
-    header: "Regulators",
-    accessorKey: "_regulators",
-    cell: (info) => {
-      const regulators = info.row.original.regulators;
-      return (
-        <div>
-          {regulators.map((regulator, index) => {
-            return (
-              <Link to={"/regulon/" + regulator._id}><p style={{marginRight: "10px"}} dangerouslySetInnerHTML={{__html: regulator.name}}/></Link>
-            );
-          })}
-        </div>
-      );
-    },
-  },
-  {
-    id: "ontologyTerms",
-    header: "Ontology Terms",
-    accessorKey: "_terms",
-    cell: (info) => (
-        <OTModal products={info.row.original.products} />
-      ),
-  },
-];
+import { Typography } from "@mui/material";
 
 function formatData(gene) {
-  let data = [];
   let products = "";
   if (DataVerifier.isValidArray(gene.products)) {
     products = gene.products.map((p) => p.name).join("; ");
@@ -64,16 +20,15 @@ function formatData(gene) {
     }
   }
 
-  data.push({
-    id: gene._id,
-    _geneName: gene.gene.name,
+  return {
+    _id: gene._id,
+    _name: gene.gene.name,
     products: gene.products,
     _products: products,
     operonId: operon._id,
     _operon: operon?.name ? operon.name : "",
     regulators: regulators,
-  });
-  return data;
+  };
 }
 
 export default function GeneTable({ gene }) {
@@ -82,9 +37,45 @@ export default function GeneTable({ gene }) {
   }, [gene]);
   return (
     <div>
-      {DataVerifier.isValidArray(data) && (
-        <FilterTable disableOptions columns={COLUMNS} data={data} />
-      )}
+      <div>
+        <Typography variant="h2" >
+          {"Gene " + data._name}
+        </Typography>
+      </div>
+      <div style={{ marginLeft: "20px" }} >
+        <div>
+          <Typography variant="relevantB" >
+            Product{data.products.length > 1 ? "s" : ""}:{" "}
+          </Typography>
+          <Typography variant="relevant" >
+            {data._products}
+          </Typography>
+        </div>
+        <div>
+          <Typography variant="relevantB" >
+            Operon{": "}
+          </Typography>
+          <Link to={"/operon/" + data.operonId}>
+            <Typography variant="relevant" >
+              {data._operon}
+            </Typography>
+          </Link>
+        </div>
+        <div>
+          <Typography variant="relevantB" >
+            Regulators{": "}
+          </Typography>
+          {data.regulators.map((regulator) => {
+            return (<Link key={"regulator_" + regulator._id} to={"/operon/" + data.operonId} style={{marginLeft: "10px"}} >
+              <Typography variant="relevant" >
+                {regulator.name}
+              </Typography>
+            </Link>)
+          })}
+
+        </div>
+      </div>
+
     </div>
   );
 }
