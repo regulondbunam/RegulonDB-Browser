@@ -4,8 +4,12 @@ import { ACTION } from './static'
 //import style from "./style.module.css"
 
 export default function Anchors({ state, dispatch }) {
-    const handleGoSection = (index) => {
-        dispatch({type: ACTION.selectSection, sectionIndex: index})
+    const handleGoSection = (id) => {
+        //"scroll_section_" + id
+        const sectionDiv = document.getElementById("scroll_section_" + id)
+        if(sectionDiv){
+            sectionDiv.scrollIntoView({ behavior: "smooth" });
+        }
     }
 
     return (
@@ -26,7 +30,7 @@ export default function Anchors({ state, dispatch }) {
                                         color: "#ffffff"
                                     }
                                 }}
-                                onClick={()=>{handleGoSection(index)}} >
+                                onClick={()=>{handleGoSection(section.id)}} >
                                     <Typography variant='irrelevant' color={section.selected ? "white" : "black"} >
                                         {section.title}
                                     </Typography>

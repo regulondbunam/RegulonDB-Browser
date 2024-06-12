@@ -5,32 +5,35 @@ import { ACTION } from './static'
 
 export default function Controls({ state, dispatch }) {
     const handleMenu = () => {
-        dispatch({type:ACTION.hideMenu})
+        dispatch({ type: ACTION.hideMenu })
     }
     const handleTop = () => {
-
+        window.scroll({
+            top: 0,
+            behavior: "smooth",
+        });
     }
     const handleCollapse = () => {
-
+        dispatch({ type: ACTION.collapseAll })
     }
     if (state.hideMenu) {
         return (
             <ButtonGroup
-            disableElevation
-            aria-label="Disabled elevation buttons"
-            variant="outlined"
-            color='secondary'
-            size='small'
-        >
-            <Tooltip title={"Show Menu"}>
-                <Button
-                    onClick={handleMenu}
-                    sx={{ borderRadius: 0 }}
-                >
-                    <FormatIndentIncrease />
-                </Button>
-            </Tooltip>
-        </ButtonGroup>
+                disableElevation
+                aria-label="Disabled elevation buttons"
+                variant="outlined"
+                color='secondary'
+                size='small'
+            >
+                <Tooltip title={"Show Menu"}>
+                    <Button
+                        onClick={handleMenu}
+                        sx={{ borderRadius: 0 }}
+                    >
+                        <FormatIndentIncrease />
+                    </Button>
+                </Tooltip>
+            </ButtonGroup>
         )
     }
     return (
@@ -64,11 +67,11 @@ export default function Controls({ state, dispatch }) {
             <Tooltip
                 onClick={handleCollapse}
                 title={
-                    state?.collapse ? "Expand all sections" : "Collapse all sections"
+                    state?.isCollapse ? "Expand all sections" : "Collapse all sections"
                 }
             >
                 <Button sx={{ borderRadius: 0 }}>
-                    {state?.collapse ? <UnfoldMore /> : <UnfoldLess />}
+                    {state?.isCollapse ? <UnfoldMore /> : <UnfoldLess />}
                 </Button>
             </Tooltip>
         </ButtonGroup>

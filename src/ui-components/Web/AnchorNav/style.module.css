@@ -22,6 +22,25 @@
     margin-bottom: 10px;
 }
 
+.scroll_section{
+    height: 2px;
+    width: 100%;
+    position: relative;
+    top: -60px;
+    z-index: 80;
+}
+
+.flag_section{
+    height: 1px;
+    width: 100%;
+}
+.end_flag_section{
+    position: relative;
+    top: -70px;
+    width: 100%;
+    height: 1px;
+}
+
 @media only screen and (max-width: 480px) {
     .body{
         width: 100%;

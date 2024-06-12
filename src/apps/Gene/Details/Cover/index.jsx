@@ -8,7 +8,6 @@ import style from "./cover.module.css";
 export default function Cover({ gene, products }) {
   const { _id, name, synonyms, bnumber, externalCrossReferences, fragments } =
     gene;
-  console.log(fragments);
   return (
     <div className={style.base}>
       <div className={style.title}>
