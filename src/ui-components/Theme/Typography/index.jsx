@@ -83,6 +83,12 @@ export const TYPOGRAPHY = {
     fontWeight: 300,
     color: "#000000",
   },
+  irrelevantB: {
+    fontFamily: "Roboto",
+    fontSize: 14,
+    fontWeight: 400,
+    color: "#000000",
+  },
   button: {
     fontFamily: "Roboto",
     fontSize: 16,

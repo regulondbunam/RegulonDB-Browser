@@ -1,0 +1,57 @@
+.container {
+  padding-left: 5%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.article{
+  width: 75%
+}
+
+.aside{
+  width: 20%;
+}
+
+.headerNavShow {
+  background-color: #f4f5f5;
+  width: 100%;
+  height: 65px;
+  padding-left: 5%;
+  padding-right: 2%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.headerNavHide {
+  display: none;
+}
+
+.headerSticky {
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+.headerNav_LogoRDB {
+  max-height: 20px;
+  max-width: 116px;
+}
+
+.tabHeader {
+  width: 100%;
+  padding-left: 5%;
+  display: flow-root;
+  z-index: 9999;
+}
+
+.tabContent {
+  float: left;
+  padding-right: 1%;
+  font-size: 12px;
+}
+
+.tab_type {
+  color: #666666;
+  font-weight: normal;
+  font-size: 10px;
+}

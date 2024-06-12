@@ -1,0 +1,51 @@
+.FT_header_columnCell{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.FT_headerCell{
+    min-width: 100px;
+}
+
+.FT_headerCell_title{
+    display: flex;
+    justify-content: space-between;
+}
+
+.FT_headerCell_options{
+    display: flex;
+    justify-content: space-between;
+}
+.FT_headerCell_sort{
+    height: 24px;
+}
+.FT_headerCell_sort:hover{
+    cursor: pointer;
+    background-color: #cc9900;
+}
+.FT_headerCell_menu{
+    height: 24;
+    width: 24;
+}
+
+.FT_headerCell_menu:hover{
+    cursor: pointer;
+    background-color: #cc9900;
+}
+
+.FT_headerResize{
+    margin-left: 5px;
+    margin-right: -2px;
+    width: 1px;
+    height: 40px;
+    background-color: #32617d;
+}
+
+.FT_headerResize:hover{
+    width: 3px;
+    cursor:ne-resize;
+    cursor: col-resize;
+    user-select: none;
+    touch-action: none;
+}

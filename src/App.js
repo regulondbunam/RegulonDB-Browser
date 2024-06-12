@@ -11,6 +11,8 @@ import Home from "apps/Home";
 import {PATH_SEARCH} from "apps/Search";
 import { PATH_GENE } from "apps/Gene";
 import { PATH_DTT } from "apps/DrawingTracesTool";
+//old apps
+import Manual from './old_apps/manual';
 
 //routing
 const router = createBrowserRouter([
@@ -29,6 +31,21 @@ const router = createBrowserRouter([
       PATH_SEARCH,
       PATH_GENE,
       PATH_DTT,
+      //old
+      {
+        path: "manual",
+        element: <Manual />,
+        children: [
+          {
+            path: ":site",
+            children: [
+              {
+                path: ":section",
+              }
+            ]
+          }
+        ]
+      },
     ]
   }
 ])

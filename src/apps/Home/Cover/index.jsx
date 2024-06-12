@@ -70,11 +70,18 @@ export default function Cover() {
             </div>
 
             <div className={isMobile ? style.coverContainerMovile : style.coverContainerDesktop} >
-                <Typography variant="h1" color={"white"} sx={{fontSize: "5vw"}} >The RegulonDB Database</Typography>
-                <Typography variant="relevant" sx={{fontSize: "2vw"}} color={"white"}>
-                    Escherichia coli K-12 Transcriptional Regulatory Network
-                </Typography>
-                {!isMobile &&  (
+                <div style={{display: "flex", alignItems: "center"}}>
+                    <div>
+                    <img src="/media/img/logos/unam_white.png" alt="unam logo" className={style.unamLogo} />
+                    </div>
+                    <div>
+                        <Typography variant="h1" color={"white"} sx={{ fontSize: "5vw" }} >The RegulonDB Database</Typography>
+                        <Typography variant="relevant" sx={{ fontSize: "2vw" }} color={"white"}>
+                            Escherichia coli K-12 Transcriptional Regulatory Network
+                        </Typography>
+                    </div>
+                </div>
+                {!isMobile && (
                     <>
                         <InputSearch />
                         <Stack direction="row" spacing={1}>
@@ -92,9 +99,9 @@ export default function Cover() {
                 )}
             </div>
             {isMobile && (
-                <PopularSites sites={searchLinks}  />
+                <PopularSites sites={searchLinks} />
             )}
-            
+
         </Paper>
     )
 }

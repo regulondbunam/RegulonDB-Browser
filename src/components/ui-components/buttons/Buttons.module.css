@@ -1,0 +1,80 @@
+.default {
+  cursor: pointer;
+  background-color: #32617d;
+}
+.default:active {
+  background-color: #72a7c7;
+  box-shadow: 0 0 0px 0 rgba(0, 0, 0, 0);
+}
+
+.accent {
+  cursor: pointer;
+  background-color: #c93a1d;
+}
+.accent:active {
+  box-shadow: 0 0 0px 0 rgba(0, 0, 0, 0);
+}
+
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.button {
+  width: auto;
+  height: 32px;
+  padding-left: 30px;
+  padding-right: 30px;
+
+  display: flex;
+  border: none;
+  outline: none;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+
+  font-family: Arial;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+.button:hover {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.6);
+}
+
+.iconButton {
+  width: 32px;
+  height: 32px;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+
+  font-size: 2vw;
+  color: white;
+}
+.iconButton:hover {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.6);
+}
+
+.dropBox {
+  position: absolute;
+  width: auto;
+  height: auto;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  border: solid 1px #707070;
+  background-color: #d8e4eb;
+  z-index: 1;
+}
+.dropBox:hover {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.747);
+}

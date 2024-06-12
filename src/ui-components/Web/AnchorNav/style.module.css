@@ -1,22 +1,21 @@
 .container{
-    display: flex;
+    display: grid;
+    grid-template-columns: auto auto;
 }
 
 .anchors{
-    width: 15%;
     max-width: 235px;
     margin-right: 15px;
+    position: relative;
+}
+
+.anchorsSticky{
+    position: sticky;
+    top: 0;
 }
 
 .body{
-    width: 70%;
-}
-
-.aside{
-    width: 15%;
-    max-width: 240px;
-    margin-left: 10px;
-
+    margin-right: 15px;
 }
 
 .section{

@@ -3,6 +3,7 @@ import { AccordionHighlight } from '../Accordion'
 import { DataVerifier } from 'ui-components/utils'
 import { Typography } from '@mui/material'
 import Anchors from './Anchors'
+import Controls from './Controls'
 import style from "./style.module.css"
 import { ACTION } from './static'
 import { isMobile } from 'react-device-detect'
@@ -18,7 +19,7 @@ function initSections({ sections = [], showAnchors = true }) {
     })
     return {
         sections: newSections,
-        anchors: showAnchors,
+        hideMenu: !showAnchors,
     }
 }
 
@@ -33,6 +34,8 @@ function reducer(state, action) {
                 })
             });
             return { ...state, sections: newSections }
+        case ACTION.hideMenu:
+            return { ...state, hideMenu: !state.hideMenu }
         default:
             return state
     }
@@ -49,10 +52,15 @@ export default function AnchorNav({
         <div className={style.container}>
             {!isMobile && (
                 <div className={style.anchors} >
-                    <Anchors state={state} dispatch={dispatch} />
+                    <div className={style.anchorsSticky}>
+                        <Controls state={state} dispatch={dispatch} />
+                        {!state.hideMenu && (<>
+                            <Anchors state={state} dispatch={dispatch} />
+                        </>)}
+
+                    </div>
                 </div>
             )}
-
             <div className={style.body}>
                 {DataVerifier.isValidArray(sections) && (
                     <>{state.sections.map((section) => {
@@ -62,7 +70,7 @@ export default function AnchorNav({
                                 <AccordionHighlight
                                     key={section.id}
                                     defaultExpanded={section.expand}
-                                    title={<Typography variant="h2" color={"#ffffff"} >{section.title}</Typography>}
+                                    title={<Typography variant="h2" sx={{ fontSize: "20px" }} color={"#ffffff"} >{section.title}</Typography>}
                                 >
                                     {section.component}
                                 </AccordionHighlight>
@@ -71,12 +79,6 @@ export default function AnchorNav({
                     })}</>
                 )}
             </div>
-            {isMobile && (
-                <div className={style.aside} >
-
-                </div>
-            )}
-
         </div>
     )
 }
