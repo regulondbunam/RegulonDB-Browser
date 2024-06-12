@@ -1,7 +1,6 @@
 import React from 'react'
 import { List, ListItem, ListItemText, ListItemButton, Typography } from '@mui/material'
-import { ACTION } from './static'
-//import style from "./style.module.css"
+
 
 export default function Anchors({ state, dispatch }) {
     const handleGoSection = (id) => {

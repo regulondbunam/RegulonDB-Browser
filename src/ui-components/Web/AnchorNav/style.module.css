@@ -3,6 +3,13 @@
     grid-template-columns: auto auto;
 }
 
+.header{
+    position: sticky;
+    top: 0;
+    height: 0px;
+    max-width: 235px;
+}
+
 .anchors{
     max-width: 235px;
     margin-right: 15px;
@@ -11,7 +18,9 @@
 
 .anchorsSticky{
     position: sticky;
-    top: 0;
+    top: 65px;
+    z-index: 99;
+    background-color: white;
 }
 
 .body{

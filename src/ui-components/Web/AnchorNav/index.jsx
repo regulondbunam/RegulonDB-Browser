@@ -4,6 +4,7 @@ import { DataVerifier } from 'ui-components/utils'
 import { Typography } from '@mui/material'
 import Anchors from './Anchors'
 import Controls from './Controls'
+import Header from './Header'
 import style from "./style.module.css"
 import { ACTION } from './static'
 import { isMobile } from 'react-device-detect'
@@ -67,78 +68,97 @@ function reducer(state, action) {
 export default function AnchorNav({
     sections = [],
     aside = <></>,
-    showAnchors = true
+    showAnchors = true,
+    title = ""
 }) {
     const [state, dispatch] = useReducer(reducer, { sections, showAnchors }, initSections)
     const sectionsRef = useRef([])
+    const headerRef = useRef()
 
     const handleScroll = () => {
         let sectionIndex = null
-        sectionsRef.current.forEach((ref,index) => {
-          if (ref) {
-            const { top } = ref.getBoundingClientRect();
-            if(top <= 0){
-                sectionIndex = index
+        if (state.hideMenu) {
+            return null
+        }
+        sectionsRef.current.forEach((ref, index) => {
+            if (ref) {
+                const { top } = ref.getBoundingClientRect();
+                if (top <= 0) {
+                    sectionIndex = index
+                }
             }
-          }
         });
-        dispatch({type: ACTION.selectSection, sectionIndex: sectionIndex})
-      };
-    
-    useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
+        if(headerRef?.current){
+            const { top } = headerRef.current.getBoundingClientRect();
+            if (top <= 0) {
+                headerRef.current.style.height = "65px"
+            }else{
+                headerRef.current.style.height = "0px"
+            }
+        }
+        dispatch({ type: ACTION.selectSection, sectionIndex: sectionIndex })
+        
     };
-  }, []);
-    
 
-    console.log(state);
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        handleScroll();
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+
+    //console.log(state);
     return (
-        <div className={style.container}>
-            {!isMobile && (
-                <div className={style.anchors} >
-                    <div className={style.anchorsSticky}>
-                        <Controls state={state} dispatch={dispatch} />
-                        {!state.hideMenu && (<>
-                            <Anchors state={state} dispatch={dispatch} />
-                        </>)}
+        <div>
+            {!state.hideMenu && (<div ref={headerRef} className={style.header}>
+                <Header title={title} />
+            </div>)}
+            <div className={style.container}>
+                {!isMobile && (
+                    <div className={style.anchors} >
+                        <div className={style.anchorsSticky}>
+                            <Controls state={state} dispatch={dispatch} />
+                            {!state.hideMenu && (<>
+                                <Anchors state={state} dispatch={dispatch} />
+                            </>)}
 
+                        </div>
                     </div>
-                </div>
-            )}
-            <div className={style.body}>
-                {DataVerifier.isValidArray(sections) && (
-                    <>{state.sections.map((section, index) => {
-                        if (!section.visible) { return null }
-                        return (
-                            <div key={"c_" + index + "_section_" + section.id} className={style.section}>
-                                <div
-                                    ref={el => sectionsRef.current[index] = el}
-                                    className={style.scroll_section}
-                                    id={"scroll_section_" + section.id}
-                                />
-                                <div
-                                    className={style.flag_section}
-                                    id={"init_section_" + section.id}
-                                />
-                                <AccordionHighlight
-                                    key={section.id}
-                                    expanded={section.expand}
-                                    onChange={() => { dispatch({ type: ACTION.expandSection, sectionIndex: index }) }}
-                                    title={<Typography variant="h2" sx={{ fontSize: "20px" }} color={"#ffffff"} >{section.title}</Typography>}
-                                >
-                                    {section.component}
-                                    <div
-                                        className={style.end_flag_section}
-                                        id={"end_section_" + section.id}
-                                    />
-                                </AccordionHighlight>
-                            </div>
-                        )
-                    })}</>
                 )}
+                <div className={style.body}>
+                    {DataVerifier.isValidArray(sections) && (
+                        <>{state.sections.map((section, index) => {
+                            if (!section.visible) { return null }
+                            return (
+                                <div key={"c_" + index + "_section_" + section.id} className={style.section}>
+                                    <div
+                                        ref={el => sectionsRef.current[index] = el}
+                                        className={style.scroll_section}
+                                        id={"scroll_section_" + section.id}
+                                    />
+                                    <div
+                                        className={style.flag_section}
+                                        id={"init_section_" + section.id}
+                                    />
+                                    <AccordionHighlight
+                                        key={section.id}
+                                        expanded={section.expand}
+                                        onChange={() => { dispatch({ type: ACTION.expandSection, sectionIndex: index }) }}
+                                        title={<Typography variant="h2" sx={{ fontSize: "20px" }} color={"#ffffff"} >{section.title}</Typography>}
+                                    >
+                                        {section.component}
+                                        <div
+                                            className={style.end_flag_section}
+                                            id={"end_section_" + section.id}
+                                        />
+                                    </AccordionHighlight>
+                                </div>
+                            )
+                        })}</>
+                    )}
+                </div>
             </div>
         </div>
     )
