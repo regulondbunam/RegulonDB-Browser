@@ -15,12 +15,12 @@ export function updateDataFilter(data, filters = []) {
             const row = data[rowKey]
             switch (filter.type) {
                 case FILTER.TYPES.ONLY_CONTENT:
-                    if (onlyContentFilter(row, filter.columnLabel)) {
+                    if (onlyContentFilter(row, filter.columnKey)) {
                         rowsKeyFilter.add(rowKey)
                     }
                     break;
                 case FILTER.TYPES.TEXT:
-                    if (textFilter(filter.value, row, filter.columnLabel)) {
+                    if (textFilter(filter.value, row, filter.columnKey)) {
                         rowsKeyFilter.add(rowKey)
                     }
                     break;

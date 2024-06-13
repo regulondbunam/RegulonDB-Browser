@@ -1,0 +1,53 @@
+{
+  "//comentstoPancho": "-- agregar los todo el contenido estatico ",
+  "_layers": "Este objeto se utiliza para establecer las coordenadas correspondientes a cada capa.",
+  "layers": {
+    "transcription_factor": {
+      "x": 0,
+      "y": 0,
+      "numberReactions": 0
+    },
+    "transcription": {
+      "x": 0,
+      "y": -300,
+      "numberReactions": 0
+    },
+    "translation": {
+      "x": 0,
+      "y": -600,
+      "numberReactions": 0
+    },
+    "state transition": {
+      "x": 0,
+      "y": -900,
+      "numberReactions": 0
+    },
+    "transport": {
+      "x": 0,
+      "y": -1200,
+      "numberReactions": 0
+    }
+  },
+  "_externalPrefix": "Es la cadena que identifica los nodos que van fuera de la membrana.",
+  "externalPrefix": "_Ext",
+  "_childNodeSpace": "Espacio que se debe dejar entre los nodos hijos y el nodo de la reacción (es decir, de forma vertical)",
+  "childNodeSpace": 100,
+  "_spaceReactionNodes": "Espacio que se tiene que dejar entre los de las reacciones ('es decir, de forma horizontal')",
+  "spaceReactionNodes": 200,
+  "_nodeStyles": "Diccionario que define las clases que se le van a asignar a los nodos, dependiendo de la propiedad type",
+  "nodeStyles": {
+    "complex": "complex",
+    "simple_molecule": "simple chemical",
+    "reactions": "process",
+    "default": "macromolecule"
+  },
+  "_rowStyles": "Diccionario que define las clases que se le van a asignar a los nodos de las flechas, dependiendo de la funcion del elemento en la reaccion",
+  "rowStyles": {
+    "product": "production",
+    "activator": "stimulation",
+    "catalyzer": "catalysis",
+    "inhibitor": "inhibition",
+    "reactant": "consumption",
+    "default": "necessary stimulation"
+  }
+}

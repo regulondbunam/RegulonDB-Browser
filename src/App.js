@@ -14,6 +14,8 @@ import { PATH_DTT } from "apps/DrawingTracesTool";
 //old apps
 import Manual from './old_apps/manual';
 import Coexpression from "./old_apps/coexpression"
+import GensorUnit from "./old_apps/gensorUnit"
+
 
 
 //routing
@@ -55,6 +57,14 @@ const router = createBrowserRouter([
           {path: ":genesId"}
         ]
       },
+      {
+        path: "gu",
+        element: <GensorUnit />,
+        children: [
+          { path: ":guId" }
+        ]
+      },
+
 
     ]
   }

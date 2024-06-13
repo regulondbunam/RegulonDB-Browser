@@ -39,6 +39,7 @@ export default function Filters(props) {
     const handleNewFilter = () => {
         setFilters([...filters, {
             columnLabel: props.column.label,
+            columnKey: props.column.key,
             key: "textFilter_" + (filters.length + 1) + "_" + props.column.key,
             type: props.column.filterType,
             index: filters.length + 1,
@@ -92,7 +93,7 @@ function FormTextFilter(props) {
         }
 
         if (DataVerifier.isValidString(filterValue)) {
-            setTextFilter(filterValue, column.label, state, dispatch, logicConnector)
+            setTextFilter(filterValue, column,  state, dispatch, logicConnector)
         }else{
             deleteTextFilter(filter.key,state,dispatch)
         }
@@ -144,7 +145,7 @@ async function createListOptions(state, column) {
     const data = new Set();
     Object.keys(state.data).forEach((key, index) => {
         const row = state.data[key]
-        const value = getCellValue(row, column.label)
+        const value = getCellValue(row, column.key)
         if (DataVerifier.isValidValue(value)) {
             data.add(value + "")
         }

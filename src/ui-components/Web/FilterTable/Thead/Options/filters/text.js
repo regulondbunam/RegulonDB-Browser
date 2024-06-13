@@ -10,12 +10,13 @@ export function textFilter(filterValue, row, columnLabel) {
     return false
 }
 
-export function setTextFilter(value,columnLabel,state,dispatch,logicConnector){
+export function setTextFilter(value,column,state,dispatch,logicConnector){
     const index = state.filters.length
-    const filterKey = "type_"+FILTER.TYPES.TEXT+"_"+columnLabel+"_"+index
+    const filterKey = "type_"+FILTER.TYPES.TEXT+"_"+column.label+"_"+index
     if (DataVerifier.isValidString(value)) {
         const newFilter = {
-            columnLabel: columnLabel,
+            columnLabel: column.label,
+            columnKey: column.key,
             key: filterKey,
             type: FILTER.TYPES.TEXT,
             index: index,
