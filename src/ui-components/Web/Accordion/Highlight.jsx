@@ -11,7 +11,7 @@ export default function AccordionHighlight({
         title, 
         defaultExpanded, 
         expanded, 
-        onChange = () => { }, 
+        onChange, 
         level = 0 
     }) {
     const colorLevel = ["#47718a", "#61859c", "#7b9bb0", "#9db8c9"]
