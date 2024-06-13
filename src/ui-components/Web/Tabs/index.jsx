@@ -78,17 +78,15 @@ import React, { useState } from "react";
 import Style from "./info.module.css";
 import Box from "@mui/material/Box";
 
-import { headerStyle, StyledTab, StyledTabs } from "./style"
-
+import { headerStyle, StyledTab, StyledTabs } from "./style";
 
 /**
  * Description placeholder
  *
  * @type {"regulonDBNavTabs"}
  */
-const idNavTabs = "regulonDBNavTabs"
-export { idNavTabs }
-
+const idNavTabs = "regulonDBNavTabs";
+export { idNavTabs };
 
 /**
  * Description placeholder
@@ -97,13 +95,11 @@ export { idNavTabs }
  * @returns {*}
  */
 export default function Tabs({ tabSelect = "init", tabs = [], title = "" }) {
-
   const [value, setValue] = useState(tabSelect);
 
-  
   /**
-   * Description placeholder 
-   *  
+   * Description placeholder
+   *
    * @param {*} event
    * @param {*} newValue
    */
@@ -124,7 +120,6 @@ export default function Tabs({ tabSelect = "init", tabs = [], title = "" }) {
               aria-label="styled tabs example"
             >
               {tabs.map(
-                
                 /**
                  * Description placeholder
                  *
@@ -133,24 +128,25 @@ export default function Tabs({ tabSelect = "init", tabs = [], title = "" }) {
                  * @returns {*}
                  */
                 (tab, index) => {
-                if (tab.noTab) {
-                  return null
+                  if (tab.noTab) {
+                    return null;
+                  }
+                  const TabElement = (
+                    <div>
+                      {tab.subtitle && <div>{tab.subtitle}</div>}
+                      <div className={Style.tab_name}>{tab.name}</div>
+                    </div>
+                  );
+                  return (
+                    <StyledTab
+                      disabled={tab.disabled}
+                      value={tab.id}
+                      key={`operon_tab${index}_${tab.id}`}
+                      icon={TabElement}
+                    />
+                  );
                 }
-                const TabElement = (
-                  <div >
-                    {tab.subtitle && (<div>{tab.subtitle}</div>)}
-                    <div className={Style.tab_name}>{tab.name}</div>
-                  </div>
-                );
-                return (
-                  <StyledTab
-                    disabled={tab.disabled}
-                    value={tab.id}
-                    key={`operon_tab${index}_${tab.id}`}
-                    icon={TabElement}
-                  />
-                );
-              })}
+              )}
             </StyledTabs>
           </Box>
         </div>
@@ -158,41 +154,19 @@ export default function Tabs({ tabSelect = "init", tabs = [], title = "" }) {
       <div>
         <div>
           <div>
-            {tabs.map(
-              
-              /**
-               * Description placeholder
-               *
-               * @param {*} tab
-               * @param {*} index
-               * @returns {*}
-               */
-              (tab, index) => {
-              if (tab.position === "head") {
-                return (
-                  <div key={"component_" + tab.id + "_" + index} id={tab.id}>
-                    {tab.component}
-                  </div>
-                )
-              }
-              return null
+            {tabs.map((tab, index) => {
+              return (
+                <div
+                  key={"component_" + tab.id + "_" + index + "_"}
+                  style={{ display: tab.id === value ? "" : "none" }}
+                >
+                  {tab.component}
+                </div>
+              );
             })}
-          </div>
-          <div >
-              {tabs.map((tab, index) => {
-                if (tab.id===value) {
-                  return (
-                    <div key={"component_" + tab.id + "_" + index} id={tab.id}>
-                      {tab.component}
-                    </div>
-                  )
-                }
-                return null
-              })}
           </div>
         </div>
       </div>
     </div>
   );
 }
-

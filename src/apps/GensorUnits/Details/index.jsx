@@ -57,7 +57,7 @@ export default function GensorUnitDetails({ guId }) {
                 tabs={[
                     {id: "guTab01",
                         name:"Reaction Map",
-                        component: <div id="guContainer" style={{height:"100%"}} >
+                        component: <div id="guContainer" style={{width:"100%", height: "90vh"}} >
                             <Map {...guData} idContainer={"guContainer"}/>
                         </div>
                     },
