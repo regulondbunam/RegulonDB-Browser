@@ -100,7 +100,6 @@ __Return:__
 
 **/
 import React from "react";
-import "./uiComponents_cover.css";
 
 export function Cover({ children, coverId = "uiCover", state, message, coverStyle={}, messageStyle = {}, coverBackgroundStile = {}  }) {
   let coverSTL = "uicover_background";

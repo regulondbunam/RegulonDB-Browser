@@ -11,10 +11,11 @@ import Home from "apps/Home";
 import {PATH_SEARCH} from "apps/Search";
 import { PATH_GENE } from "apps/Gene";
 import { PATH_DTT } from "apps/DrawingTracesTool";
+import { PATH_GU } from "apps/GensorUnits";
 //old apps
 import Manual from './old_apps/manual';
 import Coexpression from "./old_apps/coexpression"
-import GensorUnit from "./old_apps/gensorUnit"
+//import GensorUnit from "./old_apps/gensorUnit"
 
 
 
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
       PATH_SEARCH,
       PATH_GENE,
       PATH_DTT,
+      PATH_GU,
       //old
       {
         path: "manual",
@@ -55,13 +57,6 @@ const router = createBrowserRouter([
         element: <Coexpression />,
         children:[
           {path: ":genesId"}
-        ]
-      },
-      {
-        path: "gu",
-        element: <GensorUnit />,
-        children: [
-          { path: ":guId" }
         ]
       },
 

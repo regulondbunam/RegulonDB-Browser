@@ -24,7 +24,7 @@ function Loading() {
   );
 }
 
-export default function Reactions({ reactions, nodes }) {
+function Reactions({ reactions, nodes }) {
   const [indxReaction, serIndxReaction] = useState(0);
   const handleChange = (event, value) => {
     //console.log(value);

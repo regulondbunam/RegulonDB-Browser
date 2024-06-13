@@ -22,6 +22,7 @@ export default function Summary({
             id: "gi_section1_reactions",
             label: `Reactions (${reactions.length})`,
             title: `Reactions (${reactions.length})`,
+            visible: true,
             component: (
               <div >
                 <Table reactions={reactions} />
@@ -34,6 +35,7 @@ export default function Summary({
             id: "gi_section2_geneOntology",
             label: `Gene Ontology`,
             title: `Gene Ontology`,
+            visible: true,
             component: (
               <div >
                <GeneOntology {...gensorUnit.geneOntology}/>

@@ -72,7 +72,7 @@ export default function Filters(props) {
 }
 
 function FormTextFilter(props) {
-    const { state, column, dispatch, index, filter, filterIndex, handleClose, options } = props
+    const { state, column, dispatch, /*index,*/ filter, filterIndex, handleClose, options } = props
     const filterKey = "textFilter_" + filterIndex + "_" + column.key
     //const [logicConnector, setLogicConnector] = useState(filter?.logicConnector ? filter?.logicConnector : FILTER.LOGIC_CONNECTOR.OR)
     //const logicConnector = filter?.logicConnector ? filter?.logicConnector : FILTER.LOGIC_CONNECTOR.OR
