@@ -32,12 +32,12 @@ export function getCellValue(row, key) {
     if (typeof (row[key]) === "object") {
         if (row[key]?.props) {
             if (row[key].props?.value) {
-                return row[key].props?.value
+                return String(row[key].props?.value)
             } else {
                 console.warn("cell react object has no value as a props");
             }
         }
     } else {
-        return row[key]
+        return String(row[key])
     }
 }
