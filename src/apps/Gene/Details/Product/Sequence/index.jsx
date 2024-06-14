@@ -20,19 +20,18 @@ function reducer(state, action) {
             return { ...state, fontSize: action.fontSize }
         case OPTION.viewMotifs:
             return { ...state, viewMotifs: !state.viewMotifs };
-        /*
-      case OPTIONS.countItems:
-        return { ...state, countItems: !state.countItems };
-      case OPTIONS.fasta_CharactersPerLine:
-        return { ...state, fasta_CharactersPerLine: action.value };
-      case OPTIONS.setFragment:
-        return {
-          ...state,
-          name: action.fragment.name,
-          sequence: action.fragment.sequence,
-          indexFragment: action.indexFragment,
-        };
-        */
+        case OPTION.highlightMotif:{
+            console.log(action.id);
+            return {...state, showMotifsId:[...state.showMotifsId, action.id]}
+        }
+        case OPTION.unHighlightMotif:{
+            let ids = state.showMotifsId
+            let hIndex = state.showMotifsId.findIndex(id=>id===action.id)
+            if (hIndex > -1) {
+                ids.splice(hIndex,1)
+            }
+            return {...state, showMotifsId:ids}
+        }
         default:
             return state;
     }
@@ -47,7 +46,7 @@ function initState({ motifs = [] }) {
         // Obtener o generar color para el tipo de motif
         let color = colorMotifs[motif.type];
         if (!color) {
-            color = generateUniquePastelColor(colors, 150).toRGBA;
+            color = generateUniquePastelColor(colors, 150).toHex;
             colors.push(color);
             colorMotifs[motif.type] = color;
         }
@@ -77,6 +76,7 @@ function initState({ motifs = [] }) {
 
 export default function Sequence({ sequence, motifs, name }) {
     const [state, dispatch] = useReducer(reducer, { motifs }, initState)
+    console.log(state.showMotifsId);
     return (
         <div style={{ marginTop: "10px" }} >
             <Typography variant='h4' fontSize={"18px"} sx={{ fontWeight: "400" }} >Sequence</Typography>

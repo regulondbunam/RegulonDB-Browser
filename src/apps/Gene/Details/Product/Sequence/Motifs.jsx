@@ -1,15 +1,14 @@
 import React, { useMemo, forwardRef, useState } from 'react'
-import { Typography, Switch, FormControlLabel, Checkbox, IconButton, Tooltip, Stack, Snackbar, Button, ButtonGroup } from '@mui/material'
+import { Typography, Switch, FormControlLabel, Checkbox, IconButton, Tooltip, Stack, Snackbar, Button, ButtonGroup, Box } from '@mui/material'
 import MuiAlert from "@mui/material/Alert";
 import { OPTION } from './static'
 import ContentCopy from '@mui/icons-material/ContentCopy'
 import FilterTable from 'ui-components/Web/FilterTable'
 import RadioButtonUnchecked from '@mui/icons-material/RadioButtonUnchecked';
 import CheckCircleOutline from '@mui/icons-material/CheckCircleOutline';
-import FontDownloadIcon from '@mui/icons-material/FontDownload';
+import ColorPicker from 'ui-components/Web/ColorPicker';
 
 export default function Motifs(props) {
-    const handleChange = () => { }
     return (
         <div>
             <Typography variant='h4' fontSize={"18px"} sx={{ fontWeight: "400" }} >Motifs</Typography>
@@ -19,87 +18,35 @@ export default function Motifs(props) {
     )
 }
 
-const Alert = forwardRef(
-    /**
-     * Description placeholder
-     *
-     * @param {*} props - The props passed by the parent component.
-     * @param {*} ref - The ref attribute passed by the parent component
-     * @returns {React.JSX}
-     */
-    function Alert(props, ref) {
-        return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-    }
-);
 
 function MotifList({ dispatch, state, }) {
 
-    const [snackOpen, setSnackOpen] = useState(false);
-
-    const table = useMemo(() => {
-        let table = {
-            columns: [
-                { key: "control", label: "options" },
-                { key: "type", label: "Type" },
-                { key: "poss", label: "Positions" },
-                { key: "notes", label: "Notes" },
-                { key: "sequence", label: "Sequence" },
-
-            ],
-            data: []
+    const handleChangeColor = (color, id) => {
+        if (state.showMotifsId.find(motifId => motifId === id)) {
+            const spanMotif = document.getElementById("motif_" + id)
+            if (spanMotif) {
+                spanMotif.style.backgroundColor = color
+            }
         }
-        Object.keys(state.motifs).forEach(key => {
-            const motif = state.motifs[key]
-            table.data.push({
-                control: <div value={motif.sequence}>
-                    <div style={{display: "grid", gridTemplateColumns: "auto auto auto"}}>
-                        <Tooltip title="copy sequence" placement="left-start" >
-                            <Button
-                             variant="outlined" size='small'
-                            onClick={
-                                (e) => {
-                                    navigator.clipboard.writeText(motif.sequence);
-                                    handleOpenSnack();
-                                }}
-                        >
-                            <ContentCopy />
-                        </Button>
-                        </Tooltip>
-                        <Tooltip title="set color" placement="left-start" >
-                            <Button
-                             variant="outlined" size='small'
-                            onClick={
-                                (e) => {
-                                    navigator.clipboard.writeText(motif.sequence);
-                                    handleOpenSnack();
-                                }}
-                        >
-                            <FontDownloadIcon />
-                        </Button>
-                        </Tooltip>
-                        <Tooltip title="show in sequence" placement="left-start" >
-                            <Button
-                             variant="outlined" size='small'
-                            onClick={
-                                (e) => {
-                                    navigator.clipboard.writeText(motif.sequence);
-                                    handleOpenSnack();
-                                }}
-                        >
-                            {state.showMotifsId.find(id=>id===key) ? <CheckCircleOutline /> : <RadioButtonUnchecked />}
-                        </Button>
-                        </Tooltip>
-                    </div>
-                </div>,
-                type: motif?.type ? motif.type : "",
-                poss: `${motif.leftEndPosition} - ${motif.rightEndPosition}`,
-                notes: motif?.note ? motif.note : "",
-                sequence: motif?.sequence ? motif.sequence : "",
-            })
-        })
-        return table
-    }, [state])
+    }
 
+    const handleHighlightMotif = (id,color) => {
+        const spanMotif = document.getElementById("motif_" + id)
+        if (spanMotif) {
+            spanMotif.style.backgroundColor = color
+        }
+        dispatch({ type: OPTION.highlightMotif, id: id })
+
+    }
+    const unHandleHighlightMotif = (id) => {
+        const spanMotif = document.getElementById("motif_" + id)
+        if (spanMotif) {
+            spanMotif.style.backgroundColor = 'inherit'
+        }
+        dispatch({ type: OPTION.unHighlightMotif, id: id })
+    }
+
+    const [snackOpen, setSnackOpen] = useState(false);
 
     const handleChange = () => { }
 
@@ -112,6 +59,69 @@ function MotifList({ dispatch, state, }) {
         }
         setSnackOpen(false);
     };
+
+    let table = {
+        columns: [
+            { key: "control", label: "options", options: false },
+            { key: "type", label: "Type" },
+            { key: "poss", label: "Positions" },
+            { key: "notes", label: "Notes" },
+            { key: "sequence", label: "Sequence" },
+        ],
+        data: []
+    }
+    Object.keys(state.motifs).forEach(key => {
+        const motif = state.motifs[key]
+        const showMotif = state.showMotifsId.find(id => id === key)
+        table.data.push({
+            control: <div value={motif.sequence}>
+                <div style={{ display: "grid", gridTemplateColumns: "auto auto auto", gap: "10px" }}>
+                    <Tooltip title="show in sequence" placement="bottom" >
+                        <Button
+                            variant="outlined" size='small'
+                            sx={{
+                                minWidth: "50px"
+                            }}
+                            onClick={() => {
+                                if (!showMotif) {
+                                    handleHighlightMotif(motif._id, motif.color)
+                                } else {
+                                    unHandleHighlightMotif(motif._id)
+                                }
+                            }}
+                        >
+                            {showMotif ? <CheckCircleOutline /> : <RadioButtonUnchecked />}
+                        </Button>
+                    </Tooltip>
+                    <Tooltip title="copy motif sequence" placement="bottom" >
+                        <Button
+                            variant="outlined" size='small'
+                            sx={{
+                                minWidth: "50px"
+                            }}
+                            onClick={
+                                (e) => {
+                                    navigator.clipboard.writeText(motif.sequence);
+                                    handleOpenSnack();
+                                }}
+                        >
+                            <ContentCopy />
+                        </Button>
+                    </Tooltip>
+                    <Tooltip title="set color" placement="bottom" >
+                        <Box>
+                            <ColorPicker setColor={(color) => { handleChangeColor(color, motif._id) }} color={motif.color} />
+                        </Box>
+                    </Tooltip>
+
+                </div>
+            </div>,
+            type: motif?.type ? motif.type : "",
+            poss: `${motif.leftEndPosition} - ${motif.rightEndPosition}`,
+            notes: motif?.note ? motif.note : "",
+            sequence: motif?.sequence ? motif.sequence : "",
+        })
+    })
 
     return (
         <div>
@@ -136,17 +146,13 @@ function MotifList({ dispatch, state, }) {
 }
 
 
-function MotifsOptions({ dispatch, state }) {
-    /*
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
+const Alert = forwardRef(
+    function Alert(props, ref) {
+        return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+    }
+);
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-      };
-      const handleClose = () => {
-        setAnchorEl(null);
-      };*/
+function MotifsOptions({ dispatch, state }) {
 
     const handleChange = () => {
         dispatch({ type: OPTION.viewMotifs })
