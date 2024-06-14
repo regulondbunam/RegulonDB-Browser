@@ -23,7 +23,6 @@ export default function GensorUnitDetails({ guId }) {
     }
     if (DataVerifier.isValidObjectWith_id(guData)) {
         const { gensorUnit } = guData
-        console.log(guData);
         return (
             <div>
                 <Cover>

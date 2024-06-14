@@ -26,6 +26,30 @@ export function FastaSequence({
   );
 }
 
+export function ProteinSequence({
+  id = "rdb_protein_sequence",
+  sequence,
+  color = false,
+  title = "",
+  countItems = false,
+  viewMotifs = false,
+  motifs,
+  fontSize ="12px"
+}) {
+  let formatSequence = new Format(sequence, title, { countItems: countItems });
+  return (
+    <Typography variant="sequence" fontSize={fontSize} >
+      <span
+        id={id}
+        style={{whiteSpace: "nowrap"}}
+        dangerouslySetInnerHTML={{
+          __html: formatSequence.getProteinFormat({ color: color, motifs: viewMotifs ? motifs : [] }),
+        }}
+      />
+    </Typography>
+  );
+}
+
 export function GenebankSequence({
   id = "rdb_p_sequence",
   sequence,

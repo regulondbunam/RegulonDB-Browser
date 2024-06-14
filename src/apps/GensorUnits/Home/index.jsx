@@ -137,8 +137,8 @@ export default function Home() {
     return (
         <div>
             <Cover>
-            <Typography variant="h1" >Gensor Unit</Typography>
-        </Cover>
+                <Typography variant="h1" >Gensor Unit</Typography>
+            </Cover>
             <div style={{ margin: "0 10% 0 5%" }}>
                 <FormControl variant="standard" sx={{ minWidth: 120 }} size="small">
                     <InputLabel id="demo-select-small-label">Gensor Unit grouped by </InputLabel>
@@ -157,23 +157,23 @@ export default function Home() {
             </div>
             <div >
                 {format === "Functionality" ? (
-                    <ByGU gusData={gusData} />
-                ):(
                     <ByGroups gusData={gusData} />
+                ) : (
+                    <ByGU gusData={gusData} />
                 )}
             </div>
         </div>
     );
 }
 
-function ByGU({gusData}) {
+function ByGU({ gusData }) {
     const table = useMemo(() => {
         return formatDataByGensorUnit(gusData);
     }, [gusData]);
-    return <FilterTable {...table} items={20} tableName="Grouped by gensor unit"/>
+    return <FilterTable {...table} items={20} tableName="Grouped by gensor unit" />
 }
 
-function ByGroups({gusData}) {
+function ByGroups({ gusData }) {
     const table = useMemo(() => {
         return formatDataByGroup(gusData);
     }, [gusData]);

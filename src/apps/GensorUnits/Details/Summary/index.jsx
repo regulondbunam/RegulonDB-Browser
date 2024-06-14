@@ -9,7 +9,8 @@ export default function Summary({ reactions, geneOntology, components }) {
       <TableReactions reactions={reactions} />
       <br />
       <GeneOntology {...geneOntology} />
-      
+      <br />
+      <br />
     </div>
   );
 }

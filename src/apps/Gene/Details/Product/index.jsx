@@ -18,7 +18,7 @@ export default function Product({
   isoelectricPoint,
   molecularWeight,
   motifs,
-  //name,
+  name,
   note,
   regulonId,
   sequence,
@@ -114,7 +114,7 @@ export default function Product({
       {DataVerifier.isValidString(note) && (
         <AccordionHighlight
           title={
-            <Typography variant="h3" color={"#ffffff"}>
+            <Typography variant="h3" fontSize={"18px"} color={"#ffffff"}>
               Note
             </Typography>
           }
@@ -126,14 +126,14 @@ export default function Product({
       {DataVerifier.isValidString(sequence) && (
         <AccordionHighlight
           title={
-            <Typography variant="h3" color={"#ffffff"}>
+            <Typography variant="h3" fontSize={"18px"} color={"#ffffff"}>
               Features
             </Typography>
           }
           defaultExpanded={true}
           level={1}
         >
-          <Sequence sequence={sequence} motifs={motifs} />
+          <Sequence sequence={sequence} motifs={motifs} name={name} />
         </AccordionHighlight>
       )}
       {/**
