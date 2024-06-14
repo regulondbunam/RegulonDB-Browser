@@ -29,12 +29,10 @@ export function FastaSequence({
 export function ProteinSequence({
   id = "rdb_protein_sequence",
   sequence,
-  color = false,
   title = "",
   countItems = false,
-  viewMotifs = false,
-  motifs,
-  fontSize ="12px"
+  fontSize ="12px",
+  motifTagPositions
 }) {
   let formatSequence = new Format(sequence, title, { countItems: countItems });
   return (
@@ -43,7 +41,7 @@ export function ProteinSequence({
         id={id}
         style={{whiteSpace: "nowrap"}}
         dangerouslySetInnerHTML={{
-          __html: formatSequence.getProteinFormat({ color: color, motifs: viewMotifs ? motifs : [] }),
+          __html: formatSequence.getProteinFormat({ motifTagPositions: motifTagPositions }),
         }}
       />
     </Typography>

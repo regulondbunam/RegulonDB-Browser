@@ -106,16 +106,16 @@ export default class Formats {
         return `>${this.title}|${this.getStrInfoSequence()}<br>${sequenceFormat}`
     }
 
-    getProteinFormat({ color = false, motifs = [] }) {
+    getProteinFormat({ motifTagPositions=[] }) {
         const spaceNumber = this.size.toString().length
         let count = 0, innerCount = 0, line = ''
         let sequenceFormat = this.sequence.map((x, index) => {
-            if (color) {
-                x = this.putColor(x)
-            }
             count += 1
             innerCount += 1
             line = ''
+            if (motifTagPositions[index]) {
+                x += motifTagPositions[index]
+            }
             if (count === 1) {
                 // console.log(spaceNumber)
                 for (let i = 0; i < spaceNumber - (index.toString().length); i++) {
