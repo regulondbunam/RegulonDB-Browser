@@ -27,6 +27,7 @@ export default function Tbody({
               className={selection === "row" ? style.tr : ""}
               onMouseEnter={rowProperties?.onMouseEnter}
               onMouseLeave={rowProperties?.onMouseLeave}
+              onClick={rowProperties?.onClick}
             >
               {state.columns.map((column) => {
                 if (column.hide) {

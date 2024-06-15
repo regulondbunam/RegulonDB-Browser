@@ -6,3 +6,17 @@ export const OPTION = {
     highlightMotif: 4,
     unHighlighMotif: 5,
 }
+
+export const handleHighlightMotif = (id, color) => {
+    const spanMotif = document.getElementById("motif_" + id)
+    if (spanMotif) {
+        spanMotif.style.backgroundColor = color
+    }
+}
+
+export const unHandleHighlightMotif = (id) => {
+    const spanMotif = document.getElementById("motif_" + id)
+    if (spanMotif) {
+        spanMotif.style.backgroundColor = 'inherit'
+    }
+}

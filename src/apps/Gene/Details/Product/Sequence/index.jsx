@@ -2,7 +2,7 @@ import React, { useReducer } from 'react'
 import { Typography } from '@mui/material'
 import { ProteinSequence } from 'ui-components/utils/Sequences'
 import Controls from './Controls'
-import { OPTION } from './static'
+import { OPTION, handleHighlightMotif, unHandleHighlightMotif } from './static'
 import { generateUniquePastelColor } from 'ui-components/utils'
 import Motifs from './Motifs'
 
@@ -19,9 +19,16 @@ function reducer(state, action) {
         case OPTION.fontSize:
             return { ...state, fontSize: action.fontSize }
         case OPTION.viewMotifs:
-            return { ...state, viewMotifs: !state.viewMotifs };
+            const ids = [...Object.keys(state.motifs)]
+
+            if (state.viewMotifs) {
+                ids.forEach(id=>unHandleHighlightMotif(id))
+                return { ...state, viewMotifs: false, showMotifsId: [] };
+            }else{
+                ids.forEach(id=>handleHighlightMotif(id,state.motifs[id].color))
+                return { ...state, viewMotifs: true, showMotifsId: ids };
+            }
         case OPTION.highlightMotif:{
-            console.log(action.id);
             return {...state, showMotifsId:[...state.showMotifsId, action.id]}
         }
         case OPTION.unHighlightMotif:{
@@ -76,8 +83,8 @@ function initState({ motifs = [] }) {
 
 export default function Sequence({ sequence, motifs, name }) {
     const [state, dispatch] = useReducer(reducer, { motifs }, initState)
-    console.log(state.showMotifsId);
-    return (
+    //console.log(state);
+    return  (
         <div style={{ marginTop: "10px" }} >
             <Typography variant='h4' fontSize={"18px"} sx={{ fontWeight: "400" }} >Sequence</Typography>
             <Controls state={state} dispatch={dispatch} />

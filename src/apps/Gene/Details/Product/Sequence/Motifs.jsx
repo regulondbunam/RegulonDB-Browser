@@ -6,7 +6,7 @@ import ContentCopy from '@mui/icons-material/ContentCopy'
 import FilterTable from 'ui-components/Web/FilterTable'
 import RadioButtonUnchecked from '@mui/icons-material/RadioButtonUnchecked';
 import CheckCircleOutline from '@mui/icons-material/CheckCircleOutline';
-import ColorPicker from 'ui-components/Web/ColorPicker';
+//import ColorPicker from 'ui-components/Web/ColorPicker';
 
 export default function Motifs(props) {
     return (
@@ -21,23 +21,23 @@ export default function Motifs(props) {
 
 function MotifList({ dispatch, state, }) {
 
-    const handleChangeColor = (color, id) => {
+    /*const handleChangeColor = (color, id) => {
         if (state.showMotifsId.find(motifId => motifId === id)) {
             const spanMotif = document.getElementById("motif_" + id)
             if (spanMotif) {
                 spanMotif.style.backgroundColor = color
             }
         }
-    }
+    }*/
 
-    const handleHighlightMotif = (id,color) => {
+    const handleHighlightMotif = (id, color) => {
         const spanMotif = document.getElementById("motif_" + id)
         if (spanMotif) {
             spanMotif.style.backgroundColor = color
         }
         dispatch({ type: OPTION.highlightMotif, id: id })
-
     }
+
     const unHandleHighlightMotif = (id) => {
         const spanMotif = document.getElementById("motif_" + id)
         if (spanMotif) {
@@ -48,7 +48,7 @@ function MotifList({ dispatch, state, }) {
 
     const [snackOpen, setSnackOpen] = useState(false);
 
-    const handleChange = () => { }
+    //const handleChange = () => { }
 
     const handleOpenSnack = () => {
         setSnackOpen(true);
@@ -108,11 +108,6 @@ function MotifList({ dispatch, state, }) {
                             <ContentCopy />
                         </Button>
                     </Tooltip>
-                    <Tooltip title="set color" placement="bottom" >
-                        <Box>
-                            <ColorPicker setColor={(color) => { handleChangeColor(color, motif._id) }} color={motif.color} />
-                        </Box>
-                    </Tooltip>
 
                 </div>
             </div>,
@@ -120,6 +115,32 @@ function MotifList({ dispatch, state, }) {
             poss: `${motif.leftEndPosition} - ${motif.rightEndPosition}`,
             notes: motif?.note ? motif.note : "",
             sequence: motif?.sequence ? motif.sequence : "",
+            _properties: {
+                onMouseEnter: () => {
+                    const spanMotif = document.getElementById("motif_" + motif._id)
+                    if (spanMotif) {
+                        spanMotif.style.backgroundColor = motif.color
+                    }
+                },
+                onMouseLeave: () => {
+                    const showMotif = state.showMotifsId.find(id => id === motif._id)
+                    if (!showMotif) {
+                        const spanMotif = document.getElementById("motif_" + motif._id)
+                        if (spanMotif) {
+                            spanMotif.style.backgroundColor = 'inherit'
+                        }
+                    }
+
+                },
+                onClick: () => {
+                    const showMotif = state.showMotifsId.find(id => id === motif._id)
+                    if (!showMotif) {
+                        handleHighlightMotif(motif._id, motif.color)
+                    } else {
+                        unHandleHighlightMotif(motif._id)
+                    }
+                }
+            },
         })
     })
 
@@ -164,3 +185,11 @@ function MotifsOptions({ dispatch, state }) {
         <FormControlLabel control={<Switch {...label} checked={state.viewMotifs} onChange={handleChange} />} label="view all motifs" />
     )
 }
+
+/*
+<Tooltip title="set color" placement="bottom" >
+                        <Box>
+                            <ColorPicker setColor={(color) => { handleChangeColor(color, motif._id) }} color={motif.color} />
+                        </Box>
+                    </Tooltip>
+*/
