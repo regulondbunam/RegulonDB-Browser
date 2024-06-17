@@ -5,7 +5,8 @@ import { AccordionHighlight } from "ui-components/Web/Accordion";
 import Note from "ui-components/Web/Note";
 import { indexedReferences } from "ui-components/utils/References";
 import Sequence from "./Sequence";
-import { GeneOntologyTerms } from "ui-components/Web/DatamartSchema";
+import { GeneOntologyTerms, ExternalCrossReferences } from "ui-components/Web/DatamartSchema";
+import { ParagraphCitations } from "ui-components/Web/Citations";
 
 export default function Product({
   _id,
@@ -151,11 +152,24 @@ export default function Product({
           <GeneOntologyTerms geneOntologyTerms={geneOntologyTerms} pageReferences={references} allCitations={allCitations} />
         </AccordionHighlight>
       )}
-      {/**
-       * Terms
-       * external references
-       * citations
-       */}
+      {DataVerifier.isValidArray(externalCrossReferences)&& (
+        <div>
+          <br />
+          <Typography variant="h3" fontSize={"18px"} >
+            External References
+          </Typography>
+          <ExternalCrossReferences externalCrossReferences={externalCrossReferences} />
+        </div>
+      )}
+      {DataVerifier.isValidArray(citations)&& (
+        <div>
+          <br />
+          <Typography variant="h3" fontSize={"18px"} >
+            Citations
+          </Typography>
+          <ParagraphCitations citations={citations} references={references} />
+        </div>
+      )}
     </div>
   );
 }

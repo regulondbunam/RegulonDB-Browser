@@ -1,3 +1,4 @@
 import GeneOntologyTerms from "./GeneOntologyTerms";
+import { ExternalCrossReference, ExternalCrossReferences } from "./ExternalCrossReferences";
 
-export {GeneOntologyTerms}
+export {GeneOntologyTerms, ExternalCrossReference, ExternalCrossReferences}

@@ -43,7 +43,7 @@ export default function ParagraphCitations({
 
 
   function formatParagraph(citations, indexedCitations) {
-    console.log(citations, indexedCitations);
+    //console.log(citations, indexedCitations);
     let publications = {};
     if (DataVerifier.isValidArray(citations)) {
         citations.forEach((citation) => {

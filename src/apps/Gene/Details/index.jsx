@@ -11,6 +11,7 @@ import Regulation from "./Regulation";
 import Product from "./Product";
 import AnchorNav from "ui-components/Web/AnchorNav";
 import { useGetIndexedReferences } from "ui-components/Web/Citations";
+import { AllCitations } from "ui-components/Web/Citations/AllCitations";
 
 export default function Details({ geneId }) {
   const { loading, gene, error } = useGetGeneByID(geneId);
@@ -67,6 +68,7 @@ export default function Details({ geneId }) {
           <Divider />
           <br />
           <AnchorNav
+          title={gene.gene.name+" gene"}
             sections={[
               {
                 id: gene._id + "_SequenceSection",
@@ -105,7 +107,8 @@ export default function Details({ geneId }) {
               {
                 id: "section4",
                 title: "All Citations",
-                component: <>section1</>,
+                visible: DataVerifier.isValidArray(gene.allCitations),
+                component: <AllCitations {...references}/>,
               },
             ]}
           />

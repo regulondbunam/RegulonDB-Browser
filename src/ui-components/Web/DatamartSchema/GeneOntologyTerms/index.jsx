@@ -105,7 +105,7 @@ export default function GeneOntologyTerms({ geneOntologyTerms, allCitations, pag
   const references = useMemo(() => {
     return pageReferences ? pageReferences : indexedReferences(allCitations);
   }, [allCitations, pageReferences]);
-  console.log(references);
+  //console.log(references);
   if (!geneOntologyTerms) {
     return null;
   }
