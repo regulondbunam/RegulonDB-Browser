@@ -96,12 +96,12 @@ export const TYPOGRAPHY = {
   },
   citation: {
     fontFamily: "Times New Roman",
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: 300,
   },
   sequence: {
     fontFamily: "Courier New",
-    fontSize: 18,
+    fontSize: 12,
     fontWeight: 500,
     lineHeight: 1.5,
     letterSpacing: 1.5,

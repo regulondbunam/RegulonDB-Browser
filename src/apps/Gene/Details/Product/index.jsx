@@ -5,6 +5,7 @@ import { AccordionHighlight } from "ui-components/Web/Accordion";
 import Note from "ui-components/Web/Note";
 import { indexedReferences } from "ui-components/utils/References";
 import Sequence from "./Sequence";
+import { GeneOntologyTerms } from "ui-components/Web/DatamartSchema";
 
 export default function Product({
   _id,
@@ -21,14 +22,15 @@ export default function Product({
   name,
   note,
   regulonId,
+  pageReferences,
   sequence,
   synonyms,
   type,
   allCitations,
 }) {
   const references = useMemo(() => {
-    return indexedReferences(allCitations);
-  }, [allCitations]);
+    return pageReferences ? pageReferences : indexedReferences(allCitations);
+  }, [allCitations, pageReferences]);
   return (
     <div>
       <table>
@@ -136,10 +138,21 @@ export default function Product({
           <Sequence sequence={sequence} motifs={motifs} name={name} />
         </AccordionHighlight>
       )}
+      {DataVerifier.isValidString(sequence) && (
+        <AccordionHighlight
+          title={
+            <Typography variant="h3" fontSize={"18px"} color={"#ffffff"}>
+              Ontology Terms
+            </Typography>
+          }
+          defaultExpanded={true}
+          level={1}
+        >
+          <GeneOntologyTerms geneOntologyTerms={geneOntologyTerms} pageReferences={references} allCitations={allCitations} />
+        </AccordionHighlight>
+      )}
       {/**
-       * Sequence
        * Terms
-       * Motifs
        * external references
        * citations
        */}

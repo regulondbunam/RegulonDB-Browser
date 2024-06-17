@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Slider from '@mui/material/Slider';
 import Stack from '@mui/material/Stack';
-import { Typography, Divider, Switch,/*Button, Menu,  MenuItem */} from '@mui/material';
+import { Typography } from '@mui/material';
 //import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
 import { OPTION } from './static';
 

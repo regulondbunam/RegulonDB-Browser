@@ -10,9 +10,11 @@ import MultifunTerms from "./MultifunTerms";
 import Regulation from "./Regulation";
 import Product from "./Product";
 import AnchorNav from "ui-components/Web/AnchorNav";
+import { useGetIndexedReferences } from "ui-components/Web/Citations";
 
 export default function Details({ geneId }) {
   const { loading, gene, error } = useGetGeneByID(geneId);
+  const references = useGetIndexedReferences(gene?.allCitations)
   console.log(gene);
   let products = [];
   if (DataVerifier.isValidArray(gene?.products)) {
@@ -21,7 +23,7 @@ export default function Details({ geneId }) {
         id: gene._id + "_sectionProduct_" + product._id,
         visible: true,
         title: "Product: " + product.name,
-        component: <Product {...product} allCitations={gene.allCitations} />,
+        component: <Product {...product} allCitations={gene.allCitations} pageReferences={references} />,
       });
     });
   }

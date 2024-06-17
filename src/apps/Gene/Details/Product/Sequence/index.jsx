@@ -64,11 +64,16 @@ function initState({ motifs = [] }) {
 
         // Comprobar y actualizar las posiciones del tag si son enteros seguros
         if (Number.isSafeInteger(motif.leftEndPosition) && Number.isSafeInteger(motif.rightEndPosition)) {
-            motifTagPositions[motif.leftEndPosition] =
-                (motifTagPositions[motif.leftEndPosition] || '') + `<span id="motif_${motif._id}">`;
+            let left = motif.leftEndPosition-1
+            let right = motif.rightEndPosition-1
+            if(motif.leftEndPosition===motif.rightEndPosition){
+                left = motif.leftEndPosition-2
+            }
+            motifTagPositions[left] =
+                (motifTagPositions[left] || '') + `<span id="motif_${motif._id}">`;
 
-            motifTagPositions[motif.rightEndPosition] =
-                (motifTagPositions[motif.rightEndPosition] || '') + `<div class="tooltiptext" id="motif_tooltip_${motif._id}"></div></span>`;
+            motifTagPositions[right] =
+                (motifTagPositions[right] || '') + `<div class="tooltiptext" id="motif_tooltip_${motif._id}"></div></span>`;
         }
     });
     return {

@@ -20,4 +20,5 @@ export const OPTIONS = {
   fasta_CharactersPerLine: 2,
   genbank_Columns: 3,
   setFragment: 4,
+  fontSize: 5,
 };

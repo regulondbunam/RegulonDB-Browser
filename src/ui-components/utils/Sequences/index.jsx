@@ -9,10 +9,11 @@ export function FastaSequence({
   title = "",
   countItems = false,
   charactersPerLine = 60,
+  fontSize ="12px",
 }) {
   let formatSequence = new Format(sequence, title, { countItems: countItems });
   return (
-    <Typography variant="sequence" >
+    <Typography variant="sequence" fontSize={fontSize} >
       <span
         id={id}
         dangerouslySetInnerHTML={{
@@ -54,10 +55,11 @@ export function GenebankSequence({
   color = false,
   title = "",
   countItems = false,
+  fontSize ="12px",
 }) {
   let formatSequence = new Format(sequence, title, { countItems: countItems });
   return (
-    <Typography variant="sequence" >
+    <Typography variant="sequence" fontSize={fontSize} >
       <span
         id={id}
         dangerouslySetInnerHTML={{

@@ -4,6 +4,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Divider from "@mui/material/Divider";
+import { Typography, Stack, Slider } from "@mui/material";
 import DownloadOptions from "./DownloadOptions";
 import { FastaSequence, GenebankSequence } from "ui-components/utils/Sequences";
 import { FORMATS, OPTIONS } from "./static";
@@ -40,6 +41,8 @@ function reducerOptions(state, action) {
         sequence: action.fragment.sequence,
         indexFragment: action.indexFragment,
       };
+    case OPTIONS.fontSize:
+      return { ...state, fontSize: action.fontSize }
     default:
       return state;
   }
@@ -56,6 +59,7 @@ function initState({ sequence, _id, name, products, fragments }) {
     countItems: false,
     fasta_CharactersPerLine: 60,
     genbankColumns: 6,
+    fontSize: 12,
   };
 }
 
@@ -96,6 +100,7 @@ export default function Sequence({ sequence, _id, name, products, fragments }) {
     case FORMATS.genbank:
       domSequence = (
         <GenebankSequence
+          fontSize={state.fontSize + "px"}
           id={idSequence}
           sequence={state.sequence}
           color={state.color}
@@ -107,6 +112,7 @@ export default function Sequence({ sequence, _id, name, products, fragments }) {
     default:
       domSequence = (
         <FastaSequence
+          fontSize={state.fontSize + "px"}
           id={idSequence}
           sequence={state.sequence}
           color={state.color}
@@ -123,22 +129,22 @@ export default function Sequence({ sequence, _id, name, products, fragments }) {
       <div style={{ display: "flex", alignItems: "center", margin: "12px" }}>
         {DataVerifier.isValidArray(fragments) && (<>
           <FormControl
-          sx={{ m: 1, minWidth: 200, margin: "0 5px 0 0" }}
-        >
-          <InputLabel sx={{ fontSize: 16 }}>Set Sequence</InputLabel>
-          <Select
-            sx={{ height: 35 }}
-            labelId="demo-select-sequence-label"
-            id="demo-select-sequence"
-            value={state.indexFragment}
-            label="setSequence"
-            onChange={handleSelectSequence}
+            sx={{ m: 1, minWidth: 200, margin: "0 5px 0 0" }}
           >
-            <MenuItem value={-1}>All fragments ({name})</MenuItem>
-            {fragments.map((f,index)=> <MenuItem value={index}>{f.name}</MenuItem>)}
-          </Select>
-        </FormControl>
-        <Divider orientation="vertical" sx={{height: "35px", mr:"5px"}} />
+            <InputLabel sx={{ fontSize: 16 }}>Set Sequence</InputLabel>
+            <Select
+              sx={{ height: 35 }}
+              labelId="demo-select-sequence-label"
+              id="demo-select-sequence"
+              value={state.indexFragment}
+              label="setSequence"
+              onChange={handleSelectSequence}
+            >
+              <MenuItem value={-1}>All fragments ({name})</MenuItem>
+              {fragments.map((f, index) => <MenuItem value={index}>{f.name}</MenuItem>)}
+            </Select>
+          </FormControl>
+          <Divider orientation="vertical" sx={{ height: "35px", mr: "5px" }} />
         </>)}
         <FormControl sx={{ m: 1, minWidth: 120, margin: "0 5px 0 0" }}>
           <InputLabel sx={{ fontSize: 14 }}>Format</InputLabel>
@@ -154,6 +160,7 @@ export default function Sequence({ sequence, _id, name, products, fragments }) {
             <MenuItem value={FORMATS.genbank}>Genbank</MenuItem>
           </Select>
         </FormControl>
+        <FontSize state={state} dispatch={dispatch} />
         <MenuOptions state={state} dispatch={dispatch} format={format} />
         <DownloadOptions
           format={format}
@@ -174,4 +181,25 @@ export default function Sequence({ sequence, _id, name, products, fragments }) {
       </div>
     </div>
   );
+}
+
+
+function FontSize({ dispatch, state }) {
+
+  const handleChange = (event, newValue) => {
+    dispatch({ type: OPTIONS.fontSize, fontSize: newValue })
+  }
+
+  return (
+    <div style={{marginRight: "5px"}} >
+      <div><Typography variant='irrelevant' >Font size</Typography></div>
+      <div style={{ width: 100 }}>
+        <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+          <Typography variant='irrelevantB' fontSize={8}>A</Typography>
+          <Slider aria-label="Volume" value={state.fontSize} onChange={handleChange} max={30} min={10} />
+          <Typography variant='irrelevantB' fontSize={18} >A</Typography>
+        </Stack>
+      </div>
+    </div>
+  )
 }
