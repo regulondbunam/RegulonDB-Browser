@@ -2,7 +2,7 @@ import React from 'react'
 import { List, ListItem, ListItemText, ListItemButton, Typography } from '@mui/material'
 
 
-export default function Anchors({ state, dispatch }) {
+export default function Anchors({ state, dispatch, leftList = null }) {
     const handleGoSection = (id) => {
         //"scroll_section_" + id
         const sectionDiv = document.getElementById("scroll_section_" + id)
@@ -38,6 +38,7 @@ export default function Anchors({ state, dispatch }) {
                         )
                     })}
                 </List>
+                {leftList}
             </div>
     )
 }

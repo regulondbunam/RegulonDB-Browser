@@ -12,6 +12,7 @@ import Product from "./Product";
 import AnchorNav from "ui-components/Web/AnchorNav";
 import { useGetIndexedReferences } from "ui-components/Web/Citations";
 import { AllCitations } from "ui-components/Web/Citations/AllCitations";
+import RelatedList from "../../../ui-components/Web/Related";
 
 export default function Details({ geneId }) {
   const { loading, gene, error } = useGetGeneByID(geneId);
@@ -68,6 +69,11 @@ export default function Details({ geneId }) {
           <Divider />
           <br />
           <AnchorNav
+          leftList={
+            <RelatedList 
+              regulonDB_id={gene._id}
+            />
+          }
           title={gene.gene.name+" gene"}
             sections={[
               {

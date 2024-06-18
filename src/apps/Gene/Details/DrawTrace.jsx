@@ -60,7 +60,7 @@ export default function DrawTrace({ leftEndPosition, rightEndPosition, id, fragm
   // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useReducer(reducer, {leftEndPosition,rightEndPosition,id,fragments}, initState)
   return <DrawingTraces 
-    height={200} 
+    height={150} 
     leftEndPosition={state.left} 
     rightEndPosition={state.right} 
     showTable={false} 

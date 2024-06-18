@@ -73,7 +73,8 @@ export default function AnchorNav({
     sections = [],
     aside = <></>,
     showAnchors = true,
-    title = ""
+    title = "",
+    leftList = null
 }) {
     const [state, dispatch] = useReducer(reducer, { sections, showAnchors }, initSections)
     const sectionsRef = useRef([])
@@ -125,9 +126,8 @@ export default function AnchorNav({
                         <div className={style.anchorsSticky}>
                             <Controls state={state} dispatch={dispatch} />
                             {!state.hideMenu && (<>
-                                <Anchors state={state} dispatch={dispatch} />
+                                <Anchors state={state} dispatch={dispatch} leftList={leftList} />
                             </>)}
-
                         </div>
                     </div>
                 )}

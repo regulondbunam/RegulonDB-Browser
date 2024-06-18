@@ -16,7 +16,7 @@ export function AllCitations({ publications, evidences }) {
 export function Evidences({ evidences, publications, small = false }) {
     //console.log(evidences);
     return (
-        <AccordionHighlight level={1} title={
+        <AccordionHighlight level={1} defaultExpanded={true} title={
             <Typography variant="h3" fontSize={"18px"} color={"#ffffff"}>
                 Evidences
             </Typography>
@@ -50,7 +50,7 @@ export function Evidences({ evidences, publications, small = false }) {
 export function Publications({ evidences, publications, small = false }) {
     //console.log(publications);
     return (
-        <AccordionHighlight level={1} title={<Typography variant="h3" fontSize={"18px"} color={"#ffffff"}>
+        <AccordionHighlight defaultExpanded={true} level={1} title={<Typography variant="h3" fontSize={"18px"} color={"#ffffff"}>
             Publications
         </Typography>} >
 
