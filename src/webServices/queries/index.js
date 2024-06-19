@@ -2,6 +2,7 @@ import useSearchGene, {useLazySearchGene, useGetGeneByID, useGetMainGenesBySearc
 import useGetObjectList from "./ObjectList";
 import { useGetGeneticElements, useLazyGetGeneticElements } from "./DTTData";
 import { useGetAllGus, useGetGuById, useGetGuBySearch } from "./GensorUnit";
+import { useGetOperonByID, useLazySearchOperon } from "./OperonResult";
 
 export {
     //ResultGenes
@@ -16,4 +17,6 @@ export {
     useLazyGetGeneticElements,
     //GUS
     useGetAllGus, useGetGuById, useGetGuBySearch,
+    //Operons
+    useGetOperonByID, useLazySearchOperon,
 }

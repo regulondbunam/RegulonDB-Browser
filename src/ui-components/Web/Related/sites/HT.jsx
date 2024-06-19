@@ -51,6 +51,11 @@ export default function HTsite({ regulonName = "", geneName = "" }) {
         )
     }
     if (ht && !error) {
+        const isGeneExpression = DataVerifier.isValidArray(ht?.getGeneExpressionFromSearch)
+        const isTF = DataVerifier.isValidArray(ht?.getDatasetsFromSearch)
+        if(!isGeneExpression && !isTF){
+            return null
+        }
         return (
             <>
                 <ListItem disablePadding>
@@ -61,8 +66,8 @@ export default function HTsite({ regulonName = "", geneName = "" }) {
                 </ListItem>
                 <Collapse in={openSites} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
-                        {DataVerifier.isValidArray(ht?.getGeneExpressionFromSearch) && (<DatasetsInGeneExpression geneName={geneName} />)}
-                        {DataVerifier.isValidArray(ht?.getDatasetsFromSearch) && (<DatasetsInTF regulonName={regulonName} />)}
+                        {isGeneExpression && (<DatasetsInGeneExpression geneName={geneName} />)}
+                        {isTF && (<DatasetsInTF regulonName={regulonName} />)}
                     </List>
                 </Collapse>
             </>

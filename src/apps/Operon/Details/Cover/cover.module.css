@@ -1,0 +1,50 @@
+.base {
+    margin: 0 1% 0 4%;
+}
+
+.title{
+    display: flex;
+    align-items: flex-end;
+}
+
+.divider{
+    height: 50px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.properties{
+    display: flex;
+    align-items: center;
+}
+
+.mainInfo{
+    display: flex;
+    justify-content: space-between;
+    margin: 10;
+}
+
+.references{
+    display: block;
+}
+
+@media only screen and (max-width: 480px) {
+    .base {
+        margin: 1px;
+    }
+    .title{
+        display: flex;
+        flex-direction: column;
+    }
+    .divider{
+        display: none;
+    }
+    .mainInfo{
+        display: flex;
+        margin: 10;
+    }
+    .references{
+        display: none;
+    }
+}

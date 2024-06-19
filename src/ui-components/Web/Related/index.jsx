@@ -21,7 +21,6 @@ export function getObjectType(regulonDB_id) {
 export default function RelatedList({ collapse, regulonDB_id, leftEndPosition, rightEndPosition, gene, organism, tools=true,sites=true,external=false, externalCrossReferences }) {
   const IDObjectRDB = getObjectType(regulonDB_id)
   const {ids, loading} = useGetRelatedObjectsByID(IDObjectRDB)
-  console.log(externalCrossReferences);
   if (loading) {
     return (
       <List disablePadding>

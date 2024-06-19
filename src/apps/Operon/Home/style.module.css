@@ -1,0 +1,13 @@
+.geneLayout{
+    display: flex;
+}
+
+.geneFilters{
+    display: block;
+}
+
+@media only screen and (max-width: 796px) {
+    .geneFilters{
+        display: none;
+    }
+  }

@@ -22,10 +22,14 @@ export default function GU({ regulonName }) {
     },
   });
   if (error) { return null }
-  let idGU = undefined
+  
   if (data) {
+    let idGU = undefined
     if (DataVerifier.isValidArray(data.getGUsBy.data)) {
       idGU = data.getGUsBy.data[0]._id;
+    }
+    if (!idGU) {
+      return null
     }
     return (
       <ListItemButton dense onClick={() => { nav("/gu/" + idGU) }}>

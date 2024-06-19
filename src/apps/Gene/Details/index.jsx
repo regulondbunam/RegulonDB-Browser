@@ -17,7 +17,6 @@ import RelatedList from "../../../ui-components/Web/Related";
 export default function Details({ geneId }) {
   const { loading, gene, error } = useGetGeneByID(geneId);
   const references = useGetIndexedReferences(gene?.allCitations)
-  console.log(gene);
   let products = [];
   if (DataVerifier.isValidArray(gene?.products)) {
     gene.products.forEach((product) => {
