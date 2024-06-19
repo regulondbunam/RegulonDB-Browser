@@ -18,6 +18,12 @@
     position: relative;
 }
 
+.anchorsHide{
+    width: 40px;
+    margin-right: 15px;
+    position: relative;
+}
+
 .anchorsSticky{
     position: sticky;
     top: 65px;

@@ -1,6 +1,6 @@
 import React from 'react'
 import { FormatIndentDecrease, FormatIndentIncrease, VerticalAlignBottom, VerticalAlignTop, UnfoldMore, UnfoldLess } from '@mui/icons-material'
-import { ButtonGroup, Tooltip, Button } from '@mui/material'
+import { ButtonGroup, Tooltip, Button, Paper } from '@mui/material'
 import { ACTION } from './static'
 
 export default function Controls({ state, dispatch }) {
@@ -18,22 +18,28 @@ export default function Controls({ state, dispatch }) {
     }
     if (state.hideMenu) {
         return (
-            <ButtonGroup
-                disableElevation
-                aria-label="Disabled elevation buttons"
-                variant="outlined"
-                color='secondary'
-                size='small'
-            >
-                <Tooltip title={"Show Menu"}>
-                    <Button
-                        onClick={handleMenu}
-                        sx={{ borderRadius: 0 }}
-                    >
-                        <FormatIndentIncrease />
-                    </Button>
-                </Tooltip>
-            </ButtonGroup>
+            <Paper elevation={2} >
+                <ButtonGroup
+                    disableElevation
+                    aria-label="Disabled elevation buttons"
+                    variant="text"
+                    color='secondary'
+                    size='small'
+                    sx={{
+                        boxShadow: ""
+                    }}
+                >
+                    <Tooltip title={"Show Menu"}>
+                        <Button
+                            onClick={handleMenu}
+                            sx={{ borderRadius: 0 }}
+                        >
+                            <FormatIndentIncrease />
+                        </Button>
+                    </Tooltip>
+                </ButtonGroup>
+            </Paper>
+
         )
     }
     return (

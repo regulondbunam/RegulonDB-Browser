@@ -122,7 +122,7 @@ export default function AnchorNav({
             </div>)}
             <div className={style.container}>
                 {!isMobile && (
-                    <div className={style.anchors} >
+                    <div className={state.hideMenu ? style.anchorsHide : style.anchors} >
                         <div className={style.anchorsSticky}>
                             <Controls state={state} dispatch={dispatch} />
                             {!state.hideMenu && (<>
