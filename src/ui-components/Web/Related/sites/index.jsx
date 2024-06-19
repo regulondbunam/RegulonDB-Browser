@@ -30,7 +30,7 @@ export default function RelatedSites({ ids = [] }) {
   return (
     <React.Fragment>
       <ListItem disablePadding>
-        <ListItemButton dense onClick={handleClickSites}>
+        <ListItemButton  sx={{ pl: 1 }} dense onClick={handleClickSites}>
           <ListItemText primary={<Typography variant='irrelevantB' >RELATED SITES</Typography>} />
           {openSites ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
