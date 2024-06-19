@@ -1,52 +1,40 @@
 import React from 'react'
-import { useGetRelatedObjectsByID } from './tools';
+import { useGetRelatedObjectsByID } from './utils';
 import RelatedSites from './sites';
-import { List, ListItem, ListItemText, ListItemButton, Typography, Collapse } from '@mui/material'
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
+import { List, ListItem, ListItemText, Skeleton, Box } from '@mui/material'
+import IDObjectRDB from "ui-components/utils/IDParser";
+
 //import Operon from './sites/Operon';
 
 
-
+export function getObjectType(regulonDB_id) {
+  try {
+      return new IDObjectRDB(regulonDB_id)
+  } catch (error) {
+      console.error(error);
+      return undefined
+  }
+}
 
 export default function RelatedList({ regulonDB_id }) {
-  useGetRelatedObjectsByID(regulonDB_id)
-
-  const [open, setOpen] = React.useState(true);
-
-  
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
-
-  return (
-    <List disablePadding>
-      <RelatedSites  />
-    </List>
-  )
-
-  //const geneName = gene.name;
-  // const regulonName = geneName.charAt(0).toUpperCase() + geneName.slice(1);
-  //console.log(regulonName);
-
-
-  return (
-    <List disablePadding>
-      
-      <ListItem disablePadding>
-        <ListItemButton dense onClick={handleClick}>
-          <ListItemText disablePadding primary={<Typography variant='irrelevantB' >RELATED TOOLS</Typography>} />
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
+  const IDObjectRDB = getObjectType(regulonDB_id)
+  const {ids, loading} = useGetRelatedObjectsByID(IDObjectRDB)
+  if (loading) {
+    return (
+      <List disablePadding>
+      <ListItem>
+        <ListItemText primary="loading related elements.." />
+        <Box sx={{position: 'absolute', width: "100%"}} >
+          <Skeleton animation="pulse"  variant="rectangular" height={30} />
+        </Box>
       </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItemButton dense >
-            <ListItemText primary="algo" />
-          </ListItemButton>
-        </List>
-      </Collapse>
+    </List>
+    )
+  }
+
+  return (
+    <List disablePadding>
+      <RelatedSites ids={ids}  />
     </List>
   )
 }
