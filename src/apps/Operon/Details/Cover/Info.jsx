@@ -4,8 +4,6 @@ import { DataVerifier } from 'ui-components/utils'
 import style from "./cover.module.css"
 
 export default function Info({
-    centisomePosition,
-    gcContent,
     leftEndPosition,
     rightEndPosition,
     strand,
@@ -16,7 +14,7 @@ export default function Info({
                 {DataVerifier.isValidNumber(leftEndPosition) && (
                     <div style={{ display: "flex", alignItems: "center" }}>
                         <Typography variant="relevantB" sx={{ mr: 1 }}>
-                            Position:
+                            Regulation Position:
                         </Typography>
                         <Tooltip title="left position">
                             <Typography variant="relevant">
@@ -29,16 +27,6 @@ export default function Info({
                         <Tooltip title="right position">
                             <Typography variant="relevant">
                                 {rightEndPosition} &nbsp;
-                            </Typography>
-                        </Tooltip>
-                        <Tooltip title="centisome position">
-                            <Typography variant="relevant">
-                                ({centisomePosition}&nbsp;centisome)&nbsp;
-                            </Typography>
-                        </Tooltip>
-                        <Tooltip title="length">
-                            <Typography variant="relevant">
-                                ({1 + rightEndPosition - leftEndPosition + " bp"})
                             </Typography>
                         </Tooltip>
 
@@ -55,23 +43,7 @@ export default function Info({
                             </Typography>
                         </div>
                     )}
-                    {DataVerifier.isValidNumber(gcContent) && (
-                        <>
-                        <Divider orientation="vertical" sx={{ height: "18px", ml: 1, mr: 1 }} />
-                        <div>
-                            <Typography variant="relevantB" sx={{ mr: 1 }}>
-                                GC content:
-                            </Typography>
-                            <Typography variant="relevant" >
-                                {gcContent.toFixed(2)}%
-                            </Typography>
-                        </div>
-                        </>
-                    )}
-                    <Divider orientation="vertical" sx={{ height: "18px", ml: 1, mr: 1 }} />
                 </div>
-
-
             </div>
             <div>
 

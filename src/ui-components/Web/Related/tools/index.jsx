@@ -15,7 +15,7 @@ import GU from './GU';
 export default function RelatedTools({ leftEndPosition, rightEndPosition, gene={}, organism={}, collapse=true }) {
   const [openSites, setOpenSites] = React.useState(collapse);
   const nav = useNavigate()
-
+  console.log(leftEndPosition);
   let regulonName = undefined;
   //let geneName = undefined;
   if (DataVerifier.isValidString(gene?.name)) {

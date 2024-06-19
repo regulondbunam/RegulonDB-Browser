@@ -23,3 +23,37 @@ export const getGenesIds = gql`query GetGenesBy($advancedSearch: String) {
     }
   }
 }`
+
+export const getOperonIds = gql`query GetOperonBy($advancedSearch: String) {
+  getOperonBy(advancedSearch: $advancedSearch) {
+    data {
+      _id
+      operon {
+        _id
+      }
+      transcriptionUnits {
+        _id
+        firstGene {
+          _id
+        }
+        genes {
+          _id
+        }
+        promoter {
+          _id
+        }
+        regulatorBindingSites {
+          regulator {
+            _id
+          }
+          regulatoryInteractions {
+            _id
+          }
+        }
+        terminators {
+          _id
+        }
+      }
+    }
+  }
+}`
