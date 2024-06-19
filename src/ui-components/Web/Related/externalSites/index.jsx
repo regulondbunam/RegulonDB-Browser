@@ -1,15 +1,8 @@
 import React from 'react'
-import { List, ListItem, ListItemText, ListItemButton, Typography, Collapse, Skeleton, Box } from '@mui/material'
+import { List, ListItem, ListItemText, ListItemButton, Typography, Collapse } from '@mui/material'
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import { useNavigate } from 'react-router-dom';
-import { gql, useQuery } from '@apollo/client';
 
-/** Tools en RegulonDB
- * DrawingTraces positions
- * GeneCoexpression
- * GensorUnit
- */
 
 
 export default function RelatedTools({ leftEndPosition, rightEndPosition, gene,  }) {
