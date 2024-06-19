@@ -6,10 +6,24 @@ import IDObjectRDB from 'ui-components/utils/IDParser';
 import { useNavigate } from 'react-router-dom';
 import { gene, operon, tu, regulon } from "./queries"
 import { gql, useQuery } from '@apollo/client';
+import { DataVerifier } from 'ui-components/utils';
+import HTsite from './HT';
 
 
-export default function RelatedSites({ ids = [] }) {
+export default function RelatedSites({ ids = [] , gene}) {
   const [openSites, setOpenSites] = React.useState(true);
+
+  let regulonName = undefined;
+  let geneName = undefined;
+  if (DataVerifier.isValidString(gene?.name)) {
+    geneName = gene.name;
+    try {
+      regulonName = gene.name.charAt(0).toUpperCase() + gene.name.slice(1);
+    } catch (error) {
+      // :) ;) 
+    }
+    
+  }
 
   let sites = {}
 
@@ -38,6 +52,7 @@ export default function RelatedSites({ ids = [] }) {
       <Collapse in={openSites} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {Object.keys(sites).map((key) => <Site key={"linkSite_" + key} label={key} access={sites[key]} />)}
+          {(regulonName && geneName)&&(<HTsite regulonName={regulonName} geneName={geneName} />)}
         </List>
       </Collapse>
     </React.Fragment>

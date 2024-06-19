@@ -3,7 +3,7 @@ import { List, ListItem, ListItemText, ListItemButton, Typography, Collapse, Ske
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { useNavigate } from 'react-router-dom';
-import { gql, useQuery } from '@apollo/client';
+//import { gql, useQuery } from '@apollo/client';
 import { DataVerifier } from 'ui-components/utils';
 import GU from './GU';
 
@@ -12,13 +12,13 @@ import GU from './GU';
  */
 
 
-export default function RelatedTools({ leftEndPosition, rightEndPosition, gene, organism }) {
+export default function RelatedTools({ leftEndPosition, rightEndPosition, gene={}, organism={} }) {
   const [openSites, setOpenSites] = React.useState(true);
   const nav = useNavigate()
 
   let regulonName = undefined;
   let geneName = undefined;
-  if (DataVerifier.isValidString(gene.name)) {
+  if (DataVerifier.isValidString(gene?.name)) {
     geneName = gene.name;
     try {
       regulonName = gene.name.charAt(0).toUpperCase() + gene.name.slice(1);
@@ -29,7 +29,7 @@ export default function RelatedTools({ leftEndPosition, rightEndPosition, gene, 
   }
 
   const goToDTT = ()=>{
-    nav(`/dtt/leftEndPosition=${leftEndPosition}&rightEndPosition=${rightEndPosition}&organism=${organism}`)
+    nav(`/dtt/leftEndPosition=${leftEndPosition}&rightEndPosition=${rightEndPosition}&organism=${organism?._id}`)
   }
 
   const handleClickSites = () => {

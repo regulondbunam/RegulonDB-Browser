@@ -35,7 +35,7 @@ export default function RelatedList({ regulonDB_id, leftEndPosition, rightEndPos
 
   return (
     <List disablePadding>
-      <RelatedSites ids={ids}  />
+      <RelatedSites ids={ids} gene={gene}  />
       <RelatedTools leftEndPosition={leftEndPosition} rightEndPosition={rightEndPosition} gene={gene} organism={organism} />
     </List>
   )
