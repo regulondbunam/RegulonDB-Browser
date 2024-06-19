@@ -12,14 +12,14 @@ import GU from './GU';
  */
 
 
-export default function RelatedTools({ leftEndPosition, rightEndPosition, gene={}, organism={} }) {
-  const [openSites, setOpenSites] = React.useState(true);
+export default function RelatedTools({ leftEndPosition, rightEndPosition, gene={}, organism={}, collapse=true }) {
+  const [openSites, setOpenSites] = React.useState(collapse);
   const nav = useNavigate()
 
   let regulonName = undefined;
-  let geneName = undefined;
+  //let geneName = undefined;
   if (DataVerifier.isValidString(gene?.name)) {
-    geneName = gene.name;
+    //geneName = gene.name;
     try {
       regulonName = gene.name.charAt(0).toUpperCase() + gene.name.slice(1);
     } catch (error) {

@@ -10,8 +10,8 @@ import { DataVerifier } from 'ui-components/utils';
 import HTsite from './HT';
 
 
-export default function RelatedSites({ ids = [] , gene}) {
-  const [openSites, setOpenSites] = React.useState(true);
+export default function RelatedSites({ ids = [] , gene, collapse=true}) {
+  const [openSites, setOpenSites] = React.useState(collapse);
 
   let regulonName = undefined;
   let geneName = undefined;

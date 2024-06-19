@@ -2,10 +2,10 @@ import React from "react";
 import { Typography, Divider, Tooltip } from "@mui/material";
 import { DataVerifier } from "ui-components/utils";
 import Info from "./Info";
-import ExternalReferences from "./ExternalReferences";
 import style from "./cover.module.css";
+import RelatedList from "ui-components/Web/Related";
 
-export default function Cover({ gene, products }) {
+export default function Cover({ gene, products, organism="ecoli" }) {
   const { _id, name, synonyms, bnumber, externalCrossReferences, fragments } =
     gene;
   return (
@@ -74,19 +74,25 @@ export default function Cover({ gene, products }) {
             </div>
           )}
           <Info {...gene} />
-          {DataVerifier.isValidArray(fragments)&& (
+          {DataVerifier.isValidArray(fragments) && (
             <div>
               <Typography variant="relevantB" sx={{ mr: 1 }}>
-                    {`Fragmented gene in ${fragments.length} parts`}
-                  </Typography>
-                  {fragments.map(fragment=><Fragment key={"fragment_info_gene_"+fragment.id} {...fragment} strand={gene.strand} />)}
+                {`Fragmented gene in ${fragments.length} parts`}
+              </Typography>
+              {fragments.map(fragment => <Fragment key={"fragment_info_gene_" + fragment.id} {...fragment} strand={gene.strand} />)}
             </div>
           )}
         </div>
         <div className={style.references}>
-          <ExternalReferences
-            id={_id}
-            externalCrossReferences={externalCrossReferences}
+          <RelatedList
+          collapse={false}
+          externalCrossReferences={externalCrossReferences}
+          external={true}
+            regulonDB_id={gene._id}
+            leftEndPosition={gene?.leftEndPosition}
+            rightEndPosition={gene?.rightEndPosition}
+            gene={gene}
+            organism={organism}
           />
         </div>
       </div>
@@ -113,7 +119,7 @@ function Fragment({
       <Typography variant="relevant">
         {strand === "reverse" ? "<-" : "->"} &nbsp;
       </Typography>
-      
+
       <Tooltip title="right position">
         <Typography variant="relevant">{rightEndPosition} &nbsp;</Typography>
       </Tooltip>

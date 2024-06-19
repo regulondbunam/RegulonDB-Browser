@@ -6,21 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
-const query_GetDatasetsID = gql`
-  query GetDataset($advancedSearch: String) {
-    getDatasetsFromSearch(advancedSearch: $advancedSearch) {
-      _id
-      datasetType
-      sourceSerie {
-        strategy
-      }
-      sample {
-        title
-      }
-    }
-  }
-`;
-
 const query_getDataset = gql`
   query getDataset($advancedSearch: String, $gene: String) {
     getDatasetsFromSearch(advancedSearch: $advancedSearch) {

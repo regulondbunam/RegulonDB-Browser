@@ -2,6 +2,7 @@ import React from 'react'
 import { useGetRelatedObjectsByID } from './utils';
 import RelatedSites from './sites';
 import RelatedTools from './tools';
+import RelatedExternal from './externalSites';
 import { List, ListItem, ListItemText, Skeleton, Box } from '@mui/material'
 import IDObjectRDB from "ui-components/utils/IDParser";
 
@@ -17,9 +18,10 @@ export function getObjectType(regulonDB_id) {
   }
 }
 
-export default function RelatedList({ regulonDB_id, leftEndPosition, rightEndPosition, gene, organism }) {
+export default function RelatedList({ collapse, regulonDB_id, leftEndPosition, rightEndPosition, gene, organism, tools=true,sites=true,external=false, externalCrossReferences }) {
   const IDObjectRDB = getObjectType(regulonDB_id)
   const {ids, loading} = useGetRelatedObjectsByID(IDObjectRDB)
+  console.log(externalCrossReferences);
   if (loading) {
     return (
       <List disablePadding>
@@ -35,8 +37,9 @@ export default function RelatedList({ regulonDB_id, leftEndPosition, rightEndPos
 
   return (
     <List disablePadding>
-      <RelatedSites ids={ids} gene={gene}  />
-      <RelatedTools leftEndPosition={leftEndPosition} rightEndPosition={rightEndPosition} gene={gene} organism={organism} />
+      {sites && <RelatedSites collapse={collapse} ids={ids} gene={gene}  />}
+      {tools && <RelatedTools collapse={collapse} leftEndPosition={leftEndPosition} rightEndPosition={rightEndPosition} gene={gene} organism={organism} />}
+      {external && <RelatedExternal collapse={collapse} externalCrossReferences={externalCrossReferences} />}
     </List>
   )
 }
