@@ -72,6 +72,10 @@ export default function Details({ geneId }) {
           leftList={
             <RelatedList 
               regulonDB_id={gene._id}
+              leftEndPosition={gene.gene?.leftEndPosition}
+              rightEndPosition={gene.gene?.rightEndPosition}
+              gene={gene.gene}
+              organism={gene.organism}
             />
           }
           title={gene.gene.name+" gene"}

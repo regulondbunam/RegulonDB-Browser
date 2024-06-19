@@ -1,7 +1,7 @@
 import Layout from "ui-components/Layout";
 import {
   createBrowserRouter,
-  RouterProvider,
+  RouterProvider
 } from "react-router-dom";
 import {  ApolloProvider } from '@apollo/client';
 import { CLIENT } from "webServices";

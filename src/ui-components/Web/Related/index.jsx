@@ -1,6 +1,7 @@
 import React from 'react'
 import { useGetRelatedObjectsByID } from './utils';
 import RelatedSites from './sites';
+import RelatedTools from './tools';
 import { List, ListItem, ListItemText, Skeleton, Box } from '@mui/material'
 import IDObjectRDB from "ui-components/utils/IDParser";
 
@@ -16,7 +17,7 @@ export function getObjectType(regulonDB_id) {
   }
 }
 
-export default function RelatedList({ regulonDB_id }) {
+export default function RelatedList({ regulonDB_id, leftEndPosition, rightEndPosition, gene, organism }) {
   const IDObjectRDB = getObjectType(regulonDB_id)
   const {ids, loading} = useGetRelatedObjectsByID(IDObjectRDB)
   if (loading) {
@@ -35,6 +36,7 @@ export default function RelatedList({ regulonDB_id }) {
   return (
     <List disablePadding>
       <RelatedSites ids={ids}  />
+      <RelatedTools leftEndPosition={leftEndPosition} rightEndPosition={rightEndPosition} gene={gene} organism={organism} />
     </List>
   )
 }
