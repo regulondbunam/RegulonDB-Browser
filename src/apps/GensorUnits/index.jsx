@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import Home from "./Home";
 import GensorUnitDetails from "./Details";
+import { ScrollRestoration } from "react-router-dom";
 
 
 const PATH_GU = {
@@ -14,7 +15,12 @@ const PATH_GU = {
 function GensorUnit() {
     let { guId } = useParams();
     if (guId) {
-      return <GensorUnitDetails guId={guId} />;
+      return (
+        <>
+        <ScrollRestoration />
+        <GensorUnitDetails guId={guId} />
+        </>
+      );
     }
     return <Home />;
 }

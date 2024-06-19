@@ -5,10 +5,9 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import { useNavigate } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import { DataVerifier } from 'ui-components/utils';
+import GU from './GU';
 
 /** Tools en RegulonDB
- * DrawingTraces positions http://localhost:3000/dtt/leftEndPosition=4638590&rightEndPosition=4641306&organism=ecoli
- * GeneCoexpression
  * GensorUnit
  */
 
@@ -16,6 +15,18 @@ import { DataVerifier } from 'ui-components/utils';
 export default function RelatedTools({ leftEndPosition, rightEndPosition, gene, organism }) {
   const [openSites, setOpenSites] = React.useState(true);
   const nav = useNavigate()
+
+  let regulonName = undefined;
+  let geneName = undefined;
+  if (DataVerifier.isValidString(gene.name)) {
+    geneName = gene.name;
+    try {
+      regulonName = gene.name.charAt(0).toUpperCase() + gene.name.slice(1);
+    } catch (error) {
+      // :) ;) 
+    }
+    
+  }
 
   const goToDTT = ()=>{
     nav(`/dtt/leftEndPosition=${leftEndPosition}&rightEndPosition=${rightEndPosition}&organism=${organism}`)
@@ -40,6 +51,7 @@ export default function RelatedTools({ leftEndPosition, rightEndPosition, gene, 
               <ListItemText primary={<Typography variant='irrelevantB' >Drawing Traces Tool</Typography>} />
             </ListItemButton>
           )}
+          {regulonName && <GU regulonName={regulonName} />}
         </List>
       </Collapse>
     </React.Fragment>
