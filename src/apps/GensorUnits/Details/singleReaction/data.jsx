@@ -1,4 +1,4 @@
-import { DataVerifier } from "components/ui-components";
+import { DataVerifier } from "ui-components/utils";
 
 export default function Data({
   components = [],

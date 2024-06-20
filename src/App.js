@@ -14,8 +14,8 @@ import { PATH_DTT } from "apps/DrawingTracesTool";
 import { PATH_GU } from "apps/GensorUnits";
 import { PATH_OPERON } from "apps/Operon";
 //old apps
-import Manual from './old_apps/manual';
-import Coexpression from "./old_apps/coexpression"
+//import Manual from './old_apps/manual';
+//import Coexpression from "./old_apps/coexpression"
 //import GensorUnit from "./old_apps/gensorUnit"
 
 
@@ -39,30 +39,6 @@ const router = createBrowserRouter([
       PATH_DTT,
       PATH_GU,
       PATH_OPERON,
-      //old
-      {
-        path: "manual",
-        element: <Manual />,
-        children: [
-          {
-            path: ":site",
-            children: [
-              {
-                path: ":section",
-              }
-            ]
-          }
-        ]
-      },
-      {
-        path: "/coexpression",
-        element: <Coexpression />,
-        children:[
-          {path: ":genesId"}
-        ]
-      },
-
-
     ]
   }
 ])

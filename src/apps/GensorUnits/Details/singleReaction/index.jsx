@@ -5,7 +5,7 @@ import styles from "../GensorUnitMap.module.css";
 import { useState } from "react";
 import { generateElements } from "./generateElements";
 import Data from "./data";
-import { Accordion } from "components/ui-components";
+import Accordion from "ui-components/Web/Accordion";
 import dagre from 'cytoscape-dagre';
 
 cytoscape.use( dagre );
