@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
-import { DataVerifier } from '../../../../../components/ui-components'
+import { DataVerifier } from "ui-components/utils";
 import Typography from '@mui/material/Typography';
-import { useGetNLPGrowthConditionById } from '../../../../../regulondb-ws/queries';
+import { useGetNLPGrowthConditionById } from 'webServices/queries'
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';

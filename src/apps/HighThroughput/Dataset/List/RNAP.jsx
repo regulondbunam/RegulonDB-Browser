@@ -1,17 +1,15 @@
 import React, { useMemo } from 'react'
-import { DataVerifier } from 'ui-components/utils'
-import FilterTable from 'ui-components/Web/FilterTable'
-import { Cover } from 'ui-components/Web/Cover'
-import {CircularProgress} from '@mui/material'
+import { Cover, Circular, DataVerifier } from '../../../../../components/ui-components'
+import FilterTable from "./filterTable"
 import { Button, Typography } from '@mui/material'
-import { useGetDatasetByAdvancedSearch } from 'webServices/queries'
+import { useGetDatasetByAdvancedSearch } from '../../../../../regulondb-ws/queries'
 import { useNavigate } from 'react-router-dom'
 
 
 
-export default function TFBINDING({ experimentType, tfName, datasetType }) {
-    const { datasets, loading, error } = useGetDatasetByAdvancedSearch("TFBINDING[datasetType]")
-    let title = " TF Binding Sites"
+export default function RNAP({ experimentType, tfName }) {
+    const { datasets, loading, error } = useGetDatasetByAdvancedSearch("RNAP_BINDING_SITES[datasetType]")
+    let title = " RNAP Binding Sites"
     if (experimentType) {
         title += ` with strategy ${experimentType}`
     }
@@ -31,7 +29,7 @@ export default function TFBINDING({ experimentType, tfName, datasetType }) {
                 <Typography variant='h1' >Loading Datasets...</Typography>
             </Cover>
             <br />
-            <CircularProgress />
+            <Circular />
         </div>
     }
     if (datasets) {
@@ -50,7 +48,7 @@ export default function TFBINDING({ experimentType, tfName, datasetType }) {
 
 function Table({ datasets }) {
     const table = useMemo(() => processData(datasets), [datasets])
-    return <FilterTable columns={table.columns} data={table.data} tableName='' />
+    return <FilterTable columns={table.columns} data={table.data} />
 }
 
 
@@ -134,5 +132,5 @@ function processData(datasets = []) {
 function LinkDataset({ datasetId }) {
     const navigate = useNavigate()
     //TFBINDING
-    return <Button onClick={() => { navigate("./dataset/TFBINDING/datasetId=" + datasetId) }} >{datasetId}</Button>
+    return <Button onClick={() => { navigate("./dataset/RNAP_BINDING_SITES/datasetId=" + datasetId) }} >{datasetId}</Button>
 }

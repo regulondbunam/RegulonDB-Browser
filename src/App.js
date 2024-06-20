@@ -40,7 +40,7 @@ const router = createBrowserRouter([
       PATH_DTT,
       PATH_GU,
       PATH_OPERON,
-      
+      PATH_HT,
     ]
   }
 ])

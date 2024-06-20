@@ -12,7 +12,7 @@ export const COLLECTIONS = [
     {
         "id": "DS-RNA-006",
         "url": "RNAP_BINDING_SITES",
-        "title": "RNAP Binging Sites",
+        "title": "RNAP Binding Sites",
         "url_rawDescription" : "a",
         "tooltip": "",
         "enable": true

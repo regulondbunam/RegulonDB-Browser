@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import ExternalRef from "./externalRef";
 import Note from "./note";
 import { gql, useQuery } from "@apollo/client";
-import { DataVerifier } from "../../../../../components/ui-components";
+import { DataVerifier } from "ui-components/utils";
 import { Typography } from "@mui/material";
 
 const query = gql`

@@ -1,5 +1,5 @@
 import React from "react";
-import { DataVerifier } from "../../../../components/ui-components";
+import { DataVerifier } from "ui-components/utils";
 import { Typography } from "@mui/material";
 
 let Style = {};

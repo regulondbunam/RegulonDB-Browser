@@ -1,66 +1,83 @@
-import React, {useMemo} from 'react'
-import Info from './Info'
-import TFBINDING from './List/TFBINDING'
+import React, { useMemo } from "react";
+import Info from "./Info";
+import TFBINDING from "./List/TFBINDING";
+import TUS from "./List/TUS";
+import GENeEXPRESSION from "./List/GENE_EXPRESSION";
 
-export default function Dataset({datasetId, datasetType, experimentType, tfName}) {
-
+export default function Dataset({
+  datasetId,
+  datasetType,
+  experimentType,
+  tfName,
+}) {
   const propList = useMemo(() => {
     let properties = [
       {
         query: "[datasetType]",
-        term: datasetType
+        term: datasetType,
       },
       {
         query: "[sourceSerie.strategy]",
-        term: experimentType
+        term: experimentType,
       },
       {
         query: "[objectsTested.name]",
-        term: tfName
-      }
-    ]
-    let advancedSearch = ""
-    let ind = 0
+        term: tfName,
+      },
+    ];
+    let advancedSearch = "";
+    let ind = 0;
     properties.forEach((pro) => {
       if (pro?.term) {
         if (ind > 0) {
           if (ind > 1) {
-            advancedSearch = `(${advancedSearch}) AND '${pro.term}'${pro.query}`
+            advancedSearch = `(${advancedSearch}) AND '${pro.term}'${pro.query}`;
           } else {
-            advancedSearch += ` AND '${pro.term}'${pro.query}`
-            ind++
+            advancedSearch += ` AND '${pro.term}'${pro.query}`;
+            ind++;
           }
         } else {
-          advancedSearch = `'${pro.term}'${pro.query}`
-          ind++
+          advancedSearch = `'${pro.term}'${pro.query}`;
+          ind++;
         }
       }
     });
-    let title = datasetType
-    
-    return {advancedSearch: advancedSearch, title: title}
-  }, [datasetType, tfName, experimentType])
+    let title = datasetType;
+
+    return { advancedSearch: advancedSearch, title: title };
+  }, [datasetType, tfName, experimentType]);
 
   if (datasetId) {
-    return <Info datasetId={datasetId} />
+    return <Info datasetId={datasetId} />;
   }
 
   switch (datasetType) {
     case "TFBINDING":
-      return <TFBINDING experimentType={experimentType} tfName={tfName} />
-    case "TUS":
-      return null
+      return (
+        <TFBINDING
+          experimentType={experimentType}
+          tfName={tfName}
+          datasetType={datasetType}
+        />
+      );
     case "TTS":
-      return null
     case "TSS":
-      return null
+    case "TUS":
+      return (
+        <TUS
+          experimentType={experimentType}
+          tfName={tfName}
+          datasetType={datasetType}
+        />
+      );
     case "GENE_EXPRESSION":
-      return null
+      return <GENeEXPRESSION experimentType={experimentType} tfName={tfName} datasetType={datasetType} />
     case "RNAP_BINDING_SITES":
-      return null
+      return null;
     default:
       return (
-        <div>Url Error check:
+        <div>
+          Url Error check:
           <br />
           id:{datasetId}
           <br />
@@ -68,13 +85,11 @@ export default function Dataset({datasetId, datasetType, experimentType, tfName}
           <br />
           experimentType: {experimentType}
         </div>
-      )
-      break;
+      );
   }
 
   /*
   if (experimentType || datasetType || tfName) {
     return <List datasetType={datasetType.toLocaleUpperCase()} title={propList.title} advancedSearch={propList.advancedSearch} />
   }*/
-  
 }

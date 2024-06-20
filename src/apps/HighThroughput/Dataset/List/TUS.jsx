@@ -1,17 +1,16 @@
 import React, { useMemo } from 'react'
-import { DataVerifier } from 'ui-components/utils'
-import FilterTable from 'ui-components/Web/FilterTable'
 import { Cover } from 'ui-components/Web/Cover'
-import {CircularProgress} from '@mui/material'
-import { Button, Typography } from '@mui/material'
+import FilterTable from 'ui-components/Web/FilterTable'
+import { DataVerifier } from 'ui-components/utils'
+import { Button, Typography, CircularProgress as Circular } from '@mui/material'
 import { useGetDatasetByAdvancedSearch } from 'webServices/queries'
 import { useNavigate } from 'react-router-dom'
 
 
 
-export default function TFBINDING({ experimentType, tfName, datasetType }) {
-    const { datasets, loading, error } = useGetDatasetByAdvancedSearch("TFBINDING[datasetType]")
-    let title = " TF Binding Sites"
+export default function TUS({ experimentType, tfName, datasetType }) {
+    const { datasets, loading, error } = useGetDatasetByAdvancedSearch(datasetType+"[datasetType]")
+    let title = datasetType
     if (experimentType) {
         title += ` with strategy ${experimentType}`
     }
@@ -31,50 +30,43 @@ export default function TFBINDING({ experimentType, tfName, datasetType }) {
                 <Typography variant='h1' >Loading Datasets...</Typography>
             </Cover>
             <br />
-            <CircularProgress />
+            <Circular />
         </div>
     }
     if (datasets) {
-        console.log(datasets);
+        //console.log(datasets);
         return (
             <div>
                 <Cover>
                     <Typography variant='h1' >{title}</Typography>
                 </Cover>
                 <br />
-                <Table datasets={datasets} />
+                <Table datasets={datasets} datasetType={datasetType} />
             </div>
         )
     }
 }
 
-function Table({ datasets }) {
-    const table = useMemo(() => processData(datasets), [datasets])
+function Table({ datasets, datasetType }) {
+    const table = useMemo(() => processData(datasets,datasetType), [datasets,datasetType])
     return <FilterTable columns={table.columns} data={table.data} tableName='' />
 }
 
 
-function processData(datasets = []) {
+function processData(datasets = [],datasetType) {
     let table = {
         columns: [
             {
                 label: "id",
             },
             {
-                label: "Transcription Factor",
-            },
-            {
-                label: "Dataset Title"
+                label: "Title"
             },
             {
                 label: "Strategy",
             },
             {
-                label: "Genes",
-            },
-            {
                 label: "Publication Title",
-                hide: true
             },
             {
                 label: "Publication Authors",
@@ -118,10 +110,10 @@ function processData(datasets = []) {
             })
         }
         table.data.push({
-            "id": <LinkDataset value={dataset._id} datasetId={dataset._id} />,
+            "id": <LinkDataset value={dataset._id} datasetId={dataset._id} datasetType={datasetType} />,
             "Transcription Factor": objects.join(", "),
-            "Dataset Title": DataVerifier.isValidString(dataset?.sample.title) ? dataset?.sample.title : "",
-            "Strategy": dataset?.sourceSerie.strategy,
+            "Title": DataVerifier.isValidString(dataset?.sourceSerie?.title) ? dataset?.sourceSerie.title : "",
+            "Strategy": DataVerifier.isValidString(dataset?.sourceSerie?.strategy) ? dataset?.sourceSerie.strategy : "",
             "Genes": genes.join(", "),
             "Publication Title": publicationsTitle.join(", "),
             "Publication Authors": [...publicationsAuthors].join(", "),
@@ -131,8 +123,8 @@ function processData(datasets = []) {
     return table
 }
 
-function LinkDataset({ datasetId }) {
+function LinkDataset({ datasetId, datasetType }) {
     const navigate = useNavigate()
     //TFBINDING
-    return <Button onClick={() => { navigate("./dataset/TFBINDING/datasetId=" + datasetId) }} >{datasetId}</Button>
+    return <Button onClick={() => { navigate("./dataset/"+datasetType+"/datasetId=" + datasetId) }} >{datasetId}</Button>
 }

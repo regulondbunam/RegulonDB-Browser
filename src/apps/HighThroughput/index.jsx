@@ -5,7 +5,7 @@ import Dataset from './Dataset'
 
 
 export const PATH_HT = {
-    path: "ht2",
+    path: "ht",
     element: <HT />,
     children: [
       {

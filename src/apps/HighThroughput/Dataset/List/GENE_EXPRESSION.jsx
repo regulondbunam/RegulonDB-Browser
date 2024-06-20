@@ -1,17 +1,17 @@
 import React, { useMemo } from 'react'
-import { DataVerifier } from 'ui-components/utils'
-import FilterTable from 'ui-components/Web/FilterTable'
 import { Cover } from 'ui-components/Web/Cover'
-import {CircularProgress} from '@mui/material'
-import { Button, Typography } from '@mui/material'
-import { useGetDatasetByAdvancedSearch } from 'webServices/queries'
+import FilterTable from 'ui-components/Web/FilterTable'
+import { DataVerifier } from 'ui-components/utils'
+import { Button, Typography, CircularProgress as Circular } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { useGetDatasetByAdvancedSearch, useGetNLPGC } from 'webServices/queries'
 
 
 
-export default function TFBINDING({ experimentType, tfName, datasetType }) {
-    const { datasets, loading, error } = useGetDatasetByAdvancedSearch("TFBINDING[datasetType]")
-    let title = " TF Binding Sites"
+export default function GENeEXPRESSION({ experimentType, tfName, datasetType }) {
+    const { datasets, loading, error } = useGetDatasetByAdvancedSearch(datasetType + "[datasetType]")
+    const { nlgc, loading: nlgcLoading } = useGetNLPGC()
+    let title = datasetType
     if (experimentType) {
         title += ` with strategy ${experimentType}`
     }
@@ -25,13 +25,13 @@ export default function TFBINDING({ experimentType, tfName, datasetType }) {
             </Cover>
         </div>
     }
-    if (loading) {
+    if (loading || nlgcLoading) {
         return <div>
             <Cover state={"loading"} >
                 <Typography variant='h1' >Loading Datasets...</Typography>
             </Cover>
             <br />
-            <CircularProgress />
+            <Circular />
         </div>
     }
     if (datasets) {
@@ -42,35 +42,27 @@ export default function TFBINDING({ experimentType, tfName, datasetType }) {
                     <Typography variant='h1' >{title}</Typography>
                 </Cover>
                 <br />
-                <Table datasets={datasets} />
+                <Table datasets={datasets} nlgc={nlgc} />
             </div>
         )
     }
 }
 
-function Table({ datasets }) {
-    const table = useMemo(() => processData(datasets), [datasets])
-    return <FilterTable columns={table.columns} data={table.data} tableName='' />
+function Table({ datasets, nlgc }) {
+    const table = useMemo(() => processData(datasets, nlgc), [datasets, nlgc])
+    return <FilterTable columns={table.columns} data={table.data} />
 }
 
 
-function processData(datasets = []) {
+function processData(datasets = [], nlgc) {
+    //console.log(nlgc);
     let table = {
         columns: [
             {
                 label: "id",
             },
             {
-                label: "Transcription Factor",
-            },
-            {
-                label: "Dataset Title"
-            },
-            {
-                label: "Strategy",
-            },
-            {
-                label: "Genes",
+                label: "Title"
             },
             {
                 label: "Publication Title",
@@ -81,7 +73,7 @@ function processData(datasets = []) {
                 hide: true
             },
             {
-                label: "Growth Conditions",
+                label: "NLP Growth Conditions",
             },
         ],
         data: []
@@ -117,15 +109,38 @@ function processData(datasets = []) {
 
             })
         }
+        let NLPGC = []
+        const conditions = nlgc.find(condition => condition.datasetIds.find(id => id === dataset._id))
+        if (conditions) {
+            Object.keys(conditions).forEach(key => {
+                if (DataVerifier.isValidArray(conditions[key]) && key !== "datasetIds") {
+                    let value
+                    if (key === "additionalProperties") {
+                        value = key + ": " + conditions[key].map((cont) => {
+                            if (DataVerifier.isValidArray(cont.value)) {
+                                return cont.name+": "+cont.value.map(vl=>vl.value).join("; ")
+                            }
+                            return ""
+                        }).join("; ")
+                    } else {
+                        value = key + ": " + conditions[key].map((cont) => {
+                            return cont.value
+                        }).join("; ")
+                    }
+
+                    NLPGC.push(value)
+                }
+            })
+        }
         table.data.push({
             "id": <LinkDataset value={dataset._id} datasetId={dataset._id} />,
             "Transcription Factor": objects.join(", "),
-            "Dataset Title": DataVerifier.isValidString(dataset?.sample.title) ? dataset?.sample.title : "",
-            "Strategy": dataset?.sourceSerie.strategy,
+            "Title": DataVerifier.isValidString(dataset?.sample?.title) ? dataset?.sample.title : "",
+            "Strategy": DataVerifier.isValidString(dataset?.sample?.strategy) ? dataset?.sample.strategy : "",
             "Genes": genes.join(", "),
             "Publication Title": publicationsTitle.join(", "),
             "Publication Authors": [...publicationsAuthors].join(", "),
-            "Growth Conditions": growthConditions.join("; ")
+            "NLP Growth Conditions": NLPGC.join(" | "),
         })
     })
     return table
@@ -133,6 +148,5 @@ function processData(datasets = []) {
 
 function LinkDataset({ datasetId }) {
     const navigate = useNavigate()
-    //TFBINDING
-    return <Button onClick={() => { navigate("./dataset/TFBINDING/datasetId=" + datasetId) }} >{datasetId}</Button>
+    return <Button onClick={() => { navigate("./dataset/GENE_EXPRESSION/datasetId=" + datasetId) }} >{datasetId}</Button>
 }

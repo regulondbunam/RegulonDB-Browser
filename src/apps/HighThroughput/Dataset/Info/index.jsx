@@ -1,7 +1,9 @@
 import React from "react";
-import { Cover, DataVerifier, Circular } from "../../../../components/ui-components";
+import { CircularProgress as Circular } from "@mui/material";
+import { DataVerifier } from "ui-components/utils";
+import { Cover } from "ui-components/Web/Cover";
 import Typography from "@mui/material/Typography";
-import { useGetDatasetByID } from "../../../../regulondb-ws/queries/Dataset";
+import { useGetDatasetByID } from 'webServices/queries';
 import SourceSerie from "./SourceSerie";
 import Publications from "./Publications";
 import TranscriptionFactor from "./TranscriptionFactor";

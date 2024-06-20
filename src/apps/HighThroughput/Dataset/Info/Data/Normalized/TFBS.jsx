@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import { DataVerifier, FilterTable } from '../../../../../../components/ui-components';
+import FilterTable from 'ui-components/Web/FilterTable';
+import { DataVerifier } from "ui-components/utils";
 import ViewerIGV from './IGV';
 
 export default function TFBS({ datasetId, normalizedData }) {
