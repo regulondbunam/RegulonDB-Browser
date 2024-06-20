@@ -1,5 +1,17 @@
 import { gql } from "@apollo/client";
 
+export const getDatasetIds = gql`query GetDatasetByID($datasetId: String) {
+  getDatasetByID(datasetID: $datasetId) {
+    _id
+    objectsTested {
+      _id
+      genes {
+        _id
+      }
+    }
+  }
+}`
+
 export const getGenesIds = gql`query GetGenesBy($advancedSearch: String) {
   getGenesBy(advancedSearch: $advancedSearch) {
     data {

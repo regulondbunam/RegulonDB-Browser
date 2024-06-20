@@ -1,5 +1,5 @@
 import { useQuery, gql } from "@apollo/client";
-import { getGenesIds, getOperonIds } from "./queries";
+import { getGenesIds, getOperonIds, getDatasetIds } from "./queries";
 import collectIds from "./collectorIds";
 
 const defaultQuery = gql`query GetDatabaseInfo {
@@ -9,17 +9,23 @@ const defaultQuery = gql`query GetDatabaseInfo {
 }`
 
 function getQuery(IDObjectRDB) {
+    if (!IDObjectRDB) {
+        console.warn("IDObjectRDB is undefined");
+            return { query: defaultQuery, options: {}, validateError: true }
+    }
     const options = {
         variables: {
             advancedSearch: IDObjectRDB.completeId + "[_id]"
         }
     }
-    //console.log(IDObjectRDB.objectType);
+    console.log(IDObjectRDB.objectType);
     switch (IDObjectRDB.objectType) {
         case "GN":
             return { query: getGenesIds, options: options, validateError: false }
         case "OP":
             return { query: getOperonIds, options: options, validateError: false }
+        case "BSD":
+            return { query: getDatasetIds, options: options, validateError: false }
         default:
             console.warn("unknown object Type",IDObjectRDB.objectType);
             return { query: defaultQuery, options: options, validateError: true }

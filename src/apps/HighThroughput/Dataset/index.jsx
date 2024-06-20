@@ -3,6 +3,7 @@ import Info from "./Info";
 import TFBINDING from "./List/TFBINDING";
 import TUS from "./List/TUS";
 import GENeEXPRESSION from "./List/GENE_EXPRESSION";
+import RNAP from "./List/RNAP";
 
 export default function Dataset({
   datasetId,
@@ -73,7 +74,7 @@ export default function Dataset({
     case "GENE_EXPRESSION":
       return <GENeEXPRESSION experimentType={experimentType} tfName={tfName} datasetType={datasetType} />
     case "RNAP_BINDING_SITES":
-      return null;
+      return <RNAP experimentType={experimentType} tfName={tfName} />
     default:
       return (
         <div>

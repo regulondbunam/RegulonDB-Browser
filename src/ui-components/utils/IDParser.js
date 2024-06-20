@@ -9,11 +9,14 @@ export default class IDObjectRDB {
      */
     constructor(id) {
         this.id = id;
-        this.regex = /^(RDB)(.{5})(..)(.)(\d{5})$/;
-        this.matches = this.id.match(this.regex);
+        this.regexRDB = /^(RDB)(.{5})(..)(.)(\d{5})$/;
+        this.regexRHT = /^(RHT)(.{5})(.{3})(\d{5})$/;
+        
+        this.matchesRDB = this.id.match(this.regexRDB);
+        this.matchesRHT = this.id.match(this.regexRHT);
 
-        if (!this.matches) {
-            throw new Error("Invalid ID format");
+        if (!this.matchesRDB && !this.matchesRHT) {
+            throw new Error("Invalid ID format:", id);
         }
     }
 
@@ -24,12 +27,18 @@ export default class IDObjectRDB {
     get completeId() {
         return this.id;
     }
+
     /**
      * Get the source.
      * @return {string} The source part of the ID.
      */
     get source() {
-        return this.matches[1];
+        if (this.matchesRDB) {
+            return this.matchesRDB[1];
+        } else if (this.matchesRHT) {
+            return this.matchesRHT[1];
+        }
+        return ""
     }
 
     /**
@@ -37,7 +46,12 @@ export default class IDObjectRDB {
      * @return {string} The organism part of the ID.
      */
     get organism() {
-        return this.matches[2];
+        if (this.matchesRDB) {
+            return this.matchesRDB[2];
+        } else if (this.matchesRHT) {
+            return this.matchesRHT[2];
+        }
+        return ""
     }
 
     /**
@@ -45,7 +59,12 @@ export default class IDObjectRDB {
      * @return {string} The object type part of the ID.
      */
     get objectType() {
-        return this.matches[3];
+        if (this.matchesRDB) {
+            return this.matchesRDB[3];
+        } else if (this.matchesRHT) {
+            return this.matchesRHT[3];
+        }
+        return ""
     }
 
     /**
@@ -53,7 +72,10 @@ export default class IDObjectRDB {
      * @return {string} The object source part of the ID.
      */
     get objectSource() {
-        return this.matches[4];
+        if (this.matchesRDB) {
+            return this.matchesRDB[4];
+        }
+        return "";
     }
 
     /**
@@ -61,22 +83,33 @@ export default class IDObjectRDB {
      * @return {string} The identifier number part of the ID.
      */
     get identifierNumber() {
-        return this.matches[5];
+        if (this.matchesRDB) {
+            return this.matchesRDB[5];
+        } else if (this.matchesRHT) {
+            return this.matchesRHT[4];
+        }
+        return ""
     }
 }
-
-// Usage example
 /*
+// Usage example
 try {
-    const id = "RDBECOLITFC00022";
-    const parser = new IDParser(id);
+    const id1 = "RDBECOLITFC00022";
+    const parser1 = new IDObjectRDB(id1);
+    console.log("Source:", parser1.source); // RDB
+    console.log("Organism:", parser1.organism); // ECOLI
+    console.log("Object Type:", parser1.objectType); // TF
+    console.log("Object Source:", parser1.objectSource); // C
+    console.log("Identifier Number:", parser1.identifierNumber); // 00022
 
-    console.log("Source:", parser.source); // RDB
-    console.log("Organism:", parser.organism); // ECOLI
-    console.log("Object Type:", parser.objectType); // TF
-    console.log("Object Source:", parser.objectSource); // C
-    console.log("Identifier Number:", parser.identifierNumber); // 00022
+    const id2 = "RHTECOLIRNP02416";
+    const parser2 = new IDObjectRDB(id2);
+    console.log("Source:", parser2.source); // RHT
+    console.log("Organism:", parser2.organism); // ECOLI
+    console.log("Object Type:", parser2.objectType); // RNP
+    console.log("Object Source:", parser2.objectSource); // null
+    console.log("Identifier Number:", parser2.identifierNumber); // 02416
 } catch (error) {
     console.error(error.message);
 }
-*/
+    */

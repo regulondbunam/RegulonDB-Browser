@@ -1,9 +1,11 @@
 import React, { useMemo } from 'react'
-import { Cover, Circular, DataVerifier } from '../../../../../components/ui-components'
-import FilterTable from "./filterTable"
-import { Button, Typography } from '@mui/material'
-import { useGetDatasetByAdvancedSearch } from '../../../../../regulondb-ws/queries'
+import { Cover } from 'ui-components/Web/Cover'
+import FilterTable from 'ui-components/Web/FilterTable'
+import { DataVerifier } from 'ui-components/utils'
+import { Button, Typography, CircularProgress as Circular } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { useGetDatasetByAdvancedSearch } from 'webServices/queries'
+
 
 
 

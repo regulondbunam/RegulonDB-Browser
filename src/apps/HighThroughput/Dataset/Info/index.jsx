@@ -10,6 +10,7 @@ import TranscriptionFactor from "./TranscriptionFactor";
 import GrowthConditions from "./GrowthConditions";
 import NLPGrowthConditions from "./NLPGrowthConditions";
 import DataFromDataset from "./Data";
+import CoverHT from "./Cover";
 
 //import Related from './related/Related'
 
@@ -38,9 +39,11 @@ export default function Info({ datasetId }) {
   if (DataVerifier.isValidObjectWith_id(dataset)) {
     return (
       <div>
-        <CoverTitle datasetId={datasetId} {...dataset} />
-
-        <div style={{ marginLeft: "11%" }} >
+        <Cover>
+          <br />
+          <CoverHT  datasetId={datasetId} {...dataset} />
+        </Cover>
+        <div style={{ marginLeft: "10%" }} >
           <SourceSerie {...dataset} />
           {DataVerifier.isValidArray(dataset.publications) && (
             <>
@@ -66,55 +69,4 @@ export default function Info({ datasetId }) {
       </div>
     );
   }
-}
-
-function CoverTitle({
-  datasetId,
-  sample,
-  sourceSerie,
-  datasetType,
-  fivePrimeEnrichment,
-}) {
-  let title = "Dataset " + datasetId;
-  //Condicion para filtrar comentarios de Victor (curador) saludos n.n
-  if (sample?.title) {
-    if (sample?.title === "obtener de GEO") {
-      title = "";
-    } else {
-      title = sample?.title;
-    }
-    //console.log(_data)
-  }
-  const pStyle = { fontSize: "14px", marginRight: "10px" };
-
-  return (
-    <>
-      <Cover>
-        <p>Dataset:{" "}{datasetId}</p>
-        <Typography variant="h1">{title}</Typography>
-        <div style={{ display: "flex" }} >
-          <p style={pStyle}>Dataset Type: {datasetType}</p>
-          {sourceSerie?.strategy && (
-            <p style={pStyle}>| Strategy: {sourceSerie.strategy}</p>
-          )}
-          {fivePrimeEnrichment && (
-            <p style={pStyle}>
-              | 5' Enrichment: {fivePrimeEnrichment}
-            </p>
-          )}
-          {sample?.controlId.length > 0 && (
-            <p style={pStyle}>
-              | Control ID: {sample?.controlId.join(", ")}
-            </p>
-          )}
-          {sample?.experimentId.length > 0 && (
-            <p style={pStyle}>
-              | Experiment ID: {sample?.experimentId.join(", ")}
-            </p>
-          )}
-        </div>
-        <br />
-      </Cover>
-    </>
-  );
 }
