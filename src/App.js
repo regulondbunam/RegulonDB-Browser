@@ -13,6 +13,7 @@ import { PATH_GENE } from "apps/Gene";
 import { PATH_DTT } from "apps/DrawingTracesTool";
 import { PATH_GU } from "apps/GensorUnits";
 import { PATH_OPERON } from "apps/Operon";
+import { PATH_HT } from "apps/HighThroughput";
 //old apps
 //import Manual from './old_apps/manual';
 //import Coexpression from "./old_apps/coexpression"
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
       PATH_DTT,
       PATH_GU,
       PATH_OPERON,
+      
     ]
   }
 ])
