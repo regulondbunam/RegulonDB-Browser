@@ -1,3 +1,5 @@
+import { DataVerifier } from "ui-components/utils";
+
 /**
  * Recursively collects all values of the `_id` property in a given object,
  * excluding those that are in the ignore list.
@@ -24,7 +26,7 @@ export default function collectIds(obj, ignoreIds=[]) {
                 if (currentObj.hasOwnProperty(key)) {
                     if (key === '_id') {
                         // If the key is '_id' and it's not in the ignore list, add its value to the ids array
-                        if (!ignoreIds.includes(currentObj[key])) {
+                        if (!ignoreIds.includes(currentObj[key]) && DataVerifier.isValidString(currentObj[key])) {
                             ids.add(currentObj[key])
                         }
                     } else {

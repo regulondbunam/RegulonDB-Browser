@@ -5,11 +5,12 @@ import RelatedTools from './tools';
 import RelatedExternal from './externalSites';
 import { List, ListItem, ListItemText, Skeleton, Box } from '@mui/material'
 import IDObjectRDB from "ui-components/utils/IDParser";
+import {collectIds} from './utils';
 
 //import Operon from './sites/Operon';
 
 
-export function getObjectType(regulonDB_id) {
+function getObjectType(regulonDB_id) {
   try {
       return new IDObjectRDB(regulonDB_id)
   } catch (error) {
@@ -42,3 +43,5 @@ export default function RelatedList({ collapse, regulonDB_id, leftEndPosition, r
     </List>
   )
 }
+
+export {getObjectType, collectIds}
