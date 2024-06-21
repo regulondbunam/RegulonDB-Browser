@@ -35,7 +35,7 @@ export default function GENeEXPRESSION({ experimentType, tfName, datasetType }) 
         </div>
     }
     if (datasets) {
-        console.log(datasets);
+        //console.log(datasets);
         return (
             <div>
                 <Cover>

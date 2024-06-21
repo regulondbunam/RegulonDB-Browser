@@ -18,14 +18,18 @@ function getQuery(IDObjectRDB) {
             advancedSearch: IDObjectRDB.completeId + "[_id]"
         }
     }
-    console.log(IDObjectRDB.objectType);
     switch (IDObjectRDB.objectType) {
         case "GN":
             return { query: getGenesIds, options: options, validateError: false }
         case "OP":
             return { query: getOperonIds, options: options, validateError: false }
         case "BSD":
-            return { query: getDatasetIds, options: options, validateError: false }
+            const htOptions = {
+                variables: {
+                    datasetId: IDObjectRDB.completeId
+                }
+            }
+            return { query: getDatasetIds, options: htOptions, validateError: false }
         default:
             console.warn("unknown object Type",IDObjectRDB.objectType);
             return { query: defaultQuery, options: options, validateError: true }

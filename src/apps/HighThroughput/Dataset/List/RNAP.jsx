@@ -35,7 +35,7 @@ export default function RNAP({ experimentType, tfName }) {
         </div>
     }
     if (datasets) {
-        console.log(datasets);
+        //console.log(datasets);
         return (
             <div>
                 <Cover>

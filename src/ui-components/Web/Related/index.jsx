@@ -21,7 +21,7 @@ function getObjectType(regulonDB_id) {
 
 export default function RelatedList({ collapse, regulonDB_id, leftEndPosition, rightEndPosition, gene, organism, tools=true,sites=true,external=false, externalCrossReferences }) {
   const IDObjectRDB = getObjectType(regulonDB_id)
-  console.log(regulonDB_id);
+ // console.log(regulonDB_id);
   const {ids, loading} = useGetRelatedObjectsByID(IDObjectRDB)
   if (loading) {
     return (

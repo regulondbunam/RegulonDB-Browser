@@ -19,7 +19,7 @@ const query = gql`
 export default function TranscriptionFactor({ objectsTested }) {
   return (
     <>
-      <Typography variant="h2" sx={{ fontSize: "22px" }}>
+      <Typography variant="h2">
         Transcription Factor
       </Typography>
       {objectsTested.map((obj, i) => (

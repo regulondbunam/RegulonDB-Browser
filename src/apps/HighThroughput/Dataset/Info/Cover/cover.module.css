@@ -22,7 +22,7 @@
 .mainInfo{
     display: flex;
     justify-content: space-between;
-    margin: 10;
+    margin: 5px 0 0 5px;
 }
 
 .references{

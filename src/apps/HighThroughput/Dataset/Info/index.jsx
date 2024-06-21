@@ -4,7 +4,6 @@ import { DataVerifier } from "ui-components/utils";
 import { Cover } from "ui-components/Web/Cover";
 import Typography from "@mui/material/Typography";
 import { useGetDatasetByID } from 'webServices/queries';
-import SourceSerie from "./SourceSerie";
 import Publications from "./Publications";
 import TranscriptionFactor from "./TranscriptionFactor";
 import GrowthConditions from "./GrowthConditions";
@@ -44,22 +43,16 @@ export default function Info({ datasetId }) {
           <CoverHT  datasetId={datasetId} {...dataset} />
         </Cover>
         <div style={{ marginLeft: "10%" }} >
-          <SourceSerie {...dataset} />
           {DataVerifier.isValidArray(dataset.publications) && (
-            <>
-              <br />
               <Publications publications={dataset.publications} />
-            </>
           )}
           {DataVerifier.isValidArray(dataset.objectsTested) && (
             <>
-              <br />
               <TranscriptionFactor {...dataset} />
             </>
           )}
           {DataVerifier.isValidObject(dataset.growthConditions) && (
             <>
-              <br />
               <GrowthConditions {...dataset} />
             </>
           )}
