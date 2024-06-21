@@ -102,12 +102,10 @@ export default function Publications({ publications }) {
                       {publication.doi}
                     </a>
                     </Typography>
-                    <Typography variant="irrelevantB" sx={{ mr: 1, ml: 1 }}>
-                      |
-                    </Typography>
                   </div>
                 )}
               </div>
+              <br />
             </div>
           );
         })}
