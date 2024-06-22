@@ -11,42 +11,6 @@ export default function Dataset({
   experimentType,
   tfName,
 }) {
-  const propList = useMemo(() => {
-    let properties = [
-      {
-        query: "[datasetType]",
-        term: datasetType,
-      },
-      {
-        query: "[sourceSerie.strategy]",
-        term: experimentType,
-      },
-      {
-        query: "[objectsTested.name]",
-        term: tfName,
-      },
-    ];
-    let advancedSearch = "";
-    let ind = 0;
-    properties.forEach((pro) => {
-      if (pro?.term) {
-        if (ind > 0) {
-          if (ind > 1) {
-            advancedSearch = `(${advancedSearch}) AND '${pro.term}'${pro.query}`;
-          } else {
-            advancedSearch += ` AND '${pro.term}'${pro.query}`;
-            ind++;
-          }
-        } else {
-          advancedSearch = `'${pro.term}'${pro.query}`;
-          ind++;
-        }
-      }
-    });
-    let title = datasetType;
-
-    return { advancedSearch: advancedSearch, title: title };
-  }, [datasetType, tfName, experimentType]);
 
   if (datasetId) {
     return <Info datasetId={datasetId} />;
