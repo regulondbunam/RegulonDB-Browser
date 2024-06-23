@@ -1,7 +1,8 @@
 import { toInt, eMes } from "./util";
 import { dnaObjects_list } from "../features_default_properties";
+import { FOCUS_TYPE } from "apps/DrawingTracesTool/Ecoli/DrawingTraces";
 
-export function validateElements(dnaObjects = []) {
+export function validateElements(dnaObjects = [], focusElements = [], focusType) {
   if (!dnaObjects || dnaObjects.length === 0) {
     return null;
   }
@@ -9,9 +10,10 @@ export function validateElements(dnaObjects = []) {
   let preValidate_dnaObjects = [];
 
   dnaObjects.map((ge, inx) => {
+    const focus = focusType === FOCUS_TYPE.ONLY_FOCUS ? focusElements.find(element=>element===ge._id) : true;
     let dnaObject = { ...ge }
     let distinct = "obj_"
-    if (dnaObject?._id) {
+    if (dnaObject?._id && focus) {
       if (dnaObject?.objectType) {
         distinct += dnaObject.objectType + "_"
         if (!dnaObjects_list.find(objectType => objectType === dnaObject.objectType)) {

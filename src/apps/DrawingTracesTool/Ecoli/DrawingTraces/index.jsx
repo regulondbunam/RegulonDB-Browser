@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 import { useGetGeneticElements } from "webServices/queries";
-import { MOVE, REDUCER, ZOOM, OBJECT_TYPES, CONTROLS_POSITIONS } from "./static";
+import { MOVE, REDUCER, ZOOM, OBJECT_TYPES, CONTROLS_POSITIONS, FOCUS_TYPE } from "./static";
 import DrawTrack from "apps/DrawingTracesTool/DrawingEngine";
 import Controls from "./Controls";
 
@@ -78,6 +78,7 @@ export default function DrawingTraces({
   controlsPosition = CONTROLS_POSITIONS.UP_RIGHT,
   draw = true,
   focusElements,
+  focusType = FOCUS_TYPE.BORDER,
   height = 300,
   id = "trackExample",
   leftEndPosition,
@@ -132,6 +133,7 @@ export default function DrawingTraces({
       <div>
         <DrawTrack
           focusElements={focusElements}
+          focusType={focusType}
           trackId={id}
           geneticElements={geneticElements}
           {...state}
@@ -144,4 +146,4 @@ export default function DrawingTraces({
   );
 }
 
-export { CONTROLS_POSITIONS }
+export { CONTROLS_POSITIONS, FOCUS_TYPE }

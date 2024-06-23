@@ -25,9 +25,9 @@ class Track {
     this.height = height
   }
 
-  draw(geneticElements, covered_LeftPosition, covered_RightPosition, focusElements = []) {
+  draw(geneticElements, covered_LeftPosition, covered_RightPosition, focusElements = [], focusType) {
     //validar objetos
-    geneticElements = validateElements(geneticElements);
+    geneticElements = validateElements(geneticElements, focusElements, focusType);
     if (!geneticElements) {
       console.error("no valid geneticElements");
       return undefined;

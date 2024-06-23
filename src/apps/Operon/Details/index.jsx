@@ -10,7 +10,7 @@ import AnchorNav from 'ui-components/Web/AnchorNav';
 import Tabs from 'ui-components/Web/Tabs';
 import RelatedList from 'ui-components/Web/Related';
 import { AllCitations } from "ui-components/Web/Citations/AllCitations";
-
+import TranscriptionUnit from './TU';
 
 
 
@@ -67,6 +67,7 @@ export default function Details({ id }) {
 }
 
 function TUsDetails({ operon, references }) {
+  console.log(operon);
   let tus = []
   if (DataVerifier.isValidArray(operon?.transcriptionUnits)) {
     operon.transcriptionUnits.forEach((tu, index) => {
@@ -78,11 +79,7 @@ function TUsDetails({ operon, references }) {
         id: tu._id + "_TUSection_" + index,
         title: tu.name+promoterName,
         visible:true,
-        component: (
-          <div>
-            
-          </div>
-        ),
+        component: <TranscriptionUnit {...tu} pageReferences={references} regulationPositions={operon.operon.regulationPositions} />,
       },)
     });
   }

@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import DrawingTraces, { CONTROLS_POSITIONS } from "apps/DrawingTracesTool/Ecoli/DrawingTraces";
+import DrawingTraces, { CONTROLS_POSITIONS, FOCUS_TYPE } from "apps/DrawingTracesTool/Ecoli/DrawingTraces";
 import { collectIds } from "ui-components/Web/Related";
 
 const ACTIONS = {
@@ -46,13 +46,13 @@ function initState({operon}){
 export default function DrawTrace({ operon }) {
   // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useReducer(reducer, {operon}, initState)
-  console.log(state.ids);
   return <DrawingTraces 
     height={150} 
     leftEndPosition={state.left} 
     rightEndPosition={state.right} 
     showTable={false} 
-    focusElements={state.ids} 
+    focusElements={state.ids}
+    focusType={FOCUS_TYPE.ONLY_FOCUS}
     controlsPosition={CONTROLS_POSITIONS.BOTTOM_RIGHT}
     />;
 }

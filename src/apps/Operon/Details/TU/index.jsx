@@ -1,160 +1,96 @@
+import { useMemo } from "react";
+import { DataVerifier } from "ui-components/utils";
+import DrawingTraces, { CONTROLS_POSITIONS, FOCUS_TYPE } from "apps/DrawingTracesTool/Ecoli/DrawingTraces";
+import { indexedReferences } from "ui-components/utils/References";
+import { collectIds } from "ui-components/Web/Related";
+
 export default function TranscriptionUnit({
-    _id,
-    allCitations,
-    relatedIds,
-    regulationPositions,
-    strand,
-    additiveEvidences = [],
-    citations = [],
-    confidenceLevel,
-    firstGene,
-    genes = [],
-    name,
-    note,
-    promoter,
-    regulatorBindingSites = [],
-    statistics,
-    synonyms = [],
-    terminators = [],
-  }) {
-    const { propertiesPhrase } = useGetPhraseByObjectId(_id);
-    let isPromoterRi = false;
-    if (DataVerifier.isValidObject(promoter)) {
-      if (DataVerifier.isValidArray(promoter.regulatorBindingSites)) {
-        isPromoterRi = true;
-      }
-    }
-    let isGeneRi = false;
-    if (DataVerifier.isValidArray(genes)) {
-      for (let i = 0; i < genes.length; i++) {
-        const gene = genes[i];
-        if (DataVerifier.isValidArray(gene.regulatorBindingSites)) {
-          isGeneRi = true;
-          i = genes.length;
-        }
-      }
-    }
-    let isTuRi = DataVerifier.isValidArray(regulatorBindingSites);
-    return (
-      <div>
-        <div
-          style={{
-            position: "sticky",
-            top: "58px",
-            zIndex: "80",
-            boxShadow: "0px 2px 2px 0px rgba(0,0,0,0.43)",
-            WebkitBoxShadow: " 0px 2px 2px 0px rgba(0,0,0,0.43)",
-            MozBoxShadow: " 0px 2px 2px 0px rgba(0,0,0,0.43)",
-          }}
-        >
-          <DrawingTracesTool
-            variant="outlined"
-            relatedIds={relatedIds}
-            context="tu"
-            height={200}
-            id={_id}
-            leftEndPosition={regulationPositions.leftEndPosition}
-            rightEndPosition={regulationPositions.rightEndPosition}
-            strand={strand}
-          />
-        </div>
-        <div>
-          <Accordion>
-            {DataVerifier.isValidObject(firstGene) && (
-              <Genes
-                tuId={_id}
-                allCitations={allCitations}
-                synonyms={synonyms}
-                firstGene={firstGene}
-                genes={genes}
-                strand={strand}
-                confidenceLevel={confidenceLevel}
-                note={note}
-                citations={citations}
-                propertiesPhrase={propertiesPhrase}
-              />
-            )}
-          </Accordion>
-          <Divider />
-          {DataVerifier.isValidObject(promoter) && (
-            <Promoter
-              _id={_id}
-              promoter={promoter}
-              allCitations={allCitations}
-              strand={strand}
-            />
-          )}
-          <Divider />
-          {(isGeneRi || isPromoterRi || isTuRi) && (
-            <Accordion
-              title={<h2 style={{ margin: 0 }}>{`Regulatory Interactions`}</h2>}
-            >
-              <div style={{ overflow: "auto" }}>
-                {DataVerifier.isValidObject(promoter) && (
-                  <>
-                    <h4>
-                      Regulation identified by {" "}
-                      {" " + promoter.name + " "}promoter
-                    </h4>
-                    {DataVerifier.isValidArray(
-                      promoter.regulatorBindingSites
-                    ) && (
-                      <RegulatorBindingSites
-                        regulatorBindingSites={promoter.regulatorBindingSites}
-                        allCitations={allCitations}
-                      />
-                    )}
-                  </>
-                )}
-                {DataVerifier.isValidArray(genes) && (
-                  <div>
-                    {genes.map((gene) => {
-                      //console.log(gene.regulatorBindingSites);
-                      return (
-                        <div>
-                          {DataVerifier.isValidArray(
-                            gene.regulatorBindingSites
-                          ) && (
-                            <>
-                              <h4>
-                                Regulation identified only at gene {gene.name}{" "}
-                                level
-                              </h4>
-                              <RegulatorBindingSites
-                                regulatorBindingSites={gene.regulatorBindingSites}
-                                allCitations={allCitations}
-                              />
-                            </>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-                {DataVerifier.isValidArray(regulatorBindingSites) && (
-                  <>
-                    <h4>Regulation identified only at TU level</h4>
-                    <RegulatorBindingSites
-                      regulatorBindingSites={regulatorBindingSites}
-                      allCitations={allCitations}
-                    />
-                  </>
-                )}
-              </div>
-            </Accordion>
-          )}
-          <div>
-            <Divider />
-            {DataVerifier.isValidArray(terminators) && (
-              <Terminators
-                terminators={terminators}
-                tuID={_id}
-                allCitations={allCitations}
-              />
-            )}
-            <Divider />
-          </div>
-        </div>
+  _id,
+  allCitations,
+  pageReferences,
+  relatedIds,
+  regulationPositions,
+  strand,
+  additiveEvidences = [],
+  citations = [],
+  confidenceLevel,
+  firstGene,
+  genes = [],
+  name,
+  note,
+  promoter,
+  regulatorBindingSites = [],
+  statistics,
+  synonyms = [],
+  terminators = [],
+}) {
+
+  const references = useMemo(() => {
+    return pageReferences ? pageReferences : indexedReferences(allCitations);
+  }, [allCitations, pageReferences]);
+
+  const isGenes = DataVerifier.isValidArray(genes)
+  const isTerminators = DataVerifier.isValidArray(terminators)
+  const isPromoter = DataVerifier.isValidObjectWith_id(promoter)
+  const isRBSinTU = DataVerifier.isValidArray(regulatorBindingSites);
+
+  //const isRBSinPromoter = isPromoter ? DataVerifier.isValidArray(promoter.regulatorBindingSites) : false;
+
+
+
+  //console.log(regulationPositions.leftEndPosition);
+  return (
+    <div>
+      <div
+        style={{
+          position: "sticky",
+          top: "58px",
+          zIndex: "80",
+          boxShadow: "0px 2px 2px 0px rgba(0,0,0,0.43)",
+          WebkitBoxShadow: " 0px 2px 2px 0px rgba(0,0,0,0.43)",
+          MozBoxShadow: " 0px 2px 2px 0px rgba(0,0,0,0.43)",
+        }}
+      >
+        <DrawTU id={"dttOperon_" + _id + "_" + promoter?._id}
+          genes={isGenes && genes}
+          promoter={isPromoter && promoter}
+          regulatorBindingSites={isRBSinTU && regulatorBindingSites}
+          terminators={isTerminators && terminators}
+          regulationPositions={regulationPositions} />
       </div>
-    );
-  }
+      <div></div>
+    </div>
+  );
+}
+
+function DrawTU({ id, genes, promoter, regulationPositions, regulatorBindingSites, terminators }) {
+  const focusElements = useMemo(() => {
+    let ids = []
+    if (genes) {
+      ids.push(...collectIds(genes))
+    }
+    if (promoter) {
+      ids.push(...collectIds(promoter))
+    }
+    if (regulatorBindingSites) {
+      ids.push(...collectIds(regulatorBindingSites))
+    }
+    if (terminators) {
+      ids.push(...collectIds(terminators))
+    }
+    return ids
+  }, [genes, promoter, regulatorBindingSites, terminators])
+
+  return <DrawingTraces
+    id={id}
+    height={150}
+    leftEndPosition={regulationPositions.leftEndPosition}
+    rightEndPosition={regulationPositions.rightEndPosition}
+    showTable={false}
+    focusElements={focusElements}
+    focusType={FOCUS_TYPE.ONLY_FOCUS}
+    controlsPosition={CONTROLS_POSITIONS.BOTTOM_RIGHT}
+  />
+}
+
+//  focusElements={state.ids} 

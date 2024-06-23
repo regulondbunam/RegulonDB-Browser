@@ -7,6 +7,11 @@ export const CONTROLS_POSITIONS ={
     BOTTOM_LEFT: "bl"
 }
 
+export const FOCUS_TYPE = {
+    BORDER: "border",
+    ONLY_FOCUS: "onlyFocus",
+}
+
 export const REDUCER ={
     MoveLeft: 0,
     MoveRight: 1,

@@ -9,7 +9,8 @@ export default function DrawTrack({
   rightEndPosition,
   height = 300,
   showTable = false,
-  focusElements
+  focusElements,
+  focusType,
 }) {
   useEffect(() => {
     const drawPlace = document.getElementById(trackId);
@@ -23,10 +24,10 @@ export default function DrawTrack({
           width,
           height
         );
-        track.draw(geneticElements, leftEndPosition, rightEndPosition, focusElements);
+        track.draw(geneticElements, leftEndPosition, rightEndPosition, focusElements, focusType);
       }
     }
-  }, [trackId, geneticElements, height, leftEndPosition, rightEndPosition, focusElements]);
+  }, [trackId, geneticElements, height, leftEndPosition, rightEndPosition, focusElements, focusType]);
 
   return (
     <div>
