@@ -53,7 +53,7 @@ export default function HTsite({ regulonName = "", geneName = "" }) {
     if (ht && !error) {
         const isGeneExpression = DataVerifier.isValidArray(ht?.getGeneExpressionFromSearch)
         const isTF = DataVerifier.isValidArray(ht?.getDatasetsFromSearch)
-        if(!isGeneExpression && !isTF){
+        if (!isGeneExpression && !isTF) {
             return null
         }
         return (
@@ -81,7 +81,7 @@ export default function HTsite({ regulonName = "", geneName = "" }) {
 function DatasetsInGeneExpression({ geneName }) {
     const nav = useNavigate()
     return (
-        <ListItemButton sx={{ pl: 4 }} dense  onClick={() => { nav(`/ht/dataset/TFBINDING/geneName=${geneName}`) }} >
+        <ListItemButton sx={{ pl: 4 }} dense onClick={() => { nav(`/ht/dataset/GENE_EXPRESSION/geneName=${geneName}`) }} >
             <ListItemText primary={<Typography variant='irrelevantB' >Gene Expression</Typography>} />
         </ListItemButton>
     )
@@ -90,8 +90,8 @@ function DatasetsInGeneExpression({ geneName }) {
 function DatasetsInTF({ regulonName }) {
     const nav = useNavigate()
     return (
-        <ListItemButton sx={{ pl: 4 }} dense  onClick={() => { nav(`/ht/dataset/GENE_EXPRESSION/tf=${regulonName}`) }} >
-        <ListItemText primary={<Typography variant='irrelevantB' >TF Binding Sites</Typography>} />
-    </ListItemButton>
+        <ListItemButton sx={{ pl: 4 }} dense onClick={() => { nav(`/ht/dataset/TFBINDING/tf=${regulonName}`) }} >
+            <ListItemText primary={<Typography variant='irrelevantB' >TF Binding Sites</Typography>} />
+        </ListItemButton>
     )
 }

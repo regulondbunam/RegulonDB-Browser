@@ -9,7 +9,7 @@ import { useGetDatasetByAdvancedSearch } from 'webServices/queries'
 
 
 
-export default function RNAP({ experimentType, tfName }) {
+export default function RNAP({ experimentType, tfName, strategy, gene, gc }) {
     const { datasets, loading, error } = useGetDatasetByAdvancedSearch("RNAP_BINDING_SITES[datasetType]")
     let title = " RNAP Binding Sites"
     if (experimentType) {
@@ -42,19 +42,19 @@ export default function RNAP({ experimentType, tfName }) {
                     <Typography variant='h1' >{title}</Typography>
                 </Cover>
                 <br />
-                <Table datasets={datasets} />
+                <Table datasets={datasets} tf={tfName} strategy={strategy} gene={gene} gc={gc} />
             </div>
         )
     }
 }
 
-function Table({ datasets }) {
-    const table = useMemo(() => processData(datasets), [datasets])
+function Table({ datasets, tf, strategy, gene, gc  }) {
+    const table = useMemo(() => processData(datasets,tf, strategy, gene, gc ), [datasets, tf, strategy, gene, gc ])
     return <FilterTable columns={table.columns} data={table.data} />
 }
 
 
-function processData(datasets = []) {
+function processData(datasets = [], tf, strategy, gene, gc) {
     let table = {
         columns: [
             {
@@ -62,15 +62,18 @@ function processData(datasets = []) {
             },
             {
                 label: "Transcription Factor",
+                setFilter: tf,
             },
             {
                 label: "Dataset Title"
             },
             {
                 label: "Strategy",
+                setFilter: strategy,
             },
             {
                 label: "Genes",
+                setFilter: gene,
             },
             {
                 label: "Publication Title",
@@ -82,6 +85,7 @@ function processData(datasets = []) {
             },
             {
                 label: "Growth Conditions",
+                setFilter: gc
             },
         ],
         data: []

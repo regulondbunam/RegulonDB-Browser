@@ -10,6 +10,8 @@ export default function Dataset({
   datasetType,
   experimentType,
   tfName,
+  geneName,
+  gc,
 }) {
 
   if (datasetId) {
@@ -21,8 +23,8 @@ export default function Dataset({
       return (
         <TFBINDING
           experimentType={experimentType}
-          tfName={tfName}
           datasetType={datasetType}
+          tfName={tfName} strategy={experimentType} gene={geneName} gc={gc}
         />
       );
     case "TTS":
@@ -36,9 +38,9 @@ export default function Dataset({
         />
       );
     case "GENE_EXPRESSION":
-      return <GENeEXPRESSION experimentType={experimentType} tfName={tfName} datasetType={datasetType} />
+      return <GENeEXPRESSION experimentType={experimentType} tfName={tfName} datasetType={datasetType} gene={geneName} />
     case "RNAP_BINDING_SITES":
-      return <RNAP experimentType={experimentType} tfName={tfName} />
+      return <RNAP experimentType={experimentType} tfName={tfName} strategy={experimentType} gene={geneName} gc={gc} />
     default:
       return (
         <div>

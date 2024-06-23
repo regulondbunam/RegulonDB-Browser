@@ -34,7 +34,7 @@ export default function HT() {
       //return <Finder datasetType={datasetType} />;
       case "dataset":
             const query = new URLSearchParams(info);
-            return <Dataset datasetId={query.get('datasetId')} tfName={query.get('tf')} datasetType={datasetType} experimentType={query.get('experimentType')} />
+            return <Dataset datasetId={query.get('datasetId')} tfName={query.get('tf')} datasetType={datasetType} experimentType={query.get('experimentType')}  geneName={query.get('geneName')} gc={query.get('gc')} />
       default:
         return <Home />;
     }

@@ -48,7 +48,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <ThemeProvider theme={THEME}>
-      <ApolloProvider client={CLIENT} >
+      <ApolloProvider client={CLIENT()} >
         <RouterProvider router={router} />
       </ApolloProvider>
     </ThemeProvider>

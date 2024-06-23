@@ -1,5 +1,24 @@
 import { gql } from "@apollo/client";
 
+export const query_GET_GENE_EXPRESSION_BY_ADVANCE_SEARCH = gql`query GetGeneExpressionFromSearch($advancedSearch: String) {
+  getGeneExpressionFromSearch(advancedSearch: $advancedSearch) {
+    _id
+    tpm
+    fpkm
+    gene {
+      name
+      _id
+      bnumber
+      leftEndPosition
+      rightEndPosition
+      synonyms
+    }
+    datasetIds
+    count
+    temporalId
+  }
+}`
+
 export const query_GETALLNPC = gql`query GetNLPGrowthConditionBySearch($advancedSearch: String) {
   getNLPGrowthConditionBySearch(advancedSearch: $advancedSearch) {
     _id

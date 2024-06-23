@@ -1,5 +1,5 @@
-import { useQuery } from "@apollo/client";
-import { query_GET_DATASET_BY_ID, query_GET_DATASET_BY_ADVANCE_SEARCH, query_GETALLNPC } from "./queries";
+import { useQuery, useLazyQuery } from "@apollo/client";
+import { query_GET_DATASET_BY_ID, query_GET_DATASET_BY_ADVANCE_SEARCH, query_GETALLNPC, query_GET_GENE_EXPRESSION_BY_ADVANCE_SEARCH } from "./queries";
 import { DataVerifier } from "ui-components/utils";
 
 export function useGetNLPGC(){
@@ -86,4 +86,38 @@ export function useGetDatasetByID(datasetId) {
   }
 
   return { dataset, data, loading, error };
+}
+
+export function useLazyGetGeneExpressionByAdvancedSearch(){
+  const [getData, {data, loading, error}] = useLazyQuery(query_GET_GENE_EXPRESSION_BY_ADVANCE_SEARCH)
+  let geneExpression
+
+  if (data) {
+    if (DataVerifier.isValidArray(data?.getGeneExpressionFromSearch)) {
+      geneExpression = data.geneExpression
+    }
+  }
+  if (error) {
+    console.error("query get geneExpression:",error,query_GET_GENE_EXPRESSION_BY_ADVANCE_SEARCH);
+  }
+  return [getData, {geneExpression, loading, error}]
+}
+
+
+export function useGetGeneExpressionByAdvancedSearch(advancedSearch){
+  const {data, loading, error} = useQuery(query_GET_GENE_EXPRESSION_BY_ADVANCE_SEARCH,{
+    variables:{
+      advancedSearch: advancedSearch
+    }
+  })
+  let geneExpression
+  if (data) {
+    if (DataVerifier.isValidArray(data?.getGeneExpressionFromSearch)) {
+      geneExpression = data.getGeneExpressionFromSearch
+    }
+  }
+  if (error) {
+    console.error("query get geneExpression:",error,query_GET_GENE_EXPRESSION_BY_ADVANCE_SEARCH);
+  }
+  return {geneExpression, loading, error}
 }

@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 
-export default function TFBINDING({ experimentType, tfName, datasetType }) {
+export default function TFBINDING({ experimentType, tfName, strategy, gene, gc  }) {
     const { datasets, loading, error } = useGetDatasetByAdvancedSearch("TFBINDING[datasetType]")
     let title = " TF Binding Sites"
     if (experimentType) {
@@ -42,19 +42,19 @@ export default function TFBINDING({ experimentType, tfName, datasetType }) {
                     <Typography variant='h1' >{title}</Typography>
                 </Cover>
                 <br />
-                <Table datasets={datasets} />
+                <Table datasets={datasets} tf={tfName} strategy={strategy} gene={gene} gc={gc} />
             </div>
         )
     }
 }
 
-function Table({ datasets }) {
-    const table = useMemo(() => processData(datasets), [datasets])
-    return <FilterTable columns={table.columns} data={table.data} tableName='' />
+function Table({ datasets, tf, strategy, gene, gc }) {
+    const table = useMemo(() => processData(datasets, tf, strategy, gene, gc), [datasets, tf, strategy, gene, gc])
+    return <FilterTable columns={table.columns} data={table.data} tableName=''  />
 }
 
 
-function processData(datasets = []) {
+function processData(datasets = [], tf, strategy, gene, gc) {
     let table = {
         columns: [
             {
@@ -62,15 +62,18 @@ function processData(datasets = []) {
             },
             {
                 label: "Transcription Factor",
+                setFilter: tf,
             },
             {
                 label: "Dataset Title"
             },
             {
                 label: "Strategy",
+                setFilter: strategy
             },
             {
                 label: "Genes",
+                setFilter: gene
             },
             {
                 label: "Publication Title",
@@ -82,6 +85,7 @@ function processData(datasets = []) {
             },
             {
                 label: "Growth Conditions",
+                setFilter: gc
             },
         ],
         data: []

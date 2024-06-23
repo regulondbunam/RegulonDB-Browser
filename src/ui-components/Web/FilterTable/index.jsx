@@ -3,14 +3,20 @@ import Style from "./filterTable.module.css"
 import Thead from './Thead';
 import Tbody from './Tbody';
 import Pagination from './Pagination';
-import { REDUCER_TYPES, FILTER } from './static';
+import { REDUCER_TYPES, FILTER, getCellValue } from './static';
 import { DataVerifier } from 'ui-components/utils';
 import Options from './Options';
 import { deleteFilter } from './Thead/Options/filters/deleteFilter';
 import { Typography } from '@mui/material';
 import { useEffect } from 'react';
 
-
+export function textFilter(filterValue, row, columnKey) {
+  const cellValue = getCellValue(row, columnKey)
+  if (cellValue) {
+      return cellValue.toLowerCase().includes(filterValue.toLowerCase())
+  }
+  return false
+}
 
 function reducer(state, action) {
   switch (action.type) {
@@ -84,6 +90,7 @@ function initialState({ columns = [], data = [], tableId, idContainer, items = 1
   let newColumns = [];
   let currentData = [];
   let mapData = {};
+  let filters = []
   if (data.length < 10) {
     items = data.length + 1
   }
@@ -96,6 +103,16 @@ function initialState({ columns = [], data = [], tableId, idContainer, items = 1
   }
   columns.forEach((column, index) => {
     const key = column?.key ? column.key : column.label
+    if(column?.setFilter){
+      filters.push({
+        columnKey: key,
+        columnLabel: column.label,
+        index: filters.length,
+        logicConnector: "OR",
+        type: 0,
+        value: column.setFilter
+      })
+    }
     newColumns.push({
       id: "column_" + index + "_" + tableId,
       key: key,
@@ -119,7 +136,15 @@ function initialState({ columns = [], data = [], tableId, idContainer, items = 1
       ...row?._properties
     }
     mapData[key] = newRow
-    currentData.push(newRow)
+    if(filters.length>0){
+      filters.forEach(filter => {
+      if(textFilter(filter.value,newRow,filter.columnKey)){
+        currentData.push(newRow)
+      }
+    });
+    }else{
+      currentData.push(newRow)
+    }
   });
 
   return {
@@ -133,7 +158,7 @@ function initialState({ columns = [], data = [], tableId, idContainer, items = 1
     items: items,
     totalPages: Math.ceil(data.length / items) - 1,
     //filter
-    filters: []
+    filters: filters
   }
 }
 
@@ -152,7 +177,7 @@ export default function FilterTable({
   const tableId = useId()
   const [state, dispatch] = useReducer(reducer, { columns, data, tableId, idContainer, items }, initialState)
 
-  //console.log(state);
+  //console.log(state.filters);
 
   useEffect(() => {
     dispatch({ type: "reset", newState: initialState({ columns, data, tableId, idContainer, items }) })
