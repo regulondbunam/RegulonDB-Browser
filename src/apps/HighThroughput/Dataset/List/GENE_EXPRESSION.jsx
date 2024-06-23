@@ -4,7 +4,7 @@ import FilterTable from 'ui-components/Web/FilterTable'
 import { DataVerifier } from 'ui-components/utils'
 import { Button, Typography, CircularProgress as Circular } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import { useGetDatasetByAdvancedSearch, useGetGeneExpressionByAdvancedSearch, useGetNLPGC, useLazyGetGeneExpressionByAdvancedSearch } from 'webServices/queries'
+import { useGetDatasetByAdvancedSearch, useGetGeneExpressionByAdvancedSearch, useGetNLPGC, } from 'webServices/queries'
 
 
 

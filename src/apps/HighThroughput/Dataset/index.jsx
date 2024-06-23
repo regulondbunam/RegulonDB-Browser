@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import Info from "./Info";
 import TFBINDING from "./List/TFBINDING";
 import TUS from "./List/TUS";
