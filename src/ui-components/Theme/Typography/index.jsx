@@ -101,7 +101,7 @@ export const TYPOGRAPHY = {
   },
   sequence: {
     fontFamily: "Courier New",
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: 500,
     lineHeight: 1.5,
     letterSpacing: 1.5,

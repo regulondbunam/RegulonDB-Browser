@@ -22,7 +22,7 @@ export default function Genes({ genes }) {
                                 style={{ marginLeft: "10px" }} 
                                 to={"/gene/"+gene._id}
                                 >
-                                <Typography variant="relevantB">
+                                <Typography variant="relevant">
                                     <span dangerouslySetInnerHTML={{ __html: gene.name }} />
                                 </Typography>
                             </Link>

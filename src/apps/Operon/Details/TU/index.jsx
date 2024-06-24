@@ -10,6 +10,7 @@ import { ParagraphCitations } from "ui-components/Web/Citations";
 import { AccordionHighlight } from "ui-components/Web/Accordion";
 import Note from "ui-components/Web/Note";
 import Genes from "./Genes";
+import Promoter from "./Promoter";
 
 
 export default function TranscriptionUnit({
@@ -117,6 +118,7 @@ export default function TranscriptionUnit({
               <Note note={note} references={references} />
             </AccordionHighlight>
           )}
+          {isPromoter && (<Promoter promoter={promoter} references={references} />)}
           
         </div>
         {
