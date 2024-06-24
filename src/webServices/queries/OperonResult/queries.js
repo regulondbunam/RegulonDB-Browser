@@ -1,7 +1,7 @@
 import { gql } from  '@apollo/client';
 
 export const query_getOperonBy = gql`query GetOperonBy($advancedSearch: String, $search: String) {
-  getOperonBy(advancedSearch: $advancedSearch,  search: $search) {
+  getOperonBy(advancedSearch: $advancedSearch, search: $search) {
     data {
       _id
       allCitations {
@@ -61,7 +61,11 @@ export const query_getOperonBy = gql`query GetOperonBy($advancedSearch: String, 
       schemaVersion
       transcriptionUnits {
         _id
-        name
+        additiveEvidences {
+          category
+          code
+          type
+        }
         citations {
           evidence {
             _id
@@ -80,6 +84,7 @@ export const query_getOperonBy = gql`query GetOperonBy($advancedSearch: String, 
             year
           }
         }
+        confidenceLevel
         firstGene {
           distanceToPromoter
           _id
@@ -88,15 +93,128 @@ export const query_getOperonBy = gql`query GetOperonBy($advancedSearch: String, 
         genes {
           _id
           name
+          regulatorBindingSites {
+            regulator {
+              _id
+              name
+              function
+              abbreviatedName
+              synonyms
+              note
+              conformations {
+                _id
+                name
+                type
+                effectorInteractionType
+                class
+                effector {
+                  _id
+                  name
+                }
+                note
+                functionalType
+                confidenceLevel
+              }
+              encodedBy {
+                genes {
+                  _id
+                  name
+                  leftEndPosition
+                  length
+                  rightEndPosition
+                }
+                operon {
+                  _id
+                  name
+                  tusEncodingRegulator {
+                    transcriptionUnitName
+                    promoterName
+                  }
+                }
+              }
+              sensingClass
+              connectivityClass
+              citations {
+                evidence {
+                  _id
+                  name
+                  code
+                  type
+                  additiveEvidenceCodeRule
+                }
+                publication {
+                  _id
+                  authors
+                  pmid
+                  citation
+                  url
+                  title
+                  year
+                }
+              }
+              products {
+                _id
+                name
+                abbreviatedName
+              }
+              symmetry
+              siteLength
+              family
+              additiveEvidences {
+                category
+                code
+                type
+              }
+              confidenceLevel
+              type
+            }
+            regulatoryInteractions {
+              _id
+              relativeCenterPosition
+              confidenceLevel
+              function
+              note
+              regulatorySite {
+                _id
+                centerEndPosition
+                leftEndPosition
+                length
+                note
+                rightEndPosition
+                sequence
+              }
+              mechanism
+            }
+            function
+            mechanism
+          }
         }
+        name
         note
-        synonyms
         promoter {
           _id
           bindsSigmaFactor {
             _id
             name
             abbreviatedName
+          }
+          citations {
+            evidence {
+              _id
+              name
+              code
+              type
+              additiveEvidenceCodeRule
+            }
+            publication {
+              _id
+              authors
+              pmid
+              citation
+              url
+              title
+              year
+            }
           }
           name
           note
@@ -109,21 +227,87 @@ export const query_getOperonBy = gql`query GetOperonBy($advancedSearch: String, 
           score
           sequence
           synonyms
+          regulatorBindingSites {
+            regulator {
+              _id
+              name
+              function
+              abbreviatedName
+              synonyms
+              note
+              conformations {
+                _id
+                name
+                type
+                effectorInteractionType
+                class
+                effector {
+                  _id
+                  name
+                }
+                note
+                functionalType
+                confidenceLevel
+              }
+              encodedBy {
+                genes {
+                  _id
+                  name
+                  leftEndPosition
+                  length
+                  rightEndPosition
+                }
+                operon {
+                  _id
+                  name
+                  tusEncodingRegulator {
+                    transcriptionUnitName
+                    promoterName
+                  }
+                }
+              }
+              sensingClass
+              connectivityClass
+              products {
+                _id
+                name
+                abbreviatedName
+              }
+              symmetry
+              siteLength
+              family
+              confidenceLevel
+              type
+            }
+            regulatoryInteractions {
+              _id
+              relativeCenterPosition
+              confidenceLevel
+              function
+              note
+              regulatorySite {
+                _id
+                centerEndPosition
+                leftEndPosition
+                length
+                note
+                rightEndPosition
+                sequence
+              }
+              mechanism
+            }
+            function
+            mechanism
+          }
           transcriptionStartSite {
             leftEndPosition
             rightEndPosition
             range
             type
           }
-          confidenceLevel
-        }
-        terminators {
-          _id
-          class
-          sequence
-          transcriptionTerminationSite {
-            leftEndPosition
-            rightEndPosition
+          additiveEvidences {
+            category
+            code
             type
           }
           confidenceLevel
@@ -169,6 +353,24 @@ export const query_getOperonBy = gql`query GetOperonBy($advancedSearch: String, 
             }
             sensingClass
             connectivityClass
+            citations {
+              evidence {
+                _id
+                name
+                code
+                type
+                additiveEvidenceCodeRule
+              }
+              publication {
+                _id
+                authors
+                pmid
+                citation
+                url
+                title
+                year
+              }
+            }
             products {
               _id
               name
@@ -177,6 +379,11 @@ export const query_getOperonBy = gql`query GetOperonBy($advancedSearch: String, 
             symmetry
             siteLength
             family
+            additiveEvidences {
+              category
+              code
+              type
+            }
             confidenceLevel
             type
           }
@@ -205,12 +412,41 @@ export const query_getOperonBy = gql`query GetOperonBy($advancedSearch: String, 
           sites
           transcriptionFactors
         }
-        additiveEvidences {
-          category
-          code
-          type
+        synonyms
+        terminators {
+          _id
+          class
+          citations {
+            evidence {
+              _id
+              name
+              code
+              type
+              additiveEvidenceCodeRule
+            }
+            publication {
+              _id
+              authors
+              pmid
+              citation
+              url
+              title
+              year
+            }
+          }
+          sequence
+          transcriptionTerminationSite {
+            leftEndPosition
+            rightEndPosition
+            type
+          }
+          additiveEvidences {
+            category
+            code
+            type
+          }
+          confidenceLevel
         }
-        confidenceLevel
       }
     }
   }

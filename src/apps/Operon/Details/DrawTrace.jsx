@@ -52,7 +52,7 @@ export default function DrawTrace({ operon }) {
     rightEndPosition={state.right} 
     showTable={false} 
     focusElements={state.ids}
-    focusType={FOCUS_TYPE.ONLY_FOCUS}
+    focusType={FOCUS_TYPE.OPACITY}
     controlsPosition={CONTROLS_POSITIONS.BOTTOM_RIGHT}
     />;
 }

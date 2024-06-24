@@ -10,6 +10,8 @@ export const CONTROLS_POSITIONS ={
 export const FOCUS_TYPE = {
     BORDER: "border",
     ONLY_FOCUS: "onlyFocus",
+    OPACITY: "opacity",
+
 }
 
 export const REDUCER ={

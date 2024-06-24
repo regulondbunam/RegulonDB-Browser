@@ -111,7 +111,7 @@ export function Evidences({
             <Typography variant='relevantB' >
                 {evidences.length > 1 ? "Evidences:" : "Evidence:"}
             </Typography>
-            <div style={{ display: "flex", marginTop: "10px" }}  >
+            <div style={{ marginTop: "10px" }}  >
                 {evidences.map((evidence) => {
                     let evidenceType = "", evidenceCode = "";
                     switch (evidence.type) {

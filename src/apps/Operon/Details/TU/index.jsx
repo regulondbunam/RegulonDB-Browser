@@ -3,6 +3,14 @@ import { DataVerifier } from "ui-components/utils";
 import DrawingTraces, { CONTROLS_POSITIONS, FOCUS_TYPE } from "apps/DrawingTracesTool/Ecoli/DrawingTraces";
 import { indexedReferences } from "ui-components/utils/References";
 import { collectIds } from "ui-components/Web/Related";
+import { Typography } from "@mui/material";
+import { confidenceLevelLabel } from "ui-components/utils";
+import { Link } from "react-router-dom";
+import { ParagraphCitations } from "ui-components/Web/Citations";
+import { AccordionHighlight } from "ui-components/Web/Accordion";
+import Note from "ui-components/Web/Note";
+import Genes from "./Genes";
+
 
 export default function TranscriptionUnit({
   _id,
@@ -44,11 +52,12 @@ export default function TranscriptionUnit({
       <div
         style={{
           position: "sticky",
-          top: "58px",
-          zIndex: "80",
+          top: 0,
+          zIndex: 90,
           boxShadow: "0px 2px 2px 0px rgba(0,0,0,0.43)",
           WebkitBoxShadow: " 0px 2px 2px 0px rgba(0,0,0,0.43)",
           MozBoxShadow: " 0px 2px 2px 0px rgba(0,0,0,0.43)",
+          backgroundColor: "white"
         }}
       >
         <DrawTU id={"dttOperon_" + _id + "_" + promoter?._id}
@@ -58,7 +67,67 @@ export default function TranscriptionUnit({
           terminators={isTerminators && terminators}
           regulationPositions={regulationPositions} />
       </div>
-      <div></div>
+      <div
+        style={{
+          zIndex: "1",
+          marginTop: "20px"
+        }}>
+        <Typography variant="relevantB" >
+          Transcription Unit info
+        </Typography>
+        <div style={{ marginLeft: "15px", marginTop: "5px" }} >
+          {DataVerifier.isValidString(name) && (
+            <div>
+              <Typography variant="relevantB" sx={{ mr: 1 }} >Name:</Typography>
+              <Typography variant="relevant" ><span dangerouslySetInnerHTML={{ __html: name }} /></Typography>
+            </div>
+          )}
+          {DataVerifier.isValidObjectWith_id(firstGene) && (
+            <div>
+              <Typography variant="relevantB" sx={{ mr: 1 }} >First Gene: </Typography>
+              <Link to={"/gene/" + firstGene._id} ><Typography variant="relevant" ><span dangerouslySetInnerHTML={{ __html: firstGene.name }} /></Typography></Link>
+              <div>
+                <Typography variant="relevantB" sx={{ mr: 1 }} >Distance from TSS to first gene:</Typography>
+                <Typography variant="relevant" >{firstGene.distanceToPromoter}</Typography>
+              </div>
+            </div>
+          )}
+          <Genes genes={genes} />
+          {DataVerifier.isValidString(confidenceLevel) && (
+            <div>
+              <Typography variant="relevantB" sx={{ mr: 1 }} >Confidence Level:</Typography>
+              <Typography variant="relevant" ><span dangerouslySetInnerHTML={{ __html: confidenceLevelLabel(confidenceLevel) }} /></Typography>
+            </div>
+          )}
+          {DataVerifier.isValidArray(citations) && (
+            <div>
+              <Typography variant="relevant" >References:</Typography>
+              <ParagraphCitations citations={citations} references={references} />
+            </div>
+          )}
+          {DataVerifier.isValidString(note) && (
+            <AccordionHighlight
+              title={
+                <Typography variant="h3" fontSize={"18px"} color={"#ffffff"}>
+                  Note
+                </Typography>
+              }
+              level={1}
+            >
+              <Note note={note} references={references} />
+            </AccordionHighlight>
+          )}
+          
+        </div>
+        {
+          /**
+           * Promoter
+           * Terminator
+           * RIs
+           * Citations
+           */
+        }
+      </div>
     </div>
   );
 }

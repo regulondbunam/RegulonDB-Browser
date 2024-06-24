@@ -1,6 +1,7 @@
 import LocalStorage from "./LocalStorage";
 import DataVerifier from "./DataVerifier";
 import markMatches from "./markMatches";
+import { confidenceLevelLabel } from "./confidenceLevel";
 
 function generateRandomString(length = 5) {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -86,4 +87,8 @@ const rgbaToHex = (rgba) => {
   return `#${hr}${hg}${hb}`;
 };
 
-export { DataVerifier, LocalStorage, markMatches, generateRandomString, generateRandomPastelColor, generateUniquePastelColor, getContrastColor }
+export { DataVerifier, LocalStorage, 
+        markMatches, generateRandomString, 
+        generateRandomPastelColor, generateUniquePastelColor, getContrastColor, 
+        confidenceLevelLabel,
+      }

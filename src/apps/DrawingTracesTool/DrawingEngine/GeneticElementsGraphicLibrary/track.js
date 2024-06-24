@@ -11,6 +11,7 @@ import DrawRiboswitch from "./riboswitch";
 import DrawSrna from "./srna";
 import DrawTerminator from "./terminator";
 import DrawTfBindingSite from "./tfBindingSite";
+import { FOCUS_TYPE } from "apps/DrawingTracesTool/Ecoli/DrawingTraces";
 //import DrawTranscriptionalAttenuator from "./transcriptionalAttenuator";
 //import DrawTransnationalAttenuator from "./transnationalAttenuator";
 
@@ -76,38 +77,39 @@ class Track {
     
     
     geneticElements.forEach(object => {
-      const focus = focusElements.find(element=>element===object._id)
+      const focus = FOCUS_TYPE.ONLY_FOCUS === focusType ? false : focusElements.find(element=>element===object._id)
+      const opacity =(FOCUS_TYPE.OPACITY === focusType && !focus) ? 0.25 : 1 
       switch (object.objectType) {
         case gene_dp.objectType:
-          DrawGene({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas, focus:focus })
+          DrawGene({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas, focus:focus, opacity: opacity })
           break;
         case operon_dp.objectType:
-          DrawOperon({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus})
+          DrawOperon({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus, opacity: opacity})
          break;
         case ppgpp_dp.objectType:
-          DrawPpgpp({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus})
+          DrawPpgpp({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus, opacity: opacity})
          break;
         case promoter_dp.objectType:
-          DrawPromoter({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus})
+          DrawPromoter({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus, opacity: opacity})
          break;
         case riboswitch_dp.objectType:
-          DrawRiboswitch({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus})
+          DrawRiboswitch({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus, opacity: opacity})
          break;
         case srna_dp.objectType:
-          DrawSrna({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus})
+          DrawSrna({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus, opacity: opacity})
          break;
         case terminator_dp.objectType:
-          DrawTerminator({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus})
+          DrawTerminator({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus, opacity: opacity})
          break;
         case tfBindingSite_dp.objectType:
-          DrawTfBindingSite({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus})
+          DrawTfBindingSite({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus, opacity: opacity})
          break;
          /*
         case transcriptionalAttenuator_dp.objectType:
-          DrawTranscriptionalAttenuator({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus})
+          DrawTranscriptionalAttenuator({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus, opacity: opacity})
          break;
         case transnationalAttenuator_dp.objectType:
-          DrawTransnationalAttenuator({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus})
+          DrawTransnationalAttenuator({...object, trackId: this.id, id:object._id, dna: dna, canva: canvas,  focus:focus, opacity: opacity})
          break;
          */
         default:
