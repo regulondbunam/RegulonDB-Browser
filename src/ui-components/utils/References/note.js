@@ -17,7 +17,7 @@ export default function insertCitations(text, references) {
     text = text.replace(/\n/g, "<br></br>");
 
     // Replace citation placeholders with links
-    return text.replace(/\|CITS: ((\[[^\]]+\])+)\|/g, (match, sel) => {
+    return text.replace(/\|CITS:\s*((\[[^\]]+\])+)\|/g, (match, sel) => {
         const publications = sel.replace(/\[([^\]]+)\]/g, (match, id) => {
             const publication = references.publications[id];
             if (publication) {

@@ -78,7 +78,7 @@ export default function SequenceTrack({
                     <Controls state={state} sequence={sequence} dispatch={dispatch} drawPlaceId={state.id} name={name} />
                 </div>
             )}
-            <div id={state.id} style={{ position: "relative", width: "100%" }} onContextMenu={handleContextMenu}  >
+            <div id={state.id} style={{ position: "relative", width: "100px" }} onContextMenu={handleContextMenu}  >
                 loading....
             </div>
         </div>
