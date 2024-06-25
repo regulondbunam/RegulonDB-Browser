@@ -20,14 +20,15 @@ export default class DrawSequence {
    * @param {number} bpWidth - The width of each base pair.
    * @param {number} bpHeight - The height of each base pair.
    */
-  constructor(id, drawPlace, sequence, features = [], bpWidth, bpHeight) {
+  constructor(id, drawPlace, sequence, features = [], fontSize, bpWidth, bpHeight) {
     this.isFeatures = DataVerifier.isValidArray(features)
     this.drawPlace = drawPlace;
     this.id = id;
     this.sequence = sequence;
     this.features = features;
     this.bpWidth = bpWidth;
-    this.fontSize = (bpWidth * 12) / 8;
+    this.fontSize = fontSize;
+    this.originFontSize = fontSize
     this.bpHeight = bpHeight;
     this.width = (sequence.length + 2) * bpWidth;
     this.height = this.isFeatures ? bpHeight * 3 + 2 : bpHeight + 2;
@@ -77,22 +78,34 @@ export default class DrawSequence {
     }
   }
 
-   /**
-   * Set the font size and redraw the sequence.
-   * @param {number} newFontSize - The new font size to set.
-   */
-   setFontSize(newFontSize) {
+  resetDraw() {
+    this.setFontSize(this.originFontSize)
+    this.canvas.clear(); // Clear the existing canvas
+    this.drawPlace.innerHTML = ""
+    this.draw(); // Redraw with the new font size
+    return { fontSize: this.originFontSize, bpHeight: this.bpHeight, bpWidth: this.bpWidth, }
+  }
+
+  /**
+  * Set the font size and redraw the sequence.
+  * @param {number} newFontSize - The new font size to set.
+  */
+  setFontSize(newFontSize) {
     this.fontSize = newFontSize;
-    //this.fontSize = (bpWidth * 12) / 8;
-    this.bpWidth = (newFontSize*8)/12
-    this.bpHeight =  this.bpWidth * 14 / 8;
+    this.bpWidth = (newFontSize * 8) / 12
+    this.bpHeight = this.bpWidth * 14 / 8;
     this.width = (this.sequence.length + 2) * this.bpWidth;
     this.height = this.isFeatures ? this.bpHeight * 3 + 2 : this.bpHeight + 2;
     this.sequencePosX = this.bpHeight
     this.sequencePosY = this.isFeatures ? this.bpHeight : 0;
     if (this.canvas) {
       this.canvas.clear(); // Clear the existing canvas
+      this.drawPlace.innerHTML = ""
       this.draw(); // Redraw with the new font size
+    }
+    return {
+      bpWidth: this.bpWidth,
+      bpHeight: this.bpHeight,
     }
   }
 

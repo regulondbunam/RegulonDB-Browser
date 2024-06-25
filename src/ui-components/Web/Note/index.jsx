@@ -3,7 +3,6 @@ import { insertCitations } from 'ui-components/utils/References'
 import { Typography } from '@mui/material'
 
 export default function Note({note, references}) {
-  console.log(note);
   return (
     <div style={{marginTop: "10px"}}>
       <Typography variant='normal' ><span dangerouslySetInnerHTML={{__html: insertCitations(note,references)}} /></Typography>

@@ -4,32 +4,37 @@ import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import { ButtonGroup, Tooltip, Button, Menu, MenuItem, ListItemIcon, ListItemText, Divider } from "@mui/material"
-import { TextIncrease, TextDecrease, RestartAlt, Straighten, FileDownload, ContentCopy, Image } from "@mui/icons-material"
+import { TextIncrease, TextDecrease, RestartAlt, /*Straighten,*/ FileDownload, ContentCopy, Image } from "@mui/icons-material"
 
 
 export default function Controls({ state, sequence, dispatch, drawPlaceId, name }) {
 
     const handleZoomIn = () => {
-        if (state.bpWidth < 16) {
-            console.log(state.canvas);
-            state.canvas.setFontSize(22)
-           // dispatch({ bpWidth: state.bpWidth + 0.05 })
+        const currentFontSize = state.fontSize
+        if (currentFontSize < 50) {
+            const fontSize = currentFontSize + 2
+            const {bpWidth, bpHeight} =state.canvas.setFontSize(fontSize)
+            dispatch({fontSize, bpWidth, bpHeight}) 
         }
     }
 
     const handleZoomOut = () => {
-        if (state.bpWidth > 5) {
-            dispatch({ zoom: state.zoom - 0.05 })
+        const currentFontSize = state.fontSize
+        if (currentFontSize > 8) {
+            const fontSize = currentFontSize - 2
+            const {bpWidth, bpHeight} =state.canvas.setFontSize(fontSize)
+            dispatch({fontSize, bpWidth, bpHeight}) 
         }
     }
 
     const handleReset = () => {
-        dispatch({ bpWidth: 8, measure: false })
+        const {fontSize, bpWidth, bpHeight} =state.canvas.resetDraw()
+        dispatch({fontSize, bpWidth, bpHeight})
     }
 
-    const handleMeasure = () => {
+    /*const handleMeasure = () => {
         dispatch({ measure: !state.measure })
-    }
+    }*/
 
     return (
         <ButtonGroup
@@ -44,11 +49,11 @@ export default function Controls({ state, sequence, dispatch, drawPlaceId, name 
             <Tooltip title={"reset graphic"}>
                 <Button onClick={handleReset} ><RestartAlt /></Button>
             </Tooltip>
-            {state.measure && (
+            {/*state.measure && (
                 <Tooltip title={"show measure"}>
                     <Button onClick={handleMeasure} ><Straighten /></Button>
                 </Tooltip>
-            )}
+            )*/}
 
             <DownloadOptions
                 drawPlaceId={drawPlaceId}

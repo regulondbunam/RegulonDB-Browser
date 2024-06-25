@@ -2,14 +2,19 @@ import React, { useEffect, useReducer } from 'react'
 import Controls from './Controls';
 import DrawSequence from './drawingEngine';
 import { generateRandomString } from 'ui-components/utils';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Typography from '@mui/material/Typography';
 
 
-function initState({ bpWidth, color, measure, drawPlaceId }) {
-    const id = drawPlaceId ? drawPlaceId : "sequence_"+generateRandomString(7);
+function initState({ fontSize, color, measure, drawPlaceId }) {
+    const id = drawPlaceId ? drawPlaceId : "sequence_" + generateRandomString(7);
+    const bpWidth = fontSize * 8 / 12
     return {
         id: id,
         bpHeight: bpWidth * 14 / 8,
         bpWidth: bpWidth,
+        fontSize: fontSize,
         canvas: undefined,
         color: color,
         measure: measure,
@@ -23,7 +28,7 @@ const reducer = (states, action) => {
 
 
 export default function SequenceTrack({
-    bpWidth = 8,
+    fontSize = 14,
     controls = false,
     color = false,
     drawPlaceId,
@@ -35,7 +40,7 @@ export default function SequenceTrack({
 }) {
 
     const [contextMenu, setContextMenu] = React.useState(null);
-    const [state, dispatch] = useReducer(reducer, { bpWidth, color, measure, drawPlaceId }, initState);
+    const [state, dispatch] = useReducer(reducer, { fontSize, color, measure, drawPlaceId }, initState);
 
     const handleContextMenu = (event) => {
         event.preventDefault();
@@ -56,11 +61,29 @@ export default function SequenceTrack({
         setContextMenu(null);
     };
 
+    const handleZoomIn = () => {
+        const currentFontSize = state.fontSize
+        if (currentFontSize < 50) {
+            const fontSize = currentFontSize + 2
+            const {bpWidth, bpHeight} =state.canvas.setFontSize(fontSize)
+            dispatch({fontSize, bpWidth, bpHeight}) 
+        }
+    }
+
+    const handleZoomOut = () => {
+        const currentFontSize = state.fontSize
+        if (currentFontSize > 8) {
+            const fontSize = currentFontSize - 2
+            const {bpWidth, bpHeight} =state.canvas.setFontSize(fontSize)
+            dispatch({fontSize, bpWidth, bpHeight}) 
+        }
+    }
+
     useEffect(() => {
         const drawPlace = document.getElementById(state.id)
         if (drawPlace && !state.canvas) {
             drawPlace.innerHTML = "";
-            const canvas = new DrawSequence(state.id, drawPlace, sequence, features, state.bpWidth, state.bpHeight)
+            const canvas = new DrawSequence(state.id, drawPlace, sequence, features, fontSize, state.bpWidth, state.bpHeight)
             if (canvas.draw()) {
                 dispatch({ canvas: canvas })
             }
@@ -81,6 +104,21 @@ export default function SequenceTrack({
             <div id={state.id} style={{ position: "relative", width: "100px" }} onContextMenu={handleContextMenu}  >
                 loading....
             </div>
+            <Menu
+                open={contextMenu !== null}
+                onClose={handleClose}
+                anchorReference="anchorPosition"
+                anchorPosition={
+                    contextMenu !== null
+                        ? { top: contextMenu.mouseY, left: contextMenu.mouseX }
+                        : undefined
+                }
+            >
+                <MenuItem onClick={()=>{
+                    navigator.clipboard.writeText(sequence);
+                    handleClose();
+                }}>copy sequence</MenuItem>
+            </Menu>
         </div>
     )
 }
