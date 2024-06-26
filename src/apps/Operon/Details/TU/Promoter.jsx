@@ -1,8 +1,9 @@
 import React from 'react'
 import { AccordionHighlight, useMemo } from 'ui-components/Web/Accordion'
 import { Typography } from '@mui/material'
-import { DataVerifier } from 'ui-components/utils'
+import { DataVerifier, confidenceLevelLabel } from 'ui-components/utils'
 import SequenceTrack, { FEATURE_TYPES } from 'ui-components/Web/SequenceTrack'
+import { ParagraphCitations } from 'ui-components/Web/Citations'
 
 export default function Promoter({
     _id,
@@ -98,9 +99,25 @@ export default function Promoter({
                         <SequenceTrack controls sequence={sequence} features={features} />
                     </div>
                 )}
+                {DataVerifier.isValidNumber(transcriptionStartSite?.leftEndPosition) && (
+                    <div>
+                        <Typography variant="relevantB" sx={{ mr: 1 }} >Transcription Start Site: </Typography>
+                        <Typography variant="relevant" >{transcriptionStartSite?.leftEndPosition}</Typography>
+                    </div>
+                )}
+                {DataVerifier.isValidArray(boxes) && (
+                    <div>
+                        <Typography variant="relevantB" sx={{ mr: 1 }} >Confidence Level: </Typography>
+                        <Typography variant="relevant" ><span dangerouslySetInnerHTML={{__html: confidenceLevelLabel(confidenceLevel)}} /></Typography>
+                    </div>
+                )}
+                {DataVerifier.isValidArray(citations) && (
+            <div>
+              <Typography variant="relevant" >References:</Typography>
+              <ParagraphCitations citations={citations} references={references} />
             </div>
-
-
+          )}
+            </div>
         </AccordionHighlight>
     )
 }
