@@ -3,7 +3,7 @@ import { Typography, Menu, Box, ButtonGroup, Button } from '@mui/material'
 import { NavigateBefore, AutoStories, NavigateNext } from '@mui/icons-material';
 import { DataVerifier } from 'ui-components/utils';
 
-export default function Label({ label, TypographyProps, phrases }) {
+export default function Label({ label, TypographyProps, phrases, inAccordion=true }) {
     const [panel, setPanel] = React.useState(null);
     const isPhrases = DataVerifier.isValidArray(phrases)
 

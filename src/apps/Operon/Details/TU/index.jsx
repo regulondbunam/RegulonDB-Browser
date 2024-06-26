@@ -45,8 +45,6 @@ export default function TranscriptionUnit({
   const isPromoter = DataVerifier.isValidObjectWith_id(promoter)
   const isRBSinTU = DataVerifier.isValidArray(regulatorBindingSites);
 
-  console.log(phrases);
-  //console.log(regulationPositions.leftEndPosition);
   return (
     <div>
       <div
