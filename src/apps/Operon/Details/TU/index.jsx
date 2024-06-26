@@ -11,6 +11,7 @@ import { AccordionHighlight } from "ui-components/Web/Accordion";
 import Note from "ui-components/Web/Note";
 import Genes from "./Genes";
 import Promoter from "./Promoter";
+import { useGetPhrase } from "apps/Phrases";
 
 
 export default function TranscriptionUnit({
@@ -33,7 +34,8 @@ export default function TranscriptionUnit({
   synonyms = [],
   terminators = [],
 }) {
-
+  const {phrases} = useGetPhrase(_id)
+  console.log(phrases);
   const references = useMemo(() => {
     return pageReferences ? pageReferences : indexedReferences(allCitations);
   }, [allCitations, pageReferences]);
