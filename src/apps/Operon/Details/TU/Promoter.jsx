@@ -1,5 +1,5 @@
 import React from 'react'
-import { AccordionHighlight, useMemo } from 'ui-components/Web/Accordion'
+import { AccordionHighlight } from 'ui-components/Web/Accordion'
 import { Typography } from '@mui/material'
 import { DataVerifier, confidenceLevelLabel } from 'ui-components/utils'
 import SequenceTrack, { FEATURE_TYPES } from 'ui-components/Web/SequenceTrack'

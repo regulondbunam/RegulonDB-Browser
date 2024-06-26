@@ -6,12 +6,11 @@ export function useGetPhrase(id) {
     const { loading, error, data } = useQuery(query_GET_PHRASE_OF, {
         variables: { objectId: id },
     });
-    let phrases;
+    let phrases = {};
     try {
         if (data) {
             if(DataVerifier.isValidArray(data.getPhraseOf)){
               if (DataVerifier.isValidArray(data.getPhraseOf[0].propertyPhrases)) {
-                phrases = {}
                 data.getPhraseOf[0].propertyPhrases.forEach(property => {
                     if (DataVerifier.isValidArray(property.associatedProperty)&&DataVerifier.isValidArray(property.associatedPhrases)) {
                         property.associatedProperty.forEach(_property => {

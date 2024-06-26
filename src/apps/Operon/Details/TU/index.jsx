@@ -12,6 +12,7 @@ import Note from "ui-components/Web/Note";
 import Genes from "./Genes";
 import Promoter from "./Promoter";
 import { useGetPhrase } from "apps/Phrases";
+import Label from "ui-components/Web/Label";
 
 
 export default function TranscriptionUnit({
@@ -35,7 +36,6 @@ export default function TranscriptionUnit({
   terminators = [],
 }) {
   const {phrases} = useGetPhrase(_id)
-  console.log(phrases);
   const references = useMemo(() => {
     return pageReferences ? pageReferences : indexedReferences(allCitations);
   }, [allCitations, pageReferences]);
@@ -45,10 +45,7 @@ export default function TranscriptionUnit({
   const isPromoter = DataVerifier.isValidObjectWith_id(promoter)
   const isRBSinTU = DataVerifier.isValidArray(regulatorBindingSites);
 
-  //const isRBSinPromoter = isPromoter ? DataVerifier.isValidArray(promoter.regulatorBindingSites) : false;
-
-
-
+  console.log(phrases);
   //console.log(regulationPositions.leftEndPosition);
   return (
     <div>
@@ -119,6 +116,9 @@ export default function TranscriptionUnit({
             >
               <Note note={note} references={references} />
             </AccordionHighlight>
+          )}
+          {DataVerifier.isValidString(note) && (
+            <Label label={"Note:"} content={note} phrases={phrases["note"]}/>
           )}
           {isPromoter && (<Promoter {...promoter} references={references} strand={strand} />)}
           

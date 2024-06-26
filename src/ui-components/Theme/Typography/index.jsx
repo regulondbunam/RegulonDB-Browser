@@ -99,6 +99,11 @@ export const TYPOGRAPHY = {
     fontSize: 12,
     fontWeight: 300,
   },
+  phrase: {
+    fontFamily: "Times New Roman, Times, serif",
+    fontSize: 14,
+    fontStyle: "italic"
+  },
   sequence: {
     fontFamily: "Courier New",
     fontSize: 14,
