@@ -4,7 +4,7 @@ import DrawSequence from './drawingEngine';
 import { generateRandomString } from 'ui-components/utils';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import Typography from '@mui/material/Typography';
+import { FEATURE_TYPES } from './statics';
 
 
 function initState({ fontSize, color, measure, drawPlaceId }) {
@@ -33,7 +33,6 @@ export default function SequenceTrack({
     color = false,
     drawPlaceId,
     features = [],
-    idContainer,
     name = "sequence",
     measure = false,
     sequence,
@@ -61,24 +60,6 @@ export default function SequenceTrack({
         setContextMenu(null);
     };
 
-    const handleZoomIn = () => {
-        const currentFontSize = state.fontSize
-        if (currentFontSize < 50) {
-            const fontSize = currentFontSize + 2
-            const {bpWidth, bpHeight} =state.canvas.setFontSize(fontSize)
-            dispatch({fontSize, bpWidth, bpHeight}) 
-        }
-    }
-
-    const handleZoomOut = () => {
-        const currentFontSize = state.fontSize
-        if (currentFontSize > 8) {
-            const fontSize = currentFontSize - 2
-            const {bpWidth, bpHeight} =state.canvas.setFontSize(fontSize)
-            dispatch({fontSize, bpWidth, bpHeight}) 
-        }
-    }
-
     useEffect(() => {
         const drawPlace = document.getElementById(state.id)
         if (drawPlace && !state.canvas) {
@@ -87,9 +68,6 @@ export default function SequenceTrack({
             if (canvas.draw()) {
                 dispatch({ canvas: canvas })
             }
-        }
-        if (state.canvas) {
-            console.log("draw");
         }
     })
 
@@ -122,3 +100,6 @@ export default function SequenceTrack({
         </div>
     )
 }
+
+
+export{FEATURE_TYPES}

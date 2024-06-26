@@ -1,5 +1,8 @@
 import { SVG } from "@svgdotjs/svg.js";
 import { DataVerifier } from "ui-components/utils";
+import { FEATURE_TYPES } from "../statics";
+
+
 
 /**
  * Class representing a sequence drawer.
@@ -10,6 +13,7 @@ export default class DrawSequence {
   features = [];
   sequence = "";
   canvas = undefined;
+
 
   /**
    * Create a DrawSequence.
@@ -63,6 +67,66 @@ export default class DrawSequence {
     });
   }
 
+  #setFeatures() {
+    //console.log(this.features);
+    this.features.forEach(feature => {
+      switch (feature?.type) {
+        case FEATURE_TYPES.PROMOTER:
+          this.#drawPromoter({ ...feature })
+          break;
+        case FEATURE_TYPES.BOX:
+          this.#drawBox({ ...feature })
+          break;
+        default:
+          console.warn("feature: " + feature?.type + " no find");
+          break;
+      }
+    })
+
+  }
+
+  #drawPromoter({
+    id,
+    label,
+    posX,
+  }) {
+    this.sequence.split("").forEach((bp, index) => {
+      if (index === posX) {
+        this.canvas
+          .text(label)
+          .font({
+            family: this.fontFamily,
+            size: this.fontSize
+          })
+          .move(this.sequencePosX + index * this.bpWidth, 0);
+      }
+    });
+  }
+
+  #drawBox({
+    id,
+    label,
+    posX,
+    sequence
+  }) {
+    const boxWidth = sequence.length * this.bpWidth;
+    this.sequence.split("").forEach((bp, index) => {
+      if (index === posX) {
+        this.canvas.rect(boxWidth, this.bpHeight)
+          .fill('none')
+          .stroke(this.stroke)
+          .move(this.sequencePosX + index * this.bpWidth, this.sequencePosY);
+        this.canvas
+          .text(label)
+          .font({
+            family: this.fontFamily,
+            size: this.fontSize
+          })
+          .move(this.sequencePosX + index * this.bpWidth, 0);
+      }
+    });
+  }
+
   /**
    * Draw the sequence on the canvas.
    * @returns {boolean} - Returns true if drawing succeeds, false otherwise.
@@ -71,6 +135,9 @@ export default class DrawSequence {
     try {
       this.#setCanvas();
       this.#setSequence();
+      if (this.isFeatures) {
+        this.#setFeatures();
+      }
       return true;
     } catch (error) {
       console.error("try draw error", error);

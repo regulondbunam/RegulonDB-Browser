@@ -118,7 +118,7 @@ export default function TranscriptionUnit({
               <Note note={note} references={references} />
             </AccordionHighlight>
           )}
-          {isPromoter && (<Promoter promoter={promoter} references={references} />)}
+          {isPromoter && (<Promoter {...promoter} references={references} strand={strand} />)}
           
         </div>
         {

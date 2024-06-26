@@ -79,7 +79,7 @@ function TUsDetails({ operon, references }) {
         id: tu._id + "_TUSection_" + index,
         title: tu.name+promoterName,
         visible:true,
-        component: <TranscriptionUnit {...tu} pageReferences={references} regulationPositions={operon.operon.regulationPositions} />,
+        component: <TranscriptionUnit {...tu} pageReferences={references} regulationPositions={operon.operon.regulationPositions} strand={operon.operon.strand} />,
       },)
     });
   }
