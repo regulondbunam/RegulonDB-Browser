@@ -3,7 +3,7 @@ import { Typography, Menu, Box, ButtonGroup, Button } from '@mui/material'
 import { NavigateBefore, AutoStories, NavigateNext } from '@mui/icons-material';
 import { DataVerifier } from 'ui-components/utils';
 
-export default function Label({ label, content, phrases }) {
+export default function Label({ label, TypographyProps, phrases }) {
     const [panel, setPanel] = React.useState(null);
     const isPhrases = DataVerifier.isValidArray(phrases)
 
@@ -30,8 +30,8 @@ export default function Label({ label, content, phrases }) {
     };
 
     return (
-        <div>
-            <Typography variant="relevantB" sx={{ mr: 1 }} >
+        <>
+            <Typography variant="relevantB" sx={{ mr: 1 }} {...TypographyProps} >
                 {label}
                 {isPhrases && (
                     <sup onClick={handlePanel} >
@@ -39,9 +39,9 @@ export default function Label({ label, content, phrases }) {
                     </sup>
                 )}
             </Typography>
-            <Typography variant="relevant" ><span dangerouslySetInnerHTML={{ __html: content }} /></Typography>
             {isPhrases && (
-                <Menu
+                <div style={{position: "absolute"}}>
+                    <Menu
                     open={panel !== null}
                     onClose={handleClose}
                     anchorReference="anchorPosition"
@@ -52,21 +52,23 @@ export default function Label({ label, content, phrases }) {
                     }
                     sx={{
                         ".MuiMenu-list": {
-                            paddingTop: 0
+                            paddingTop: 0,
+                            paddingBottom: 0,
                         }
                     }}
                 >
                     <Box>
-                        <PhrasePanel phrases={phrases} />
+                        <PhrasePanel phrases={phrases} label={label} />
                     </Box>
                 </Menu>
+                </div>
             )}
-        </div>
+        </>
     )
 }
 
 
-function PhrasePanel({ phrases = [] }) {
+function PhrasePanel({ phrases = [], label = "" }) {
     const [inx, setInx] = React.useState(0);
     const phrase = phrases[inx];
     return (
@@ -75,16 +77,42 @@ function PhrasePanel({ phrases = [] }) {
                 style={{
                     width: "100%",
                     height: "20px",
-                    display: "flex",
-                    justifyContent: "space-between",
                     backgroundColor: "#d5e2ea",
-
+                    position: "sticky",
+                    top: 0
                 }}
             >
                 <div style={{ paddingLeft: "5px" }}>
                     <Typography variant='irrelevantB' >
-                        {phrases.length < 2 ? "Phrase:" : "Phrases:"}
+                        {phrases.length < 2 ? "Phrase in " + label : "Phrases in " + label}
                     </Typography>
+                </div>
+
+            </div>
+            <div style={{ width: "350px", height:"130px", overflow: "auto", }} >
+                    <Typography variant='phrase'>
+                        <span dangerouslySetInnerHTML={{ __html: phrase.phrase }} />
+                    </Typography>
+            </div>
+            <div
+                style={{
+                    width: "100%",
+                    height: "30px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    backgroundColor: "#d5e2ea",
+                    position: "sticky",
+                    bottom: 0
+                }}
+            >
+                <div>
+                    <a
+                        href={"https://pubmed.ncbi.nlm.nih.gov/" + phrase.pmid}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        go to article
+                    </a>
                 </div>
                 <div>
                     {phrases.length < 2 ? (
@@ -108,7 +136,7 @@ function PhrasePanel({ phrases = [] }) {
                             </Button>
                             <Button
                                 onClick={() => {
-                                    if (inx < phrases.length-1) {
+                                    if (inx < phrases.length - 1) {
                                         setInx(inx + 1);
                                     }
                                 }}
@@ -118,20 +146,6 @@ function PhrasePanel({ phrases = [] }) {
                         </ButtonGroup>
                     )}
                 </div>
-            </div>
-            <div style={{ width: "350px", height: "120px", overflow: "auto", }} >
-                <Typography variant='phrase'>
-                    <span dangerouslySetInnerHTML={{ __html: phrase.phrase }} />
-                </Typography>
-            </div>
-            <div>
-                <a
-                    href={"https://pubmed.ncbi.nlm.nih.gov/" + phrase.pmid}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    go to article
-                </a>
             </div>
         </div>
     );

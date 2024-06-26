@@ -35,7 +35,7 @@ export default function TranscriptionUnit({
   synonyms = [],
   terminators = [],
 }) {
-  const {phrases} = useGetPhrase(_id)
+  const { phrases } = useGetPhrase(_id)
   const references = useMemo(() => {
     return pageReferences ? pageReferences : indexedReferences(allCitations);
   }, [allCitations, pageReferences]);
@@ -77,14 +77,15 @@ export default function TranscriptionUnit({
         </Typography>
         <div style={{ marginLeft: "15px", marginTop: "5px" }} >
           {DataVerifier.isValidString(name) && (
+
             <div>
-              <Typography variant="relevantB" sx={{ mr: 1 }} >Name:</Typography>
+              <Label label={"Name:"} phrases={phrases["name"]} />
               <Typography variant="relevant" ><span dangerouslySetInnerHTML={{ __html: name }} /></Typography>
             </div>
           )}
           {DataVerifier.isValidObjectWith_id(firstGene) && (
             <div>
-              <Typography variant="relevantB" sx={{ mr: 1 }} >First Gene: </Typography>
+              <Label label={"First Gene:"} phrases={phrases["firstGene"]} />
               <Link to={"/gene/" + firstGene._id} ><Typography variant="relevant" ><span dangerouslySetInnerHTML={{ __html: firstGene.name }} /></Typography></Link>
               <div>
                 <Typography variant="relevantB" sx={{ mr: 1 }} >Distance from TSS to first gene:</Typography>
@@ -92,10 +93,10 @@ export default function TranscriptionUnit({
               </div>
             </div>
           )}
-          <Genes genes={genes} />
+          <Genes genes={genes} phrases={phrases} />
           {DataVerifier.isValidString(confidenceLevel) && (
             <div>
-              <Typography variant="relevantB" sx={{ mr: 1 }} >Confidence Level:</Typography>
+              <Label label={"Confidence Level:"} phrases={phrases["confidenceLevel"]} />
               <Typography variant="relevant" ><span dangerouslySetInnerHTML={{ __html: confidenceLevelLabel(confidenceLevel) }} /></Typography>
             </div>
           )}
@@ -108,20 +109,17 @@ export default function TranscriptionUnit({
           {DataVerifier.isValidString(note) && (
             <AccordionHighlight
               title={
-                <Typography variant="h3" fontSize={"18px"} color={"#ffffff"}>
-                  Note
-                </Typography>
+                <Label label={"Note:"} content={note} phrases={phrases["note"]}
+                  TypographyProps={{ variant: "h3", fontSize: "18px", color: "#ffffff" }}
+                />
               }
               level={1}
             >
               <Note note={note} references={references} />
             </AccordionHighlight>
           )}
-          {DataVerifier.isValidString(note) && (
-            <Label label={"Note:"} content={note} phrases={phrases["note"]}/>
-          )}
           {isPromoter && (<Promoter {...promoter} references={references} strand={strand} />)}
-          
+
         </div>
         {
           /**
