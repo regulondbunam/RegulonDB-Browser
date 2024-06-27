@@ -2,8 +2,6 @@ import { SVG } from "@svgdotjs/svg.js";
 import { DataVerifier } from "ui-components/utils";
 import { FEATURE_TYPES } from "../statics";
 
-
-
 /**
  * Class representing a sequence drawer.
  */
@@ -14,7 +12,6 @@ export default class DrawSequence {
   sequence = "";
   canvas = undefined;
 
-
   /**
    * Create a DrawSequence.
    * @param {string} id - The ID of the drawing.
@@ -24,19 +21,27 @@ export default class DrawSequence {
    * @param {number} bpWidth - The width of each base pair.
    * @param {number} bpHeight - The height of each base pair.
    */
-  constructor(id, drawPlace, sequence, features = [], fontSize, bpWidth, bpHeight) {
-    this.isFeatures = DataVerifier.isValidArray(features)
+  constructor(
+    id,
+    drawPlace,
+    sequence,
+    features = [],
+    fontSize,
+    bpWidth,
+    bpHeight
+  ) {
+    this.isFeatures = DataVerifier.isValidArray(features);
     this.drawPlace = drawPlace;
     this.id = id;
     this.sequence = sequence;
     this.features = features;
     this.bpWidth = bpWidth;
     this.fontSize = fontSize;
-    this.originFontSize = fontSize
+    this.originFontSize = fontSize;
     this.bpHeight = bpHeight;
     this.width = (sequence.length + 2) * bpWidth;
     this.height = this.isFeatures ? bpHeight * 3 + 2 : bpHeight + 2;
-    this.sequencePosX = bpHeight
+    this.sequencePosX = bpHeight;
     this.sequencePosY = this.isFeatures ? bpHeight : 0;
   }
 
@@ -61,7 +66,7 @@ export default class DrawSequence {
         .text(bp)
         .font({
           family: this.fontFamily,
-          size: this.fontSize
+          size: this.fontSize,
         })
         .move(this.sequencePosX + index * this.bpWidth, this.sequencePosY);
     });
@@ -69,72 +74,62 @@ export default class DrawSequence {
 
   #setFeatures() {
     //console.log(this.features);
-    this.features.forEach(feature => {
+    this.features.forEach((feature) => {
       switch (feature?.type) {
         case FEATURE_TYPES.PROMOTER:
-          this.#drawPromoter({ ...feature })
+          this.#drawPromoter({ ...feature });
           break;
         case FEATURE_TYPES.BOX:
-          this.#drawBox({ ...feature })
+          this.#drawBox({ ...feature });
+          break;
+        case FEATURE_TYPES.TERMINATOR:
+          this.#drawTerminator({ ...feature });
           break;
         default:
           console.warn("feature: " + feature?.type + " no find");
           break;
       }
-    })
-
+    });
   }
 
-  #drawPromoter({
-    id,
-    label,
-    posX,
-  }) {
+  #drawPromoter({ id, label, posX }) {
     this.sequence.split("").forEach((bp, index) => {
       if (index === posX) {
         this.canvas
           .text(label)
           .font({
             family: this.fontFamily,
-            size: this.fontSize
+            size: this.fontSize,
           })
           .move(this.sequencePosX + index * this.bpWidth, 0);
       }
     });
   }
 
-  #drawBox({
-    id,
-    label,
-    posX,
-    sequence
-  }) {
+  #drawBox({ id, label, posX, sequence }) {
     const boxWidth = sequence.length * this.bpWidth;
     this.sequence.split("").forEach((bp, index) => {
       if (index === posX) {
-        this.canvas.rect(boxWidth, this.bpHeight)
-          .fill('none')
+        this.canvas
+          .rect(boxWidth, this.bpHeight)
+          .fill("none")
           .stroke(this.stroke)
           .move(this.sequencePosX + index * this.bpWidth, this.sequencePosY);
         this.canvas
           .text(label)
           .font({
             family: this.fontFamily,
-            size: this.fontSize
+            size: this.fontSize,
           })
           .move(this.sequencePosX + index * this.bpWidth, 0);
       }
     });
   }
 
-  #drawTerminator({
-    posX = 0,
-    label = "",
-    sequence = "",
-  }) {
-    const terminatorWidth = sequence.length * this.bpWidth;;
-    const rX = posX * this.bpWidth;
-    
+  #drawTerminator({ posX = 0, length = 0 }) {
+    //`m 0 0 l 1 0 l 0 -2 a 1 1 0 1 1 1 0 l 0 2 l 1 0`
+    this.canvas.path(`m 0 0 l ${length*this.bpWidth/2-(this.bpWidth/4)} 0 l 0 -${(this.bpHeight/3)*1.25} a ${(this.bpHeight/3)} ${(this.bpHeight/3)} 0 1 1 ${this.bpWidth/2} 0 l 0 ${(this.bpHeight/3)*1.25} l ${length*this.bpWidth/2-(this.bpWidth/4)} 0`).fill("none")
+      .stroke(this.stroke).move(this.sequencePosX + posX * this.bpWidth, 1);
   }
 
   /**
@@ -156,34 +151,38 @@ export default class DrawSequence {
   }
 
   resetDraw() {
-    this.setFontSize(this.originFontSize)
+    this.setFontSize(this.originFontSize);
     this.canvas.clear(); // Clear the existing canvas
-    this.drawPlace.innerHTML = ""
+    this.drawPlace.innerHTML = "";
     this.draw(); // Redraw with the new font size
-    return { fontSize: this.originFontSize, bpHeight: this.bpHeight, bpWidth: this.bpWidth, }
+    return {
+      fontSize: this.originFontSize,
+      bpHeight: this.bpHeight,
+      bpWidth: this.bpWidth,
+    };
   }
 
   /**
-  * Set the font size and redraw the sequence.
-  * @param {number} newFontSize - The new font size to set.
-  */
+   * Set the font size and redraw the sequence.
+   * @param {number} newFontSize - The new font size to set.
+   */
   setFontSize(newFontSize) {
     this.fontSize = newFontSize;
-    this.bpWidth = (newFontSize * 8) / 12
-    this.bpHeight = this.bpWidth * 14 / 8;
+    this.bpWidth = (newFontSize * 8) / 12;
+    this.bpHeight = (this.bpWidth * 14) / 8;
     this.width = (this.sequence.length + 2) * this.bpWidth;
     this.height = this.isFeatures ? this.bpHeight * 3 + 2 : this.bpHeight + 2;
-    this.sequencePosX = this.bpHeight
+    this.sequencePosX = this.bpHeight;
     this.sequencePosY = this.isFeatures ? this.bpHeight : 0;
     if (this.canvas) {
       this.canvas.clear(); // Clear the existing canvas
-      this.drawPlace.innerHTML = ""
+      this.drawPlace.innerHTML = "";
       this.draw(); // Redraw with the new font size
     }
     return {
       bpWidth: this.bpWidth,
       bpHeight: this.bpHeight,
-    }
+    };
   }
 
   /**

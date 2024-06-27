@@ -1,4 +1,5 @@
 export const FEATURE_TYPES = {
     PROMOTER: "promoter",
-    BOX: "box"
+    BOX: "box",
+    TERMINATOR: "terminator"
 }
