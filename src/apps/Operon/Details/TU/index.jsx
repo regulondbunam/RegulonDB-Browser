@@ -6,13 +6,14 @@ import { collectIds } from "ui-components/Web/Related";
 import { Typography } from "@mui/material";
 import { confidenceLevelLabel } from "ui-components/utils";
 import { Link } from "react-router-dom";
-import { ParagraphCitations } from "ui-components/Web/Citations";
-import { AccordionHighlight } from "ui-components/Web/Accordion";
-import Note from "ui-components/Web/Note";
 import Genes from "./Genes";
 import Promoter from "./Promoter";
+import Terminators from "./Terminators";
+import Note from "ui-components/Web/Note";
 import { useGetPhrase } from "apps/Phrases";
 import Label from "ui-components/Web/Label";
+import { AccordionHighlight } from "ui-components/Web/Accordion";
+import { ParagraphCitations } from "ui-components/Web/Citations";
 
 
 export default function TranscriptionUnit({
@@ -107,7 +108,7 @@ export default function TranscriptionUnit({
           {DataVerifier.isValidString(note) && (
             <AccordionHighlight
               title={
-                <Label label={"Note:"} content={note} phrases={phrases["note"]}
+                <Label label={"Note:"} phrases={phrases["note"]}
                   TypographyProps={{ variant: "h3", fontSize: "18px", color: "#ffffff" }}
                 />
               }
@@ -117,11 +118,10 @@ export default function TranscriptionUnit({
             </AccordionHighlight>
           )}
           {isPromoter && (<Promoter {...promoter} references={references} strand={strand} />)}
-
+          {isTerminators && (<Terminators  terminators={terminators} references={references} />)}
         </div>
         {
           /**
-           * Promoter
            * Terminator
            * RIs
            * Citations

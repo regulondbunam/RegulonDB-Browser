@@ -127,6 +127,16 @@ export default class DrawSequence {
     });
   }
 
+  #drawTerminator({
+    posX = 0,
+    label = "",
+    sequence = "",
+  }) {
+    const terminatorWidth = sequence.length * this.bpWidth;;
+    const rX = posX * this.bpWidth;
+    
+  }
+
   /**
    * Draw the sequence on the canvas.
    * @returns {boolean} - Returns true if drawing succeeds, false otherwise.

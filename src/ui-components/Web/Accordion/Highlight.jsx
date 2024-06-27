@@ -21,7 +21,7 @@ export default function AccordionHighlight({
             return <InteractiveAccordion
                 title={title}
                 actions={actions}
-                colorLevel={colorLevel[3]}
+                colorLevel={colorLevel[level]}
                 defaultExpanded={defaultExpanded}
             >
                 {children}
