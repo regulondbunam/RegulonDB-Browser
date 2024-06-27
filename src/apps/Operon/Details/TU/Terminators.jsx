@@ -4,6 +4,9 @@ import Label from "ui-components/Web/Label";
 import { AccordionHighlight } from "ui-components/Web/Accordion";
 import SequenceTrack, { FEATURE_TYPES } from "ui-components/Web/SequenceTrack";
 import { DataVerifier } from "ui-components/utils";
+import { Typography } from "@mui/material";
+import { ParagraphCitations } from "ui-components/Web/Citations";
+import { confidenceLevelLabel } from "ui-components/utils";
 
 export default function Terminators({ terminators = [], references }) {
   return (
@@ -26,6 +29,8 @@ export default function Terminators({ terminators = [], references }) {
           <Terminator
             key={"terminatorInfo_" + terminator._id}
             {...terminator}
+            tClass={terminator.class}
+            references={references}
           />
         );
       })}
@@ -40,6 +45,7 @@ function Terminator({
   sequence,
   tClass,
   transcriptionTerminationSite,
+  references,
 }) {
   const { phrases } = useGetPhrase(_id);
   const features = useMemo(() => {
@@ -69,6 +75,38 @@ function Terminator({
           <SequenceTrack controls sequence={sequence} features={features} />
         </div>
       )}
+      {DataVerifier.isValidObjectWithProperty(transcriptionTerminationSite,"rightEndPosition")&&(
+        <div>
+            <Label label={"Transcription Termination Site:"} phrases={phrases["transcriptionTerminationSite"]} />
+            <Typography variant="relevant" >{transcriptionTerminationSite.leftEndPosition+" - "+transcriptionTerminationSite.rightEndPosition}</Typography>
+        </div>
+      )}
+      {DataVerifier.isValidString(tClass)&&(
+        <div>
+            <Label label={"Class:"} phrases={phrases["class"]} />
+            <Typography variant="relevant" ><span dangerouslySetInnerHTML={{__html: tClass}} /></Typography>
+        </div>
+      )}
+      {DataVerifier.isValidString(confidenceLevel) && (
+          <div>
+            <Typography variant="relevantB" sx={{ mr: 1 }}>
+              Confidence Level:{" "}
+            </Typography>
+            <Typography variant="relevant">
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: confidenceLevelLabel(confidenceLevel),
+                }}
+              />
+            </Typography>
+          </div>
+        )}
+      {DataVerifier.isValidArray(citations) && (
+          <div>
+            <Typography variant="relevant">References:</Typography>
+            <ParagraphCitations citations={citations} references={references} />
+          </div>
+        )}
     </div>
   );
 }

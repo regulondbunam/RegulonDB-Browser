@@ -55,6 +55,26 @@ class DataVerifier {
    * @param {{}} [obj={}]
    * @returns {boolean}
    */
+  static isValidObjectWithProperty(obj = {},propertyName) {
+    if(!propertyName){
+      return false
+    }
+    if (!this.isValidObject(obj)) {
+      return false
+    }
+    if (obj.hasOwnProperty(propertyName)) {
+      return true
+    }
+    return false;
+  }
+
+  /**
+   * Description placeholder
+   *
+   * @static
+   * @param {{}} [obj={}]
+   * @returns {boolean}
+   */
   static isValidObjectWith_id(obj = {}) {
     if (!obj) {
       return false;

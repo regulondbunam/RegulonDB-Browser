@@ -105,6 +105,7 @@ export default function TranscriptionUnit({
               <ParagraphCitations citations={citations} references={references} />
             </div>
           )}
+          <br />
           {DataVerifier.isValidString(note) && (
             <AccordionHighlight
               title={
@@ -122,7 +123,6 @@ export default function TranscriptionUnit({
         </div>
         {
           /**
-           * Terminator
            * RIs
            * Citations
            */
