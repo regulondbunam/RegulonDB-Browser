@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import Genes from "./Genes";
 import Promoter from "./Promoter";
 import Terminators from "./Terminators";
+import RegulatoryInteractions from "./RegulatoryInteractions";
 import Note from "ui-components/Web/Note";
 import { useGetPhrase } from "apps/Phrases";
 import Label from "ui-components/Web/Label";
@@ -145,11 +146,12 @@ function DrawTU({ id, genes, promoter, regulationPositions, regulatorBindingSite
       ids.push(...collectIds(regulatorBindingSites))
     }
     if (terminators) {
+      console.log(collectIds(terminators));
       ids.push(...collectIds(terminators))
     }
     return ids
   }, [genes, promoter, regulatorBindingSites, terminators])
-
+  
   return <DrawingTraces
     id={id}
     height={150}
