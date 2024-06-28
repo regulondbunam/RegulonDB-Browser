@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import Genes from "./Genes";
 import Promoter from "./Promoter";
 import Terminators from "./Terminators";
-import RegulatoryInteractions from "./RegulatoryInteractions";
+import RegulatoryInteractions from "./regulatorBindingSites";
 import Note from "ui-components/Web/Note";
 import { useGetPhrase } from "apps/Phrases";
 import Label from "ui-components/Web/Label";
@@ -45,7 +45,23 @@ export default function TranscriptionUnit({
   const isGenes = DataVerifier.isValidArray(genes)
   const isTerminators = DataVerifier.isValidArray(terminators)
   const isPromoter = DataVerifier.isValidObjectWith_id(promoter)
+  //locate RBS
+  const allRegulatorBindingSites = {}
   const isRBSinTU = DataVerifier.isValidArray(regulatorBindingSites);
+  if (isRBSinTU) {
+    allRegulatorBindingSites[`${name} Transcription Unit`] =  regulatorBindingSites
+  }
+  const isRBSinPromoter = isPromoter && DataVerifier.isValidArray(promoter.regulatorBindingSites)
+  if(isRBSinPromoter){
+    allRegulatorBindingSites[`${name} Promoter`] =  promoter.regulatorBindingSites
+  }
+  if (isGenes) {
+    genes.forEach(gene => {
+      if (DataVerifier.isValidArray(gene.regulatorBindingSites)) {
+        allRegulatorBindingSites[`${gene.name} gene`] =  gene.regulatorBindingSites
+      }
+    });
+  }
 
   return (
     <div>
@@ -121,6 +137,7 @@ export default function TranscriptionUnit({
           )}
           {isPromoter && (<Promoter {...promoter} references={references} strand={strand} />)}
           {isTerminators && (<Terminators  terminators={terminators} references={references} />)}
+          {DataVerifier.isValidObject(allRegulatorBindingSites) && <RegulatoryInteractions references={references} allRegulatorBindingSites={allRegulatorBindingSites} />}
         </div>
         {
           /**

@@ -67,7 +67,6 @@ export default function Details({ id }) {
 }
 
 function TUsDetails({ operon, references }) {
-  console.log(operon);
   let tus = []
   if (DataVerifier.isValidArray(operon?.transcriptionUnits)) {
     operon.transcriptionUnits.forEach((tu, index) => {
