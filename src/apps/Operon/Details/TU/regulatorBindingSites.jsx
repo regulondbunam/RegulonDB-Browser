@@ -23,7 +23,7 @@ export default function RegulatorBindingSites({
         return <div key={"rbs_in_"+key.trim()} style={{margin: "15px 0 15px 0"}} >
           <Divider textAlign="left" ><Typography variant='relevantB' >{`Regulation identified only in ${key}`}</Typography></Divider>
           <div>
-            <RegulatoryInteractions isRegulators regulatoryInteractions={regulatoryInteractions} />
+            <RegulatoryInteractions isRegulators regulatoryInteractions={regulatoryInteractions} references={references} />
           </div>
         </div>
       })}

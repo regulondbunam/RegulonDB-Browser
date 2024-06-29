@@ -184,6 +184,24 @@ export const query_getOperonBy = gql`query GetOperonBy($advancedSearch: String, 
                 sequence
               }
               mechanism
+              citations {
+                evidence {
+                  _id
+                  name
+                  code
+                  type
+                  additiveEvidenceCodeRule
+                }
+                publication {
+                  _id
+                  authors
+                  pmid
+                  citation
+                  url
+                  title
+                  year
+                }
+              }
             }
             function
             mechanism
@@ -295,6 +313,24 @@ export const query_getOperonBy = gql`query GetOperonBy($advancedSearch: String, 
                 sequence
               }
               mechanism
+              citations {
+                evidence {
+                  _id
+                  name
+                  code
+                  type
+                  additiveEvidenceCodeRule
+                }
+                publication {
+                  _id
+                  authors
+                  pmid
+                  citation
+                  url
+                  title
+                  year
+                }
+              }
             }
             function
             mechanism
@@ -403,6 +439,24 @@ export const query_getOperonBy = gql`query GetOperonBy($advancedSearch: String, 
               sequence
             }
             mechanism
+            citations {
+              evidence {
+                _id
+                name
+                code
+                type
+                additiveEvidenceCodeRule
+              }
+              publication {
+                _id
+                authors
+                pmid
+                citation
+                url
+                title
+                year
+              }
+            }
           }
           function
           mechanism

@@ -91,6 +91,7 @@ function initialState({ columns = [], data = [], tableId, idContainer, items = 1
   let currentData = [];
   let mapData = {};
   let filters = []
+  let headerHeight = 26
   if (data.length < 10) {
     items = data.length + 1
   }
@@ -112,6 +113,9 @@ function initialState({ columns = [], data = [], tableId, idContainer, items = 1
         type: 0,
         value: column.setFilter
       })
+    }
+    if (column?.height) {
+      headerHeight = column?.height>headerHeight ? column?.height : headerHeight
     }
     newColumns.push({
       id: "column_" + index + "_" + tableId,
@@ -158,7 +162,8 @@ function initialState({ columns = [], data = [], tableId, idContainer, items = 1
     items: items,
     totalPages: Math.ceil(data.length / items) - 1,
     //filter
-    filters: filters
+    filters: filters,
+    headerHeight: headerHeight
   }
 }
 
@@ -177,7 +182,7 @@ export default function FilterTable({
   const tableId = useId()
   const [state, dispatch] = useReducer(reducer, { columns, data, tableId, idContainer, items }, initialState)
 
-  //console.log(state.filters);
+  //console.log(state);
 
   useEffect(() => {
     dispatch({ type: "reset", newState: initialState({ columns, data, tableId, idContainer, items }) })
@@ -191,7 +196,7 @@ export default function FilterTable({
         </div>
         <Options state={state} dispatch={dispatch} tableName={tableName} tableId={tableId} />
       </div>
-      <div style={{ height: (state.items * 39) + "px", maxHeight: "70vh", overflow: "auto", position: "relative" }}>
+      <div style={{ height: ((state.items * 39)+state.headerHeight) + "px", maxHeight: "70vh", overflow: "auto", position: "relative" }}>
         <div style={{ position: "absolute" }} >
           <table className={Style.table}>
             <Thead state={state} dispatch={dispatch} tableId={tableId} />

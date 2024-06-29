@@ -4,33 +4,57 @@ import FilterTable from '../FilterTable'
 import { DataVerifier } from 'ui-components/utils'
 import { HeaderLabel } from './components'
 import { Link } from 'react-router-dom'
+import SequenceTrack from '../SequenceTrack'
+import { confidenceLevelLabel } from 'ui-components/utils'
+import { ParagraphCitations, CITATION_SIZE } from '../Citations'
 
 export default function RegulatoryInteractions({
     isRegulators = false,
-    regulatoryInteractions = []
+    references,
+    regulatoryInteractions = [],
 }) {
 
     const table = useMemo(() => {
         let columns = []
         let data = []
         if (isRegulators) {
-            columns.push({ key: "regulatorName", label: <HeaderLabel label="RegulonName" subLabel="function: repressor(-), activator(+), dual(+-))" /> })
+            columns.push({ key: "regulatorName", label: <HeaderLabel label="RegulonName" subLabel="function: repressor(-), activator(+), dual(+-))" />, width: 250, height: 50 })
         }
+        columns = columns.concat([
+            {key: "centralPosition",label:<HeaderLabel label={"Relative\ncentral position"} />},
+            {key: "leftPos",label:<HeaderLabel label={"LeftEndPosition"} />},
+            {key: "rightPos",label:<HeaderLabel label={"RightEndPosition"} />},
+            {key: "sequence",label:<HeaderLabel label={"Sequence"} />, width: 400},
+            {key: "confidenceLevel",label:<HeaderLabel label="Confidence Level" subLabel="C: Confirmed, S: Strong, W Weak" />},
+            {key: "references",label:<HeaderLabel label="References" subLabel="[Publication | Evidences]" />},
+        ])
         if (DataVerifier.isValidArray(regulatoryInteractions)) {
             regulatoryInteractions.forEach(regulatoryInteraction => {
+                const regulatorySite = regulatoryInteraction?.regulatorySite ? regulatoryInteraction.regulatorySite : {}
                 let row = {}
-                if (DataVerifier.isValidObjectWith_id(regulatoryInteraction?.regulator)) {
-                    const regulator = regulatoryInteraction?.regulator
-                    row["regulatorName"] = <Link to={"/regulon/" + regulator._id} value={`${regulator.name}${rFun(regulator.function)}`} ><RegulatorFunction name={regulator.name} regFunction={regulator.function} /></Link>
+                if (isRegulators) {
+                    if (DataVerifier.isValidObjectWith_id(regulatoryInteraction?.regulator)) {
+                        const regulator = regulatoryInteraction?.regulator
+                        row["regulatorName"] = <Link to={"/regulon/" + regulator._id} value={`${regulator.name}${rFun(regulator.function)}`} ><RegulatorFunction name={regulator.name} regFunction={regulator.function} /></Link>
+                    }
                 }
-                data.push(row)
+                
+                data.push({
+                    ...row,
+                    centralPosition: regulatoryInteraction.relativeCenterPosition,
+                    leftPos: regulatorySite?.leftEndPosition,
+                    rightPos: regulatorySite?.rightEndPosition,
+                    sequence: <SequenceTrack value={regulatorySite?.sequence} sequence={regulatorySite?.sequence} width='400px' />,
+                    confidenceLevel: <div value={regulatoryInteraction.confidenceLevel} dangerouslySetInnerHTML={{__html: confidenceLevelLabel(regulatoryInteraction.confidenceLevel)}} />,
+                    references: <ParagraphCitations value="" references={references} citations={regulatoryInteraction.citations} citationSize={CITATION_SIZE.ONLY_INDEX} />
+                })
             });
         }
         return { data: data, columns }
-    }, [regulatoryInteractions, isRegulators])
+    }, [regulatoryInteractions, isRegulators, references])
     console.log(regulatoryInteractions);
     console.log(table);
-    return (<FilterTable {...table} tableName={`${regulatoryInteractions.length} regulatory interactions`} titleVariant='relevant' />)
+    return (<FilterTable {...table} selection='row' tableName={`${regulatoryInteractions.length} regulatory interactions`} titleVariant='relevant' />)
 }
 
 

@@ -36,6 +36,7 @@ export default function SequenceTrack({
     name = "sequence",
     measure = false,
     sequence,
+    width = "100px"
 }) {
 
     const [contextMenu, setContextMenu] = React.useState(null);
@@ -79,7 +80,7 @@ export default function SequenceTrack({
                     <Controls state={state} sequence={sequence} dispatch={dispatch} drawPlaceId={state.id} name={name} />
                 </div>
             )}
-            <div id={state.id} style={{ position: "relative", width: "100px" }} onContextMenu={handleContextMenu}  >
+            <div id={state.id} style={{ position: "relative", width: width }} onContextMenu={handleContextMenu}  >
                 loading....
             </div>
             <Menu
