@@ -77,3 +77,15 @@ export const /** object */ query_getGuById = gql`
       }
     }
   `;
+
+export const query_getGensorUnitMainDataBySearch = gql`query GetGUsBy($search: String) {
+  getGUsBy(search: $search) {
+    data {
+      _id
+      gensorUnit {
+        name
+        groups
+      }
+    }
+  }
+}`

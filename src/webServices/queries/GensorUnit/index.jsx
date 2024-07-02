@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { query_getAllGUs, query_getGuById, query_getGuBySearch } from "./queries";
+import { query_getAllGUs, query_getGuById, query_getGuBySearch, query_getGensorUnitMainDataBySearch } from "./queries";
 import { DataVerifier } from "ui-components/utils";
 
 export function useGetAllGus() {
@@ -7,8 +7,8 @@ export function useGetAllGus() {
     let gusData = []
     try {
         if (data) {
-            if(data.getAllGUs.data){
-              gusData = data.getAllGUs.data
+            if (data.getAllGUs.data) {
+                gusData = data.getAllGUs.data
             }
         }
     } catch (error) {
@@ -23,14 +23,14 @@ export function useGetAllGus() {
 }
 
 export function useGetGuBySearch(keyword) {
-    const { data, loading, error } = useQuery(query_getGuBySearch,{variables:{search: keyword}})
+    const { data, loading, error } = useQuery(query_getGuBySearch, { variables: { search: keyword } })
     let gusData = []
     //console.log(data);
     try {
         if (data) {
-            if(DataVerifier.isValidArray(data.getGUsBy.data)){
-              gusData = data.getGUsBy.data
-            }else{
+            if (DataVerifier.isValidArray(data.getGUsBy.data)) {
+                gusData = data.getGUsBy.data
+            } else {
                 gusData = null
             }
         }
@@ -46,13 +46,13 @@ export function useGetGuBySearch(keyword) {
 }
 
 export function useGetGuById(guId) {
-    const { data, loading, error } = useQuery(query_getGuById,{variables:{advancedSearch: `${guId}[_id]`}})
+    const { data, loading, error } = useQuery(query_getGuById, { variables: { advancedSearch: `${guId}[_id]` } })
     let guData = []
     try {
         if (data) {
-            if(DataVerifier.isValidArray(data.getGUsBy.data)){
-              guData = data.getGUsBy.data[0]
-            }else{
+            if (DataVerifier.isValidArray(data.getGUsBy.data)) {
+                guData = data.getGUsBy.data[0]
+            } else {
                 guData = null
             }
         }
@@ -65,4 +65,28 @@ export function useGetGuById(guId) {
         console.log("query getGUById", query_getGuById);
     }
     return { guData, loading, error }
+}
+
+export function useSearchGU(keyword, onCompleted = () => { }) {
+    const { data, loading, error } = useQuery(query_getGensorUnitMainDataBySearch, {
+        variables: {
+            search: keyword
+        },
+        onCompleted: () => {
+            onCompleted({
+                nResults: gensorUnits?.length ? gensorUnits.length : 0,
+            })
+        }
+    });
+    let gensorUnits
+    if (error) {
+        console.error("query_GetGUMainDataBySearch Error, search: ", error)
+    }
+    if (data) {
+        gensorUnits = {};
+        if (DataVerifier.isValidArray(data.getGUsBy.data)) {
+            gensorUnits = data.getGUsBy.data
+        }
+    }
+    return { gensorUnits, data, loading, error }
 }

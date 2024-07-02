@@ -1,7 +1,7 @@
 import useSearchGene, { useLazySearchGene, useGetGeneByID, useGetMainGenesBySearch } from "./GenesResult";
 import useGetObjectList from "./ObjectList";
 import { useGetGeneticElements, useLazyGetGeneticElements } from "./DTTData";
-import { useGetAllGus, useGetGuById, useGetGuBySearch } from "./GensorUnit";
+import { useGetAllGus, useGetGuById, useGetGuBySearch, useSearchGU } from "./GensorUnit";
 import { useGetOperonByID, useLazySearchOperon, useSearchOperon } from "./OperonResult";
 import { useGetGoTerms, useLazyGetGOBySearch, useLazyGetSubclassesOfTermId, useGetGOBySearch, useGetTree } from "./GOTree";
 import { useGetListAllDownloadableFiles } from "./DownloadableFile";
@@ -24,7 +24,7 @@ export {
     useGetGeneticElements,
     useLazyGetGeneticElements,
     //GUS
-    useGetAllGus, useGetGuById, useGetGuBySearch,
+    useGetAllGus, useGetGuById, useGetGuBySearch, useSearchGU,
     //Operons
     useGetOperonByID, useLazySearchOperon, useSearchOperon,
     //Sigmulon
