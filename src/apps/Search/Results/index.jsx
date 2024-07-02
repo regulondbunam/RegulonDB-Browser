@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Typography, Divider } from '@mui/material'
+import { Typography } from '@mui/material'
 import Genes from './Genes'
+import Operon from './Operon';
+import Regulon from './Regulon';
 import { LocalStorage } from 'ui-components/utils';
+
 
 
 export default function Results({ search = "" }) {
@@ -10,7 +13,6 @@ export default function Results({ search = "" }) {
   })
 
   useEffect(() => {
-
     return () => {
       setCount(0)
     }
@@ -23,14 +25,29 @@ export default function Results({ search = "" }) {
       <Typography variant='h2' >
         Results of {search} ({_count})
       </Typography>
-      <Divider sx={{ borderTop: "1px solid #d59f0f" }} />
-      <div>
+      <div style={{display: 'flex', flexDirection: 'column', gap: '10px'}} >
         <Genes id="genes" search={search}
           onCompleted={(state) => {
             if (state.nResults > 0) {
               LocalStorage.SaveRecentSearches(search)
             }
             setCount({ ...count, genes: state.nResults })
+          }}
+        />
+        <Operon id="operon" search={search}
+          onCompleted={(state) => {
+            if (state.nResults > 0) {
+              LocalStorage.SaveRecentSearches(search)
+            }
+            setCount({ ...count, operon: state.nResults })
+          }}
+        />
+        <Regulon id="regulon" search={search}
+          onCompleted={(state) => {
+            if (state.nResults > 0) {
+              LocalStorage.SaveRecentSearches(search)
+            }
+            setCount({ ...count, regulon: state.nResults })
           }}
         />
       </div>

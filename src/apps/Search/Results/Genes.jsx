@@ -1,8 +1,11 @@
-import React, { useEffect, useReducer, useState } from 'react'
+import React from 'react'
 import { useSearchGene } from 'webServices/queries'
 import { AccordionList } from "ui-components/Web/Accordion"
 import { DataVerifier, markMatches } from 'ui-components/utils';
 import Skeleton from '@mui/material/Skeleton';
+import { isMobile } from 'react-device-detect';
+import { useNavigate } from 'react-router-dom';
+
 
 
 function process(data, search = "") {
@@ -44,15 +47,22 @@ function process(data, search = "") {
 
 
 export default function Genes({ id = "genesResult", search = "", onCompleted = () => { } }) {
-    const { genes, loading, error } = useSearchGene(search, onCompleted)
+    const { genes, loading } = useSearchGene(search, onCompleted)
+    const nav = useNavigate()
+    const goItem = (item) => {
+        nav("/gene/"+item._id)
+    }
     if (loading) {
         return <Skeleton variant="rectangular" height={40} />
     }
     if (genes) {
         let data = process(genes, search)
         return (
-            <AccordionList data={data} title={"Genes (" + data.length + ")"} />
+            <AccordionList highlightLevel={1} defaultExpanded={!isMobile} data={data} 
+            title={"Genes (" + data.length + ")"}
+                onClick={goItem}
+            />
         )
     }
-    return "loading"
+    return "---"
 }

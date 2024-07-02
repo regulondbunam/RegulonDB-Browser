@@ -362,3 +362,38 @@ export const query_GetRegulonBy = gql`query GetRegulonBy($advancedSearch: String
       }
     }
   }`
+
+export const query_GetRegulonMainDataBySearch = gql`query GetRegulonBy($search: String) {
+  getRegulonBy(search: $search) {
+    data {
+      regulator {
+        _id
+        name
+        synonyms
+      }
+      summary {
+        genes {
+          total
+        }
+        transcriptionFactors {
+          total
+        }
+        transcriptionUnits {
+          total
+        }
+        operons {
+          total
+        }
+        sigmaFactors {
+          total
+        }
+        bindingSites {
+          total
+        }
+        regulatoryInteractions {
+          total
+        }
+      }
+    }
+  }
+}`

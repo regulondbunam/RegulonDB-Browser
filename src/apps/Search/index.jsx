@@ -9,6 +9,7 @@ import Divider from '@mui/material/Divider';
 import Results from './Results';
 import ResentSearch from './ResentSearch';
 import { InputSearch } from './InputSearch';
+import CoexpressionResults from './Rooting/coexpression';
 
 const PATH_SEARCH = {
   path: "search",
@@ -66,8 +67,11 @@ export default function Search() {
       window.history.replaceState(null, null, "/" + PATH_SEARCH.path + "/" + value)
       setSearch(value)
     }
-
   }
+
+  if(/coexpression/.test(search)){
+    return <CoexpressionResults keyword={search} />
+}
 
   return (
     <div>

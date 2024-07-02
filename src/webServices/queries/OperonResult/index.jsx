@@ -1,5 +1,5 @@
 import { useQuery, useLazyQuery } from '@apollo/client';
-import { query_getOperonBy } from './queries';
+import { query_getOperonBy, query_getOperonBySearch } from './queries';
 import { DataVerifier } from 'ui-components/utils';
 
 
@@ -56,54 +56,26 @@ export function useLazySearchOperon() {
   return [getOperons, { operons, data, loading, error }]
 }
 
-
-/*
-export default function useSearchGene(keyword, onCompleted = () => { }) {
-  const { data, loading, error } = useQuery(query_SEARCH_GENE, {
+export function useSearchOperon(keyword, onCompleted = () => { }) {
+  const { data, loading, error } = useQuery(query_getOperonBySearch, {
     variables: {
       search: keyword
     },
     onCompleted: () => {
       onCompleted({
-        nResults: genes?.length ? genes.length : 0,
+        nResults: operons?.length ? operons.length : 0,
       })
     }
   });
-
-  let genes
-
+  let operons
   if (error) {
-    console.error("query genesResult Error, search Gene: ", error)
+    console.error("query getOperonsBy:operonResult Error, search Gene: ", error)
   }
   if (data) {
-    if (DataVerifier.isValidArray(data.getGenesBy.data)) {
-      genes = data.getGenesBy.data
+    operons = {};
+    if (DataVerifier.isValidArray(data.getOperonBy.data)) {
+      operons = data.getOperonBy.data
     }
   }
-  return { genes, data, loading, error }
+  return {operons, data, loading, error }
 }
-
-
-
-export function useGetMainGenesBySearch(search) {
-  const { data, loading, error } = useQuery(query_getMainGeneBySearch, {
-    variables: { search: search },
-  });
-  let genesData = [];
-  try {
-    if (data) {
-      if (data.getGenesBy.data) {
-        genesData = data.getGenesBy.data;
-      }
-    }
-  } catch (error) {
-    console.error("assign geneData value:", error);
-    console.log("query getGeneBySearch", query_getMainGeneBySearch);
-  }
-  if (error) {
-    console.error("query getGeneBy: ", error);
-    console.log("query getGeneBySearch", query_getMainGeneBySearch);
-  }
-  return { genesData, loading, error };
-}
-  */

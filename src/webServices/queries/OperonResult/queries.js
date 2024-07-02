@@ -505,3 +505,27 @@ export const query_getOperonBy = gql`query GetOperonBy($advancedSearch: String, 
     }
   }
 }`
+
+export const query_getOperonBySearch = gql`query GetOperonBy($search: String) {
+  getOperonBy(search: $search) {
+    data {
+      _id
+      operon {
+        name
+        statistics {
+          genes
+          promoters
+          transcriptionUnits
+        }
+      }
+      transcriptionUnits {
+        _id
+        name
+        promoter {
+          _id
+          name
+        }
+      }
+    }
+  }
+}`

@@ -41,6 +41,7 @@ export default function useSearchGene(keyword, onCompleted = () => { }) {
     console.error("query genesResult Error, search Gene: ", error)
   }
   if (data) {
+    genes = {}
     if (DataVerifier.isValidArray(data.getGenesBy.data)) {
       genes = data.getGenesBy.data
     }
