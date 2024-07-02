@@ -3,6 +3,7 @@ import { Typography } from '@mui/material'
 import Genes from './Genes'
 import Operon from './Operon';
 import Regulon from './Regulon';
+import Sigmulon from './Sigmulon';
 import { LocalStorage } from 'ui-components/utils';
 
 
@@ -43,6 +44,14 @@ export default function Results({ search = "" }) {
           }}
         />
         <Regulon id="regulon" search={search}
+          onCompleted={(state) => {
+            if (state.nResults > 0) {
+              LocalStorage.SaveRecentSearches(search)
+            }
+            setCount({ ...count, regulon: state.nResults })
+          }}
+        />
+        <Sigmulon id="regulon" search={search}
           onCompleted={(state) => {
             if (state.nResults > 0) {
               LocalStorage.SaveRecentSearches(search)

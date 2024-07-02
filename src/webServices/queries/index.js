@@ -10,6 +10,7 @@ import { useGetDatasetByID, useGetDatasetByAdvancedSearch, useGetNLPGC, useLazyG
 import { useGetNLPGrowthConditionById } from "./NLPGrowthConditions";
 import { useGetAuthorDataOfDataset } from "./AuthorsData";
 import useGetNormalizedData from "./NormalizedDataOfDataset";
+import { useSearchSigmulon } from "./SigmulonResult";
 
 export {
     //ResultGenes
@@ -26,6 +27,8 @@ export {
     useGetAllGus, useGetGuById, useGetGuBySearch,
     //Operons
     useGetOperonByID, useLazySearchOperon, useSearchOperon,
+    //Sigmulon
+    useSearchSigmulon,
     //others
     useGetGoTerms, useLazyGetGOBySearch, useLazyGetSubclassesOfTermId, useGetGOBySearch, useGetTree,
     useGetListAllDownloadableFiles,

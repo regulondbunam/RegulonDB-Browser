@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSearchRegulon } from 'webServices/queries'
+import { useSearchSigmulon } from 'webServices/queries'
 import { AccordionList } from "ui-components/Web/Accordion"
 import { DataVerifier, markMatches } from 'ui-components/utils';
 import Skeleton from '@mui/material/Skeleton';
@@ -10,25 +10,25 @@ import { isMobile } from 'react-device-detect';
 function process(data, search = "") {
     let results = []
     if (DataVerifier.isValidArray(data)) {
-        data.forEach((regulon) => {
+        data.forEach((sigmulon) => {
             let score = 0
             let statistics = ""
-            if (DataVerifier.isValidObject(regulon.summary)) {
-                for (const obj in regulon.summary) {
+            if (DataVerifier.isValidObject(sigmulon.statistics)) {
+                for (const obj in sigmulon.statistics) {
                     if (!/^__/.test(obj)) {
-                        statistics += `${obj}: ${regulon.summary[obj].total} `
+                        statistics += `${obj}: ${sigmulon.statistics[obj]} `
                     }
                 }
             }
-            let operonName = regulon.regulator.name;
-            let matchName = markMatches(operonName, search)
-            operonName = matchName.markedText
+            let sigmulonName = sigmulon.sigmaFactor.name;
+            let matchName = markMatches(sigmulonName, search)
+            sigmulonName = matchName.markedText
             score += matchName.score
             results.push({
-                _id: regulon.regulator._id,
-                data: regulon,
-                type: "regulon",
-                primary: operonName,
+                _id: sigmulon._id,
+                data: sigmulon,
+                type: "sigmulon",
+                primary: sigmulonName,
                 secondary: statistics,
                 score: score
             })
@@ -39,19 +39,19 @@ function process(data, search = "") {
 }
 
 
-export default function Regulon({ id = "regulonResults", search = "", onCompleted = () => { } }) {
-    const { regulons, loading } = useSearchRegulon(search, onCompleted)
+export default function Sigmulon({ id = "sigmulonResults", search = "", onCompleted = () => { } }) {
+    const { sigmulons, loading } = useSearchSigmulon(search, onCompleted)
     const nav = useNavigate()
     const goItem = (item) => {
-        nav("/regulon/"+item._id)
+        nav("/sigmulon/"+item._id)
     }
     if (loading) {
         return <Skeleton variant="rectangular" height={40} />
     }
-    if (regulons) {
-        let data = process(regulons, search)
+    if (sigmulons) {
+        let data = process(sigmulons, search)
         return (
-            <AccordionList highlightLevel={1} defaultExpanded={!isMobile} data={data} title={"Regulons (" + data.length + ")"} 
+            <AccordionList highlightLevel={1} defaultExpanded={!isMobile} data={data} title={"Sigmulon (" + data.length + ")"} 
                 onClick={goItem}
             />
         )
