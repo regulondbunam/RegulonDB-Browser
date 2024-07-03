@@ -4,5 +4,11 @@
 
 
 .resultContainer {
+    display: flex;
+}
+
+
+.results{
     width: 100%;
+
 }

@@ -1,15 +1,15 @@
-import React, { useState, useId } from 'react'
+import React, { useState, useId, useRef, useReducer } from 'react'
 import style from "./search.module.css"
 import { Cover } from 'ui-components/Web/Cover'
-import { Typography, Button, Paper } from '@mui/material'
+import { Typography } from '@mui/material'
 import { useParams } from "react-router-dom";
-import TextField from '@mui/material/TextField';
-import SearchIcon from '@mui/icons-material/Search';
-import Divider from '@mui/material/Divider';
 import Results from './Results';
 import ResentSearch from './ResentSearch';
 import { InputSearch } from './InputSearch';
 import CoexpressionResults from './Rooting/coexpression';
+import PanelSearch from './PanelSearch';
+import Drawers from 'apps/Drawers';
+import { ACTION, countResults } from './static';
 
 const PATH_SEARCH = {
   path: "search",
@@ -21,18 +21,106 @@ const PATH_SEARCH = {
 
 export { PATH_SEARCH, InputSearch }
 
-function InputSearchPage({ inputTextId, setSearch, handleOnSearch }) {
+export default function Search() {
+  let { keyword } = useParams()
+  if (/coexpression/.test(keyword)) {
+    return <CoexpressionResults keyword={keyword} />
+  }
+  return <SearchTool keyword={keyword} />
+}
+
+function initState({ keyword }) {
+  return {
+    search: keyword,
+    results: {},
+    nResults: 0
+  }
+}
+
+function reducer(state, action) {
+  switch (action.type) {
+    case ACTION.SEARCH:
+      return { ...state, search: action.search }
+    case ACTION.UPDATE_RESULTS:
+      const newResults = { ...state.results, ...action.results }
+      return {
+        ...state,
+        results: newResults,
+        nResults: countResults(newResults)
+      }
+    default:
+      return state
+  }
+}
+
+
+function SearchTool({ keyword }) {
+
+  const [state, dispatch] = useReducer(reducer, { keyword }, initState)
+
+  console.log(state);
+
+  return (
+    <div>
+      <div>
+        <Cover>
+          <Typography variant='h1' sx={{ marginLeft: "10%" }} >
+            Search
+          </Typography>
+        </Cover>
+      </div>
+      <div style={{ display: "flex" }} >
+        <Drawers
+          open
+          title={`Search ${state.search && `results of ${state.search} (${state.nResults})`}`}
+          drawers={[
+            <PanelSearch search={state.search} />,
+          ]}
+        />
+        <div className={style.results}>
+          {state.search ? (<Results state={state} dispatch={dispatch} />) : (
+            <ResentSearch setSearch={(_search) => {
+              dispatch({ type: ACTION.SEARCH, search: _search })
+            }} />
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+
+/*
+  <div className={style.tools}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <InputSearchPage inputTextId={inputTextId} setSearch={setSearch} handleOnSearch={handleOnSearch} />
+          </div>
+        </div>
+    return (
+    
+      <div>
+        
+        <div >
+          <div className={style.resultContainer} >
+            {search && (
+              
+            )}
+            
+          </div>
+        </div>
+      </div>
+    )
+      
+    function InputSearchPage({ inputTextId, setSearch, handleOnSearch }) {
 
   return (
     <Paper
       elevation={0}
-      sx={{ m: 1, display: 'flex', alignItems: 'center', width: "80vw" }}
+      sx={{ m: 1, width: "100%" }}
     >
       <TextField
         size='small'
-        sx={{
-          width: "80vw"
-        }}
+        fullWidth
         id={inputTextId}
         aria-describedby="input-searcht"
         InputProps={{
@@ -45,58 +133,17 @@ function InputSearchPage({ inputTextId, setSearch, handleOnSearch }) {
           }
         }}
       />
-      <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-      <Button variant="contained" color='error'
-        onClick={handleOnSearch}
-      >
-        search
-      </Button>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Button variant="contained"
+          size='small'
+          onClick={handleOnSearch}
+        >
+          search
+        </Button>
+      </Box>
+
     </Paper>
   )
 }
-
-export default function Search() {
-  let { keyword } = useParams()
-  const inputTextId = useId()
-  const [search, setSearch] = useState(keyword)
-
-  const handleOnSearch = () => {
-    const inputText = document.getElementById(inputTextId)
-    if (inputTextId) {
-      const value = inputText.value
-      window.history.replaceState(null, null, "/" + PATH_SEARCH.path + "/" + value)
-      setSearch(value)
-    }
-  }
-
-  if(/coexpression/.test(search)){
-    return <CoexpressionResults keyword={search} />
-}
-
-  return (
-    <div>
-      <Cover>
-        <Typography variant='h1' sx={{ marginLeft: "10%" }} >
-          Search
-        </Typography>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <InputSearchPage inputTextId={inputTextId} setSearch={setSearch} handleOnSearch={handleOnSearch} />
-        </div>
-      </Cover>
-      <div >
-        <div className={style.resultContainer} >
-          {search && (
-            <Results search={search} />
-          )}
-          <ResentSearch setSearch={(_search) => {
-            const inputText = document.getElementById(inputTextId)
-            if (inputTextId) {
-              inputText.value = _search
-              handleOnSearch()
-            }
-          }} />
-        </div>
-      </div>
-    </div>
-  )
-}
+    
+    */

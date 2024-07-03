@@ -5,67 +5,61 @@ import Operon from './Operon';
 import Regulon from './Regulon';
 import Sigmulon from './Sigmulon';
 import GensorUnit from './GensorUnit';
+import { ACTION } from '../static';
 import { LocalStorage } from 'ui-components/utils';
 
 
 
-export default function Results({ search = "" }) {
-  const [count, setCount] = useState({
-    genes: 0,
-  })
+export default function Results({ state, dispatch }) {
 
-  useEffect(() => {
-    return () => {
-      setCount(0)
-    }
-  }, [])
-
-  const _count = countResults(count)
+  const setCount=(results)=>{
+    dispatch({type: ACTION.UPDATE_RESULTS, results: results})
+  }
 
   return (
     <div style={{ marginLeft: "5%", marginRight: "5%" }} >
       <Typography variant='h2' >
-        Results of {search} ({_count})
+        Results of {state.search} ({state.nResults})
       </Typography>
       <div style={{display: 'flex', flexDirection: 'column', gap: '10px'}} >
-        <Genes id="genes" search={search}
+        <Genes id="genes" search={state.search}
           onCompleted={(state) => {
             if (state.nResults > 0) {
-              LocalStorage.SaveRecentSearches(search)
+              LocalStorage.SaveRecentSearches(state.search)
             }
-            setCount({ ...count, genes: state.nResults })
+            setCount({ genes: state.nResults })
           }}
         />
-        <Operon id="operon" search={search}
+        <Operon id="operon" search={state.search}
           onCompleted={(state) => {
             if (state.nResults > 0) {
-              LocalStorage.SaveRecentSearches(search)
+              LocalStorage.SaveRecentSearches(state.search)
             }
-            setCount({ ...count, operon: state.nResults })
+            setCount({ operon: state.nResults })
           }}
         />
-        <Regulon id="regulon" search={search}
+        <Regulon id="regulon" search={state.search}
           onCompleted={(state) => {
             if (state.nResults > 0) {
-              LocalStorage.SaveRecentSearches(search)
+              LocalStorage.SaveRecentSearches(state.search)
             }
-            setCount({ ...count, regulon: state.nResults })
+            setCount({ regulon: state.nResults })
           }}
         />
-        <Sigmulon id="sigmulon" search={search}
+        <Sigmulon id="sigmulon" search={state.search}
           onCompleted={(state) => {
             if (state.nResults > 0) {
-              LocalStorage.SaveRecentSearches(search)
+              LocalStorage.SaveRecentSearches(state.search)
             }
-            setCount({ ...count, sigmulon: state.nResults })
+            setCount({ sigmulon: state.nResults })
           }}
         />
-        <GensorUnit id="gensorUnit" search={search}
+        <GensorUnit id="gensorUnit" search={state.search}
           onCompleted={(state) => {
             if (state.nResults > 0) {
-              LocalStorage.SaveRecentSearches(search)
+              LocalStorage.SaveRecentSearches(state.search)
             }
-            setCount({ ...count, gu: state.nResults })
+            setCount({ gu: state.nResults })
           }}
         />
       </div>
@@ -73,10 +67,4 @@ export default function Results({ search = "" }) {
   )
 }
 
-function countResults(count = {}) {
-  let _count = 0
-  Object.keys(count).forEach(result => {
-    _count += count[result]
-  });
-  return _count
-}
+
