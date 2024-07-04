@@ -17,7 +17,7 @@ export default function Results({ state, dispatch }) {
   }
 
   return (
-    <div style={{ marginLeft: "5%", marginRight: "5%" }} >
+    <div style={{ marginLeft: "10px", marginRight: "5%" }} >
       <Typography variant='h2' >
         Results of {state.search} ({state.nResults})
       </Typography>

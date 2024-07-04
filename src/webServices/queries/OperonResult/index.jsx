@@ -64,6 +64,7 @@ export function useSearchOperon(keyword, onCompleted = () => { }) {
     onCompleted: () => {
       onCompleted({
         nResults: operons?.length ? operons.length : 0,
+        search: keyword,
       })
     }
   });

@@ -10,6 +10,7 @@ export function useSearchSigmulon(keyword, onCompleted = () => { }) {
       onCompleted: () => {
         onCompleted({
           nResults: sigmulons?.length ? sigmulons.length : 0,
+            search: keyword,
         })
       }
     });

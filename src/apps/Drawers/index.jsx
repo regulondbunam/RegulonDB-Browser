@@ -1,5 +1,6 @@
 import React, {createContext, useState} from 'react'
 import {Box, Button,} from '@mui/material'
+import Controls from "./Controls";
 import Title from './Title'
 
 export const DrawerContext = createContext({
@@ -10,31 +11,41 @@ export const DrawerContext = createContext({
 export default function Drawers({
                                     drawers = [], setDrawer, isPersistent = false, open: _open = false, title = ""
                                 }) {
-    const [panel, setPanel] = useState(setDrawer)
+    const [Panel, setPanel] = useState(<></>)
     const [open, setOpen] = useState(_open)
 
 
-    return (<div style={{width: open ? "30%" : "0", maxWidth: open ? "250px" : "0", zIndex: 99}}>
+    return (<div style={{width: open ? "30%" : "65px", maxWidth: open ? "250px" : "65px", zIndex: 99}}>
         {open ? (<Box
             sx={{
                 position: "sticky", left: 0, top: 0, height: "100vh",
             }}
         >
             <Title title={title}/>
-            <Button onClick={() => {
-                setOpen(false)
-            }}>close</Button>
+            <Controls setOpen={setOpen}/>
+            <DrawerContext.Provider
+                value={{
+                    expand: true,
+                    setExpand: () => {
+                    },
+                    isEmbed: false
+                }}
+            >
+                {Panel}
+            </DrawerContext.Provider>
         </Box>) : (
             <div style={{
                 position: "sticky", left: 0, top: 0, display: 'flex', flexDirection: "column", rowGap: "5px"
             }}>
                 {drawers.map((Drawer, index) => (
-                    <DrawerContext.Provider key={"drawer_" + index}
-                                            value={{
-                                                expand: false, setExpand: () => {
-                                                    setOpen(true)
-                                                }, isEmbed: false
-                                            }}
+                    <DrawerContext.Provider
+                        key={"drawer_" + index}
+                        value={{
+                            expand: false, setExpand: () => {
+                                setOpen(true)
+                                setPanel(Drawer)
+                            }, isEmbed: false
+                        }}
                     >
                         {Drawer}
                     </DrawerContext.Provider>))}

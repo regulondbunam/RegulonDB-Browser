@@ -75,6 +75,7 @@ export function useSearchGU(keyword, onCompleted = () => { }) {
         onCompleted: () => {
             onCompleted({
                 nResults: gensorUnits?.length ? gensorUnits.length : 0,
+                search: keyword,
             })
         }
     });

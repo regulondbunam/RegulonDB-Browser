@@ -7,7 +7,7 @@ import Results from './Results';
 import ResentSearch from './ResentSearch';
 import { InputSearch } from './InputSearch';
 import CoexpressionResults from './Rooting/coexpression';
-import PanelSearch from './PanelSearch';
+import LeftPanel from "./LeftPanel";
 import Drawers from 'apps/Drawers';
 import { ACTION, countResults } from './static';
 
@@ -56,6 +56,7 @@ function reducer(state, action) {
 
 function SearchTool({ keyword }) {
   const [state, dispatch] = useReducer(reducer, { keyword }, initState)
+  console.log(state)
   return (
     <div>
       <div>
@@ -70,7 +71,7 @@ function SearchTool({ keyword }) {
           open
           title={`Search ${state.search && `results of ${state.search} (${state.nResults})`}`}
           drawers={[
-            <PanelSearch search={state.search} />,
+            <LeftPanel state={state} dispatch={dispatch} />,
           ]}
         />
         <div className={style.results}>
@@ -107,39 +108,6 @@ function SearchTool({ keyword }) {
       </div>
     )
       
-    function InputSearchPage({ inputTextId, setSearch, handleOnSearch }) {
 
-  return (
-    <Paper
-      elevation={0}
-      sx={{ m: 1, width: "100%" }}
-    >
-      <TextField
-        size='small'
-        fullWidth
-        id={inputTextId}
-        aria-describedby="input-searcht"
-        InputProps={{
-          startAdornment: <SearchIcon />,
-          'aria-label': 'search-keyword',
-        }}
-        onKeyUp={(event) => {
-          if (event.key === "Enter") {
-            handleOnSearch()
-          }
-        }}
-      />
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Button variant="contained"
-          size='small'
-          onClick={handleOnSearch}
-        >
-          search
-        </Button>
-      </Box>
-
-    </Paper>
-  )
-}
     
     */

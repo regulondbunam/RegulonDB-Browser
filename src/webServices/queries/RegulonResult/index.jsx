@@ -33,6 +33,7 @@ export function useSearchRegulon(keyword, onCompleted = () => { }) {
     onCompleted: () => {
       onCompleted({
         nResults: regulons?.length ? regulons.length : 0,
+        search: keyword,
       })
     }
   });

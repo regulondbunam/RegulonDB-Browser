@@ -12,6 +12,9 @@ export default class LocalStorage {
     }
   
     static SaveRecentSearches(search){
+        if (!DataVerifier.isValidString(search)){
+            return false
+        }
         let resentSearches = this.getRecentSearches()
         if (DataVerifier.isValidArray(resentSearches)) {
             if (!resentSearches.find(value=>value===search)) {

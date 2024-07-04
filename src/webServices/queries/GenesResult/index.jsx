@@ -31,6 +31,7 @@ export default function useSearchGene(keyword, onCompleted = () => { }) {
     onCompleted: () => {
       onCompleted({
         nResults: genes?.length ? genes.length : 0,
+        search: keyword,
       })
     }
   });

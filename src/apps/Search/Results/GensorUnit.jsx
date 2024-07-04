@@ -1,10 +1,10 @@
 import React from 'react'
-import { useSearchGU } from 'webServices/queries'
-import { AccordionList } from "ui-components/Web/Accordion"
-import { DataVerifier, markMatches } from 'ui-components/utils';
+import {useSearchGU} from 'webServices/queries'
+import {AccordionList} from "ui-components/Web/Accordion"
+import {DataVerifier, markMatches} from 'ui-components/utils';
 import Skeleton from '@mui/material/Skeleton';
-import { useNavigate } from 'react-router-dom';
-import { isMobile } from 'react-device-detect';
+import {useNavigate} from 'react-router-dom';
+import {isMobile} from 'react-device-detect';
 
 
 function process(data, search = "") {
@@ -16,7 +16,7 @@ function process(data, search = "") {
             let matchName = markMatches(guName, search)
             guName = matchName.markedText
             score += matchName.score
-            let guGroups= ""
+            let guGroups = ""
             if (DataVerifier.isValidArray(gu.gensorUnit.groups)) {
                 guGroups = gu.gensorUnit.groups.join(", ");
                 let matchGroups = markMatches(guGroups, search)
@@ -33,24 +33,29 @@ function process(data, search = "") {
             })
         });
     }
-    results.sort((a, b) => b.score - a.score); return results
+    results.sort((a, b) => b.score - a.score);
+    return results
 }
 
 
-export default function GensorUnit({ id = "guResult", search = "", onCompleted = () => { } }) {
-    const { gensorUnits, loading } = useSearchGU(search, onCompleted)
+export default function GensorUnit({
+                                       id = "guResult", search = "", onCompleted = () => {
+    }
+                                   }) {
+    const {gensorUnits, loading} = useSearchGU(search, onCompleted)
     const nav = useNavigate()
     const goItem = (item) => {
         nav("/gu/" + item._id)
     }
     if (loading) {
-        return <Skeleton variant="rectangular" height={40} />
+        return <Skeleton variant="rectangular" height={40}/>
     }
     if (gensorUnits) {
         let data = process(gensorUnits, search)
         return (
-            <AccordionList highlightLevel={1} defaultExpanded={!isMobile} data={data} title={"GENSOR UNIT (" + data.length + ")"}
-                onClick={goItem}
+            <AccordionList highlightLevel={1} defaultExpanded={!isMobile} data={data}
+                           title={"GENSOR UNIT (" + data.length + ")"}
+                           onClick={goItem}
             />
         )
     }
