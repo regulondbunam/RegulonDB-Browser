@@ -55,11 +55,7 @@ function reducer(state, action) {
 
 
 function SearchTool({ keyword }) {
-
   const [state, dispatch] = useReducer(reducer, { keyword }, initState)
-
-  console.log(state);
-
   return (
     <div>
       <div>

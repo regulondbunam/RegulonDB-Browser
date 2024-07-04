@@ -1,6 +1,7 @@
 import { Button } from '@mui/material'
-import React, { useState } from 'react'
+import React, {useContext, useState} from 'react'
 import SearchIcon from '@mui/icons-material/Search';
+import {DrawerContext} from "../../Drawers";
 
 function IconExpand({
     expand,
@@ -15,6 +16,10 @@ function IconExpand({
     } else {
         return (
             <Button variant="contained" color='secondary'  endIcon={<SearchIcon />}
+                    sx={{":hover": {
+                        position: "absolute"
+                    }
+                    }}
                 onMouseEnter={()=>{setIsHover(true)}}
                 onMouseLeave={()=>{setIsHover(false)}}
                 onClick={setExpand}
@@ -23,13 +28,8 @@ function IconExpand({
     }
 }
 
-export default function PanelSearch({
-    expand = false,
-    setExpand = ()=>{},
-    isEmbed = false
-}) {
-
-
+export default function PanelSearch() {
+    const {expand, isEmbed, setExpand} = useContext(DrawerContext)
     if (expand) {
         return (
             <div>
