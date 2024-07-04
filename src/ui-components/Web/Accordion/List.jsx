@@ -20,6 +20,7 @@ import Accordion from 'ui-components/Web/Accordion'
  */
 
 export default function AccordionList({
+    id = "",
     title = "",
     data = [],
     pagination = true,
@@ -49,7 +50,9 @@ export default function AccordionList({
         setPage(Math.ceil(nResults / limit))
     }
     return (
-        <Accordion defaultExpanded={defaultExpanded}
+        <Accordion
+            id={id}
+            defaultExpanded={defaultExpanded}
             highlightLevel={highlightLevel}
             title={title}
             actions={

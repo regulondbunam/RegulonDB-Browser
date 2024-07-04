@@ -64,7 +64,7 @@ export default function Operon({ id = "operonResults", search = "", onCompleted 
     if (operons) {
         let data = process(operons, search)
         return (
-            <AccordionList highlightLevel={1} defaultExpanded={!isMobile} data={data} title={"Operons (" + data.length + ")"} 
+            <AccordionList id={id} highlightLevel={1} defaultExpanded={!isMobile} data={data} title={"Operons (" + data.length + ")"}
                 onClick={goItem}
             />
         )

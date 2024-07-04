@@ -58,7 +58,7 @@ export default function Genes({ id = "genesResult", search = "", onCompleted = (
     if (genes) {
         let data = process(genes, search)
         return (
-            <AccordionList highlightLevel={1} defaultExpanded={!isMobile} data={data} 
+            <AccordionList id={id} highlightLevel={1} defaultExpanded={!isMobile} data={data}
             title={"Genes (" + data.length + ")"}
                 onClick={goItem}
             />

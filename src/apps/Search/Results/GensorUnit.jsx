@@ -53,7 +53,7 @@ export default function GensorUnit({
     if (gensorUnits) {
         let data = process(gensorUnits, search)
         return (
-            <AccordionList highlightLevel={1} defaultExpanded={!isMobile} data={data}
+            <AccordionList id={id} highlightLevel={1} defaultExpanded={!isMobile} data={data}
                            title={"GENSOR UNIT (" + data.length + ")"}
                            onClick={goItem}
             />

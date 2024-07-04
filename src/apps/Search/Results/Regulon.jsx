@@ -51,7 +51,7 @@ export default function Regulon({ id = "regulonResults", search = "", onComplete
     if (regulons) {
         let data = process(regulons, search)
         return (
-            <AccordionList highlightLevel={1} defaultExpanded={!isMobile} data={data} title={"Regulons (" + data.length + ")"} 
+            <AccordionList id={id} highlightLevel={1} defaultExpanded={!isMobile} data={data} title={"Regulons (" + data.length + ")"}
                 onClick={goItem}
             />
         )

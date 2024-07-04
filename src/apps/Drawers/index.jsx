@@ -1,5 +1,5 @@
 import React, {createContext, useState} from 'react'
-import {Box, Button,} from '@mui/material'
+import {Box} from '@mui/material'
 import Controls from "./Controls";
 import Title from './Title'
 
@@ -9,9 +9,13 @@ export const DrawerContext = createContext({
 });
 
 export default function Drawers({
-                                    drawers = [], setDrawer, isPersistent = false, open: _open = false, title = ""
+                                    drawers = [<></>],
+                                    setDrawer = 0,
+                                    isPersistent = false,
+                                    open: _open = false,
+                                    title = ""
                                 }) {
-    const [Panel, setPanel] = useState(<></>)
+    const [nPanel, setNPanel] = useState(setDrawer)
     const [open, setOpen] = useState(_open)
 
 
@@ -25,31 +29,27 @@ export default function Drawers({
             <Controls setOpen={setOpen}/>
             <DrawerContext.Provider
                 value={{
-                    expand: true,
-                    setExpand: () => {
-                    },
-                    isEmbed: false
+                    expand: true, setExpand: () => {
+                    }, isEmbed: false
                 }}
             >
-                {Panel}
+                {drawers[nPanel]}
             </DrawerContext.Provider>
-        </Box>) : (
-            <div style={{
-                position: "sticky", left: 0, top: 0, display: 'flex', flexDirection: "column", rowGap: "5px"
-            }}>
-                {drawers.map((Drawer, index) => (
-                    <DrawerContext.Provider
-                        key={"drawer_" + index}
-                        value={{
-                            expand: false, setExpand: () => {
-                                setOpen(true)
-                                setPanel(Drawer)
-                            }, isEmbed: false
-                        }}
-                    >
-                        {Drawer}
-                    </DrawerContext.Provider>))}
-            </div>)}
+        </Box>) : (<div style={{
+            position: "sticky", left: 0, top: 0, display: 'flex', flexDirection: "column", rowGap: "5px"
+        }}>
+            {drawers.map((Drawer, index) => (<DrawerContext.Provider
+                key={"drawer_" + index}
+                value={{
+                    expand: false, setExpand: () => {
+                        setOpen(true)
+                        setNPanel(index)
+                    }, isEmbed: false
+                }}
+            >
+                {Drawer}
+            </DrawerContext.Provider>))}
+        </div>)}
     </div>)
 }
 

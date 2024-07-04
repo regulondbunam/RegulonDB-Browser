@@ -51,7 +51,7 @@ export default function Sigmulon({ id = "sigmulonResults", search = "", onComple
     if (sigmulons) {
         let data = process(sigmulons, search)
         return (
-            <AccordionList highlightLevel={1} defaultExpanded={!isMobile} data={data} title={"Sigmulon (" + data.length + ")"} 
+            <AccordionList id={id} highlightLevel={1} defaultExpanded={!isMobile} data={data} title={"Sigmulon (" + data.length + ")"}
                 onClick={goItem}
             />
         )

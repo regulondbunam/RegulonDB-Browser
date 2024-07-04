@@ -6,34 +6,35 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AccordionList from './List';
 import AccordionHighlight from './Highlight';
-import { DataVerifier } from 'ui-components/utils';
-import { Typography } from '@mui/material';
+import {DataVerifier} from 'ui-components/utils';
+import {Typography} from '@mui/material';
 
 //import Button from '@mui/material/Button';
 
-function getHighlightLevel(level=0) {
+function getHighlightLevel(level = 0) {
     //
-    const levels = ["#ffffff","#47718a", "#61859c", "#7b9bb0", "#9db8c9"]
-    return{
+    const levels = ["#ffffff", "#47718a", "#61859c", "#7b9bb0", "#9db8c9"]
+    return {
         backgroundColor: levels[level],
-        color: level===0?"#000000":"#ffffff",
+        color: level === 0 ? "#000000" : "#ffffff",
     }
 }
 
 export default function Accordion({
-    children,
-    highlightLevel = 0,
-    title = "",
-    actions,
-    defaultExpanded = false
-}) {
+                                      id = "",
+                                      children,
+                                      highlightLevel = 0,
+                                      title = "",
+                                      actions,
+                                      defaultExpanded = false
+                                  }) {
     const highlight = getHighlightLevel(highlightLevel)
     return (
-        <div>
+        <div id={id}>
             <MUIAccordion square defaultExpanded={defaultExpanded}>
                 <AccordionSummary
-                    expandIcon={<ExpandMoreIcon sx={{color: highlight.color}} />}
-                    style={{ minHeight: "45px" }}
+                    expandIcon={<ExpandMoreIcon sx={{color: highlight.color}}/>}
+                    style={{minHeight: "45px"}}
                     sx={{
                         height: "45px",
                         ...highlight,
@@ -48,7 +49,7 @@ export default function Accordion({
                     }}
 
                 >
-                    <Typography variant='relevant' color={highlight.color} >{title}</Typography>
+                    <Typography variant='relevant' color={highlight.color}>{title}</Typography>
                 </AccordionSummary>
                 <AccordionDetails
                     sx={{
@@ -68,4 +69,4 @@ export default function Accordion({
     );
 }
 
-export { AccordionList, AccordionHighlight }
+export {AccordionList, AccordionHighlight}
