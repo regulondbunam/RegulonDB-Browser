@@ -1,23 +1,22 @@
-import React from 'react'
-import { useGetOperonByID } from 'webServices/queries'
+import React, { useMemo } from "react";
+import { useGetOperonByID } from "webServices/queries";
 import { useGetIndexedReferences } from "ui-components/Web/Citations";
-import Cover from './Cover';
-import { Cover as CoverUi } from 'ui-components/Web/Cover';
-import { DataVerifier } from 'ui-components/utils';
-import { Typography } from '@mui/material';
-import DrawTrace from './DrawTrace';
-import AnchorNav from 'ui-components/Web/AnchorNav';
-import Tabs from 'ui-components/Web/Tabs';
-import RelatedList from 'ui-components/Web/Related';
+import Cover from "./Cover";
+import { Cover as CoverUi } from "ui-components/Web/Cover";
+import { DataVerifier } from "ui-components/utils";
+import { Typography } from "@mui/material";
+import DrawTrace from "./DrawTrace";
+import Tabs from "ui-components/Web/Tabs";
 import { AllCitations } from "ui-components/Web/Citations/AllCitations";
-import TranscriptionUnit from './TU';
-
-
+import TranscriptionUnit from "./TU";
+import Drawers from "apps/Drawers";
+import LeftPanel from "./PanelLeft";
+import { DrawTU } from "./TU";
 
 export default function Details({ id }) {
-  const { operon, loading, error } = useGetOperonByID(id)
-  const references = useGetIndexedReferences(operon?.allCitations)
-  console.log(operon);
+  const { operon, loading, error } = useGetOperonByID(id);
+  const references = useGetIndexedReferences(operon?.allCitations);
+  //console.log(operon);
   if (error) {
     return (
       <div>
@@ -35,73 +34,131 @@ export default function Details({ id }) {
   if (loading) {
     return (
       <CoverUi>
-        <Typography variant="h1">
-          Loading...
-        </Typography>
+        <Typography variant="h1">Loading...</Typography>
       </CoverUi>
-    )
+    );
   }
   if (operon) {
     return (
       <div>
-        {DataVerifier.isValidObjectWith_id(operon?.operon) && <CoverUi><Cover {...operon.operon} /></CoverUi>}
+        {DataVerifier.isValidObjectWith_id(operon?.operon) && (
+          <CoverUi>
+            <Cover {...operon.operon} />
+          </CoverUi>
+        )}
         <DrawTrace operon={operon} />
-        <Tabs tabSelect='tab01' tabs={[
-          {
-            id: "tab01",
-            name: "TUs details",
-            component: <TUsDetails operon={operon} references={references} />
-          },
-          {
-            id: "tab02",
-            name: "TUs graphics",
-            component: <>02</>
-          }
-        ]} />
+        <TUsDetails operon={operon} references={references} />
       </div>
-    )
+    );
   }
 
-  return null
-
+  return null;
 }
 
 function TUsDetails({ operon, references }) {
-  let tus = []
-  if (DataVerifier.isValidArray(operon?.transcriptionUnits)) {
-    operon.transcriptionUnits.forEach((tu, index) => {
-      let promoterName = ""
-      if (DataVerifier.isValidObject(tu.promoter)) {
-        promoterName = " - " + tu.promoter.name
-      }
-      tus.push({
-        id: tu._id + "_TUSection_" + index,
-        title: tu.name+promoterName,
-        visible:true,
-        component: <TranscriptionUnit {...tu} pageReferences={references} regulationPositions={operon.operon.regulationPositions} strand={operon.operon.strand} />,
-      },)
-    });
-  }
+  const sections = useMemo(() => {
+    let _sections = [];
+    if (DataVerifier.isValidArray(operon?.transcriptionUnits)) {
+      operon.transcriptionUnits.forEach((tu, index) => {
+        let promoterName = "";
+        if (DataVerifier.isValidObject(tu.promoter)) {
+          promoterName = " - " + tu.promoter.name;
+        }
+        _sections.push({
+          id: tu._id + "_TUSection_" + index,
+          title: tu.name + promoterName,
+          tu: tu,
+          component: TranscriptionUnit,
+        });
+      });
+    }
+    return _sections;
+  }, [operon]);
+
   return (
-    <AnchorNav
-      leftList={
-        <RelatedList
-          regulonDB_id={operon._id}
-          leftEndPosition={operon.operon.regulationPositions?.leftEndPosition}
-          rightEndPosition={operon.operon.regulationPositions?.rightEndPosition}
-          organism={"ecoli"}
+    <div style={{ display: "flex" }}>
+      <Drawers
+        open
+        title={operon.operon.name + " operon"}
+        drawers={[<LeftPanel operon={operon} />]}
+        setDrawer={0}
+      />
+      <div style={{ width: "100%" }}>
+        <Tabs
+          render
+          tabSelect="tab01"
+          tabs={[
+            {
+              id: "tab01",
+              name: "TUs details",
+              component: (
+                <>
+                  {sections.map((section) => {
+                    const TU = section.component;
+                    return (
+                      <div key={section.id}>
+                        <TU
+                          {...section.tu}
+                          pageReferences={references}
+                          regulationPositions={
+                            operon.operon.regulationPositions
+                          }
+                          strand={operon.operon.strand}
+                        />
+                      </div>
+                    );
+                  })}
+                </>
+              ),
+            },
+            {
+              id: "tab02",
+              name: "TUs graphics",
+              component: (
+                <>
+                  {sections.map((section) => {
+                    const tu = section.tu;
+                    return (
+                      <div key={section.id}>
+                        <DrawTU
+                          id={
+                            "dttOperon_onlyGraph" +
+                            tu._id +
+                            "_" +
+                            tu?.promoter?._id +
+                            "_"
+                          }
+                          height={150}
+                          genes={tu?.genes}
+                          promoter={tu?.promoter}
+                          regulatorBindingSites={tu?.regulatorBindingSites}
+                          terminators={tu?.terminators}
+                          regulationPositions={
+                            operon.operon.regulationPositions
+                          }
+                        />
+                      </div>
+                    );
+                  })}
+                </>
+              ),
+            },
+          ]}
         />
-      }
-      title={operon.operon.name + " operon"}
-      sections={[
-        ...tus,
-        {
-          id: "section4",
-          title: "All Citations",
-          visible: DataVerifier.isValidArray(operon.allCitations),
-          component: <AllCitations {...references} />,
-        },
-      ]}
-    />
-  )
+        <AllCitations {...references} />
+      </div>
+    </div>
+  );
 }
+
+/*
+
+ (
+            <
+              {...tu}
+              pageReferences={references}
+              regulationPositions={operon.operon.regulationPositions}
+              strand={operon.operon.strand}
+            />
+          )
+* */

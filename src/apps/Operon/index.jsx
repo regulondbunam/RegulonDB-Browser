@@ -16,12 +16,10 @@ function Operon() {
   const { query } = useParams();
   const regex = /^RDBECOLIOP.+/;
   if (regex.test(query)) {
-    return <Details id={query}/>
+    return <Details id={query} />;
   } else {
     return <Home query={query} />;
   }
 }
-
-
 
 export { PATH_OPERON };

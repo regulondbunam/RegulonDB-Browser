@@ -1,84 +1,84 @@
-/** 
+/**
 
-# Component (user guide)
+ # Component (user guide)
 
-# NavigationTabs
-	
-## Description  
-	
-It creates a tabbed navigation interface.
+ # NavigationTabs
 
-## Category   
-	
-Functional
+ ## Description
 
-## Live demo 
---
+ It creates a tabbed navigation interface.
 
-## Installation or Implementation
---
+ ## Category
 
-## Usage 
-	
-[example: <NavigationTabs tabSelect="tab1" tabs={tabs} title="Tabs Example" />]
+ Functional
 
-## Props 
+ ## Live demo
+ --
 
-| Attribute | Type | Default | Description                                 |
-| --------- | ---- | ------- | ------------------------------------------- |
-|tabSelect	|string|	init	 |The initially selected tab's id.             |
-|tabs	      |array |	[]     |An array of tab objects, each defining a tab.|
-|title	    |string|	""     |	The title for the navigation tabs.         |
+ ## Installation or Implementation
+ --
 
+ ## Usage
 
-## Exception
---
+ [example: <NavigationTabs tabSelect="tab1" tabs={tabs} title="Tabs Example" />]
 
-## License
+ ## Props
 
-MIT License
-
-## Author 
-	
-RegulonDB Team: 
+ | Attribute | Type | Default | Description                                 |
+ | --------- | ---- | ------- | ------------------------------------------- |
+ |tabSelect	|string|	init	 |The initially selected tab's id.             |
+ |tabs	      |array |	[]     |An array of tab objects, each defining a tab.|
+ |title	    |string|	""     |	The title for the navigation tabs.         |
 
 
-# Component (technical guide)
+ ## Exception
+ --
 
-## Component Type 
-Visual
+ ## License
 
-## Dependencies
-React: This is the core library for building user interfaces in a React application. It provides the necessary tools and functionality to create React components and manage their state.
-useState: useState is a React hook used for adding state to functional components. It allows you to define and manage state variables within a functional component. In the NavigationTabs component, it is used to manage the currently selected tab.
-Style: Style is used to apply CSS styles to elements within the component.
-Box (from Material-UI): This is a component from the Material-UI library, a popular library for building user interfaces in React applications. Box is a versatile component that can be used for layout and styling purposes.
-HeaderNav: it is a component used for rendering the header navigation section with a logo, title, and a search input field. 
-headerStyle: This is likely an object containing CSS styles that are used to style elements within the NavigationTabs component.
-StyledTabs: it is a custom version of Tabs that inherits all of its properties and is used to have finer control over the appearance of tabs and their indicator.
-StyledTab: it is another custom component created using MUI styled. This custom component is based on MUI's Tab component.
+ MIT License
+
+ ## Author
+
+ RegulonDB Team:
 
 
-## States
-	
-| Property | Value   | Description                                 |
-| -------- | ------- | ------------------------------------------- |
-|value	   |tabSelect|	Represents the currently selected tab's id.|
+ # Component (technical guide)
+
+ ## Component Type
+ Visual
+
+ ## Dependencies
+ React: This is the core library for building user interfaces in a React application. It provides the necessary tools and functionality to create React components and manage their state.
+ useState: useState is a React hook used for adding state to functional components. It allows you to define and manage state variables within a functional component. In the NavigationTabs component, it is used to manage the currently selected tab.
+ Style: Style is used to apply CSS styles to elements within the component.
+ Box (from Material-UI): This is a component from the Material-UI library, a popular library for building user interfaces in React applications. Box is a versatile component that can be used for layout and styling purposes.
+ HeaderNav: it is a component used for rendering the header navigation section with a logo, title, and a search input field.
+ headerStyle: This is likely an object containing CSS styles that are used to style elements within the NavigationTabs component.
+ StyledTabs: it is a custom version of Tabs that inherits all of its properties and is used to have finer control over the appearance of tabs and their indicator.
+ StyledTab: it is another custom component created using MUI styled. This custom component is based on MUI's Tab component.
 
 
-## Hooks
-|  Name  | Description                                                                                                                                       |  Syntax  | Additional Notes or References | 
-| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | ------------------------------ |
-|useState| It is a React hook that allows adding state to functional components. It is used to declare and manage local states in functional components.     |const [state, setState] = useState(initialState);|                                |
+ ## States
+
+ | Property | Value   | Description                                 |
+ | -------- | ------- | ------------------------------------------- |
+ |value	   |tabSelect|	Represents the currently selected tab's id.|
 
 
-**/
+ ## Hooks
+ |  Name  | Description                                                                                                                                       |  Syntax  | Additional Notes or References |
+ | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | ------------------------------ |
+ |useState| It is a React hook that allows adding state to functional components. It is used to declare and manage local states in functional components.     |const [state, setState] = useState(initialState);|                                |
 
-import React, { useState } from "react";
+
+ **/
+
+import React, { useMemo, useState, lazy, Suspense } from "react";
 import Style from "./info.module.css";
 import Box from "@mui/material/Box";
-
 import { headerStyle, StyledTab, StyledTabs } from "./style";
+const LazyTabComponent = lazy(() => import("./RenderTab"));
 
 /**
  * Description placeholder
@@ -94,15 +94,23 @@ export { idNavTabs };
  * @param {{ tabSelect?: string; tabs?: {}; title?: string; }} { tabSelect = "init", tabs = [], title = "" }
  * @returns {*}
  */
-export default function Tabs({ tabSelect = "init", tabs = [], title = "" }) {
+export default function Tabs({
+  tabSelect = "init",
+  tabs = [],
+  render = false,
+}) {
   const [value, setValue] = useState(tabSelect);
 
-  /**
-   * Description placeholder
-   *
-   * @param {*} event
-   * @param {*} newValue
-   */
+  const rendersTabs = useMemo(() => {
+    const renders = {
+      init: <></>,
+    };
+    for (const tab of tabs) {
+      renders[tab.id] = <div>{tab.component}</div>;
+    }
+    return renders;
+  }, [tabs]);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -145,7 +153,7 @@ export default function Tabs({ tabSelect = "init", tabs = [], title = "" }) {
                       icon={TabElement}
                     />
                   );
-                }
+                },
               )}
             </StyledTabs>
           </Box>
@@ -153,18 +161,9 @@ export default function Tabs({ tabSelect = "init", tabs = [], title = "" }) {
       </div>
       <div>
         <div>
-          <div>
-            {tabs.map((tab, index) => {
-              return (
-                <div
-                  key={"component_" + tab.id + "_" + index + "_"}
-                  style={{ display: tab.id === value ? "" : "none" }}
-                >
-                  {tab.component}
-                </div>
-              );
-            })}
-          </div>
+          <Suspense fallback={<div>Loading...</div>}>
+            <LazyTabComponent component={rendersTabs[value]} />
+          </Suspense>
         </div>
       </div>
     </div>

@@ -1,6 +1,9 @@
 import { useMemo } from "react";
 import { DataVerifier } from "ui-components/utils";
-import DrawingTraces, { CONTROLS_POSITIONS, FOCUS_TYPE } from "apps/DrawingTracesTool/Ecoli/DrawingTraces";
+import DrawingTraces, {
+  CONTROLS_POSITIONS,
+  FOCUS_TYPE,
+} from "apps/DrawingTracesTool/Ecoli/DrawingTraces";
 import { indexedReferences } from "ui-components/utils/References";
 import { collectIds } from "ui-components/Web/Related";
 import { Typography } from "@mui/material";
@@ -16,49 +19,54 @@ import Label from "ui-components/Web/Label";
 import { AccordionHighlight } from "ui-components/Web/Accordion";
 import { ParagraphCitations } from "ui-components/Web/Citations";
 
-
 export default function TranscriptionUnit({
   _id,
+  graphId = "",
   allCitations,
   pageReferences,
-  relatedIds,
+  //relatedIds,
   regulationPositions,
   strand,
-  additiveEvidences = [],
+  //additiveEvidences = [],
   citations = [],
   confidenceLevel,
   firstGene,
   genes = [],
   name,
   note,
+  onlyGraph = false,
   promoter,
   regulatorBindingSites = [],
-  statistics,
-  synonyms = [],
+  //statistics,
+  //synonyms = [],
   terminators = [],
 }) {
-  const { phrases } = useGetPhrase(_id)
+  const { phrases } = useGetPhrase(_id);
   const references = useMemo(() => {
     return pageReferences ? pageReferences : indexedReferences(allCitations);
   }, [allCitations, pageReferences]);
 
-  const isGenes = DataVerifier.isValidArray(genes)
-  const isTerminators = DataVerifier.isValidArray(terminators)
-  const isPromoter = DataVerifier.isValidObjectWith_id(promoter)
+  const isGenes = DataVerifier.isValidArray(genes);
+  const isTerminators = DataVerifier.isValidArray(terminators);
+  const isPromoter = DataVerifier.isValidObjectWith_id(promoter);
   //locate RBS
-  const allRegulatorBindingSites = {}
+  const allRegulatorBindingSites = {};
   const isRBSinTU = DataVerifier.isValidArray(regulatorBindingSites);
   if (isRBSinTU) {
-    allRegulatorBindingSites[`${name} Transcription Unit`] =  regulatorBindingSites
+    allRegulatorBindingSites[`${name} Transcription Unit`] =
+      regulatorBindingSites;
   }
-  const isRBSinPromoter = isPromoter && DataVerifier.isValidArray(promoter.regulatorBindingSites)
-  if(isRBSinPromoter){
-    allRegulatorBindingSites[`${name} Promoter`] =  promoter.regulatorBindingSites
+  const isRBSinPromoter =
+    isPromoter && DataVerifier.isValidArray(promoter.regulatorBindingSites);
+  if (isRBSinPromoter) {
+    allRegulatorBindingSites[`${name} Promoter`] =
+      promoter.regulatorBindingSites;
   }
   if (isGenes) {
-    genes.forEach(gene => {
+    genes.forEach((gene) => {
       if (DataVerifier.isValidArray(gene.regulatorBindingSites)) {
-        allRegulatorBindingSites[`${gene.name} gene`] =  gene.regulatorBindingSites
+        allRegulatorBindingSites[`${gene.name} gene`] =
+          gene.regulatorBindingSites;
       }
     });
   }
@@ -73,112 +81,160 @@ export default function TranscriptionUnit({
           boxShadow: "0px 2px 2px 0px rgba(0,0,0,0.43)",
           WebkitBoxShadow: " 0px 2px 2px 0px rgba(0,0,0,0.43)",
           MozBoxShadow: " 0px 2px 2px 0px rgba(0,0,0,0.43)",
-          backgroundColor: "white"
+          backgroundColor: "white",
         }}
       >
-        <DrawTU id={"dttOperon_" + _id + "_" + promoter?._id}
+        <DrawTU
+          id={"dttOperon_" + _id + "_" + promoter?._id + "_" + graphId}
           genes={isGenes && genes}
           promoter={isPromoter && promoter}
           regulatorBindingSites={isRBSinTU && regulatorBindingSites}
           terminators={isTerminators && terminators}
-          regulationPositions={regulationPositions} />
+          regulationPositions={regulationPositions}
+        />
       </div>
-      <div
-        style={{
-          zIndex: "1",
-          marginTop: "20px"
-        }}>
-        <Typography variant="relevantB" >
-          Transcription Unit info
-        </Typography>
-        <div style={{ marginLeft: "15px", marginTop: "5px" }} >
-          {DataVerifier.isValidString(name) && (
-
-            <div>
-              <Label label={"Name:"} phrases={phrases["name"]} />
-              <Typography variant="relevant" ><span dangerouslySetInnerHTML={{ __html: name }} /></Typography>
-            </div>
-          )}
-          {DataVerifier.isValidObjectWith_id(firstGene) && (
-            <div>
-              <Label label={"First Gene:"} phrases={phrases["firstGene"]} />
-              <Link to={"/gene/" + firstGene._id} ><Typography variant="relevant" ><span dangerouslySetInnerHTML={{ __html: firstGene.name }} /></Typography></Link>
+      {!onlyGraph && (
+        <div
+          style={{
+            zIndex: "1",
+            marginTop: "20px",
+          }}
+        >
+          <Typography variant="relevantB">Transcription Unit info</Typography>
+          <div style={{ marginLeft: "15px", marginTop: "5px" }}>
+            {DataVerifier.isValidString(name) && (
               <div>
-                <Typography variant="relevantB" sx={{ mr: 1 }} >Distance from TSS to first gene:</Typography>
-                <Typography variant="relevant" >{firstGene.distanceToPromoter}</Typography>
+                <Label label={"Name:"} phrases={phrases["name"]} />
+                <Typography variant="relevant">
+                  <span dangerouslySetInnerHTML={{ __html: name }} />
+                </Typography>
               </div>
-            </div>
-          )}
-          <Genes genes={genes} phrases={phrases} />
-          {DataVerifier.isValidString(confidenceLevel) && (
-            <div>
-              <Label label={"Confidence Level:"} phrases={phrases["confidenceLevel"]} />
-              <Typography variant="relevant" ><span dangerouslySetInnerHTML={{ __html: confidenceLevelLabel(confidenceLevel) }} /></Typography>
-            </div>
-          )}
-          {DataVerifier.isValidArray(citations) && (
-            <div>
-              <Typography variant="relevant" >References:</Typography>
-              <ParagraphCitations citations={citations} references={references} />
-            </div>
-          )}
-          <br />
-          {DataVerifier.isValidString(note) && (
-            <AccordionHighlight
-              title={
-                <Label label={"Note:"} phrases={phrases["note"]}
-                  TypographyProps={{ variant: "h3", fontSize: "18px", color: "#ffffff" }}
+            )}
+            {DataVerifier.isValidObjectWith_id(firstGene) && (
+              <div>
+                <Label label={"First Gene:"} phrases={phrases["firstGene"]} />
+                <Link to={"/gene/" + firstGene._id}>
+                  <Typography variant="relevant">
+                    <span
+                      dangerouslySetInnerHTML={{ __html: firstGene.name }}
+                    />
+                  </Typography>
+                </Link>
+                <div>
+                  <Typography variant="relevantB" sx={{ mr: 1 }}>
+                    Distance from TSS to first gene:
+                  </Typography>
+                  <Typography variant="relevant">
+                    {firstGene.distanceToPromoter}
+                  </Typography>
+                </div>
+              </div>
+            )}
+            <Genes genes={genes} phrases={phrases} />
+            {DataVerifier.isValidString(confidenceLevel) && (
+              <div>
+                <Label
+                  label={"Confidence Level:"}
+                  phrases={phrases["confidenceLevel"]}
                 />
-              }
-              level={1}
-            >
-              <Note note={note} references={references} />
-            </AccordionHighlight>
-          )}
-          {isPromoter && (<Promoter {...promoter} references={references} strand={strand} />)}
-          {isTerminators && (<Terminators  terminators={terminators} references={references} />)}
-          {DataVerifier.isValidObject(allRegulatorBindingSites) && <RegulatoryInteractions references={references} allRegulatorBindingSites={allRegulatorBindingSites} />}
-        </div>
-        {
-          /**
+                <Typography variant="relevant">
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: confidenceLevelLabel(confidenceLevel),
+                    }}
+                  />
+                </Typography>
+              </div>
+            )}
+            {DataVerifier.isValidArray(citations) && (
+              <div>
+                <Typography variant="relevant">References:</Typography>
+                <ParagraphCitations
+                  citations={citations}
+                  references={references}
+                />
+              </div>
+            )}
+            <br />
+            {DataVerifier.isValidString(note) && (
+              <AccordionHighlight
+                title={
+                  <Label
+                    label={"Note:"}
+                    phrases={phrases["note"]}
+                    TypographyProps={{
+                      variant: "h3",
+                      fontSize: "18px",
+                      color: "#ffffff",
+                    }}
+                  />
+                }
+                level={1}
+              >
+                <Note note={note} references={references} />
+              </AccordionHighlight>
+            )}
+            {isPromoter && (
+              <Promoter {...promoter} references={references} strand={strand} />
+            )}
+            {isTerminators && (
+              <Terminators terminators={terminators} references={references} />
+            )}
+            {DataVerifier.isValidObject(allRegulatorBindingSites) && (
+              <RegulatoryInteractions
+                references={references}
+                allRegulatorBindingSites={allRegulatorBindingSites}
+              />
+            )}
+          </div>
+          {/**
            * RIs
            * Citations
-           */
-        }
-      </div>
+           */}
+        </div>
+      )}
     </div>
   );
 }
 
-function DrawTU({ id, genes, promoter, regulationPositions, regulatorBindingSites, terminators }) {
+export function DrawTU({
+  id,
+  genes,
+  promoter,
+  regulationPositions,
+  regulatorBindingSites,
+  terminators,
+}) {
   const focusElements = useMemo(() => {
-    let ids = []
+    let ids = [];
     if (genes) {
-      ids.push(...collectIds(genes))
+      ids.push(...collectIds(genes));
     }
     if (promoter) {
-      ids.push(...collectIds(promoter))
+      ids.push(...collectIds(promoter));
     }
     if (regulatorBindingSites) {
-      ids.push(...collectIds(regulatorBindingSites))
+      ids.push(...collectIds(regulatorBindingSites));
     }
     if (terminators) {
-      console.log(collectIds(terminators));
-      ids.push(...collectIds(terminators))
+      //console.log(collectIds(terminators));
+      ids.push(...collectIds(terminators));
     }
-    return ids
-  }, [genes, promoter, regulatorBindingSites, terminators])
-  
-  return <DrawingTraces
-    id={id}
-    height={150}
-    leftEndPosition={regulationPositions.leftEndPosition}
-    rightEndPosition={regulationPositions.rightEndPosition}
-    showTable={false}
-    focusElements={focusElements}
-    focusType={FOCUS_TYPE.ONLY_FOCUS}
-    controlsPosition={CONTROLS_POSITIONS.BOTTOM_RIGHT}
-  />
+    return ids;
+  }, [genes, promoter, regulatorBindingSites, terminators]);
+
+  return (
+    <DrawingTraces
+      id={id}
+      height={150}
+      leftEndPosition={regulationPositions.leftEndPosition}
+      rightEndPosition={regulationPositions.rightEndPosition}
+      showTable={false}
+      focusElements={focusElements}
+      focusType={FOCUS_TYPE.ONLY_FOCUS}
+      controlsPosition={CONTROLS_POSITIONS.BOTTOM_RIGHT}
+    />
+  );
 }
 
-//  focusElements={state.ids} 
+//  focusElements={state.ids}

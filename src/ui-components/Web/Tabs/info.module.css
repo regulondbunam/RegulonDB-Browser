@@ -30,7 +30,6 @@
 
 .tabHeader {
   width: 100%;
-  padding-left: 5%;
   display: flow-root;
   z-index: 9999;
 }
