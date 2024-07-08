@@ -50,6 +50,7 @@ export default function PanelLeft({ operon = {} }) {
           leftEndPosition={operon.operon.regulationPositions?.leftEndPosition}
           rightEndPosition={operon.operon.regulationPositions?.rightEndPosition}
           organism={"ecoli"}
+          objectType={""}
         />
       </div>
     );

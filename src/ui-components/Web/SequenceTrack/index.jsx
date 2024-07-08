@@ -2,7 +2,7 @@ import React, { useEffect, useReducer, useRef, useMemo } from "react";
 import PropTypes from "prop-types";
 import Controls from "./Controls";
 import DrawSequence from "./drawingEngine";
-import { generateRandomString } from "ui-components/utils";
+import { DataVerifier, generateRandomString } from "ui-components/utils";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { FEATURE_TYPES } from "./statics";
@@ -66,7 +66,7 @@ export default function SequenceTrack({
   features = [],
   name = "sequence",
   measure = false,
-  sequence,
+  sequence = "",
   width = "100px",
 }) {
   const [contextMenu, setContextMenu] = React.useState(null);
@@ -99,7 +99,7 @@ export default function SequenceTrack({
   const drawSequence = useMemo(() => {
     return () => {
       const drawPlace = drawPlaceRef.current;
-      if (drawPlace && !state.canvas) {
+      if (drawPlace && !state.canvas && DataVerifier.isValidString(sequence)) {
         drawPlace.innerHTML = "";
         const canvas = new DrawSequence(
           state.id,

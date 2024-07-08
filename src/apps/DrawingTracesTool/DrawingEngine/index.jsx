@@ -29,9 +29,7 @@ export default function DrawTrack({
   focusElements,
   focusType,
 }) {
-  const [isDraw, setIsDraw] = useState(false);
   const trackRef = useRef(null);
-
   /**
    * Función para dibujar el track genético.
    */
@@ -41,7 +39,7 @@ export default function DrawTrack({
       if (drawPlace) {
         if (Array.isArray(geneticElements)) {
           const width = drawPlace.clientWidth;
-          if (width > 0 && !isDraw) {
+          if (width > 0) {
             const track = new Track(
               drawPlace,
               trackId,
@@ -56,7 +54,6 @@ export default function DrawTrack({
               focusElements,
               focusType,
             );
-            setIsDraw(true);
           } else {
             console.log(trackId, "no se dibujo");
           }
@@ -71,14 +68,13 @@ export default function DrawTrack({
     rightEndPosition,
     focusElements,
     focusType,
-    isDraw,
   ]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
-        if (entry.isIntersecting && !isDraw) {
+        if (entry.isIntersecting) {
           drawTrack();
         }
       },
