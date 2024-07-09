@@ -2,7 +2,8 @@ import React, { useContext, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { DrawerContext } from "apps/Drawers";
 import { Button } from "@mui/material";
-import RelatedList from "ui-components/Web/Related";
+import RelatedList, { OBJECT_TYPE } from "ui-components/Web/Related";
+import Anchors from "./Anchors";
 
 function IconExpand({ expand, setExpand = () => {}, isEmbed = false }) {
   const [isHover, setIsHover] = useState(false);
@@ -40,17 +41,18 @@ function IconExpand({ expand, setExpand = () => {}, isEmbed = false }) {
   }
 }
 
-export default function PanelLeft({ operon = {} }) {
+export default function PanelLeft({ operon = {}, sections=[] }) {
   const { expand, isEmbed, setExpand } = useContext(DrawerContext);
   if (expand) {
     return (
       <div>
+        <Anchors sections={sections} />
         <RelatedList
           regulonDB_id={operon._id}
           leftEndPosition={operon.operon.regulationPositions?.leftEndPosition}
           rightEndPosition={operon.operon.regulationPositions?.rightEndPosition}
           organism={"ecoli"}
-          objectType={""}
+          objectType={OBJECT_TYPE.OPERON}
         />
       </div>
     );

@@ -3,7 +3,7 @@ import { Typography, Divider, Tooltip } from "@mui/material";
 import { DataVerifier } from "ui-components/utils";
 import Info from "./Info";
 import style from "./cover.module.css";
-import RelatedList from "ui-components/Web/Related";
+import RelatedList, {OBJECT_TYPE} from "ui-components/Web/Related";
 
 export default function Cover({_id, name, statistics, strand, regulationPositions}) {
   return (
@@ -28,6 +28,7 @@ export default function Cover({_id, name, statistics, strand, regulationPosition
             leftEndPosition={regulationPositions?.leftEndPosition}
             rightEndPosition={regulationPositions?.rightEndPosition}
             organism={"ecoli"}
+            objectType={OBJECT_TYPE.OPERON}
           />
         </div>
       </div>

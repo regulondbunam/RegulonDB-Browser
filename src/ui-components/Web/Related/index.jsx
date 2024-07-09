@@ -6,6 +6,7 @@ import RelatedExternal from "./externalSites";
 import { List, ListItem, ListItemText, Skeleton, Box } from "@mui/material";
 import IDObjectRDB from "ui-components/utils/IDParser";
 import { collectIds } from "./utils";
+import { OBJECT_TYPE } from "./static";
 
 //import Operon from './sites/Operon';
 
@@ -25,6 +26,7 @@ export default function RelatedList({
   rightEndPosition,
   gene,
   organism,
+  objectType = "",
   tools = true,
   sites = true,
   external = false,
@@ -48,7 +50,7 @@ export default function RelatedList({
 
   return (
     <List disablePadding>
-      {sites && <RelatedSites collapse={collapse} ids={ids} gene={gene} />}
+      {sites && <RelatedSites objectType={objectType} collapse={collapse} ids={ids} gene={gene} />}
       {tools && (
         <RelatedTools
           collapse={collapse}
@@ -56,16 +58,18 @@ export default function RelatedList({
           rightEndPosition={rightEndPosition}
           gene={gene}
           organism={organism}
+          objectType={objectType}
         />
       )}
       {external && (
         <RelatedExternal
           collapse={collapse}
           externalCrossReferences={externalCrossReferences}
+          objectType={objectType}
         />
       )}
     </List>
   );
 }
 
-export { getObjectType, collectIds };
+export { getObjectType, collectIds, OBJECT_TYPE };

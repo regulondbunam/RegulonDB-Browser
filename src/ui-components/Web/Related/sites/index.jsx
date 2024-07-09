@@ -17,8 +17,9 @@ import { gene, operon, tu, regulon } from "./queries";
 import { gql, useQuery } from "@apollo/client";
 import { DataVerifier } from "ui-components/utils";
 import HTsite from "./HT";
+import { OBJECT_TYPE, getObjectTypeLabel } from "../static";
 
-export default function RelatedSites({ ids = [], gene, collapse = true }) {
+export default function RelatedSites({ ids = [], gene, collapse = true,objectType = "" }) {
   const [openSites, setOpenSites] = React.useState(collapse);
 
   let regulonName = undefined;
@@ -62,9 +63,12 @@ export default function RelatedSites({ ids = [], gene, collapse = true }) {
       </ListItem>
       <Collapse in={openSites} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          {Object.keys(sites).map((key) => (
-            <Site key={"linkSite_" + key} label={key} access={sites[key]} />
-          ))}
+          {Object.keys(sites).map((key) => {
+            if (objectType === OBJECT_TYPE.OPERON && key ===  getObjectTypeLabel("TU").label) {
+              return null
+            }
+            return <Site key={"linkSite_" + key} label={key} access={sites[key]}  />
+          })}
           {regulonName && geneName && (
             <HTsite regulonName={regulonName} geneName={geneName} />
           )}
@@ -223,21 +227,8 @@ function getObjectTypeQuery(objectType, id) {
   );
 }
 
-/**
- * Convert the object type code to a readable label.
- * @param {string} objectType - The object type code.
- * @return {object} The readable label for the object type.
- */
-function getObjectTypeLabel(objectType) {
-  const objectTypeMap = {
-    GN: { link: "gene", label: "Gene" },
-    TU: { link: "tu", label: "Transcription Unit" },
-    TF: { link: "regulon", label: "Regulon" },
-    OP: { link: "operon", label: "Operon" },
-    // Add more mappings as needed
-  };
-  return objectTypeMap[objectType] || {};
-}
+
+
 
 /**
  * Create an object with URL and label based on the ID.

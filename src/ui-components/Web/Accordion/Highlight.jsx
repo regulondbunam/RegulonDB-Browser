@@ -7,6 +7,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { DataVerifier } from 'ui-components/utils';
 
 export default function AccordionHighlight({
+    id,
     children,
     actions,
     title = <></>,
@@ -30,7 +31,7 @@ export default function AccordionHighlight({
     }
 
     return (
-        <div>
+        <div id={id} >
             <Accordion square disableGutters defaultExpanded={defaultExpanded} expanded={expanded} onChange={onChange} >
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon sx={{ color: "white" }} />}

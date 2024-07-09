@@ -12,6 +12,7 @@ import TranscriptionUnit from "./TU";
 import Drawers from "apps/Drawers";
 import LeftPanel from "./PanelLeft";
 import { DrawTU } from "./TU";
+import { AccordionHighlight } from "ui-components/Web/Accordion";
 
 export default function Details({ id }) {
   const { operon, loading, error } = useGetOperonByID(id);
@@ -80,7 +81,7 @@ function TUsDetails({ operon, references }) {
       <Drawers
         open
         title={operon.operon.name + " operon"}
-        drawers={[<LeftPanel operon={operon} />]}
+        drawers={[<LeftPanel operon={operon} sections={sections} />]}
         setDrawer={0}
       />
       <div style={{ width: "100%" }}>
@@ -96,7 +97,7 @@ function TUsDetails({ operon, references }) {
                   {sections.map((section) => {
                     const TU = section.component;
                     return (
-                      <div key={section.id}>
+                      <AccordionHighlight id={section.id} defaultExpanded={true} key={section.id} title={<Typography variant="h2" sx={{color: "white"}} ><span dangerouslySetInnerHTML={{__html: section.title}} /></Typography>} level={0} >
                         <TU
                           {...section.tu}
                           pageReferences={references}
@@ -105,7 +106,7 @@ function TUsDetails({ operon, references }) {
                           }
                           strand={operon.operon.strand}
                         />
-                      </div>
+                      </AccordionHighlight>
                     );
                   })}
                 </>
@@ -119,7 +120,7 @@ function TUsDetails({ operon, references }) {
                   {sections.map((section) => {
                     const tu = section.tu;
                     return (
-                      <div key={section.id}>
+                      <div key={"key_"+section.id}>
                         <DrawTU
                           id={
                             "dttOperon_onlyGraph" +

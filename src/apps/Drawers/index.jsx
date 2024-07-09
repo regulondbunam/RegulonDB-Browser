@@ -1,5 +1,5 @@
-import React, {createContext, useState} from 'react'
-import {Box} from '@mui/material'
+import React, { createContext, useState } from 'react'
+import { Box } from '@mui/material'
 import Controls from "./Controls";
 import Title from './Title'
 
@@ -9,24 +9,24 @@ export const DrawerContext = createContext({
 });
 
 export default function Drawers({
-                                    drawers = [<></>],
-                                    setDrawer = 0,
-                                    isPersistent = false,
-                                    open: _open = false,
-                                    title = ""
-                                }) {
+    drawers = [<></>],
+    setDrawer = 0,
+    isPersistent = false,
+    open: _open = false,
+    title = ""
+}) {
     const [nPanel, setNPanel] = useState(setDrawer)
     const [open, setOpen] = useState(_open)
 
 
-    return (<div style={{width: open ? "30%" : "65px", maxWidth: open ? "250px" : "65px", zIndex: 99}}>
+    return (<div style={{ width: open ? "250px" : "65px", zIndex: 99 }}>
         {open ? (<Box
             sx={{
                 position: "sticky", left: 0, top: 0, height: "100vh",
             }}
         >
-            <Title title={title}/>
-            <Controls setOpen={setOpen}/>
+            <Title title={title} />
+            <Controls setOpen={setOpen} />
             <DrawerContext.Provider
                 value={{
                     expand: true, setExpand: () => {

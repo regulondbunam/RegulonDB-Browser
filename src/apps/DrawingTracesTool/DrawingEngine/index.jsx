@@ -116,7 +116,7 @@ export default function DrawTrack({
 
 DrawTrack.propTypes = {
   trackId: PropTypes.string.isRequired,
-  geneticElements: PropTypes.array.isRequired,
+  geneticElements: PropTypes.array,
   leftEndPosition: PropTypes.number.isRequired,
   rightEndPosition: PropTypes.number.isRequired,
   height: PropTypes.number,
