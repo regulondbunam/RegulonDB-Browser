@@ -41,19 +41,19 @@ function IconExpand({ expand, setExpand = () => {}, isEmbed = false }) {
   }
 }
 
-export default function PanelLeft({ operon = {}, sections=[] }) {
+export default function Panel({ gene = {}, sections=[] }) {
   const { expand, isEmbed, setExpand } = useContext(DrawerContext);
   if (expand) {
     return (
       <div>
         <Anchors sections={sections} />
-        <RelatedList
-          regulonDB_id={operon._id}
-          leftEndPosition={operon.operon.regulationPositions?.leftEndPosition}
-          rightEndPosition={operon.operon.regulationPositions?.rightEndPosition}
-          organism={"ecoli"}
-          objectType={OBJECT_TYPE.OPERON}
-        />
+        <RelatedList 
+              regulonDB_id={gene._id}
+              leftEndPosition={gene.gene?.leftEndPosition}
+              rightEndPosition={gene.gene?.rightEndPosition}
+              gene={gene.gene}
+              organism={gene.organism}
+            />
       </div>
     );
   } else {
@@ -62,3 +62,6 @@ export default function PanelLeft({ operon = {}, sections=[] }) {
     );
   }
 }
+
+
+
