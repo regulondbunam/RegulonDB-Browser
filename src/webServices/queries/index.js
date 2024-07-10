@@ -5,7 +5,7 @@ import { useGetAllGus, useGetGuById, useGetGuBySearch, useSearchGU } from "./Gen
 import { useGetOperonByID, useLazySearchOperon, useSearchOperon } from "./OperonResult";
 import { useGetGoTerms, useLazyGetGOBySearch, useLazyGetSubclassesOfTermId, useGetGOBySearch, useGetTree } from "./GOTree";
 import { useGetListAllDownloadableFiles } from "./DownloadableFile";
-import { useGetRegulonData, useSearchRegulon } from "./RegulonResult";
+import { useGetRegulonData, useSearchRegulon, useGetAllRegulonsSummary } from "./RegulonResult";
 import { useGetDatasetByID, useGetDatasetByAdvancedSearch, useGetNLPGC, useLazyGetGeneExpressionByAdvancedSearch, useGetGeneExpressionByAdvancedSearch } from "./Dataset";
 import { useGetNLPGrowthConditionById } from "./NLPGrowthConditions";
 import { useGetAuthorDataOfDataset } from "./AuthorsData";
@@ -29,6 +29,8 @@ export {
     useGetOperonByID, useLazySearchOperon, useSearchOperon,
     //Sigmulon
     useSearchSigmulon,
+    //RegulonResults
+    useGetAllRegulonsSummary,
     //others
     useGetGoTerms, useLazyGetGOBySearch, useLazyGetSubclassesOfTermId, useGetGOBySearch, useGetTree,
     useGetListAllDownloadableFiles,

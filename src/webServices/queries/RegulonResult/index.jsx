@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { query_GetRegulonBy, query_GetRegulonMainDataBySearch } from "./queries";
+import { query_GetRegulonBy, query_GetRegulonMainDataBySearch, query_getAllRegulonsSummary } from "./queries";
 import { DataVerifier } from "ui-components/utils";
 
 
@@ -49,3 +49,23 @@ export function useSearchRegulon(keyword, onCompleted = () => { }) {
   }
   return {regulons, data, loading, error }
 }
+
+export function useGetAllRegulonsSummary(onCompleted = () => { }) {
+  const { data, loading, error } = useQuery(query_getAllRegulonsSummary, {
+    onCompleted: (data) => {
+      onCompleted(data.getAllRegulon.data)
+    }
+  });
+  let regulons
+  if (error) {
+    console.error("query_GetRegulonMainDataBySearch Error, search: ", error)
+  }
+  if (data) {
+    regulons = {};
+    if (DataVerifier.isValidArray(data.getAllRegulon.data)) {
+      regulons = data.getAllRegulon.data
+    }
+  }
+  return {regulons, data, loading, error }
+}
+

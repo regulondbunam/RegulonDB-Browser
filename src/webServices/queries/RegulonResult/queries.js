@@ -397,3 +397,38 @@ export const query_GetRegulonMainDataBySearch = gql`query GetRegulonBy($search: 
     }
   }
 }`
+
+export const query_getAllRegulonsSummary = gql`{
+    getAllRegulon {
+      data {
+        _id
+        regulator {
+          name
+          abbreviatedName
+        }
+        summary {
+          bindingSites {
+            total
+          }
+          genes {
+            total
+          }
+          operons {
+            total
+          }
+          regulatoryInteractions {
+            total
+          }
+          sigmaFactors {
+            total
+          }
+          transcriptionFactors {
+            total
+          }
+          transcriptionUnits {
+            total
+          }
+        }
+      }
+    }
+  }`

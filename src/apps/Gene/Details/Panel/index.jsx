@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import MenuIcon from '@mui/icons-material/Menu';
 import { DrawerContext } from "apps/Drawers";
 import { Button } from "@mui/material";
-import RelatedList, { OBJECT_TYPE } from "ui-components/Web/Related";
+import RelatedList from "ui-components/Web/Related";
 import Anchors from "./Anchors";
 
 function IconExpand({ expand, setExpand = () => {}, isEmbed = false }) {
