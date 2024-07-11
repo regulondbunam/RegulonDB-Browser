@@ -1,5 +1,5 @@
 import { useQuery, gql } from "@apollo/client";
-import { getGenesIds, getOperonIds, getDatasetIds } from "./queries";
+import { getGenesIds, getOperonIds, getDatasetIds, getRegulonIds } from "./queries";
 import collectIds from "./collectorIds";
 
 const defaultQuery = gql`query GetDatabaseInfo {
@@ -30,6 +30,8 @@ function getQuery(IDObjectRDB) {
                 }
             }
             return { query: getDatasetIds, options: htOptions, validateError: false }
+        case "TF":
+            return { query: getRegulonIds, options: options, validateError: false}
         default:
             console.warn("unknown object Type",IDObjectRDB.objectType);
             return { query: defaultQuery, options: options, validateError: true }

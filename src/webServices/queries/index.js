@@ -30,11 +30,11 @@ export {
     //Sigmulon
     useSearchSigmulon,
     //RegulonResults
-    useGetAllRegulonsSummary, useLazySearchRegulon,
+    useGetAllRegulonsSummary, useLazySearchRegulon, useGetRegulonData,
     //others
     useGetGoTerms, useLazyGetGOBySearch, useLazyGetSubclassesOfTermId, useGetGOBySearch, useGetTree,
     useGetListAllDownloadableFiles,
-    useGetRegulonData, useGetDatasetByID, useSearchRegulon,
+    useGetDatasetByID, useSearchRegulon,
     useGetNLPGrowthConditionById,
     useGetAuthorDataOfDataset, useGetDatasetByAdvancedSearch,
     useGetNormalizedData, useGetNLPGC,

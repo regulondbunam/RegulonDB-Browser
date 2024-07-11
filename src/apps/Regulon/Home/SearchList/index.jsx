@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import { useLazySearchRegulon } from "webServices/queries"
 import { DISPATCH } from '../static';
 import { InputSearch } from './InputSearch';
-import { DataVerifier, markMatches } from 'ui-components/utils';
+import { DataVerifier } from 'ui-components/utils';
 import { Button, Tooltip, Divider } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';

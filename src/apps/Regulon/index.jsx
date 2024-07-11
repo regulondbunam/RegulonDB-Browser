@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-//import Details from "./Details";
+import Details from "./Details";
 import Home from "./Home";
 
 const PATH_REGULON = {
@@ -14,9 +14,9 @@ const PATH_REGULON = {
 
 function Regulon() {
   const { query } = useParams();
-  const regex = /^RDBECOLIPD.+/;
+  const regex = /^RDBECOLI.+/;
   if (regex.test(query)) {
-    return <></>//<Details id={query} />;
+    return <Details regulonId={query} />;
   } else {
     return <Home query={query} />;
   }

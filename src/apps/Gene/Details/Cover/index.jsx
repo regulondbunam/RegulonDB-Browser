@@ -6,7 +6,7 @@ import style from "./cover.module.css";
 import RelatedList from "ui-components/Web/Related";
 
 export default function Cover({ gene, products, organism="ecoli" }) {
-  const { _id, name, synonyms, bnumber, externalCrossReferences, fragments } =
+  const { name, synonyms, bnumber, externalCrossReferences, fragments } =
     gene;
   return (
     <div className={style.base}>

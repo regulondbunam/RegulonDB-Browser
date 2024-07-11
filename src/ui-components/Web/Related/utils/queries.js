@@ -69,3 +69,43 @@ export const getOperonIds = gql`query GetOperonBy($advancedSearch: String) {
     }
   }
 }`
+
+export const getRegulonIds = gql`query GetRegulonBy($advancedSearch: String) {
+  getRegulonBy(advancedSearch: $advancedSearch) {
+    data {
+      _id
+      regulates {
+        genes {
+          _id
+        }
+        operons {
+          _id
+        }
+        sigmaFactors {
+          _id
+        }
+        transcriptionFactors {
+          _id
+        }
+        transcriptionUnits {
+          _id
+        }
+      }
+      regulator {
+        _id
+        conformations {
+          _id
+        }
+        products {
+          _id
+        }
+      }
+      regulatoryInteractions {
+        _id
+        regulatoryBindingSites {
+          _id
+        }
+      }
+    }
+  }
+}`
