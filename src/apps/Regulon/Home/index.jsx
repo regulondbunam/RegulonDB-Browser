@@ -75,7 +75,7 @@ async function process(data, search = "", nav = () => {}) {
       list.push({
         _id: id,
         data: regulon,
-        type: "operon",
+        type: "regulon",
         primary: name,
         secondary: ``,
         _properties: {

@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useQuery, useLazyQuery } from "@apollo/client";
 import { query_GetRegulonBy, query_GetRegulonMainDataBySearch, query_getAllRegulonsSummary } from "./queries";
 import { DataVerifier } from "ui-components/utils";
 
@@ -69,3 +69,35 @@ export function useGetAllRegulonsSummary(onCompleted = () => { }) {
   return {regulons, data, loading, error }
 }
 
+export function useLazySearchRegulon() {
+  const [getData, { data, loading, error }] = useLazyQuery(query_GetRegulonMainDataBySearch);
+  const getRegulons = (search, onCompleted = () => { }) => {
+    getData({
+      variables: {
+        search: search
+      },
+      onCompleted: (data) => {
+        if (data) {
+          if (DataVerifier.isValidArray(data.getRegulonBy.data)) {
+            onCompleted(data.getRegulonBy.data)
+          }else{
+            onCompleted([])
+          }
+        }
+      },
+      onError: (error) => {
+        console.error("search Regulon error: ", error);
+      }
+    })
+  }
+  let regulons
+  if (error) {
+    console.error("query getOperonsBy:operonResult Error, search Regulon: ", error)
+  }
+  if (data) {
+    if (DataVerifier.isValidArray(data.getRegulonBy.data)) {
+      regulons = data.getRegulonBy.data
+    }
+  }
+  return [getRegulons, { regulons, data, loading, error }]
+}

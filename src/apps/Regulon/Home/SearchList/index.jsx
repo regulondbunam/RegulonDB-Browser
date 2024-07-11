@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Typography from "@mui/material/Typography";
-import { useLazySearchOperon } from "webServices/queries"
+import { useLazySearchRegulon } from "webServices/queries"
 import { DISPATCH } from '../static';
 import { InputSearch } from './InputSearch';
 import { DataVerifier, markMatches } from 'ui-components/utils';
@@ -12,59 +12,90 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-async function process(operons, search = "", nav = () => { }) {
-  let list = []
+async function process(data, search = "", nav = () => {}) {
+  let list = [];
   let table = {
     columns: [
-      { label: "name", },
-      { label: "genes", },
-      { label: "promoters" },
-      { label: "TUs" },
+      { key:"name", label: "Name", width: 600 },
+      { key:"genes", label: "Genes" },
+      { key:"operons", label: "Operons" },
+      { key:"tf", label: "Transcription Factor" },
+      { key:"tu", label: "Transcription Units" },
+      { key:"ri", label: "Regulatory Interaction" },
+      { key:"bs", label: "Binding Sites" },
     ],
-    data: []
-  }
-  if (DataVerifier.isValidArray(operons)) {
-    operons.forEach((data) => {
-      const operon = data.operon
-      const id = operon._id
-      const operonName = operon.name
-      const genes = DataVerifier.isValidNumber(operon.statistics?.genes) ? operon.statistics?.genes : 0
-      const promoters = DataVerifier.isValidNumber(operon.statistics?.promoters) ? operon.statistics?.promoters : 0
-      const transcriptionFactors = DataVerifier.isValidNumber(operon.statistics?.transcriptionFactors) ? operon.statistics?.transcriptionFactors : 0
+    data: [],
+  };
+  if (DataVerifier.isValidArray(data)) {
+    data.forEach((regulon) => {
+      const id = regulon._id;
+      const name = `${regulon.regulator.name} ${DataVerifier.isValidString(regulon.regulator.abbreviatedName) ? "("+regulon.regulator.abbreviatedName+")": ""}`
+      let genes = 0
+      if (DataVerifier.isValidObjectWithProperty(regulon.summary,"genes")) {
+        genes = DataVerifier.isValidNumber(regulon.summary.genes?.total) ? regulon.summary.genes?.total : 0
+      }
+      let operons = 0
+      if (DataVerifier.isValidObjectWithProperty(regulon.summary,"operons")) {
+        operons = DataVerifier.isValidNumber(regulon.summary.operons?.total) ? regulon.summary.operons?.total : 0
+      }
+      let tf = 0
+      if (DataVerifier.isValidObjectWithProperty(regulon.summary,"transcriptionFactors")) {
+        tf = DataVerifier.isValidNumber(regulon.summary.transcriptionFactors?.total) ? regulon.summary.transcriptionFactors?.total : 0
+      }
+      let tu = 0
+      if (DataVerifier.isValidObjectWithProperty(regulon.summary,"transcriptionUnits")) {
+        tu = DataVerifier.isValidNumber(regulon.summary.transcriptionUnits?.total) ? regulon.summary.transcriptionUnits?.total : 0
+      }
+      let ri = 0
+      if (DataVerifier.isValidObjectWithProperty(regulon.summary,"regulatoryInteractions")) {
+        ri = DataVerifier.isValidNumber(regulon.summary.regulatoryInteractions?.total) ? regulon.summary.regulatoryInteractions?.total : 0
+      }
+      let bs = 0
+      if (DataVerifier.isValidObjectWithProperty(regulon.summary,"bindingSites")) {
+        bs = DataVerifier.isValidNumber(regulon.summary.bindingSites?.total) ? regulon.summary.bindingSites?.total : 0
+      }
       table.data.push({
         id: id,
-        name: <p value={operonName} dangerouslySetInnerHTML={{ __html: operonName }} />,
-        genes: <p value={genes} dangerouslySetInnerHTML={{ __html: genes }} />,
-        promoters: <p value={promoters} dangerouslySetInnerHTML={{ __html: promoters }} />,
-        TUs: <p value={transcriptionFactors} dangerouslySetInnerHTML={{ __html: transcriptionFactors }} />,
+        name: (
+          <p
+            value={name}
+            dangerouslySetInnerHTML={{ __html: name }}
+          />
+        ),
+        genes: genes,
+        operons: operons,
+        tf:tf,
+        tu:tu,
+        ri:ri,
+        bs:bs,
         _properties: {
           onClick: () => {
-            nav("/operon/" + id)
-          }
-        }
-      })
+            nav("/regulon/" + id);
+          },
+        },
+      });
       list.push({
         _id: id,
-        data: operon,
+        data: regulon,
         type: "operon",
-        primary: operonName,
-        secondary: `Genes: ${genes}, Promoters: ${promoters}, Transcription Factors: ${transcriptionFactors}`,
+        primary: name,
+        secondary: ``,
         _properties: {
           onClick: () => {
-            nav("/operon/" + id)
-          }
+            nav("/regulon/" + id);
+          },
         },
-      })
+      });
     });
   }
-  list.sort((a, b) => b.score - a.score);
+  //list.sort((a, b) => b.score - a.score);
   //delay for state in program is very important
-  await setTimeout(() => { }, 100);
-  return { list, table }
+  await setTimeout(() => {}, 100);
+  return { list, table };
 }
 
 export default function SearchList({ data, dispatch, state }) {
-  const [getOperons, { loading, error }] = useLazySearchOperon()
+  const [getOperons, { loading, error }] = useLazySearchRegulon()
   const [hide, setHide] = useState(true)
   const nav = useNavigate()
 
