@@ -333,10 +333,46 @@ export const query_GetRegulonBy = gql`query GetRegulonBy($advancedSearch: String
           molecularFunction {
             _id
             name
+            citations {
+              evidence {
+                _id
+                name
+                code
+                type
+                additiveEvidenceCodeRule
+              }
+              publication {
+                _id
+                authors
+                pmid
+                citation
+                url
+                title
+                year
+              }
+            }
           }
           biologicalProcess {
             _id
             name
+            citations {
+              evidence {
+                _id
+                name
+                code
+                type
+                additiveEvidenceCodeRule
+              }
+              publication {
+                _id
+                authors
+                pmid
+                citation
+                url
+                title
+                year
+              }
+            }
           }
         }
       }

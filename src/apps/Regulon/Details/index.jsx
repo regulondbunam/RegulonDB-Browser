@@ -43,7 +43,7 @@ export default function Details({ regulonId }) {
                                             </AccordionHighlight>
                                         )}
                                         <AccordionHighlight id={"regulon_regulatedGenes"} defaultExpanded={true} title={<Typography variant="h2" sx={{ color: "white" }} > Regulated Genes </Typography>} level={0}>
-                                            <Genes genes={regulonData.regulates.genes} terms={regulonData.terms} regulator={regulonData.regulator} />
+                                            <Genes genes={regulonData.regulates.genes} terms={regulonData.terms} regulator={regulonData.regulator} references={references} />
                                         </AccordionHighlight>
                                         <AccordionHighlight id={"regulon_regulatedOperons"} defaultExpanded={true} title={<Typography variant="h2" sx={{ color: "white" }} > Regulated Operons </Typography>} level={0}>
                                             Regulated Operons
