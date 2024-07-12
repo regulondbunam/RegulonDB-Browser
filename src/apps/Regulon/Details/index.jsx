@@ -13,6 +13,7 @@ import { useGetRegulonData } from 'webServices/queries'
 import { AccordionHighlight } from 'ui-components/Web/Accordion'
 import { useGetIndexedReferences } from "ui-components/Web/Citations";
 import { AllCitations } from "ui-components/Web/Citations/AllCitations";
+import RegulatoryInteractions from 'ui-components/Web/RegulatoryInteractions'
 
 
 
@@ -61,14 +62,16 @@ export default function Details({ regulonId }) {
                                                 <RegulatedTUs tus={regulonData.regulates.transcriptionUnits} />
                                             </AccordionHighlight>
                                         )}
-                                        {DataVerifier.isValidArray(regulonData.regulates.transcriptionFactors)&&(
+                                        {DataVerifier.isValidArray(regulonData.regulates.transcriptionFactors) && (
                                             <AccordionHighlight id={"regulon_regulatedTFs"} defaultExpanded={true} title={<Typography variant="h2" sx={{ color: "white" }} > Regulatory Interactions </Typography>} level={0}>
-                                            <RegulatedTFs tfs={regulonData.regulates.transcriptionFactors} />
-                                        </AccordionHighlight>
+                                                <RegulatedTFs tfs={regulonData.regulates.transcriptionFactors} />
+                                            </AccordionHighlight>
                                         )}
-                                        <AccordionHighlight id={"regulon_RI"} defaultExpanded={true} title={<Typography variant="h2" sx={{ color: "white" }} > Regulatory Interactions </Typography>} level={0}>
-                                            Regulatory Interactions RegulatedTFs
-                                        </AccordionHighlight>
+                                        {DataVerifier.isValidArray(regulonData.regulatoryInteractions) && (
+                                            <AccordionHighlight id={"regulon_RI"} defaultExpanded={true} title={<Typography variant="h2" sx={{ color: "white" }} > Regulatory Interactions </Typography>} level={0}>
+                                                <RegulatoryInteractions references={references} regulatoryInteractions={regulonData.regulatoryInteractions} />
+                                            </AccordionHighlight>
+                                        )}
                                         <AccordionHighlight id={"regulon_citations"} defaultExpanded={true} title={<Typography variant="h2" sx={{ color: "white" }} > Citations </Typography>} level={0}>
                                             <AllCitations {...references} />
                                         </AccordionHighlight>

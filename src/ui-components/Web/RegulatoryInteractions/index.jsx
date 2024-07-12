@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import FilterTable from "../FilterTable";
-//import { schema_regulatorySite, schema_regulator } from './static'
+import { Typography } from "@mui/material";
 import { DataVerifier } from "ui-components/utils";
 import { HeaderLabel } from "./components";
 import { Link } from "react-router-dom";
@@ -17,23 +17,50 @@ export default function RegulatoryInteractions({
     let columns = [];
     let data = [];
     if (isRegulators) {
-      columns.push({
-        key: "regulatorName",
-        label: (
+      columns = columns.concat([
+        {
+          key: "regulatorName",
+          label: (
+            <HeaderLabel
+              label="RegulonName"
+              subLabel="function: repressor(-), activator(+), dual(+-))"
+            />
+          ),
+          width: 250,
+          height: 50,
+        },
+        {
+          key: "centralPosition",
+          label: <HeaderLabel label={"Relative\ncentral position"} />,
+        },
+      ])
+    } else {
+      columns = columns.concat([
+        {
+          key: "conformation",
+          label: "Active Conformation",
+          width: 250,
+        },
+        { key: "fun", label: "Function" },
+        { key: "entity", label: "Regulated Entity Name" },
+        { key: "entityType", label: "Regulated Entity Type" },
+        { key: "toGene", label: (
           <HeaderLabel
-            label="RegulonName"
-            subLabel="function: repressor(-), activator(+), dual(+-))"
+            label="Distance to"
+            subLabel="GENE"
           />
-        ),
-        width: 250,
-        height: 50,
-      });
+        ), height: 50,},
+        { key: "toPromoter", label: (
+          <HeaderLabel
+            label="Distance to"
+            subLabel="PROMOTER"
+          />
+        ), height: 50,},
+        { key: "genes", label: "RegulatedGenes" },
+        { key: "strand", label: "Strand" },
+      ])
     }
     columns = columns.concat([
-      {
-        key: "centralPosition",
-        label: <HeaderLabel label={"Relative\ncentral position"} />,
-      },
       { key: "leftPos", label: <HeaderLabel label={"LeftEndPosition"} /> },
       { key: "rightPos", label: <HeaderLabel label={"RightEndPosition"} /> },
       {
@@ -62,9 +89,14 @@ export default function RegulatoryInteractions({
     ]);
     if (DataVerifier.isValidArray(regulatoryInteractions)) {
       regulatoryInteractions.forEach((regulatoryInteraction) => {
-        const regulatorySite = regulatoryInteraction?.regulatorySite
-          ? regulatoryInteraction.regulatorySite
-          : {};
+        let site
+        if (regulatoryInteraction?.regulatorySite) {
+          site = regulatoryInteraction.regulatorySite
+        }
+        if (regulatoryInteraction?.regulatoryBindingSites) {
+          site = regulatoryInteraction.regulatoryBindingSites
+        }
+
         let row = {};
         if (isRegulators) {
           if (
@@ -83,17 +115,45 @@ export default function RegulatoryInteractions({
               </Link>
             );
           }
+        } else {
+          const conformation = DataVerifier.isValidObjectWith_id(regulatoryInteraction?.activeConformation)
+            ? regulatoryInteraction?.activeConformation
+            : { name: "", type: "" }
+          const entity = DataVerifier.isValidObjectWith_id(regulatoryInteraction?.regulatedEntity)
+            ? regulatoryInteraction?.regulatedEntity
+            : { name: "", type: "" }
+          const genes = DataVerifier.isValidArray(regulatoryInteraction?.regulatedGenes)
+            ? regulatoryInteraction.regulatedGenes
+            : []
+          row = {
+            conformation: conformation.name,
+            fun: DataVerifier.isValidString(regulatoryInteraction?.function) ? regulatoryInteraction.function : "",
+            entity: entity.name,
+            entityType: entity.type,
+            toGene: DataVerifier.isValidNumber(regulatoryInteraction?.distanceToFirstGene) ? regulatoryInteraction.distanceToFirstGene : "",
+            toPromoter: DataVerifier.isValidNumber(regulatoryInteraction?.distanceToPromoter) ? regulatoryInteraction.distanceToPromoter : "",
+            genes: <Typography value={genes.map(fun => fun.name).join("; ")} sx={{ whiteSpace: "nowrap" }} >
+                    {genes.map(gene=>{
+                        return (
+                            <Link style={{marginLeft: "5px",  }} value={gene.name} key={`gene_${gene._id}_InRI_${regulatoryInteraction._id}`} to={"/gene/" + gene._id}>
+                                    <span dangerouslySetInnerHTML={{ __html: gene.name }} />
+                            </Link>
+                        )
+                    })}
+                </Typography>,
+            strand: DataVerifier.isValidString(site?.strand) ? site.strand : "",
+          }
         }
 
         data.push({
           ...row,
           centralPosition: regulatoryInteraction.relativeCenterPosition,
-          leftPos: regulatorySite?.leftEndPosition,
-          rightPos: regulatorySite?.rightEndPosition,
+          leftPos: site?.leftEndPosition,
+          rightPos: site?.rightEndPosition,
           sequence: (
             <SequenceTrack
-              value={regulatorySite?.sequence}
-              sequence={regulatorySite?.sequence}
+              value={site?.sequence}
+              sequence={site?.sequence}
               width="400px"
             />
           ),

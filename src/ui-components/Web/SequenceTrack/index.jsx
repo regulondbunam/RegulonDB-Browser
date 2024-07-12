@@ -175,7 +175,7 @@ export default function SequenceTrack({
         style={{ position: "relative", width: width }}
         onContextMenu={handleContextMenu}
       >
-        loading....
+        
       </div>
       <Menu
         open={contextMenu !== null}
