@@ -1,14 +1,16 @@
 import React from 'react'
+import Note from './Note'
 import Cover from './Cover'
-import { useGetRegulonData } from 'webServices/queries'
-import PageState from 'ui-components/Web/PageStates'
+import Genes from './Genes'
 import Tabs from 'ui-components/Web/Tabs'
-import { AccordionHighlight } from 'ui-components/Web/Accordion'
 import { Typography } from '@mui/material'
+import { DataVerifier } from 'ui-components/utils'
+import PageState from 'ui-components/Web/PageStates'
+import { useGetRegulonData } from 'webServices/queries'
+import { AccordionHighlight } from 'ui-components/Web/Accordion'
 import { useGetIndexedReferences } from "ui-components/Web/Citations";
 import { AllCitations } from "ui-components/Web/Citations/AllCitations";
-import Note from './Note'
-import { DataVerifier } from 'ui-components/utils'
+
 
 export default function Details({ regulonId }) {
     const { regulonData, error, loading } = useGetRegulonData(regulonId)
@@ -37,12 +39,11 @@ export default function Details({ regulonId }) {
                                     <div style={{ width: "100%" }}>
                                         {DataVerifier.isValidString(regulonData.regulator.note) && (
                                             <AccordionHighlight id={"regulon_notes"} defaultExpanded={true} title={<Typography variant="h2" sx={{ color: "white" }} > Note </Typography>} level={0}>
-                                                <Note references={references} note={regulonData.regulator.note} />
+                                                <Note references={references} note={regulonData.regulator.note} citations={regulonData.regulator.citations}/>
                                             </AccordionHighlight>
                                         )}
                                         <AccordionHighlight id={"regulon_regulatedGenes"} defaultExpanded={true} title={<Typography variant="h2" sx={{ color: "white" }} > Regulated Genes </Typography>} level={0}>
-                                            Regulated Genes
-                                            Ontology and multifunction
+                                            <Genes genes={regulonData.regulates.genes} terms={regulonData.terms} regulator={regulonData.regulator} />
                                         </AccordionHighlight>
                                         <AccordionHighlight id={"regulon_regulatedOperons"} defaultExpanded={true} title={<Typography variant="h2" sx={{ color: "white" }} > Regulated Operons </Typography>} level={0}>
                                             Regulated Operons
