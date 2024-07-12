@@ -40,21 +40,12 @@ export const query_GetRegulonBy = gql`query GetRegulonBy($advancedSearch: String
       regulates {
         genes {
           _id
-          name
           function
+          name
           terms {
-            multifun {
-              _id
-              name
-              genes {
-                _id
-                name
-              }
-            }
             geneOntology {
-              cellularComponent {
+              biologicalProcess {
                 _id
-                name
                 citations {
                   evidence {
                     _id
@@ -73,46 +64,202 @@ export const query_GetRegulonBy = gql`query GetRegulonBy($advancedSearch: String
                     year
                   }
                 }
+                genes {
+                  _id
+                  name
+                }
+                name
+              }
+              cellularComponent {
+                _id
+                citations {
+                  evidence {
+                    _id
+                    name
+                    code
+                    type
+                    additiveEvidenceCodeRule
+                  }
+                  publication {
+                    _id
+                    authors
+                    pmid
+                    citation
+                    url
+                    title
+                    year
+                  }
+                }
+                genes {
+                  _id
+                  name
+                }
+                name
               }
               molecularFunction {
                 _id
-                name
-              }
-              biologicalProcess {
-                _id
+                citations {
+                  evidence {
+                    _id
+                    name
+                    code
+                    type
+                    additiveEvidenceCodeRule
+                  }
+                  publication {
+                    _id
+                    authors
+                    pmid
+                    citation
+                    url
+                    title
+                    year
+                  }
+                }
+                genes {
+                  _id
+                  name
+                }
                 name
               }
             }
-          }
-        }
-        transcriptionFactors {
-          _id
-          name
-          function
-        }
-        transcriptionUnits {
-          _id
-          name
-          function
-          firstGene {
-            _id
-            name
-          }
-          promoter {
-            _id
-            name
+            multifun {
+              _id
+              genes {
+                _id
+                name
+              }
+              name
+            }
           }
         }
         operons {
           _id
-          name
+          firstGene {
+            _id
+            name
+          }
           function
+          name
         }
         sigmaFactors {
           _id
-          name
           function
           gene {
+            _id
+            name
+          }
+          name
+        }
+        transcriptionFactors {
+          _id
+          function
+          genes {
+            _id
+            function
+            name
+            terms {
+              geneOntology {
+                biologicalProcess {
+                  citations {
+                    evidence {
+                      _id
+                      additiveEvidenceCodeRule
+                      code
+                      name
+                      type
+                    }
+                    publication {
+                      _id
+                      authors
+                      pmid
+                      citation
+                      url
+                      title
+                      year
+                    }
+                  }
+                  _id
+                  genes {
+                    _id
+                    name
+                  }
+                  name
+                }
+                cellularComponent {
+                  _id
+                  citations {
+                    evidence {
+                      _id
+                      name
+                      code
+                      type
+                      additiveEvidenceCodeRule
+                    }
+                    publication {
+                      _id
+                      authors
+                      pmid
+                      citation
+                      url
+                      title
+                      year
+                    }
+                  }
+                  genes {
+                    _id
+                    name
+                  }
+                  name
+                }
+                molecularFunction {
+                  _id
+                  citations {
+                    evidence {
+                      _id
+                      name
+                      code
+                      type
+                      additiveEvidenceCodeRule
+                    }
+                    publication {
+                      _id
+                      authors
+                      pmid
+                      citation
+                      url
+                      title
+                      year
+                    }
+                  }
+                  genes {
+                    _id
+                    name
+                  }
+                  name
+                }
+              }
+              multifun {
+                _id
+                genes {
+                  _id
+                  name
+                }
+                name
+              }
+            }
+          }
+          name
+        }
+        transcriptionUnits {
+          _id
+          firstGene {
+            _id
+            name
+          }
+          function
+          name
+          promoter {
             _id
             name
           }
@@ -120,115 +267,115 @@ export const query_GetRegulonBy = gql`query GetRegulonBy($advancedSearch: String
       }
       regulator {
         _id
-        name
-        function
         abbreviatedName
-        synonyms
-        note
+        additiveEvidences {
+          category
+          code
+          type
+        }
+        citations {
+          evidence {
+            _id
+            name
+            code
+            type
+            additiveEvidenceCodeRule
+          }
+          publication {
+            _id
+            authors
+            pmid
+            citation
+            url
+            title
+            year
+          }
+        }
+        confidenceLevel
         conformations {
           _id
-          name
-          type
-          effectorInteractionType
+          additiveEvidences {
+            category
+            code
+            type
+          }
+          citations {
+            evidence {
+              _id
+              name
+              code
+              type
+              additiveEvidenceCodeRule
+            }
+            publication {
+              _id
+              authors
+              pmid
+              citation
+              url
+              title
+              year
+            }
+          }
           class
+          confidenceLevel
           effector {
             _id
             name
           }
-          note
+          effectorInteractionType
           functionalType
-          confidenceLevel
+          name
+          note
+          type
         }
+        connectivityClass
         encodedBy {
           genes {
             _id
-            name
             leftEndPosition
             length
+            name
             rightEndPosition
           }
           operon {
             _id
             name
             tusEncodingRegulator {
-              transcriptionUnitName
               promoterName
+              transcriptionUnitName
             }
           }
         }
-        sensingClass
-        connectivityClass
-        citations {
-          evidence {
-            _id
-            name
-            code
-            type
-            additiveEvidenceCodeRule
-          }
-          publication {
-            _id
-            authors
-            pmid
-            citation
-            url
-            title
-            year
-          }
-        }
+        family
+        function
+        name
+        note
         products {
-          _id
           name
           abbreviatedName
+          _id
         }
-        symmetry
+        sensingClass
         siteLength
-        family
-        additiveEvidences {
-          category
-          code
-          type
-        }
-        confidenceLevel
+        symmetry
+        synonyms
         type
       }
       regulatoryInteractions {
         _id
         activeConformation {
           _id
+          name
           type
-          name
-        }
-        function
-        regulatedEntity {
-          _id
-          type
-          name
-        }
-        distanceToFirstGene
-        distanceToPromoter
-        regulatedGenes {
-          _id
-          name
-          leftEndPosition
-          rightEndPosition
-        }
-        regulatoryBindingSites {
-          _id
-          function
-          absolutePosition
-          leftEndPosition
-          rightEndPosition
-          sequence
-          strand
         }
         citations {
           evidence {
-            _id
-            name
-            code
-            type
             additiveEvidenceCodeRule
+            _id
+            code
+            name
+            type
           }
           publication {
             _id
@@ -246,6 +393,47 @@ export const query_GetRegulonBy = gql`query GetRegulonBy($advancedSearch: String
           type
         }
         confidenceLevel
+        distanceToFirstGene
+        distanceToPromoter
+        function
+        regulatedEntity {
+          _id
+          name
+          type
+        }
+        regulatedGenes {
+          _id
+          leftEndPosition
+          name
+          rightEndPosition
+        }
+        regulatoryBindingSites {
+          _id
+          absolutePosition
+          citations {
+            evidence {
+              _id
+              name
+              code
+              type
+              additiveEvidenceCodeRule
+            }
+            publication {
+              _id
+              authors
+              pmid
+              citation
+              url
+              title
+              year
+            }
+          }
+          function
+          leftEndPosition
+          rightEndPosition
+          sequence
+          strand
+        }
       }
       summary {
         genes {
@@ -299,81 +487,93 @@ export const query_GetRegulonBy = gql`query GetRegulonBy($advancedSearch: String
         }
       }
       terms {
+        geneOntology {
+          biologicalProcess {
+            _id
+            citations {
+              evidence {
+                _id
+                name
+                code
+                type
+                additiveEvidenceCodeRule
+              }
+              publication {
+                _id
+                authors
+                pmid
+                citation
+                url
+                title
+                year
+              }
+            }
+            genes {
+              _id
+              name
+            }
+            name
+          }
+          cellularComponent {
+            _id
+            citations {
+              evidence {
+                _id
+                name
+                code
+                type
+                additiveEvidenceCodeRule
+              }
+              publication {
+                _id
+                authors
+                pmid
+                citation
+                url
+                title
+                year
+              }
+            }
+            genes {
+              _id
+              name
+            }
+            name
+          }
+          molecularFunction {
+            _id
+            citations {
+              evidence {
+                _id
+                name
+                code
+                type
+                additiveEvidenceCodeRule
+              }
+              publication {
+                _id
+                authors
+                pmid
+                citation
+                url
+                title
+                year
+              }
+            }
+            genes {
+              _id
+              name
+            }
+            name
+          }
+        }
         multifun {
           _id
-          name
           genes {
             _id
             name
           }
-        }
-        geneOntology {
-          cellularComponent {
-            _id
-            name
-            citations {
-              evidence {
-                _id
-                name
-                code
-                type
-                additiveEvidenceCodeRule
-              }
-              publication {
-                _id
-                authors
-                pmid
-                citation
-                url
-                title
-                year
-              }
-            }
-          }
-          molecularFunction {
-            _id
-            name
-            citations {
-              evidence {
-                _id
-                name
-                code
-                type
-                additiveEvidenceCodeRule
-              }
-              publication {
-                _id
-                authors
-                pmid
-                citation
-                url
-                title
-                year
-              }
-            }
-          }
-          biologicalProcess {
-            _id
-            name
-            citations {
-              evidence {
-                _id
-                name
-                code
-                type
-                additiveEvidenceCodeRule
-              }
-              publication {
-                _id
-                authors
-                pmid
-                citation
-                url
-                title
-                year
-              }
-            }
-          }
+          name
         }
       }
     }

@@ -2,6 +2,9 @@ import React from 'react'
 import Note from './Note'
 import Cover from './Cover'
 import Genes from './Genes'
+import RegulatedOperons from './Operon'
+import RegulatedTUs from './RegulatedTUs'
+import RegulatedTFs from './RegulatedTF'
 import Tabs from 'ui-components/Web/Tabs'
 import { Typography } from '@mui/material'
 import { DataVerifier } from 'ui-components/utils'
@@ -10,6 +13,7 @@ import { useGetRegulonData } from 'webServices/queries'
 import { AccordionHighlight } from 'ui-components/Web/Accordion'
 import { useGetIndexedReferences } from "ui-components/Web/Citations";
 import { AllCitations } from "ui-components/Web/Citations/AllCitations";
+
 
 
 export default function Details({ regulonId }) {
@@ -39,20 +43,31 @@ export default function Details({ regulonId }) {
                                     <div style={{ width: "100%" }}>
                                         {DataVerifier.isValidString(regulonData.regulator.note) && (
                                             <AccordionHighlight id={"regulon_notes"} defaultExpanded={true} title={<Typography variant="h2" sx={{ color: "white" }} > Note </Typography>} level={0}>
-                                                <Note references={references} note={regulonData.regulator.note} citations={regulonData.regulator.citations}/>
+                                                <Note references={references} note={regulonData.regulator.note} citations={regulonData.regulator.citations} />
                                             </AccordionHighlight>
                                         )}
-                                        <AccordionHighlight id={"regulon_regulatedGenes"} defaultExpanded={true} title={<Typography variant="h2" sx={{ color: "white" }} > Regulated Genes </Typography>} level={0}>
-                                            <Genes genes={regulonData.regulates.genes} terms={regulonData.terms} regulator={regulonData.regulator} references={references} />
+                                        {DataVerifier.isValidArray(regulonData.regulates.genes) && (
+                                            <AccordionHighlight id={"regulon_regulatedGenes"} defaultExpanded={true} title={<Typography variant="h2" sx={{ color: "white" }} > Regulated Genes </Typography>} level={0}>
+                                                <Genes genes={regulonData.regulates.genes} terms={regulonData.terms} regulator={regulonData.regulator} references={references} />
+                                            </AccordionHighlight>
+                                        )}
+                                        {DataVerifier.isValidArray(regulonData.regulates.operons) && (
+                                            <AccordionHighlight id={"regulon_regulatedOperons"} defaultExpanded={true} title={<Typography variant="h2" sx={{ color: "white" }} > Regulated Operons </Typography>} level={0}>
+                                                <RegulatedOperons operons={regulonData.regulates.operons} />
+                                            </AccordionHighlight>
+                                        )}
+                                        {DataVerifier.isValidArray(regulonData.regulates.transcriptionUnits) && (
+                                            <AccordionHighlight id={"regulon_regulatedTUs"} defaultExpanded={true} title={<Typography variant="h2" sx={{ color: "white" }} > Regulated Transcription Units </Typography>} level={0}>
+                                                <RegulatedTUs tus={regulonData.regulates.transcriptionUnits} />
+                                            </AccordionHighlight>
+                                        )}
+                                        {DataVerifier.isValidArray(regulonData.regulates.transcriptionFactors)&&(
+                                            <AccordionHighlight id={"regulon_regulatedTFs"} defaultExpanded={true} title={<Typography variant="h2" sx={{ color: "white" }} > Regulatory Interactions </Typography>} level={0}>
+                                            <RegulatedTFs tfs={regulonData.regulates.transcriptionFactors} />
                                         </AccordionHighlight>
-                                        <AccordionHighlight id={"regulon_regulatedOperons"} defaultExpanded={true} title={<Typography variant="h2" sx={{ color: "white" }} > Regulated Operons </Typography>} level={0}>
-                                            Regulated Operons
-                                        </AccordionHighlight>
-                                        <AccordionHighlight id={"regulon_regulatedTUs"} defaultExpanded={true} title={<Typography variant="h2" sx={{ color: "white" }} > Regulated Transcription Units </Typography>} level={0}>
-                                            Regulated Transcription Units
-                                        </AccordionHighlight>
+                                        )}
                                         <AccordionHighlight id={"regulon_RI"} defaultExpanded={true} title={<Typography variant="h2" sx={{ color: "white" }} > Regulatory Interactions </Typography>} level={0}>
-                                            Regulatory Interactions
+                                            Regulatory Interactions RegulatedTFs
                                         </AccordionHighlight>
                                         <AccordionHighlight id={"regulon_citations"} defaultExpanded={true} title={<Typography variant="h2" sx={{ color: "white" }} > Citations </Typography>} level={0}>
                                             <AllCitations {...references} />
