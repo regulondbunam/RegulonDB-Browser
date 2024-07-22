@@ -2,6 +2,9 @@ import React, { createContext, useState } from 'react'
 import { Box } from '@mui/material'
 import Controls from "./Controls";
 import Title from './Title'
+import Anchors from './Anchors';
+
+export {Anchors}
 
 export const DrawerContext = createContext({
     expand: false, setExpand: () => {
@@ -22,7 +25,7 @@ export default function Drawers({
     return (<div style={{ width: open ? "250px" : "65px", zIndex: 99 }}>
         {open ? (<Box
             sx={{
-                position: "sticky", left: 0, top: 0, height: "100vh",
+                position: "sticky", left: 0, top: 0, height: "100vh", overflow: "auto",
             }}
         >
             <Title title={title} />
@@ -36,7 +39,7 @@ export default function Drawers({
                 {drawers[nPanel]}
             </DrawerContext.Provider>
         </Box>) : (<div style={{
-            position: "sticky", left: 0, top: 0, display: 'flex', flexDirection: "column", rowGap: "5px"
+            position: "sticky", left: 0, top: 0, display: 'flex', flexDirection: "column", rowGap: "5px", 
         }}>
             {drawers.map((Drawer, index) => (<DrawerContext.Provider
                 key={"drawer_" + index}

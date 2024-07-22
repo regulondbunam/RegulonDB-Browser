@@ -20,7 +20,7 @@ export default function RegulatedTFs({ tfs = [], name="" }) {
                 ? tf.genes
                 : []
             _table.data.push({
-                tu: <Link value={tf.name} to={"/tu/" + tf._id}><Typography><span dangerouslySetInnerHTML={{ __html: tf.name }} /></Typography></Link>,
+                tf: <Link value={tf.name} to={"/regulon/" + tf._id}><Typography><span dangerouslySetInnerHTML={{ __html: tf.name }} /></Typography></Link>,
                 fun: <Typography value={tf.function} >{tf.function}</Typography>,
                 genes: <Typography value={genes.map(fun => fun.name).join("; ")} sx={{ whiteSpace: "nowrap" }} >
                 {genes.map(gene=>{

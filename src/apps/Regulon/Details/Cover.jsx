@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { Cover as UiCover } from 'ui-components/Web/Cover'
 import { Link } from 'react-router-dom'
 import { DataVerifier } from 'ui-components/utils'
