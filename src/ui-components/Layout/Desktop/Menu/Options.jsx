@@ -25,8 +25,8 @@ export default function Options({
               }}
               sx={{
                 height: "4vw",
-                borderRadius: 0,
                 maxHeight: "60px",
+                backgroundColor: "transparent",
               }}
               color={menuId === menu.id ? "primary700" : "primary800"}
               variant={menuId === menu.id ? "contained" : "text"}
