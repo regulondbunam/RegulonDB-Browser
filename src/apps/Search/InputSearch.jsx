@@ -3,7 +3,8 @@ import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 import Divider from '@mui/material/Divider';
 import { useNavigate } from "react-router-dom";
-import { Button, Paper } from '@mui/material'
+import Button from "@mui/material/Button"
+import { Box } from '@mui/material'
 import { PATH_SEARCH } from '.';
 
 
@@ -11,12 +12,11 @@ export function InputSearch() {
     const [value, setValue] = useState("")
     const navigate = useNavigate();
 
-    const handelOnSearch = () => {
+    const handleOnSearch = () => {
         navigate("/" + PATH_SEARCH.path + "/" + value)
     }
     return (
-        <Paper
-            elevation={0}
+        <Box
             sx={{ m: 1, display: 'flex', alignItems: 'center', width: "55vw", backgroundColor: "transparent" }}
         >
             <TextField
@@ -37,17 +37,17 @@ export function InputSearch() {
                 }}
                 onKeyUp={(event) => {
                     if (event.key === "Enter") {
-                        handelOnSearch()
+                        handleOnSearch()
                     }
                 }}
             />
             <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
             <Button variant="contained" color='error'
                 sx={{ width: "20%" }}
-                onClick={handelOnSearch}
+                onClick={handleOnSearch}
             >
                 search
             </Button>
-        </Paper>
+        </Box>
     )
 }
