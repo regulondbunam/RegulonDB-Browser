@@ -18,3 +18,27 @@ export const query_getSigmulonMainDataBySearch = gql`query GetSigmulonBy($search
     }
   }
 }`
+
+export const query_getAllSigmulonMainData = gql`query GetAllSigmulon {
+  getAllSigmulon {
+    data {
+      _id
+      sigmaFactor {
+        name
+        gene {
+          name
+          _id
+        }
+        synonyms
+      }
+      statistics {
+        genes
+        transcriptionFactors
+        promoters
+        transcriptionUnits
+        cotranscriptionFactors
+        sigmaFactors
+      }
+    }
+  }
+}`
