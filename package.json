@@ -25,6 +25,7 @@
     "cytoscape-popper": "^4.0.0",
     "cytoscape-sbgn-stylesheet": "^4.0.2",
     "cytoscape-svg": "^0.4.0",
+    "file-saver": "^2.0.5",
     "graphql": "^16.8.1",
     "html2canvas": "^1.4.1",
     "igv": "^2.15.11",

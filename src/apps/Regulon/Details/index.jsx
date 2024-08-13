@@ -16,6 +16,7 @@ import { useGetIndexedReferences } from "ui-components/Web/Citations";
 import { AllCitations } from "ui-components/Web/Citations/AllCitations";
 import RegulatoryInteractions from 'ui-components/Web/RegulatoryInteractions'
 import { PanelDetails } from './Panel';
+import RegulatoryNetwork from './RegulatoryNetwork';
 
 
 
@@ -49,21 +50,23 @@ export default function Details({ regulonId }) {
                                 <div>
                                     <div style={{ display: "flex" }} ></div>
                                     <div style={{ width: "100%" }}>
+                                    <RegulatoryNetwork regulonID={regulonId} />
                                     </div>
                                 </div>
                             )
                         },
-                        {
+                        /*{
                             id: "tab03",
                             name: "FeatureMaps",
                             component: (
                                 <div>
                                     <div style={{ display: "flex" }} ></div>
                                     <div style={{ width: "100%" }}>
+                                        
                                     </div>
                                 </div>
                             )
-                        }
+                        }*/
                     ]}
                 />
 

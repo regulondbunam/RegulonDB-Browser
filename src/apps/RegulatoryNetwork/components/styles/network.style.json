@@ -1,0 +1,108 @@
+[
+  {
+    "selector": "node",
+    "style": {
+      "width": "60",
+      "height": "60",
+      "label": "data(label)",
+      "overlay-padding": "6px",
+      "z-index": "10",
+      "color": "white",
+      "fontSize": 20,
+      "text-valign": "center",
+      "text-halign": "center"
+    }
+  },
+  {
+    "selector": "node[network='Gene']",
+    "style": {
+      "backgroundColor": "#84C0DF"
+    }
+  },
+  {
+    "selector": "node[network='Small RNA']",
+    "style": {
+      "backgroundColor": "#F3B15A",
+      "shape": "polygon",
+      "shape-polygon-points": "-1 0, -0.6 -0.8, 0.7 -0.8, 1 -0.5, 1 0.5, 0.7 0.8, -0.6 0.8"
+    }
+  },
+  {
+    "selector": "node[network='Transcription Factor']",
+    "style": {
+      "backgroundColor": "#F3B15A",
+      "shape": "polygon",
+      "shape-polygon-points": "-1 0, -0.6 -0.8, 0.7 -0.8, 1 -0.5, 1 0.5, 0.7 0.8, -0.6 0.8"
+    }
+  },
+  {
+    "selector": "node:selected",
+    "style": {
+      "text-outline-color": "black",
+      "text-outline-width": 2,
+      "border-color": "black",
+      "border-width": "2px",
+      "border-opacity": "0.7"
+    }
+  },
+  {
+    "selector": "edge",
+    "style": {
+      "width": 4,
+      "curve-style": "bezier",
+      "loop-direction": "150deg",
+      "loop-sweep": "-20deg",
+      "target-arrow-shape": "triangle"
+    }
+  },
+  {
+    "selector": "edge:selected",
+    "style": {
+      "width": 8
+    }
+  },
+  {
+    "selector": "edge[effect='repressor']",
+    "style": {
+      "line-color": "#CB1A1A",
+      "target-arrow-color": "#CB1A1A",
+      "target-arrow-shape": "triangle"
+    }
+  },
+  {
+    "selector": "edge[effect='activator']",
+    "style": {
+      "line-color": "#1ACB1A",
+      "target-arrow-color": "#1ACB1A",
+      "target-arrow-shape": "triangle"
+    }
+  },
+  {
+    "selector": "edge[effect='unknown']",
+    "style": {
+      "line-color": "#1A1A1D",
+      "target-arrow-color": "#1A1A1D",
+      "target-arrow-shape": "triangle"
+    }
+  },
+  {
+    "selector": "edge[effect='dual']",
+    "style": {
+      "line-color": "#1A1ACB",
+      "target-arrow-color": "#1A1ACB",
+      "target-arrow-shape": "triangle"
+    }
+  },
+  {
+    "selector": ".highlight",
+    "style": {
+      "background-color": "purple"
+    }
+  },
+  {
+    "selector": ".selectedNode",
+    "style": {
+      "background-color": "red"
+    }
+  }
+]

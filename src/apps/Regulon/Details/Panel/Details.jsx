@@ -34,7 +34,7 @@ function IconExpand({ expand, setExpand = () => {}, isEmbed = false }) {
         }}
         onClick={setExpand}
       >
-        {isHover ? "Search" : ""}
+        {isHover ? "Menu" : ""}
       </Button>
     );
   }
