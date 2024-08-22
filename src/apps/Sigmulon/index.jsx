@@ -1,4 +1,6 @@
 import React from 'react'
+import { useParams } from "react-router-dom";
+import Home from './Home'
 
 const PATH_SIGMULON = {
     path: "sigmulon",
@@ -14,9 +16,13 @@ const PATH_SIGMULON = {
   
 
 function Sigmulon() {
-  return (
-    <div>Sigmulon</div>
-  )
+  const {query}  = useParams()
+  const regex = /^RDBECOLI.+/;
+  if (regex.test(query)) {
+    return <>Sigmulon</>;
+  } else {
+    return <Home query={query} />;
+  }
 }
 
 export { PATH_SIGMULON };

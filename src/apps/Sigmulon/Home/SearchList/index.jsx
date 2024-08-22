@@ -1,14 +1,16 @@
-import React, { useReducer } from "react";
-import SearchList from "./SearchList";
-import { useGetAllSigmulonMainDAta } from "webServices/queries";
-import { Cover } from "ui-components/Web/Cover";
+import React, { useEffect, useState } from 'react'
 import Typography from "@mui/material/Typography";
-import { DataVerifier } from "ui-components/utils";
-import RegulonViews from "./Regulon";
-import Divider from "@mui/material/Divider";
-import style from "./style.module.css";
-import { DISPATCH, VIEW_TYPE } from "./static";
-import { useNavigate } from "react-router-dom";
+import { useLazySearchRegulon } from "webServices/queries"
+import { DISPATCH } from '../static';
+import { InputSearch } from './InputSearch';
+import { DataVerifier } from 'ui-components/utils';
+import { Button, Tooltip, Divider } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import { useNavigate } from 'react-router-dom';
+//import MenuIcon from '@mui/icons-material/Menu';
+
+
 
 async function process(data, search = "", nav = () => {}) {
   let list = [];
@@ -75,7 +77,7 @@ async function process(data, search = "", nav = () => {}) {
       list.push({
         _id: id,
         data: regulon,
-        type: "regulon",
+        type: "operon",
         primary: name,
         secondary: ``,
         _properties: {
@@ -92,88 +94,63 @@ async function process(data, search = "", nav = () => {}) {
   return { list, table };
 }
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case DISPATCH.SET_LOADING:
-      const { loading } = action;
-      return { ...state, loading: loading };
-    case DISPATCH.SET_REGULON_LIST:
-      const { sigmulonList, sigmulonTable } = action;
-      return {
-        ...state,
-        sigmulonList: sigmulonList,
-        sigmulonTable: sigmulonTable,
-        loading: false,
-      };
-    case DISPATCH.SEARCH:
-      const { search, resultsSearch } = action;
-      return {
-        ...state,
-        search: search,
-        resultsSearch: resultsSearch,
-        loading: false,
-      };
-    case DISPATCH.CLEAN_SEARCH:
-      return { ...state, search: "", resultsSearch: null };
-    case DISPATCH.UPDATE_VIEW:
-      return { ...state, viewType: action.viewType };
-    default:
-      return state;
+export default function SearchList({ data, dispatch, state }) {
+  const [getOperons, { loading, error }] = useLazySearchRegulon()
+  const [hide, setHide] = useState(true)
+  const nav = useNavigate()
+
+  useEffect(() => {
+    if (loading) {
+      dispatch({ type: DISPATCH.SET_LOADING, loading: true })
+    }
+    if (error) {
+      dispatch({ type: DISPATCH.SET_LOADING, loading: false })
+    }
+  }, [loading, error, dispatch])
+
+
+  const handleClean = ()=>{
+    dispatch({ type: DISPATCH.SEARCH, search: "", resultsSearch: null })
   }
-};
 
-export default function Home({ query }) {
-  const [state, dispatch] = useReducer(reducer, {
-    loading: false,
-    resultsSearch: null,
-    sigmulonList: [],
-    sigmulonTable: {},
-    search: "",
-    advanceSearch: {},
-    viewType: VIEW_TYPE.TABLE,
-  });
-  const nav = useNavigate();
+  const handleSearch = (search) => {
+    if (DataVerifier.isValidString(search)) {
+      getOperons(search,
+        (operons) => {
+          process(operons, search, nav).then((resultsSearch) => {
+            dispatch({ type: DISPATCH.SEARCH, search: search, resultsSearch: resultsSearch })
+          })
+        }
+      )
+    }
 
-  const { loading: objectListLoading, error } = useGetAllSigmulonMainDAta((data) => {
-    process(data, state.search, nav)
-      .then((regulon) => {
-        dispatch({
-          type: DISPATCH.SET_SIGMULON_LIST,
-          sigmulonList: regulon.list,
-          sigmulonTable: regulon.table,
-        });
-      })
-      .catch(() => {
-        dispatch({ type: DISPATCH.SET_LOADING, loading: false });
-      });
-    dispatch({ type: DISPATCH.SET_LOADING, loading: true });
-  });
-
-  const loading = objectListLoading || state.loading;
-
-  //console.log(state);
+  }
   return (
-    <div>
-      <Cover
-        state={loading ? "loading" : "done"}
-        message={error && "Error to load gene list"}
-      >
-        <Typography variant="h1" sx={{ ml: "10%" }}>
-          Regulon
-        </Typography>
-      </Cover>
-      <div
-        className={style.geneLayout}
-        style={{ height: `${window.screen.height - 180}px` }}
-      >
-        <div className={style.geneFilters}>
-          <SearchList state={state} dispatch={dispatch} />
-        </div>
-        <Divider orientation="vertical" flexItem />
-        <div style={{ minWidth: "376px", width: "100%" }}>
-         <RegulonViews loading={loading} state={state} dispatch={dispatch} />
-        </div>
+    <div style={!hide ? { padding: "16px",  minWidth: "420px" } : {paddingTop: "16px"}}>
+      <div style={{ display: 'flex', alignItems: "center", justifyContent: "space-between" }} >
+        {!hide && (
+          <Typography variant="relevant" component="div">
+            Search
+          </Typography>
+        )}
+
+        <Tooltip title={!hide ? "hide options" : "show search options"}>
+          <Button size='small' sx={{minWidth: 35}} variant={hide ? "contained" : "outlined"} onClick={() => { setHide(!hide) }} >
+            {!hide ? (
+              <MenuOpenIcon />
+            ):(
+              <SearchIcon/>
+            )}
+            
+          </Button>
+        </Tooltip>
       </div>
+      {!hide && (
+        <div>
+          <Divider />
+          <InputSearch handleSearch={handleSearch} handleClean={handleClean} />
+        </div>
+      )}
     </div>
-  );
+  )
 }
