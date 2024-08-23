@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { DataVerifier } from "ui-components/utils";
-import { query_getSigmulonMainDataBySearch, query_getAllSigmulonMainData } from "./queries";
+import { query_getSigmulonMainDataBySearch, query_getAllSigmulonMainData, query_getSigmulonByAdvancedSearch } from "./queries";
 
 export function useSearchSigmulon(keyword, onCompleted = () => { }) {
     const { data, loading, error } = useQuery(query_getSigmulonMainDataBySearch, {
@@ -45,4 +45,18 @@ export function useSearchSigmulon(keyword, onCompleted = () => { }) {
       }
     }
     return {sigmulons, data, loading, error }
+  }
+
+  export function useGetSigmulonDataById(sigmulonId){
+    const {data, loading, error} = useQuery(query_getSigmulonByAdvancedSearch,{
+      variables: {
+        advancedSearch: `${sigmulonId}[_id]`
+      }
+    })
+    const sigmulon = DataVerifier.isValidArray(data?.getSigmulonBy?.data) ? data.getSigmulonBy.data[0] : undefined
+    if(error){
+      console.error("error useGetSigmulonDataById",error); 
+    }
+
+    return {data, loading, error, sigmulon}
   }

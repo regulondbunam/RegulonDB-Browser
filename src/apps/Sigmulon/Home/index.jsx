@@ -49,7 +49,7 @@ async function process(simulons, search = "", nav = () => {}) {
         genes,
         promoters,
         sigmaFactors,
-        transcriptionUnits,
+        tus: transcriptionUnits,
         _properties: {
           onClick: () => {
             nav("/sigmulon/" + sigmulon._id);
