@@ -1,18 +1,17 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Typography, Divider, Tooltip } from "@mui/material";
 import { DataVerifier } from "ui-components/utils";
-import Info from "./Info";
+import { Link } from "react-router-dom";
 import style from "./cover.module.css";
 import RelatedList from "ui-components/Web/Related";
 
-export default function Cover({ gene, products, organism="ecoli" }) {
-  const { name, synonyms, bnumber, externalCrossReferences, fragments } =
-    gene;
+export default function Cover({ id, sigmaFactor, statistics, organism = "ecoli" }) {
+  const { name, synonyms, gene, abbreviatedName } = sigmaFactor
   return (
     <div className={style.base}>
       <div className={style.title}>
         <div>
-          <Typography variant="irrelevant">Gene</Typography>
+          <Typography variant="irrelevant">Sigmulon</Typography>
           <Typography variant="h1">
             <span dangerouslySetInnerHTML={{ __html: name }} />
           </Typography>
@@ -20,18 +19,16 @@ export default function Cover({ gene, products, organism="ecoli" }) {
         <div className={style.divider}>
           <Divider orientation="vertical" />
         </div>
-        {DataVerifier.isValidArray(products) && (
-          <div>
-            <Typography variant="irrelevant">Product</Typography>
-            <Typography variant="h1">
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: products.map((product) => product.name).join(", "),
-                }}
-              />
-            </Typography>
-          </div>
-        )}
+        <div>
+          <Typography variant="irrelevant"></Typography>
+          <Typography variant="h1">
+            <span
+              dangerouslySetInnerHTML={{
+                __html: abbreviatedName
+              }}
+            />
+          </Typography>
+        </div>
       </div>
       <div className={style.mainInfo}>
         <div>
@@ -45,52 +42,26 @@ export default function Cover({ gene, products, organism="ecoli" }) {
               </Typography>
             </div>
           )}
-          {DataVerifier.isValidString(bnumber) && (
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <Typography variant="relevantB" sx={{ mr: 1 }}>
-                Bnumber:
-              </Typography>
-              <Typography variant="relevant">{bnumber}</Typography>
-            </div>
-          )}
-          {DataVerifier.isValidArray(products) && (
-            <div>
-              {DataVerifier.isValidArray(products[0].cellularLocations) && (
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <Typography variant="relevantB" sx={{ mr: 1 }}>
-                    Location:
-                  </Typography>
-                  <Typography variant="relevant">
-                    {products
-                      .map((product) =>
-                        DataVerifier.isValidArray(product.cellularLocations)
-                          ? product.cellularLocations.join(", ")
-                          : ""
-                      )
-                      .join(", ")}
-                  </Typography>
-                </div>
-              )}
-            </div>
-          )}
-          <Info {...gene} />
-          {DataVerifier.isValidArray(fragments) && (
+          {DataVerifier.isValidObjectWith_id(gene) && (
             <div>
               <Typography variant="relevantB" sx={{ mr: 1 }}>
-                {`Fragmented gene in ${fragments.length} parts`}
+                Gene:
               </Typography>
-              {fragments.map(fragment => <Fragment key={"fragment_info_gene_" + fragment.id} {...fragment} strand={gene.strand} />)}
+              <Typography variant="relevant">
+                <Link to={"/gene/" + gene._id} >
+                  <span dangerouslySetInnerHTML={{ __html: gene.name }} />
+                </Link>
+              </Typography>
             </div>
+          )}
+          {DataVerifier.isValidObject(statistics) && (
+            <Statistics statistics={statistics} />
           )}
         </div>
         <div className={style.references}>
           <RelatedList
-          collapse={false}
-          externalCrossReferences={externalCrossReferences}
-          external={true}
-            regulonDB_id={gene._id}
-            leftEndPosition={gene?.leftEndPosition}
-            rightEndPosition={gene?.rightEndPosition}
+            collapse={false}
+            regulonDB_id={id}
             gene={gene}
             organism={organism}
           />
@@ -101,38 +72,21 @@ export default function Cover({ gene, products, organism="ecoli" }) {
   );
 }
 
-function Fragment({
-  centisomePosition,
-  leftEndPosition,
-  name,
-  rightEndPosition,
-  strand
-}) {
+function Statistics({ statistics }) {
+  if (!DataVerifier.isValidObject(statistics)) return null;
   return (
-    <div>
-      <Typography variant="relevantB" sx={{ mr: 1 }}>
-        {`${name} : `}
-      </Typography>
-      <Tooltip title="left position">
-        <Typography variant="relevant">{leftEndPosition} &nbsp;</Typography>
-      </Tooltip>
-      <Typography variant="relevant">
-        {strand === "reverse" ? "<-" : "->"} &nbsp;
-      </Typography>
-
-      <Tooltip title="right position">
-        <Typography variant="relevant">{rightEndPosition} &nbsp;</Typography>
-      </Tooltip>
-      <Tooltip title="centisome position">
-        <Typography variant="relevant">
-          ({centisomePosition}&nbsp;centisome)&nbsp;
-        </Typography>
-      </Tooltip>
-      <Tooltip title="length">
-        <Typography variant="relevant">
-          ({1 + rightEndPosition - leftEndPosition + " bp"})
-        </Typography>
-      </Tooltip>
+    <div style={{ display: "flex", gap: "10px", flexWrap: "nowrap" }}>
+      {Object.keys(statistics).map((key, index) => {
+        if (key === "__typename") {
+          return null;
+        }
+        return (
+          <div key={"statistic_" + key + "_" + index}>
+            <Typography variant="relevantB">{key}:</Typography>
+            <Typography variant="normal">{` ${statistics[key]}`}</Typography>
+          </div>
+        );
+      })}
     </div>
   );
 }

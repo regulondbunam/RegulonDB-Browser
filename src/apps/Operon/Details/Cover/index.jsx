@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Divider, Tooltip } from "@mui/material";
+import { Typography } from "@mui/material";
 import { DataVerifier } from "ui-components/utils";
 import Info from "./Info";
 import style from "./cover.module.css";
