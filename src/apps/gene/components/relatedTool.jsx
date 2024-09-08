@@ -47,9 +47,6 @@ const query_getDataset = gql`
     getDatasetsFromSearch(advancedSearch: $advancedSearch) {
       _id
       datasetType
-      collectionData {
-        type
-      }
       sourceSerie {
         strategy
       }
@@ -97,8 +94,6 @@ export default function RelatedTool({ gene, products, regulation }) {
       gene: `${geneName}[gene.name]`,
     },
   });
-  
-  
   const [getGE,{data: htExpression}] = useLazyQuery(query_GetDatasetsID);
 
   useEffect(() => {

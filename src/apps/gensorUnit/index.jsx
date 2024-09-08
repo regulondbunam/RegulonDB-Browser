@@ -79,6 +79,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Summary from "./guSummary";
+import { descriptions } from "./descriptions";
 
 
 
@@ -142,6 +143,15 @@ function GoInfo({ guId }) {
      * @type {string}
      */
     let idSite = "site_" + guData._id;
+    let desc = null
+    if(DataVerifier.isValidString(guData.gensorUnit?.description)){
+      desc = guData.gensorUnit.description
+    }else{
+      if(descriptions.hasOwnProperty(guData.gensorUnit.name)){
+        desc = descriptions[guData.gensorUnit.name]
+      }
+    }
+    console.log(guData.gensorUnit)
     if(display === DISPLAY_TYPES.summary){
       return (
         <div>
@@ -163,6 +173,12 @@ function GoInfo({ guId }) {
                     guData.gensorUnit.groups.length > 1 ? "s" : ""
                   }: `}</b>
                   {guData.gensorUnit.groups.join(", ")}
+                </p>
+              )}
+              {desc !== null && (
+                <p>
+                  <b>{`Summary: `}</b>
+                  {desc}
                 </p>
               )}
               <br />
@@ -197,6 +213,12 @@ function GoInfo({ guId }) {
                     guData.gensorUnit.groups.length > 1 ? "s" : ""
                   }: `}</b>
                   {guData.gensorUnit.groups.join(", ")}
+                </p>
+              )}
+              {desc !== null && (
+                <p>
+                  <b>{`Summary: `}</b>
+                  {desc}
                 </p>
               )}
               <br />

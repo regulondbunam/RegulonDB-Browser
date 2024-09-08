@@ -85,6 +85,21 @@ export default function Navigation({
 function HtDatasets({ htDatasets, regulonName }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
+  /*
+  let tfBinding = []
+  let geneExpression = []
+  htDatasets.forEach((dataset)=>{
+    switch (dataset.datasetType.toUpperCase()) {
+      case "GENE_EXPRESSION":
+        tfBinding.push()
+        break;
+      case "TFBINDING":
+        
+      break;
+      default:
+        break;
+    }
+  })*/
   return (
     <>
       <ListItemButton sx={{ pl: 4 }} onClick={handleOpen}>
@@ -93,12 +108,7 @@ function HtDatasets({ htDatasets, regulonName }) {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {htDatasets.find(
-            (dt) => {
-              if(dt?.collectionData?.type){
-                return dt.collectionData.type.toUpperCase() === "TFBINDING"
-              }
-              return false
-            }
+            (dt) => dt.datasetType.toUpperCase() === "TFBINDING"
           ) && (
             <Link to={"/ht/dataset/TFBINDING/tf=" + regulonName}>
               <ListItemButton>TF Binding</ListItemButton>
@@ -107,12 +117,7 @@ function HtDatasets({ htDatasets, regulonName }) {
         </List>
         <List component="div" disablePadding>
           {htDatasets.find(
-            (dt) => {
-              if(DataVerifier.isValidString(dt?.collectionData?.type)){
-                return dt.collectionData.type.toUpperCase() === "GENE_EXPRESSION"
-              }
-              return false 
-              }
+            (dt) => dt.datasetType.toUpperCase() === "GENE_EXPRESSION"
           ) && (
             <Link to={"/ht/dataset/GENE_EXPRESSION/"}>
               <ListItemButton>GENE_EXPRESSION</ListItemButton>

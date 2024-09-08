@@ -1,32 +1,35 @@
-import React from "react";
-import Layout from "./components/layout/Layout";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./apps/home";
-import Search from "./apps/search";
-import Gene from "./apps/gene";
-import DrawingTracesInterface from "./apps/dtt";
-import Operon from "./apps/operon";
+import React from 'react';
+import Layout from './components/layout/Layout';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import Home from './apps/home';
+import Search from './apps/search';
+import Gene from './apps/gene';
+import DrawingTracesInterface from './apps/dtt';
+import Operon from './apps/operon';
 import Embed from "./apps/embed";
-import Regulon from "./apps/regulon";
-import Sigmulon from "./apps/sigmulon";
-import Coexpression from "./apps/coexpression";
-import { TestComponents } from "./apps/testinComponents";
-import DocumentationDatamarts from "./apps/docs_dt";
-import Overviews from "./apps/overviews";
-import SummaryHistory from "./apps/summaryHistory";
-import ReleaseNotes from "./apps/releasesNotes";
-import GensorUnit from "./apps/gensorUnit";
-import { EmbeddedSandbox } from "./apps/wsSandbox";
-import Manual from "./apps/manual";
-import ExperimentalDatasets from "./apps/experimentalDatasets";
-import MCO from "./apps/mco";
-import TFPSSMs, { TFPSSMsTest } from "./apps/TF-PSSMs";
-import Notebooks from "./apps/Notebooks";
-import IGVBrowser from "./apps/IGVBrowser";
-import GeneOntology from "./apps/GeneOntology";
-import UiDocs from "./UiComponents/UiDocs";
-import { PATH_HT } from "./apps/HighThroughput2";
+import HT from './apps/ht';
+import Regulon from './apps/regulon';
+import Sigmulon from './apps/sigmulon';
+import Coexpression from "./apps/coexpression"
+import { TestComponents } from './apps/testinComponents';
+import DocumentationDatamarts from './apps/docs_dt';
+import Overviews from './apps/overviews'
+import SummaryHistory from './apps/summaryHistory'
+import ReleaseNotes from './apps/releasesNotes';
+import GensorUnit from "./apps/gensorUnit"
+import { EmbeddedSandbox } from './apps/wsSandbox';
+import Manual from './apps/manual';
+import ExperimentalDatasets from './apps/experimentalDatasets';
+import MCO from './apps/mco';
+import TFPSSMs, {TFPSSMsTest} from './apps/TF-PSSMs';
+import Notebooks from './apps/Notebooks';
+import IGVBrowser from './apps/IGVBrowser';
+import GeneOntology from './apps/GeneOntology';
+import UiDocs from './UiComponents/UiDocs';
 
 //wsSandbox
 const router = createBrowserRouter([
@@ -34,15 +37,14 @@ const router = createBrowserRouter([
     path: "/",
     element: <Layout />,
     children: [
-      {
-        path: "*",
-        element: <>site no found</>,
-      },
-      {
-        index: true,
-        element: <Home />,
-      },
-      PATH_HT,
+        {
+          path: "*",
+          element: <>site no found</>
+        },
+        {
+          index: true,
+          element: <Home />,
+        },
       {
         path: "wsSandbox",
         element: <EmbeddedSandbox />,
@@ -50,7 +52,9 @@ const router = createBrowserRouter([
       {
         path: "go",
         element: <GeneOntology />,
-        children: [{ path: ":keyword" }],
+        children: [
+          { path: ":keyword" }
+        ],
       },
       {
         path: "uiDocs",
@@ -75,7 +79,9 @@ const router = createBrowserRouter([
       {
         path: "mco",
         element: <MCO />,
-        children: [{ path: ":tree" }],
+        children: [
+          { path: ":tree" }
+        ],
       },
       {
         path: "home",
@@ -84,7 +90,7 @@ const router = createBrowserRouter([
       {
         path: "doc_datamarts",
         element: <DocumentationDatamarts />,
-        children: [{ path: ":service" }],
+        children: [{ path: ":service" }]
       },
       {
         path: "testComponents",
@@ -97,65 +103,100 @@ const router = createBrowserRouter([
       {
         path: "releasesNote",
         element: <ReleaseNotes />,
-        children: [{ path: ":releaseInfo" }],
+        children: [{ path: ":releaseInfo" }]
       },
       {
         path: "dtt",
         element: <DrawingTracesInterface />,
-        children: [{ path: ":parameters" }],
+        children: [{ path: ":parameters" }]
       },
       {
         path: "search",
         element: <Search />,
-        children: [{ path: ":keyword" }],
+        children: [
+          { path: ":keyword" }
+        ]
       },
       {
         path: "gu",
         element: <GensorUnit />,
-        children: [{ path: ":guId" }],
+        children: [
+          { path: ":guId" }
+        ]
       },
       {
         path: "gene",
         element: <Gene />,
-        children: [{ path: ":geneId" }],
+        children: [
+          { path: ":geneId" }
+        ]
       },
       {
         path: "operon",
         element: <Operon />,
         children: [
-          {
+          { 
             path: ":operonId",
-            children: [{ path: ":section" }],
-          },
+            children: [{path: ":section"}]
+          }
         ],
-        errorElement: <>Error</>,
+        errorElement: <>Error</>
       },
       {
         path: "tu",
         element: <Operon />,
-        children: [{ path: ":tuId" }],
-        errorElement: <>Error</>,
+        children: [
+          { path: ":tuId" }
+        ],
+        errorElement: <>Error</>
       },
       {
         path: "sigmulon",
         element: <Sigmulon />,
-        children: [{ path: ":sigmulonId" }],
+        children: [
+          { path: ":sigmulonId" }
+        ]
       },
       {
         path: "promoter",
         element: <Sigmulon />,
-        children: [{ path: ":promoterId" }],
+        children: [
+          { path: ":promoterId" }
+        ]
       },
       {
         path: "regulon",
         element: <Regulon />,
-        children: [{ path: ":regulonId" }],
-        errorElement: <>Error</>,
+        children: [
+          { path: ":regulonId" }
+        ],
+        errorElement: <>Error</>
       },
       {
         path: "overviews",
         element: <Overviews />,
-        children: [{ path: ":overviewsId" }],
+        children: [
+          { path: ":overviewsId" }
+        ]
+      },
+      {
+        path: "ht",
+        element: <HT />,
+        children: [
+          {
+            path: ":site",
+            children: [
+              {
+                path: ":datasetType",
+                children: [
+                  {
+                    path: ":info"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       },
       {
         path: "datasets",
@@ -166,10 +207,10 @@ const router = createBrowserRouter([
             children: [
               {
                 path: ":idFile",
-              },
-            ],
-          },
-        ],
+              }
+            ]
+          }
+        ]
       },
       {
         path: "manual",
@@ -180,17 +221,19 @@ const router = createBrowserRouter([
             children: [
               {
                 path: ":section",
-              },
-            ],
-          },
-        ],
+              }
+            ]
+          }
+        ]
       },
       {
         path: "/coexpression",
         element: <Coexpression />,
-        children: [{ path: ":genesId" }],
-      },
-    ],
+        children:[
+          {path: ":genesId"}
+        ]
+      }
+    ]
   },
   {
     path: "/embed",
@@ -198,60 +241,62 @@ const router = createBrowserRouter([
     children: [
       {
         path: ":application",
-        children: [{ path: ":parameters" }],
-      },
-    ],
+        children: [
+          { path: ":parameters" }
+        ]
+      }
+    ]
   },
 ]);
 
 const THEME = createTheme({
   palette: {
     primary: {
-      main: "#1F3D4E",
-      contrastText: "#ffffff",
+      main: '#1F3D4E',
+      contrastText: '#ffffff',
     },
     secondary: {
-      light: "#D2A769",
-      main: "#C98528",
-      contrastText: "#ffffff",
+      light: '#D2A769',
+      main: '#C98528',
+      contrastText: '#ffffff',
     },
     grey: {
-      main: "#d5d5d7",
-      contrastText: "#000000",
+      main: '#d5d5d7',
+      contrastText: '#000000',
     },
     error: {
-      main: "#C93A1D",
-      contrastText: "#ffffff",
-    },
+      main: '#C93A1D',
+      contrastText: '#ffffff',
+    }
   },
   typography: {
-    h1: {
-      fontSize: "2vw",
-      color: "#32617D",
+    h1:{
+      fontSize: '2vw',
+      color: '#32617D',
       fontWeight: 700,
     },
-    h2: {
-      fontSize: "1vw",
-      color: "#32617D",
+    h2:{
+      fontSize: '1vw',
+      color: '#32617D',
+      fontWeight: 700
+    },
+    h1Cover:{
+      fontSize: '4vw',
+      color: 'white',
       fontWeight: 700,
     },
-    h1Cover: {
-      fontSize: "4vw",
-      color: "white",
-      fontWeight: 700,
-    },
-    h2Cover: {
-      fontSize: "2vw",
-      color: "white",
-      fontWeight: 700,
-    },
+    h2Cover:{
+      fontSize: '2vw',
+      color: 'white',
+      fontWeight: 700
+    }
   },
 });
 
 function App() {
   return (
     <ThemeProvider theme={THEME}>
-      <RouterProvider router={router} />
+        <RouterProvider router={router} />
     </ThemeProvider>
   );
 }
