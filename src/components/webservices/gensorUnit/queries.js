@@ -42,6 +42,16 @@ export const /** object */ query_getGuById = gql`
               type
             }
             description
+            summary {
+              molecularBiologyLevel {
+                detailed
+                general
+              }
+              physiologyLevel {
+                detailed
+                general
+              }
+            }
             geneOntology {
               biologicalProcess {
                 name

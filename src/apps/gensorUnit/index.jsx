@@ -143,12 +143,19 @@ function GoInfo({ guId }) {
      * @type {string}
      */
     let idSite = "site_" + guData._id;
-    let desc = null
-    if(DataVerifier.isValidString(guData.gensorUnit?.description)){
-      desc = guData.gensorUnit.description
-    }else{
-      if(descriptions.hasOwnProperty(guData.gensorUnit.name)){
-        desc = descriptions[guData.gensorUnit.name]
+
+    let summary = {}
+    let molBioLvl = {}
+    let phyLvl = {}
+    if(guData.gensorUnit?.summary){
+      summary = guData.gensorUnit.summary
+      molBioLvl = {
+        'detailed': guData.gensorUnit.summary.molecularBiologyLevel?.detailed,
+        'general': guData.gensorUnit.summary.molecularBiologyLevel?.general
+      }
+      phyLvl = {
+        'detailed': guData.gensorUnit.summary.physiologyLevel?.detailed,
+        'general': guData.gensorUnit.summary.physiologyLevel?.general
       }
     }
     console.log(guData.gensorUnit)
@@ -167,33 +174,52 @@ function GoInfo({ guId }) {
             <div>{SelectDisplay(display, setDisplay)}</div>
             <div>
               <h1>{`Gensor Unit ${guData.gensorUnit.name}`}</h1>
-              {DataVerifier.isValidArray(guData.gensorUnit.groups) && (
-                <p>
-                  <b>{`Functional Group${
-                    guData.gensorUnit.groups.length > 1 ? "s" : ""
-                  }: `}</b>
-                  {guData.gensorUnit.groups.join(", ")}
-                </p>
-              )}
-              {desc !== null && (
+              {Object.keys(molBioLvl).length > 0 && Object.keys(phyLvl).length > 0 && (
                 <p>
                   <b>{`Summary: `}</b>
-                  {desc}
+                  <p>
+                    {molBioLvl?.detailed && molBioLvl?.general &&  (
+                        <ul>
+                          <b>{`Molecular Biology Level: `} </b>
+                          <ul>
+                            <li><b>{`Detailed: `}</b>{molBioLvl.detailed}</li>
+                            <li><b>{`General: `}</b>{molBioLvl.general}</li>
+                          </ul>
+                        </ul>
+                    )}
+
+                    {phyLvl?.detailed && phyLvl?.general &&  (
+                        <ul>
+                          <b>{`Physiology Level: `} </b>
+                          <ul>
+                            <li><b>{`Detailed: `}</b>{phyLvl.detailed}</li>
+                            <li><b>{`General: `}</b>{phyLvl.general}</li>
+                          </ul>
+                        </ul>
+                    )}
+                  </p>
                 </p>
               )}
-              <br />
+              {DataVerifier.isValidArray(guData.gensorUnit.groups) && (
+                  <p>
+                    <b>{`Functional Group${
+                        guData.gensorUnit.groups.length > 1 ? "s" : ""
+                    }: `}</b>
+                    {guData.gensorUnit.groups.join(", ")}
+                  </p>
+              )}
+              <br/>
             </div>
           </div>
-        </Cover>
-        <Summary idSite={idSite} {...guData} />
+          </Cover>
+          <Summary idSite={idSite} {...guData} />
         </div>
-        
       )
     }
     return (
       <div
         id={idSite}
-        style={display === DISPLAY_TYPES.graphic ? { width: "100%", position: "absolute", top: "0", bottom: "0" } : {}}
+        style={display === DISPLAY_TYPES.graphic ? { width: "100%", position: "absolute", top: "0", bottom: "0"} : {}}
       >
         <Cover
           coverId={idSite + "_cover"}
@@ -207,32 +233,52 @@ function GoInfo({ guId }) {
             <div>{SelectDisplay(display, setDisplay)}</div>
             <div>
               <h1>{`Gensor Unit ${guData.gensorUnit.name}`}</h1>
-              {DataVerifier.isValidArray(guData.gensorUnit.groups) && (
-                <p>
-                  <b>{`Functional Group${
-                    guData.gensorUnit.groups.length > 1 ? "s" : ""
-                  }: `}</b>
-                  {guData.gensorUnit.groups.join(", ")}
-                </p>
+              {Object.keys(molBioLvl).length > 0 && Object.keys(phyLvl).length > 0 && (
+                  <p>
+                    <b>{`Summary: `}</b>
+                    <p>
+                      {molBioLvl?.detailed && molBioLvl?.general &&  (
+                          <ul>
+                            <b>{`Molecular Biology Level: `} </b>
+                            <ul>
+                              <li><b>{`Detailed: `}</b>{molBioLvl.detailed}</li>
+                              <li><b>{`General: `}</b>{molBioLvl.general}</li>
+                            </ul>
+                          </ul>
+                      )}
+
+                      {phyLvl?.detailed && phyLvl?.general &&  (
+                      <ul>
+                        <b>{`Physiology Level: `} </b>
+                        <ul>
+                          <li><b>{`Detailed: `}</b>{phyLvl.detailed}</li>
+                          <li><b>{`General: `}</b>{phyLvl.general}</li>
+                        </ul>
+                      </ul>
+                      )}
+                    </p>
+                  </p>
               )}
-              {desc !== null && (
-                <p>
-                  <b>{`Summary: `}</b>
-                  {desc}
-                </p>
+              {DataVerifier.isValidArray(guData.gensorUnit.groups) && (
+                  <p>
+                    <b>{`Functional Group${
+                        guData.gensorUnit.groups.length > 1 ? "s" : ""
+                    }: `}</b>
+                    {guData.gensorUnit.groups.join(", ")}
+                  </p>
               )}
               <br />
             </div>
           </div>
+
         </Cover>
         {display === DISPLAY_TYPES.graphic && (
-          <GuInfo
-            idSite={idSite}
-            nReactions={guData.reactions.length}
-            {...guData}
-          />
+            <GuInfo
+                idSite={idSite}
+                nReactions={guData.reactions.length}
+                {...guData}
+            />
         )}
-        
       </div>
     );
   }
