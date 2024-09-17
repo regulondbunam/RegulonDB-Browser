@@ -59,7 +59,7 @@ export default function Conformations({ conformations = [] }) {
             <tbody>
                 {
                     conformations.map((conformation, index) => {
-                        console.log(conformation);
+                        //console.log(conformation);
                         return <Conformation key={conformation._id + "_" + index + "Conformation"} {...conformation} />
                     })
                 }

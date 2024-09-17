@@ -228,6 +228,24 @@ export const query_GetRegulonBy = gql`query GetRegulonBy($advancedSearch: String
             rightEndPosition
             sequence
             strand
+            citations {
+              evidence {
+                _id
+                additiveEvidenceCodeRule
+                code
+                name
+                type
+              }
+              publication {
+                _id
+                authors
+                citation
+                pmid
+                title
+                url
+                year
+              }
+            }
           }
         }
         summary {
