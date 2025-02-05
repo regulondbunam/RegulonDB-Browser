@@ -1,27 +1,11 @@
 import React from 'react';
-import Table from './Table';
-import TextField from '@mui/material/TextField';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
+import FilterTable from '../../../../../components/ui-components/filterTable2';
+import { Link } from 'react-router-dom';
 
-const TU_COLUMNS = [
-    {
-        Header: 'Name',
-        accessor: 'tu',
-        width: 300,
-    },
-    {
-        Header: 'Function',
-        accessor: 'tuFunction',
-        width: 200,
-    },
-    {
-        Header: 'First Gene',
-        accessor: 'firstGene',
-        width: 200,
-    },
+const COLUMNS = [
+    { label: "TU",  width: 50 },
+    { label: "Function",  width: 50 },
+    { label: "First Gene",  width: 50 }
 ]
 
 function formatTable(transcriptionUnits = []) {
@@ -30,67 +14,32 @@ function formatTable(transcriptionUnits = []) {
     transcriptionUnits.forEach((tu) => {
         //console.log(tu.firstGene.name)
         data.push({
-            tu: {
-                id: tu._id,
-                name: tu.name,
-            },
-            tuFunction: tu.function,
-            firstGene: {
-                id: tu.firstGene._id,
-                name: tu.firstGene.name,
-            }
-        })
-
+                    "TU": <div value={tu.name}>
+                        <Link to={"/tu/" + tu._id}>
+                            <p>{`${tu.name}`}</p>
+                        </Link>
+                    </div>,
+                    "Function": tu.function,
+                    "First Gene": <div value={tu.firstGene.name}>
+                        <Link to={"/gene/" + tu.firstGene._id}>
+                            <p>{`${tu.firstGene.name}`}</p>
+                        </Link>
+                    </div>
+                })
     })
     return data
 }
 
 function TranscriptionUnit({ transcriptionUnits, idPanel = "regulates_tu" }) {
-    const ATTRIBUTES = ["TU name", "Function", "First gene"]
     const tuList = React.useMemo(() => { return formatTable(transcriptionUnits) }, [transcriptionUnits])
-    const [_filter, set_filter] = React.useState(ATTRIBUTES[0]);
-    const [_tuList, set_tuList] = React.useState(tuList);
-
-    //console.log(tu);
-
-    const _handleUpdate = (event) => {
-        //console.log(event.target.value)
-        const keyword = event.target.value
-        let str = new RegExp(keyword.toLowerCase());
-        let filterTu = undefined
-        switch (_filter) {
-            case "TU name":
-                filterTu = tuList.filter(item => str.test(item.tu.name.toLowerCase()))
-                break;
-            case "Function":
-                filterTu = tuList.filter(tu => str.test(tu.tuFunction.toLowerCase()))
-                break;
-            case "First gene":
-                filterTu = tuList.filter(tu => str.test(tu.firstGene.name.toLowerCase()))
-                break;
-            default:
-                filterTu = tuList
-                break;
-        }
-        set_tuList(filterTu)
-    }
-
-    const styleFilter = {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        marginLeft: "10px",
-        marginRight: "10px"
-    }
-
     return (
         <div>
             <h3>{`Regulated transcription units: ${transcriptionUnits.length}`}</h3>
-            <div id={idPanel}>
+            <div id={idPanel} style={{overflow: "auto"}} >
                 {
-                    !_tuList
+                    !tuList
                         ? (<p>Loading...</p>)
-                        : <Table columns={TU_COLUMNS} data={_tuList} />
+                        : <FilterTable columns={COLUMNS} data={tuList} tableName='' />
                 }
             </div>
         </div>
@@ -98,27 +47,3 @@ function TranscriptionUnit({ transcriptionUnits, idPanel = "regulates_tu" }) {
 }
 
 export default TranscriptionUnit;
-
-function SelectFilter({ _filter, set_filter, attributes = [] }) {
-
-    const handleChange = (event) => {
-        set_filter(event.target.value);
-    };
-
-    return (
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }} size="small">
-            <InputLabel id="filter-select-small">Attribute</InputLabel>
-            <Select
-                labelId="filter-select-small"
-                id="filter-select-small"
-                value={_filter}
-                label="Promoter attribute"
-                onChange={handleChange}
-            >
-                {attributes.map((attribute, index) => {
-                    return <MenuItem key={"promoter_attribute_" + attribute + " " + index} value={attribute}>{attribute}</MenuItem>
-                })}
-            </Select>
-        </FormControl>
-    );
-}
