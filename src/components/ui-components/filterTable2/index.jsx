@@ -160,7 +160,7 @@ export default function FilterTable({ columns, data, tableName = "Table", titleV
         </div>
         <Options state={state} dispatch={dispatch} tableName={tableName} tableId={tableId} />
       </div>
-      <div style={{ width: "99vw", height: (state.items * 39) + "px", maxHeight: "70vh", overflow: "auto", position: "relative" }}>
+      <div style={{ height: (state.items * 39) + "px", maxHeight: "70vh", overflow: "auto", position: "relative" }}>
         <div style={{ position: "absolute" }} >
           <table className={Style.table}>
             <Thead state={state} dispatch={dispatch} tableId={tableId} />

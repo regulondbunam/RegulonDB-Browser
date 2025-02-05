@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import FilterTable from '../../../../../components/ui-components/filterTable2';
 import { Link } from 'react-router-dom';
-import { Button } from '@mui/material';
 
 const COLUMNS = [
     { label: "Gene", width: 50 },
