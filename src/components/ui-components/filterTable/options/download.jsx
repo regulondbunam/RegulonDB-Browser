@@ -10,6 +10,8 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import DataVerifier from '../../utils';
+//import {getCellValue} from "../../../../apps/HighThroughput2/Browser/Dataset/Sources/filterTable/static";
+import {KeyboardArrowRight} from "@mui/icons-material";
 
 export function Download({
     getAllFlatColumns,
@@ -27,7 +29,7 @@ export function Download({
     };
 
     const handleDownload = (format) => {
-        console.log(getAllFlatColumns());
+        // console.log(getAllFlatColumns());
         const rows = preGlobalFilteredRows().rows
         //check rows
         if (!DataVerifier.isValidArray(rows)) {
@@ -42,20 +44,40 @@ export function Download({
                 }
             });
         }
-        //console.log(columns);
-        const formatSeparator = {
-            csv: ",",
-            tsv: "\t",
+
+        let fileInfo = "";
+        const filename = fileName + "." + format;
+
+        if (format === "fasta") {
+            const seenPositions = new Set();
+            rows.forEach(row => {
+                const identifier = row.getValue("activeConformation_name");
+                const sequence = row.getValue("regulatoryBindingSite_sequence");
+                const len = row.getValue("regulatoryBindingSite_leftPos");
+                const ren = row.getValue("regulatoryBindingSite_RightPos");
+                const positionKey = `${len},${ren}`;
+                if (sequence && !seenPositions.has(positionKey)) {
+                    seenPositions.add(positionKey);
+                    fileInfo += `>ID:${identifier} LeftPos:${len} RightPos:${ren}\n${sequence}\n`;
+                }
+            });
+        } else {
+            //console.log(columns);
+            const formatSeparator = {
+                csv: ",",
+                tsv: "\t",
+            }
+            //file head
+            fileInfo = columns.map(column => column.id).join(formatSeparator[format]) + "\n"
+            //create rows file
+            rows.forEach(row => {
+                fileInfo += columns.map(column => {
+                    return row.getValue(column.id)
+                }).join(formatSeparator[format]) + "\n";
+            });
+            console.log(fileInfo); // Log the values for inspection
         }
-        //file head
-        let fileInfo = columns.map(column => column.id).join(formatSeparator[format]) + "\n"
-        const filename = fileName + "." + format
-        //create rows file
-        rows.forEach(row => {
-            fileInfo += columns.map(column => {
-                return row.getValue(column.id)
-            }).join(formatSeparator[format]) + "\n";
-        });
+        // console.log(fileInfo); // Log the values for inspection
         const element = document.createElement('a');
         element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(fileInfo));
         element.setAttribute('download', filename);
@@ -107,6 +129,15 @@ export function Download({
                         <FormatQuoteIcon fontSize="small" />
                     </ListItemIcon>
                     <ListItemText>csv format</ListItemText>
+                </MenuItem>
+                <MenuItem onClick={() => {
+                    handleDownload("fasta");
+                    handleCloseMenu();
+                }}>
+                    <ListItemIcon>
+                        <KeyboardArrowRight fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>FASTA format</ListItemText>
                 </MenuItem>
             </Menu>
         </>

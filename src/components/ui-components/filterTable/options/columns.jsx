@@ -25,7 +25,7 @@ export function Columns({
   };
   return (
     <>
-      <Tooltip title="columns display options">
+      <Tooltip title="Columns display options">
         <Button
           id="demo-customized-button"
           variant="contained"

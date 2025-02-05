@@ -17,37 +17,33 @@ export default function Options({
 }) {
   return (
     <div style={{display: "flex"}} >
-      <div>
-        <p>
-          <b></b>
-        </p>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          width: "100%",
-          height: "100%",
-          flexDirection: "row-reverse",
-        }}
-      >
-        <ButtonGroup variant="contained" size="small" color="secondary">
-          <Columns
-            columnsInfo
-            getIsAllColumnsVisible={getIsAllColumnsVisible}
-            getToggleAllColumnsVisibilityHandler={
-              getToggleAllColumnsVisibilityHandler
-            }
-            getAllLeafColumns={getAllLeafColumns}
-          />
-          <Download
-            data={data}
-            fileName={fileName}
-            preGlobalFilteredRows={preGlobalFilteredRows}
-            getAllFlatColumns={getAllFlatColumns}
-          />
+        <div>
+            <p>
+              <b></b>
+            </p>
+        </div>
+        <ButtonGroup variant="contained" size="small" color="secondary"
+             style={{
+             display: "flex",
+             width: "100%",
+             height: "100%",
+         }}>
+            <Download
+                data={data}
+                fileName={fileName}
+                preGlobalFilteredRows={preGlobalFilteredRows}
+                getAllFlatColumns={getAllFlatColumns}
+            />
+            <Columns
+                columnsInfo
+                getIsAllColumnsVisible={getIsAllColumnsVisible}
+                getToggleAllColumnsVisibilityHandler={
+                    getToggleAllColumnsVisibilityHandler
+                }
+                getAllLeafColumns={getAllLeafColumns}
+            />
         </ButtonGroup>
-      </div>
+
     </div>
   );
 }
