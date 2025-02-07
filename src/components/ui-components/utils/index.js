@@ -7,6 +7,26 @@
  * @typedef {DataVerifier}
  */
 class DataVerifier {
+
+  /**
+   * Description placeholder
+   *
+   * @static
+   * @param {{}} [obj={}]
+   * @returns {boolean}
+   */
+  static isValidValue(value) {
+    if (value === undefined) {
+      return false;
+    }
+    if (value === null) {
+      return false;
+    }
+    if (value === "") {
+      return false;
+    }
+    return true;
+  }
   
   /**
    * Description placeholder
