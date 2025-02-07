@@ -47,12 +47,14 @@ export default function TFBINDING({ experimentType, tfName }) {
 }
 
 function Table({ datasets, experimentType }) {
-    const table = useMemo(() => processData(datasets, experimentType), [datasets,experimentType])
+    const table = useMemo(() => processData(datasets, experimentType), [datasets, experimentType])
     return <FilterTable columns={table.columns} data={table.data} />
 }
 
 
 function processData(datasets = [], experimentType) {
+    console.log(datasets);
+
     let table = {
         columns: [
             {
@@ -66,7 +68,7 @@ function processData(datasets = [], experimentType) {
             },
             {
                 label: "Strategy",
-                setFilter: experimentType
+                //setFilter: experimentType
             },
             {
                 label: "Genes",
@@ -116,16 +118,18 @@ function processData(datasets = [], experimentType) {
 
             })
         }
-        table.data.push({
-            "id": <LinkDataset value={dataset._id} datasetId={dataset._id} />,
-            "Transcription Factor": objects.join(", "),
-            "Dataset Title": DataVerifier.isValidString(dataset?.sample.title) ? dataset?.sample.title : "",
-            "Strategy": dataset?.sourceSerie.strategy,
-            "Genes": genes.join(", "),
-            "Publication Title": publicationsTitle.join(", "),
-            "Publication Authors": [...publicationsAuthors].join(", "),
-            "Growth Conditions": growthConditions.join("; ")
-        })
+        if (experimentType === dataset?.sourceSerie.strategy) {
+            table.data.push({
+                "id": <LinkDataset value={dataset._id} datasetId={dataset._id} />,
+                "Transcription Factor": objects.join(", "),
+                "Dataset Title": DataVerifier.isValidString(dataset?.sample.title) ? dataset?.sample.title : "",
+                "Strategy": dataset?.sourceSerie.strategy,
+                "Genes": genes.join(", "),
+                "Publication Title": publicationsTitle.join(", "),
+                "Publication Authors": [...publicationsAuthors].join(", "),
+                "Growth Conditions": growthConditions.join("; ")
+            })
+        }
     })
     return table
 }
