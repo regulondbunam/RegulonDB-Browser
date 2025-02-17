@@ -51,14 +51,17 @@ export function Download({
         if (format === "fasta") {
             const seenPositions = new Set();
             rows.forEach(row => {
-                const identifier = row.getValue("activeConformation_name");
+                // console.log(row.original.id);
+                const identifier = row.original.id;
                 const sequence = row.getValue("regulatoryBindingSite_sequence");
                 const len = row.getValue("regulatoryBindingSite_leftPos");
                 const ren = row.getValue("regulatoryBindingSite_RightPos");
+                const strand = row.getValue("regulatoryBindingSite_strand");
                 const positionKey = `${len},${ren}`;
                 if (sequence && !seenPositions.has(positionKey)) {
                     seenPositions.add(positionKey);
-                    fileInfo += `>ID:${identifier} LeftPos:${len} RightPos:${ren}\n${sequence}\n`;
+                    const formatedID = identifier.replace(/^ri_\d+_|_.*$/g, '');
+                    fileInfo += `>${formatedID};\tsite positions from ${len} to ${ren};\tstrand ${strand};\n${sequence}\n`;
                 }
             });
         } else {
@@ -75,7 +78,7 @@ export function Download({
                     return row.getValue(column.id)
                 }).join(formatSeparator[format]) + "\n";
             });
-            console.log(fileInfo); // Log the values for inspection
+            // console.log(fileInfo); // Log the values for inspection
         }
         // console.log(fileInfo); // Log the values for inspection
         const element = document.createElement('a');
