@@ -198,9 +198,9 @@ function HtCard({ collection, index }) {
                 </Link>
                 <Link
                   style={{ marginRight: "10px" }}
-                  to={`${window.IN_URL.dataset}${datasetType}/experimentType=DAP`}
+                  to={`${window.IN_URL.dataset}${datasetType}/experimentType=DAPseq`}
                 >
-                  <Button sx={{textTransform: "inherit"}} >DAP</Button>
+                  <Button sx={{textTransform: "inherit"}} >DAPseq</Button>
                 </Link>
               </div>
             )}
