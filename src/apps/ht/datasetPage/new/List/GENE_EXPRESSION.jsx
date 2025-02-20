@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 export default function GENeEXPRESSION({ experimentType, tfName, datasetType }) {
-    const { datasets, loading, error } = useGetDatasetByAdvancedSearch(datasetType + "[datasetType]")
+    const { datasets, loading, error } = useGetDatasetByAdvancedSearch(datasetType + "[collectionData.type]")
     const { nlgc, loading: nlgcLoading } = useGetNLPGC()
     let title = datasetType
     if (experimentType) {

@@ -7,7 +7,6 @@ import GENeEXPRESSION from './new/List/GENE_EXPRESSION'
 
 export default function Dataset({datasetId, datasetType, experimentType, tfName}) {
 
-
   if (datasetId) {
     return <Info datasetId={datasetId} />
   }

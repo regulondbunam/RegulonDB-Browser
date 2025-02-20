@@ -5,7 +5,7 @@ import Browser from "./Browser";
 import DatasetInfo from "./Browser/Dataset";
 
 export const PATH_HT = {
-  path: "ht",
+  path: "ht2",
   element: <HT />,
   children: [
     {
