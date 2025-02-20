@@ -116,7 +116,7 @@ function processData(datasets = [], experimentType) {
 
             })
         }
-        if (experimentType === dataset?.sourceSerie.strategy) {
+        if (experimentType === dataset?.sourceSerie.strategy || !experimentType) {
             table.data.push({
                 "id": <LinkDataset value={dataset._id} datasetId={dataset._id} />,
                 "Transcription Factor": objects.join(", "),
