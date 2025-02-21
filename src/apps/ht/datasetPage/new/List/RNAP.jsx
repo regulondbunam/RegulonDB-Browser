@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 export default function RNAP({ experimentType, tfName, }) {
-    const { datasets, loading, error } = useGetDatasetByAdvancedSearch("RNAP_BINDING_SITES[collectionData.type]")
+    const { datasets, loading, error } = useGetDatasetByAdvancedSearch("RNAP_BINDING_SITES[datasetType]")
     let title = " RNAP Binding Sites"
     if (experimentType) {
         title += ` with strategy ${experimentType}`
@@ -116,7 +116,7 @@ function processData(datasets = [], experimentType) {
 
             })
         }
-        if (experimentType === dataset?.sourceSerie.strategy || experimentType === null || !experimentType) {
+        if (experimentType === dataset?.sourceSerie.strategy || !experimentType) {
             table.data.push({
                 "id": <LinkDataset value={dataset._id} datasetId={dataset._id} />,
                 "Transcription Factor": objects.join(", "),

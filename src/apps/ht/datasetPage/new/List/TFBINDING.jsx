@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 export default function TFBINDING({ experimentType, tfName }) {
-    const { datasets, loading, error } = useGetDatasetByAdvancedSearch("TFBINDING[collectionData.type]")
+    const { datasets, loading, error } = useGetDatasetByAdvancedSearch("TFBINDING[datasetType]")
     let title = " TF Binding Sites"
     if (experimentType) {
         title += ` with strategy ${experimentType}`
@@ -44,9 +44,6 @@ export default function TFBINDING({ experimentType, tfName }) {
             </div>
         )
     }
-    return(
-        <div>Hola</div>
-    )
 }
 
 function Table({ datasets, experimentType }) {
@@ -57,6 +54,7 @@ function Table({ datasets, experimentType }) {
 
 function processData(datasets = [], experimentType) {
     console.log(datasets);
+
     let table = {
         columns: [
             {
@@ -120,7 +118,7 @@ function processData(datasets = [], experimentType) {
 
             })
         }
-        if (experimentType === dataset?.sourceSerie.strategy || experimentType === null || !experimentType) {
+        if (experimentType === dataset?.sourceSerie.strategy || !experimentType) {
             table.data.push({
                 "id": <LinkDataset value={dataset._id} datasetId={dataset._id} />,
                 "Transcription Factor": objects.join(", "),
