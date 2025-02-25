@@ -21,6 +21,7 @@ import { EmbeddedSandbox } from "./apps/wsSandbox";
 import Manual from "./apps/manual";
 import ExperimentalDatasets from "./apps/experimentalDatasets";
 import MCO from "./apps/mco";
+import EvidenceTree from './apps/evidences'
 import TFPSSMs, { TFPSSMsTest } from "./apps/TF-PSSMs";
 import Notebooks from "./apps/Notebooks";
 import IGVBrowser from "./apps/IGVBrowser";
@@ -95,6 +96,11 @@ const router = createBrowserRouter([
       {
         path: "mco",
         element: <MCO />,
+        children: [{ path: ":tree" }],
+      },
+      {
+        path: "evidenceTree",
+        element: <EvidenceTree />,
         children: [{ path: ":tree" }],
       },
       {

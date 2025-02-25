@@ -59,6 +59,12 @@
           "label": "Microbial Condition Ontology",
           "disabled": true,
           "link" : "/mco"
+        },
+        {
+          "id": "Evidence-browsing",
+          "label": "Evidences Tree",
+          "disabled": true,
+          "link" : "/evidenceTree"
         }
       ]
     },

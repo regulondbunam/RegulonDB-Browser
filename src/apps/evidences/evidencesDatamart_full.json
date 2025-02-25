@@ -1,0 +1,1235 @@
+{
+  "evidencesDatamart": [
+    {
+      "_id": "RDBECOLIEVC00001",
+      "category": "Classical experiment",
+      "code": "EXP-IGI-FUNC-COMPLEMENTATION",
+      "name": "Inferred by functional complementation",
+      "note": "Protein activity inferred by isolating its gene and performing functional complementation of a well characterized heterologous mutant for the protein.",
+      "pertainsTo": [
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "type": "S"
+    },
+    {
+      "_id": "RDBECOLIEVC00002",
+      "category": "Classical experiment",
+      "code": "EXP-IDA-UNPURIFIED-PROTEIN-HH",
+      "name": "Assay of unpurified protein expressed in a heterologous host",
+      "note": "Direct assay of unpurified protein from a heterologous host. Presence\nof a newly acquired protein activity is indicated by an assay\nperformed on a heterologous host expressing recombinant\nprotein(s). The recombinant proteins have not been purified.",
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00003",
+      "category": "Classical experiment",
+      "code": "EXP-IDA-UNPURIFIED-PROTEIN-NH",
+      "name": "Assay of unpurified protein expressed in its native host",
+      "note": "Direct assay of unpurified protein from its native host. Presence of a\nprotein activity is indicated by an assay performed with an organism,\nbut the precise identity of the protein responsible for that activity\nis not established, since the protein has not been purified.",
+      "pertainsTo": [
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00004",
+      "category": "High-throughput binding",
+      "code": "EXP-CHIP-EXO-MANUAL",
+      "codeRule": 4,
+      "name": "ChIP-exo evidence used in manual assertion",
+      "note": "A type of chromatin immunoprecipation-exonuclease evidence that is used in a manual assertion.",
+      "pertainsTo": [
+        "Regulatory Sites",
+        "Regulatory Interactions"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00005",
+      "category": "Classical expression",
+      "code": "EXP-IEP-GENE-EXPRESSION-ANALYSIS",
+      "codeRule": 8,
+      "name": "Gene expression analysis",
+      "note": "The expression of the gene is analyzed through a transcriptional fusion (i.e. lacZ), and  a difference in expression levels is observed when the regulatory protein is present  (wild type) vs in its absence.  Note that this evidence does not eliminate the possiblity of an indirect effect of the regulator on the regulated gene.",
+      "pertainsTo": [
+        "Regulatory Interactions",
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00006",
+      "category": "High-throughput expression",
+      "code": "EXP-HTP-HEP-MICROARRAY",
+      "codeRule": 8,
+      "name": "High-throughput expression microarray evidence",
+      "note": "A type of transcript expression evidence resulting from simultaneous profiling of the expression levels of thousands of genes in a single experiment allowing analysis of genes and their networks.",
+      "pertainsTo": [
+        "Transcription Units",
+        "Regulatory Interactions"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00007",
+      "category": "Classical binding",
+      "code": "EXP-IMP-REACTION-BLOCKED",
+      "name": "Reaction blocked in mutant",
+      "note": "Mutant is characterized, and blocking of reaction is demonstrated.",
+      "pertainsTo": [
+        "Regulatory Interactions"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00008",
+      "category": "High-throughput expression",
+      "code": "EXP-HTP-HEP-RNA-SEQ",
+      "codeRule": 8,
+      "name": "High-throughput RNA-seq evidence",
+      "note": "A type of transcript evidence based on high-throughput sequencing of fragmented cDNA molecules.",
+      "pertainsTo": [
+        "Promoter",
+        "Transcription Units",
+        "Regulatory Interactions"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00009",
+      "category": "Classical experiment",
+      "code": "EXP-IMP-REACTION-ENHANCED",
+      "name": "Reaction enhanced in mutant",
+      "note": "Gene is isolated and over-expressed, and increased accumulation of reaction product is observed.",
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00010",
+      "category": "Classical experiment",
+      "code": "EXP-IEP-COREGULATION",
+      "name": "Inferred through co-regulation",
+      "note": "Inferred through co-regulation.  A transcription unit is inferred because a set of \nadjacent genes that are transcribed in the same direction exhibit similar\nexpression patterns under a range of environmental conditions.\n",
+      "pertainsTo": [
+        "Transcription Units"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00011",
+      "category": "Classical binding",
+      "code": "EXP-IMP-SITE-MUTATION",
+      "codeRule": 1,
+      "name": "Site mutation",
+      "note": "A cis-mutation in the DNA sequence of the transcription-factor binding site interferes with the operation of the regulatory function. This is considered  strong evidence for the existence and functional role of the DNA binding site.",
+      "pertainsTo": [
+        "Promoter",
+        "Regulatory Sites",
+        "Regulatory Interactions",
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "type": "S"
+    },
+    {
+      "_id": "RDBECOLIEVC00012",
+      "category": "Classical experiment",
+      "code": "EXP-IMP-POLAR-MUTATION",
+      "codeRule": 12,
+      "name": "Polar mutation",
+      "note": "If a mutation in a gene or promoter prevents expression of the downstream genes due to a polar effect, the mutated gene is clearly part of the transcription unit.",
+      "pertainsTo": [
+        "Transcription Units"
+      ],
+      "type": "S"
+    },
+    {
+      "_id": "RDBECOLIEVC00013",
+      "category": "non-experimental",
+      "code": "COMP-HINF-ORTHOLOGY-EXP",
+      "name": "Human inference of function based on ortholog with experimental function in closely related strain or species.",
+      "pertainsTo": [
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00014",
+      "category": "non-experimental",
+      "code": "IC-ADJ-GENES-SAME-BIO-PROCESS",
+      "name": "Products of adjacent genes in the same biological process",
+      "note": "A transcription unit is inferred because there is a set of adjacent genes,\nencoded in the same direction, coding for products that participate in the\nsame metabolic pathway or biological process. Sometimes, these genes code\nfor subunits of the same protein.",
+      "pertainsTo": [
+        "Transcription Units"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00015",
+      "category": "Classical experiment",
+      "code": "EXP-IDA-PURIFIED-PROTEIN-HH",
+      "name": "Assay of protein purified to homogeneity from a heterologous host",
+      "note": "Direct assay of protein purified from a heterologous host. Recombinant\nprotein purified to homogeneity from a heterologous host expressing\ncloned gene(s), and activity measured using an in vitro assay.",
+      "pertainsTo": [
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "type": "S"
+    },
+    {
+      "_id": "RDBECOLIEVC00016",
+      "category": "Classical experiment",
+      "code": "IDA-PURIFIED-PROTEIN-NH",
+      "name": "Assay of protein purified to homogeneity from its native host",
+      "note": "Direct assay of protein purified from its native host. Protein\npurified to homogeneity from its native host, and activity measured\nusing an in vitro assay.",
+      "pertainsTo": [
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "type": "S"
+    },
+    {
+      "_id": "RDBECOLIEVC00017",
+      "category": "non-experimental",
+      "code": "COMP-AINF-SIMILAR-TO-CONSENSUS",
+      "codeRule": 7,
+      "name": "Automated inference based on similarity to consensus sequences",
+      "note": "A DNA sequence similar to previously known consensus sequences is computationally identified.",
+      "pertainsTo": [
+        "Regulatory Sites"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00018",
+      "category": "non-experimental",
+      "code": "COMP-AINF-FN-FROM-SEQ",
+      "name": "Automated inference of function from sequence",
+      "note": "Automated inference of function from sequence.   A computer inferred a gene function based on sequence, \nprofile, or structural similarity (as computed from sequence) to one or more other sequences. ",
+      "pertainsTo": [
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00019",
+      "category": "non-experimental",
+      "code": "COMP-AINF-SINGLE-DIRECTON",
+      "codeRule": 13,
+      "name": "Automated inference that a single-gene directon is a transcription unit ",
+      "note": "Automated inference of transcription unit based on single-gene directon.  Existence of a single-gene transcription unit \nfor gene G is inferred computationally by the existence of upstream and downstream genes transcribed in the \nopposite direction of G.",
+      "pertainsTo": [
+        "Transcription Units"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00020",
+      "category": "non-experimental",
+      "code": "COMP-AINF-PATTERN-DISCOVERY",
+      "codeRule": 7,
+      "name": "Automated inference based on sequence pattern discovery",
+      "note": "A sequence found by pattern discovery using computational methods.",
+      "pertainsTo": [
+        "Promoter",
+        "Regulatory Sites",
+        "Regulatory Interactions"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00021",
+      "category": "non-experimental",
+      "code": "COMP-AINF-POSITIONAL-IDENTIFICATION",
+      "codeRule": 7,
+      "name": "Automated inference of promoter position",
+      "note": "Automated inference of promoter position relative to the -10 and -35 boxes.",
+      "pertainsTo": [
+        "Promoter"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00022",
+      "category": "non-experimental",
+      "code": "ND",
+      "name": "No biological data available",
+      "note": "EV-ND is intended for use in GO annotations.\nUse of the EV-ND evidence code indicates that the annotator at the contributing database found no information\nthat allowed making an annotation to any term indicating specific knowledge from the ontology in question\n(molecular function, biological process, or cellular component) as of the date indicated. This code should be used only\nfor annotations to the root terms, molecular function ; GO:0003674, biological process ; GO:0008150, or cellular component ; GO:0005575,\nwhich, when used in annotations, indicate that no knowledge is available about a gene product in that aspect of GO.",
+      "pertainsTo": [
+        "Transcription Units"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00023",
+      "code": "EXP",
+      "name": "Inferred from experiment",
+      "note": "Inferred from experiment.  The evidence for an assertion comes from a\nwet-lab experiment of some type.\n",
+      "pertainsTo": [
+        "Transcription Units",
+        "Regulatory Interactions",
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "superClassOf": [
+        "RDBECOLIEVC00066",
+        "RDBECOLIEVC00075",
+        "RDBECOLIEVC00061",
+        "RDBECOLIEVC00062",
+        "RDBECOLIEVC00064",
+        "RDBECOLIEVC00065",
+        "RDBECOLIEVC00067"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00024",
+      "category": "High-throughput protocol",
+      "code": "HTP",
+      "name": "Inferred from high throughput experiment",
+      "note": "A type of evidence that is used in a manual assertion where data generation is automated with equipment to allow for assaying large numbers of samples or molecules in parallel.",
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00025",
+      "category": "non-experimental",
+      "code": "AS",
+      "name": "Author statement",
+      "note": "Author statement.  The evidence for an assertion comes from an author\nstatement in a publication, where that publication does not state direct experimental support\nfor the assertion.  Ordinarily, this code will not be used directly -- generally one of\nits child codes, EV-TAS or EV-NAS, will be used instead.\n",
+      "pertainsTo": [
+        "Regulatory Sites",
+        "Regulatory Interactions"
+      ],
+      "superClassOf": [
+        "RDBECOLIEVC00073",
+        "RDBECOLIEVC00072",
+        "RDBECOLIEVC00074"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00026",
+      "category": "non-experimental",
+      "code": "IC",
+      "name": "Inferred by curator",
+      "note": "Inferred by curator.  An assertion was inferred by a curator from relevant\ninformation such as other assertions in a database.\n",
+      "pertainsTo": [
+        "Promoter",
+        "Transcription Units",
+        "Regulatory Sites",
+        "Regulatory Interactions"
+      ],
+      "superClassOf": [
+        "RDBECOLIEVC00014"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00027",
+      "category": "non-experimental",
+      "code": "COMP",
+      "codeRule": 7,
+      "name": "Inferred by computational analysis",
+      "note": "Inferred from computation.  The evidence for an assertion comes from a\ncomputational analysis.  The assertion itself might have been made\nby a person or by a computer, that is, EV-COMP does not specify whether\nmanual interpretation of the computation occurred.\n",
+      "pertainsTo": [
+        "Promoter",
+        "Regulatory Sites",
+        "Regulatory Interactions",
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "superClassOf": [
+        "RDBECOLIEVC00039",
+        "RDBECOLIEVC00040"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00028",
+      "category": "High-throughput binding",
+      "code": "EXP-CHIP-SEQ-MANUAL",
+      "codeRule": 4,
+      "name": "ChIP-seq evidence used in manual assertion",
+      "note": "A type of chromatin immunoprecipation-seq evidence that is used in a manual assertion.",
+      "pertainsTo": [
+        "Regulatory Sites"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00029",
+      "category": "High-throughput binding",
+      "code": "EXP-HTP-HDA-NUC-ACID-BINDING-GSELEX-CHIP",
+      "codeRule": 5,
+      "name": "High-throughput genomic SELEX-chip evidence",
+      "note": "A type of systematic evolution of ligands by exponential amplification evidence based on a restricted genomic DNA library to identify naturally occurring genomic aptamers and RNA-protein interaction networks with RNA-binding protein as bait and high-throughput sequencing. This evidence can be used to probe the binding of proteins, such as transcription factors or RNA polymerase, to DNA.",
+      "pertainsTo": [
+        "Regulatory Sites",
+        "Regulatory Interactions"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00030",
+      "category": "non-experimental",
+      "code": "COMP-HINF-ISM",
+      "name": "Inferred from Sequence Model",
+      "note": "Human inference based on evidence from some kind of statistical model of a sequence\nor group of sequences, which is used to make a prediction about the function of a protein or RNA.\n- Prediction methods for non-coding RNA genes such as tRNASCAN-SE, Snoscan, and Rfam\n- Predicted presence of recognized functional domains or membership in protein families,\n  as determined by tools such as profile Hidden Markov Models (HMMs), including Pfam and TIGRFAM\n- Predicted protein features using tools such as TMHMM (transmembrane regions), SignalP (signal peptides on secreted proteins),\n  and TargetP (subcellular localization)\n- any other kind of domain modeling tool or collections of them such as SMART, PROSITE, PANTHER, InterPro, etc.\n- An entry in the with field of a GO annotation is required when the model used is an object with an accession number\n  (as found with Pfam, TIGRFAM, InterPro, PROSITE, Rfam, etc.)  The with field may be left blank for tools such as\n  tRNAscan and Snoscan where there is not an object with an accession to point to.\n",
+      "pertainsTo": [
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00031",
+      "category": "non-experimental",
+      "code": "COMP-HINF-SEQ-ORTHOLOGY",
+      "name": "Human inference of function by sequence orthology",
+      "note": "A person inferred or reviewed a computer inference of a function based on the function of an orthologous protein in another organism.",
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00032",
+      "category": "non-experimental",
+      "code": "COMP-HINF-ISA",
+      "name": "Inferred from Sequence Alignment",
+      "note": "Human inference based on a sequence alignment.\nSequence similarity with experimentally characterized gene products, as determined by alignments,\neither pairwise or multiple (tools such as BLAST, ClustalW, MUSCLE).",
+      "pertainsTo": [
+        "Regulatory Interactions",
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00033",
+      "category": "non-experimental",
+      "code": "COMP-HINF-PATTERN-DISCOVERY",
+      "codeRule": 7,
+      "name": "Manually curated inference based on sequence pattern discovery",
+      "note": "A sequence found by pattern discovery using computational methods and reviewed by a person.",
+      "pertainsTo": [
+        "Regulatory Sites"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00034",
+      "category": "non-experimental",
+      "code": "COMP-HINF-POSITIONAL-IDENTIFICATION",
+      "codeRule": 7,
+      "name": "Human inference of promoter position",
+      "note": "A person inferred, or reviewed a computer inference of, promoter position relative to the -10 and -35 boxes. ",
+      "pertainsTo": [
+        "Promoter"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00035",
+      "category": "non-experimental",
+      "code": "COMP-HINF-SIMILAR-TO-CONSENSUS",
+      "codeRule": 7,
+      "name": "A person inferred or reviewed a computer inference of sequence function based on similarity to a consensus sequence.",
+      "note": "Human inference based on similarity to consensus sequences",
+      "pertainsTo": [
+        "Regulatory Sites",
+        "Regulatory Interactions"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00036",
+      "category": "non-experimental",
+      "code": "COMP-HINF-FN-FROM-SEQ",
+      "name": "Human inference of function from sequence",
+      "note": "A person inferred, or reviewed a computer inference of, gene function based \non sequence,  profile, or structural similarity (as computed from sequence) to \none or more other sequences.\n",
+      "pertainsTo": [
+        "Regulatory Interactions",
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00037",
+      "category": "non-experimental",
+      "code": "COMP-HINF-IGC",
+      "name": "Inferred from genomic context",
+      "note": "IGC  Inferred from genomic context.",
+      "pertainsTo": [
+        "Transcription Units"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00038",
+      "category": "non-experimental",
+      "code": "COMP-IBA",
+      "name": "Inferred from Biological aspect from Ancestor",
+      "note": "A type of phylogenetic evidence whereby an aspect of a descendent is inferred through the characterization of an aspect of a ancestral gene.",
+      "pertainsTo": [
+        "Transcription Units",
+        "Regulatory Sites",
+        "Regulatory Interactions"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00039",
+      "category": "non-experimental",
+      "code": "COMP-AINF",
+      "codeRule": 7,
+      "name": "Inferred computationally without human oversight",
+      "note": "Automated inference.  A computer inferred this assertion through one of many possible methods such as \nsequence similarity, recognized motifs or consensus sequence, etc.  When a person made the inference \nfrom computational evidence, use EV-COMP-HINF.",
+      "pertainsTo": [
+        "Promoter",
+        "Transcription Units",
+        "Regulatory Sites",
+        "Regulatory Interactions",
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "superClassOf": [
+        "RDBECOLIEVC00017",
+        "RDBECOLIEVC00021",
+        "RDBECOLIEVC00018",
+        "RDBECOLIEVC00063",
+        "RDBECOLIEVC00019"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00040",
+      "category": "non-experimental",
+      "code": "COMP-HINF",
+      "codeRule": 7,
+      "name": "Inferred by a human based on computational evidence",
+      "note": "Human inference.  A curator or author inferred this assertion after review of one or more possible types \nof computational evidence such as sequence similarity, recognized motifs or consensus sequence, etc.  \nWhen the inference was made by a computer in an automated fashion, use EV-AINF.",
+      "pertainsTo": [
+        "Promoter",
+        "Transcription Units",
+        "Regulatory Sites",
+        "Regulatory Interactions",
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "superClassOf": [
+        "RDBECOLIEVC00034",
+        "RDBECOLIEVC00035",
+        "RDBECOLIEVC00038",
+        "RDBECOLIEVC00031",
+        "RDBECOLIEVC00036"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00041",
+      "category": "High-throughput binding",
+      "code": "EXP-CHIP-PCR-MANUAL",
+      "codeRule": 4,
+      "name": "ChIP-PCR evidence used in manual assertion",
+      "note": "A type of chromatin immunoprecipation-PCR evidence that is used in a manual assertion.",
+      "pertainsTo": [
+        "Regulatory Sites"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00042",
+      "category": "Classical binding",
+      "code": "EXP-IDA-BINDING-OF-PURIFIED-PROTEINS",
+      "codeRule": 2,
+      "name": "Binding of purified proteins",
+      "pertainsTo": [
+        "Regulatory Sites",
+        "Regulatory Interactions",
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "superClassOf": [
+        "RDBECOLIEVC00056"
+      ],
+      "type": "S"
+    },
+    {
+      "_id": "RDBECOLIEVC00043",
+      "category": "Classical experiment",
+      "code": "EXP-IDA-PART-PURIFIED-PROTEIN-NH",
+      "name": "Assay of protein partially-purified from its native host",
+      "note": "Direct assay of protein partially purified from its native\nhost. Protein partially purified from its\nnative host, and activity measured using an in vitro assay.",
+      "pertainsTo": [
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00044",
+      "category": "High-throughput binding",
+      "code": "EXP-CHIP-PCR",
+      "codeRule": 4,
+      "name": "ChIP-PCR evidence",
+      "note": "A type of chromatin immunoprecipation evidence that uses polymerase chain reaction (PCR) where specific primers are used on the pulled-down DNA for DNA detection.",
+      "pertainsTo": [
+        "Regulatory Sites"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00045",
+      "category": "Classical experiment",
+      "code": "EXP-IDA-PART-PURIFIED-PROTEIN-HH",
+      "name": "Assay of protein partially-purified from a heterologous host",
+      "note": "Direct assay of protein partially purified from a heterologous\nhost. Recombinant protein partially purified\nfrom a heterologous host expressing cloned gene(s), and activity\nmeasured using an in vitro assay.",
+      "pertainsTo": [
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00046",
+      "category": "High-throughput binding",
+      "code": "EXP-HTP-HDA-NUC-ACID-BINDING-CHIP-SEQ",
+      "codeRule": 4,
+      "name": "High-throughput ChIP-seq evidence",
+      "note": "A type of chromatin immunoprecipation evidence that uses high-throughput sequencing where immunoprecipitated DNA fragments are funnelled into a massively parallel sequencer to produce multiple short reads for locating binding sites of DNA-associated proteins. This evidence can be used to probe the binding of proteins, such as transcription factors or RNA polymerase, to DNA.",
+      "pertainsTo": [
+        "Regulatory Sites",
+        "Regulatory Interactions"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00047",
+      "category": "High-throughput binding",
+      "code": "EXP-HTP-HDA-NUC-ACID-BINDING-CHIP-CHIP",
+      "codeRule": 4,
+      "name": "High-throughput ChIP-chip evidence",
+      "note": "A fixating agent such as formaldehyde is used to cross-link proteins and DNA. Sonication is applied for DNA shearing. For transcription factor tagging, a specific antibody or an epitope and its antibody are employed. After cross-linking is reversed, the DNA is amplified and labeled with a fluorophore for microarray, which produces a resolution of approximately 500 bp. This evidence can be used to probe the binding of proteins, such as transcription factors or RNA polymerase, to DNA.",
+      "pertainsTo": [
+        "Regulatory Sites"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00048",
+      "category": "Classical binding",
+      "code": "EXP-IDA-BINDING-OF-CELLULAR-EXTRACTS",
+      "codeRule": 3,
+      "name": "Binding of cellular extracts",
+      "note": "There exists physical evidence of the binding of cellular extracts containing \na regulatory protein to its DNA binding site.  This can be either by \nfootprinting or mobility shift assays.",
+      "pertainsTo": [
+        "Regulatory Sites",
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00049",
+      "category": "High-throughput binding",
+      "code": "EXP-HTP-HDA-NUC-ACID-BINDING-CHIP-EXO",
+      "codeRule": 4,
+      "name": "High-throughput ChIP-exo evidence",
+      "note": "A type of chromatin immunoprecipation evidence that uses gamma-exonuclease to digest transcription-factor-unbound DNA after ChIP for the identification of transcription factor binding site locations with high-resolution data. This evidence can be used to probe the binding of proteins, such as transcription factors or RNA polymerase, to DNA.",
+      "pertainsTo": [
+        "Regulatory Sites"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00050",
+      "category": "Classical experiment",
+      "code": "EXP-IDA-PURIFIED-PROTEIN-MULTSPECIES",
+      "name": "Assay of protein purified from mixed culture",
+      "note": "Protein purified from mixed culture or other multispecies environment (such as, infected plant or animal tissue), and activity measured through in vitro assay.",
+      "type": "S"
+    },
+    {
+      "_id": "RDBECOLIEVC00051",
+      "category": "High-throughput protocol",
+      "code": "EXP-IDA-HPT-TRANSCR-INIT-M-RACE-MAP",
+      "codeRule": 10,
+      "name": "High-throughput transcription initiation mapping",
+      "note": "The transcription start site is identified using a high-throughput experimental modified RACE approach.",
+      "pertainsTo": [
+        "Promoter"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00052",
+      "category": "Classical experiment",
+      "code": "EXP-IDA-TRANSCRIPTION-INIT-MAPPING",
+      "codeRule": 15,
+      "name": "Transcription initiation mapping",
+      "note": "The transcription start site is identified by primer extension.",
+      "pertainsTo": [
+        "Promoter"
+      ],
+      "type": "S"
+    },
+    {
+      "_id": "RDBECOLIEVC00053",
+      "category": "Classical experiment",
+      "code": "EXP-IDA-RADIO",
+      "name": "Inferred from radio-tracer experiment",
+      "note": "The assertion, such as inference of a metabolic pathway, was inferred from a radio-tracer experiment. ",
+      "type": "S"
+    },
+    {
+      "_id": "RDBECOLIEVC00054",
+      "category": "Classical experiment",
+      "code": "EXP-IDA-PART-PURIFIED-PROTEIN",
+      "name": "Assay of partially-purified protein ",
+      "note": "Direct assay of partially purified protein from a specific organism. \nProtein partially purified, and activity measured using an in vitro\nassay.  Expression host is unspecified.",
+      "pertainsTo": [
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "superClassOf": [
+        "RDBECOLIEVC00043",
+        "RDBECOLIEVC00045"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00055",
+      "category": "Classical experiment",
+      "code": "EXP-IDA-UNPURIFIED-PROTEIN",
+      "name": "Assay of unpurified protein ",
+      "note": "Direct assay of unpurified protein. Presence of a protein activity is\nindicated by an assay, but the protein has not been purified.\nExpression host is unspecified.",
+      "pertainsTo": [
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "superClassOf": [
+        "RDBECOLIEVC00002",
+        "RDBECOLIEVC00003"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00056",
+      "category": "Classical experiment",
+      "code": "EXP-IDA-RNA-POLYMERASE-FOOTPRINTING",
+      "codeRule": 9,
+      "name": "RNA polymerase footprinting",
+      "note": "The binding of RNA polymerase to a DNA region (the promoter) is shown by footprinting.",
+      "pertainsTo": [
+        "Promoter"
+      ],
+      "type": "S"
+    },
+    {
+      "_id": "RDBECOLIEVC00057",
+      "category": "Classical binding",
+      "code": "EXP-IDA-PURIFIED-PROTEIN",
+      "name": "Assay of protein purified  to homogeneity",
+      "note": "Direct assay of purified protein. Protein purified to homogeneity, and\nactivity measured using an in vitro assay.  Expression host is unspecified.",
+      "pertainsTo": [
+        "Regulatory Sites",
+        "Regulatory Interactions",
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "superClassOf": [
+        "RDBECOLIEVC00016",
+        "RDBECOLIEVC00015"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00058",
+      "category": "Classical experiment",
+      "code": "EXP-IDA-BOUNDARIES-DEFINED",
+      "codeRule": 14,
+      "name": "Boundaries of transcription experimentally identified",
+      "note": "Sites or genes bounding the transcription unit are experimentally identified.  Several possible cases exist, such as defining the boundaries of a transcription unit with an experimentally identified promoter and terminator, or with a promoter and a downstream gene that is transcribed in the opposite direction, or with a terminator and an upstream gene that is transcribed in the opposite direction.",
+      "pertainsTo": [
+        "Transcription Units"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00059",
+      "category": "High-throughput protocol",
+      "code": "EXP-HTP-HDA-NUC-ACID-BINDING",
+      "name": "Nucleic acid binding evidence",
+      "note": "A type of affinity evidence resulting from the binding of a molecule to DNA or RNA.",
+      "pertainsTo": [
+        "Promoter",
+        "Regulatory Interactions"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00060",
+      "category": "Classical experiment",
+      "code": "EXP-IDA-TRANSCRIPT-LEN-DETERMINATION",
+      "codeRule": 11,
+      "name": "Length of transcript experimentally determined",
+      "note": "The length of the (transcribed) RNA is experimentally determined.  The length of the mRNA is compared with that of the DNA sequence and by this means the number of genes transcribed are established.",
+      "pertainsTo": [
+        "Transcription Units"
+      ],
+      "type": "S"
+    },
+    {
+      "_id": "RDBECOLIEVC00061",
+      "category": "non-experimental",
+      "code": "EXP-TAS",
+      "name": "Traceable author statement to experimental support",
+      "note": "Traceable author statement to experimental support.  The assertion was made in a publication -- such as a review or \nin another database -- that itself did not describe an experiment supporting the\nassertion.  However, the statement did reference another publication describing an experiment \nthat supports the assertion.  The difference between the codes EV-EXP-TAS and EV-AS-TAS \nis that the former code is used when it is certain that experimental evidence supports the\nassertion, and the latter code is used when there is a possibility that an experiment was\nnot done to support the assertion.\nIn general, references to the primary literature are preferred,\nbut this code can be used when the original article is difficult to locate.",
+      "pertainsTo": [
+        "Promoter",
+        "Transcription Units",
+        "Regulatory Sites",
+        "Regulatory Interactions"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00062",
+      "category": "Classical binding",
+      "code": "EXP-IGI",
+      "name": "Inferred from genetic interaction",
+      "note": "IGI inferred from genetic interaction.<br>\nThe assertion was inferred from a genetic interaction such as\n<ul>\n    <li> \"Traditional\" genetic interactions such as suppressors, synthetic lethals, etc.\n    <li> Functional complementation\n    <li> Inference about one gene drawn from the phenotype of a mutation in a different gene\n</ul><p>\nThis category includes any combination of alterations in the sequence\n(mutation) or expression of more than one gene/gene product. This\ncategory can therefore cover any of the IMP experiments that are done\nin a non-wild-type background, although we prefer to use it only when\nall mutations are documented. When redundant copies of a gene must all\nbe mutated to see an informative phenotype, use the IGI code. (Yes, \nthis implies some organisms, such as mouse, will have far, far more IGI\nthan IMP annotations.)<p>\nIMP also covers phenotypic similarity: a phenotype that is informative\nbecause it is similar to that of another independent phenotype (which\nmay have been described earlier or documented more fully) is IMP (not IGI).<p>\nWe have also decided to use this category for situations where a\nmutation in one gene (gene A) provides information about the function,\nprocess, or component of another gene (gene B; i.e. annotate gene B\nusing IGI).\n",
+      "pertainsTo": [
+        "Regulatory Interactions",
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "superClassOf": [
+        "RDBECOLIEVC00001"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00063",
+      "category": "non-experimental",
+      "code": "COMP-AINF-SEQ-ORTHOLOGY",
+      "name": "Automated inference of function by sequence orthology",
+      "note": "A computer inferred a function based on the function of an orthologous protein in another organism.",
+      "pertainsTo": [
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00064",
+      "category": "Classical binding",
+      "code": "EXP-IMP",
+      "name": "Inferred from mutant phenotype",
+      "note": "IMP inferred from mutant phenotype.<br>\nThe assertion was inferred from a mutant phenotype such as\n<ul>\n    <li> Any gene mutation/knockout\n    <li> Overexpression/ectopic expression of wild-type or mutant genes\n    <li> Anti-sense experiments\n    <li> RNA interference experiments\n    <li> Specific protein inhibitors\n    <li> Complementation\n</ul><p>\t\nComment: Inferences made from examining mutations or\nabnormal levels of only the product(s) of the gene of interest are covered by code EV-IMP\n(compare to code EV-IGI). Use this code for experiments that use antibodies \nor other specific inhibitors of RNA or protein activity, even though no\ngene may be mutated (the rationale is that EV-IMP is used where an\nabnormal situation prevails in a cell or organism).\n",
+      "pertainsTo": [
+        "Promoter",
+        "Transcription Units",
+        "Regulatory Interactions",
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "superClassOf": [
+        "RDBECOLIEVC00009",
+        "RDBECOLIEVC00011",
+        "RDBECOLIEVC00007",
+        "RDBECOLIEVC00012"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00065",
+      "category": "Classical binding",
+      "code": "EXP-IDA",
+      "name": "Inferred from direct assay",
+      "note": "IDA inferred from direct assay.<br>\nThe assertion was inferred from a direct experimental assay such as\n<ul>\n    <li> Enzyme assays\n    <li> In vitro reconstitution (e.g. transcription)\n    <li> Immunofluorescence\n    <li> Cell fractionation\n</ul>",
+      "pertainsTo": [
+        "Promoter",
+        "Transcription Units",
+        "Regulatory Sites",
+        "Regulatory Interactions",
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "superClassOf": [
+        "RDBECOLIEVC00196",
+        "RDBECOLIEVC00055",
+        "RDBECOLIEVC00052",
+        "RDBECOLIEVC00060",
+        "RDBECOLIEVC00058",
+        "RDBECOLIEVC00042",
+        "RDBECOLIEVC00054",
+        "RDBECOLIEVC00195",
+        "RDBECOLIEVC00197",
+        "RDBECOLIEVC00053",
+        "RDBECOLIEVC00050",
+        "RDBECOLIEVC00057",
+        "RDBECOLIEVC00048",
+        "RDBECOLIEVC00179"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00066",
+      "category": "Classical experiment",
+      "code": "EXP-IPI",
+      "name": "Inferred from physical interaction",
+      "note": "IPI inferred from physical interaction<br>\nThe assertion was inferred from a physical interaction such as\n<ul>\n    <li> 2-hybrid interactions\n    <li> Co-purification\n    <li> Co-immunoprecipitation\n    <li> Ion/protein binding experiments\n</ul><p>\nThis code covers physical interactions between the gene product of\ninterest and another molecule (or ion, or complex). For functions such\nas protein binding or nucleic acid binding, a binding assay is\nsimultaneously IPI and IDA; IDA is preferred because the assay\ndirectly detects the binding. For both IPI and IGI, it would be good\npractice to qualify them with the gene/protein/ion. \n",
+      "pertainsTo": [
+        "Promoter",
+        "Regulatory Interactions",
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "superClassOf": [
+        "RDBECOLIEVC00029"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00067",
+      "category": "Classical expression",
+      "code": "EXP-IEP",
+      "codeRule": 8,
+      "name": "Inferred from expression pattern",
+      "note": "IEP inferred from expression pattern.<br>\nThe assertion was inferred from a pattern of expression data such as\n<ul>\n    <li> Transcript levels (e.g. Northerns, microarray data)\n    <li> Protein levels (e.g. Western blots)\n</ul>",
+      "pertainsTo": [
+        "Promoter",
+        "Transcription Units",
+        "Regulatory Interactions",
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "superClassOf": [
+        "RDBECOLIEVC00188",
+        "RDBECOLIEVC00189",
+        "RDBECOLIEVC00010",
+        "RDBECOLIEVC00005",
+        "RDBECOLIEVC00187",
+        "RDBECOLIEVC00191",
+        "RDBECOLIEVC00183",
+        "RDBECOLIEVC00182",
+        "RDBECOLIEVC00185"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00068",
+      "category": "High-throughput protocol",
+      "code": "HTP-HMP",
+      "name": "Inferred from high throughput mutant phenotype",
+      "note": "The HMP evidence code covers those cases when the function, process or cellular localization of a gene product is inferred based on differences in the function, process, or cellular localization between two different alleles of the corresponding gene in a high throughput experiment.",
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00069",
+      "category": "High-throughput protocol",
+      "code": "EXP-HTP-HDA-NUC-ACID-BINDING",
+      "name": "Inferred from high throughput direct assay",
+      "note": "A type of high throughput evidence that is used in a manual assertion derived from the high throughput direct measurement of some aspect of a biological feature.  The majority of high-throughput direct assays are proteomics and fluorescence microscopy studies.",
+      "pertainsTo": [
+        "Regulatory Interactions"
+      ],
+      "superClassOf": [
+        "RDBECOLIEVC00190",
+        "RDBECOLIEVC00186",
+        "RDBECOLIEVC00192"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00070",
+      "category": "High-throughput protocol",
+      "code": "HTP-HEP",
+      "name": "Inferred from high throughput expression pattern",
+      "note": "The HEP evidence code is used to indicate a the expression profile (timing or location) of a gene is to infer the process (indicated by the GO term) that it participates in.",
+      "pertainsTo": [
+        "Transcription Units"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00071",
+      "category": "High-throughput protocol",
+      "code": "HTP-HGI",
+      "name": "Inferred from high throughput genetic interaction",
+      "note": "The HGI evidence code is used for annotations based on high throughput experiments reporting the effects of perturbations in the sequence or expression of one or more genes or gene products. HGI is also used for high throughput experiments that interrogate functional interactions between two or more genes or gene products when co-expressed, for example, in a cell line. Additional uses of HGI include high throughput experiments in which the expression of one gene affects the phenotypic outcome of a mutation in another gene.\nThe HGI evidence code requires curators enter a stable database identifier for the interacting entity in the With/From field of the Gene Association File (GAF). Independent interactors may be captured in the With/From field by separating each entry with a pipe. If the interaction experiment involves multiple perturbations simultaneously, e.g. triply mutant strains, then the respective interactors are separated with a comma.",
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00072",
+      "category": "non-experimental",
+      "code": "AS-TAS",
+      "name": "Traceable author statement",
+      "note": "Traceable author statement.  The assertion was made in a publication -- such as a review or \nin another database -- that itself did not describe an experiment supporting the\nassertion.  The statement referenced another publication that supported the assertion,\nbut it is unclear whether that publication described an experiment that supported\nthe assertion.  The difference between the codes EV-EXP-TAS and EV-AS-TAS \nis that the former code is used when it is certain that experimental evidence supports the\nassertion, and the latter code is used when there is a possibility that an experiment was\nnot done to support the assertion.\nIn general, references to the primary literature are preferred,\nbut this code can be used when the original article is difficult to locate.",
+      "pertainsTo": [
+        "Promoter",
+        "Transcription Units",
+        "Regulatory Interactions"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00073",
+      "category": "non-experimental",
+      "code": "AS-HYPO",
+      "name": "Author hypothesis",
+      "note": "Author hypothesis. The hypothesis is in a publication, but it was clearly indicated in the\npublication that there was no experimental evidence, or limited evidence, supporting the \nhypothesis. This code can be used, for example, for \"paper chemistry\" metabolic pathways, \nwhich are pathways drawn from the author's best estimation.\n",
+      "pertainsTo": [
+        "Promoter",
+        "Transcription Units",
+        "Regulatory Interactions"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00074",
+      "category": "non-experimental",
+      "code": "AS-NAS",
+      "name": "Non-traceable author statement",
+      "note": "Non-traceable author statement.  The assertion was made in a publication such as a review, a meeting abstract, \nor another database without a reference to a publication describing an experiment that supports the assertion.",
+      "pertainsTo": [
+        "Promoter",
+        "Transcription Units",
+        "Regulatory Sites",
+        "Regulatory Interactions"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00075",
+      "category": "High-throughput binding",
+      "code": "EXP-CHIP-CHIP-MANUAL",
+      "codeRule": 4,
+      "name": "ChIP-chip evidence used in manual assertion",
+      "note": "A type of chromatin immunoprecipation-chip evidence that is used in a manual assertion.",
+      "pertainsTo": [
+        "Regulatory Sites"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00179",
+      "category": "Classical expression",
+      "code": "EXP-IDA-IN-VITRO-TRANSCRIPTION",
+      "codeRule": 8,
+      "name": "in vitro transcription reconstitution assay evidence",
+      "note": "A type of reconstitution assay evidence resulting from the use of reconstituted polymerase transcription systems to investigate RNA synthesis. [PMID:9237163]",
+      "pertainsTo": [
+        "Promoter"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00180",
+      "code": "EXP-IDA-TRANSCRIPTION-INIT-MAPPING-PRIMER-EXTENSION-TSS",
+      "codeRule": 15,
+      "name": "Primer extension assay for transcription start site determination",
+      "note": "A type of transcript expression evidence used to determine the 5' end of the mRNA where a labeled synthetic oligonucleotide primer is annealed to mRNA downstream of the presumed transcription start site of a gene. The mRNA is extended with reverse transcriptase, producing cDNA which is electrophoresed, and the band size enables determination of the 5' end of the mRNA (the transcription start site). |CITS: [23378648]|",
+      "pertainsTo": [
+        "Promoter"
+      ]
+    },
+    {
+      "_id": "RDBECOLIEVC00181",
+      "code": "EXP-IDA-TRANSCRIPT-LEN-DETERMINATION-NORTHERN",
+      "codeRule": 11,
+      "name": "Northern blot for transcription unit length determination evidence",
+      "note": "A type of transcript expression evidence based on electrophoresis and probing to determine the length of a transcription unit using a complementary hybridization probe on the separated RNA samples.",
+      "pertainsTo": [
+        "Transcription Units"
+      ]
+    },
+    {
+      "_id": "RDBECOLIEVC00182",
+      "category": "Classical expression",
+      "code": "EXP-IEP-RTPCR",
+      "codeRule": 8,
+      "name": "Reverse transcription polymerase chain reaction evidence",
+      "note": "A type of RNA detection assay evidence where an RNA transcript is reverse transcribed into cDNA and amplified to qualitatively detect gene expression.",
+      "pertainsTo": [
+        "Transcription Units",
+        "Regulatory Interactions"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00183",
+      "category": "Classical expression",
+      "code": "EXP-IEP-NORTHERN",
+      "codeRule": 8,
+      "name": "Northern blot for expression pattern analysis evidence",
+      "note": "A type of transcript expression evidence based on electrophoresis and probing to determine levels of RNA expression using a complementary hybridization probe on the separated RNA samples.",
+      "pertainsTo": [
+        "Promoter",
+        "Regulatory Interactions"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00184",
+      "code": "EXP-IEP-S1MAPPING",
+      "name": "S1 nuclease protection assay for expression pattern analysis evidence",
+      "note": "A type of nuclease protection assay evidence where RNA is hybridized with complementary DNA probes and exposed to S1 nuclease for unbound RNA degradation after which the intact RNA is run on a gel for probe size determination and RNA identification to detect the expression level of the transcript."
+    },
+    {
+      "_id": "RDBECOLIEVC00185",
+      "category": "Classical expression",
+      "code": "EXP-IEP-PRIMER-EXTENSION-FOR-EXPRESSION",
+      "codeRule": 8,
+      "name": "Primer extension assay evidence for expression pattern analysis",
+      "note": "A type of transcript expression evidence used to determine expression levels of mRNA where a labeled synthetic oligonucleotide primer is annealed to mRNA downstream of the presumed transcription start site of a gene. The mRNA is extended with reverse transcriptase, producing cDNA which is electrophoresed, and the band enables determination of the expression level of the transcript. |CITS: [23378648]|",
+      "pertainsTo": [
+        "Regulatory Interactions"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00186",
+      "category": "High-throughput binding",
+      "code": "EXP-HTP-HDA-NUC-ACID-BINDING-DAP-SEQ",
+      "codeRule": 6,
+      "name": "High-throughput DNA affinity purification (DAP) sequencing",
+      "note": "An <i>in vitro</i> TF-DNA binding assay that allows rapid generation of genome-wide binding site maps for a large number of TFs, while capturing genomic DNA properties that impact binding <i>in vivo</i>.",
+      "pertainsTo": [
+        "Regulatory Interactions"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00187",
+      "category": "Classical expression",
+      "code": "EXP-IEP-GFP",
+      "codeRule": 8,
+      "name": "Green fluorescent protein reporter gene assay evidence",
+      "note": "A type of reporter gene assay evidence based on the fusion of select genes with the green fluorescent-protein (GFP) gene for detection with bioluminescence of the gene product when exposed to blue ultraviolet light.",
+      "pertainsTo": [
+        "Regulatory Interactions"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00188",
+      "category": "Classical expression",
+      "code": "EXP-IEP-BETA-GAL",
+      "codeRule": 8,
+      "name": "Beta-galactosidase reporter gene assay evidence",
+      "note": "A type of reporter gene assay evidence based on the fusion of the lacZ gene to a specific promoter for the expression of beta-galactosidase which will appear blue when grown on a X-gal medium.",
+      "pertainsTo": [
+        "Transcription Units",
+        "Regulatory Interactions",
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00189",
+      "category": "Classical expression",
+      "code": "EXP-IEP-QRTPCR",
+      "codeRule": 8,
+      "name": "Quantitative reverse transcription polymerase chain reaction evidence",
+      "note": "A type of reverse transcription polymerase chain reaction evidence that combines reverse transcription polymerase chain reaction and real time polymerase chain reaction to quantitatively assay for the detection of RNA levels.",
+      "pertainsTo": [
+        "Regulatory Interactions"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00190",
+      "category": "High-throughput binding",
+      "code": "EXP-HTP-HDA-NUC-ACID-BINDING-3D-SEQ",
+      "name": "High-throughput 3D-seq DNA-protein interaction mapping evidence",
+      "note": "3D-seq (DddA-sequencing) mapping of DNA-protein interaction sites <i>in vivo</i> using the double-stranded DNA-specific cytosine deaminase toxin DddA followed by genomic DNA sequencing.",
+      "pertainsTo": [
+        "Regulatory Sites"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00191",
+      "category": "Classical expression",
+      "code": "EXP-IEP-LUCIFERASE",
+      "codeRule": 8,
+      "name": "Luciferase reporter gene assay evidence",
+      "note": "A type of reporter gene assay evidence where luciferase, an oxidative enzyme, is used as the reporter to detect a gene product with bioluminescence.",
+      "pertainsTo": [
+        "Regulatory Interactions"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00192",
+      "category": "High-throughput binding",
+      "code": "HTP-HDA-NUC-ACID-BINDING",
+      "name": "High-throughput nuclei acid binding evidence",
+      "note": "A type of high-throughput affinity evidence resulting from the binding of a molecule to DNA or RNA",
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00193",
+      "code": "EXP-HTP-HEP-SEND-RNA-SEQ ",
+      "name": "High-throughput simultaneous 5' and 3' end RNA sequencing evidence",
+      "note": "A high-throughput RNA-seq method based on ligation of 5' and 3' ends of transcripts and sequencing of the resulting junctions. The 5' and 3' end sequences are then mapped to the reference genome and the full-length composition of individual transcripts is finally inferred by connecting the two termini."
+    },
+    {
+      "_id": "RDBECOLIEVC00194",
+      "code": "EXP-HTP-HEP-PACBIO-RNA-SEQ",
+      "name": "High-throughput PacBio long read RNA sequencing evidence",
+      "note": "A type of RNA-seq based on PacBio technology, which supports sequencing of long transcripts."
+    },
+    {
+      "_id": "RDBECOLIEVC00195",
+      "category": "Classical binding",
+      "code": "EXP-IDA-BINDING-OF-CELLULAR-EXTRACTS-EMSA",
+      "codeRule": 3,
+      "name": "Electrophoretic mobility shift assay with cellular extracts evidence",
+      "note": "A type of affinity evidence based on an electrophoretic mobility shift of macromolecules, where cellular extracts, nucleic acids, or both are combined and the resulting mixtures \nare electrophoresed under native conditions through polyacrylamide or agarose gel to detect interactions/complexes between proteins and/or nucleic acid.",
+      "pertainsTo": [
+        "Regulatory Sites"
+      ],
+      "type": "W"
+    },
+    {
+      "_id": "RDBECOLIEVC00196",
+      "category": "Classical binding",
+      "code": "EXP-IDA-BINDING-OF-PURIFIED-PROTEINS-DNASE-FOOTPRINTING",
+      "codeRule": 2,
+      "name": "DNAse footprinting evidence",
+      "note": "A type of nucleic acid binding evidence where proteins that have been bound to DNA protect a binding site from enzymatic cleavage with DNAse, thereby detecting protein-DNA interactions.",
+      "pertainsTo": [
+        "Regulatory Sites",
+        "Regulatory Interactions"
+      ],
+      "type": "S"
+    },
+    {
+      "_id": "RDBECOLIEVC00197",
+      "category": "Classical binding",
+      "code": "EXP-IDA-BINDING-OF-PURIFIED-PROTEINS-EMSA",
+      "codeRule": 2,
+      "name": "Electrophoretic mobility shift assay with purified protein evidence",
+      "note": "A type of affinity evidence based on an electrophoretic mobility shift of macromolecules, where purified proteins, nucleic acids, or both are combined and the resulting mixtures \nare electrophoresed under native conditions through polyacrylamide or agarose gel to detect interactions/complexes between proteins and/or nucleic acid.",
+      "pertainsTo": [
+        "Regulatory Sites",
+        "Transcription Factors",
+        "Regulators"
+      ],
+      "type": "S"
+    },
+    {
+      "_id": "RDBECOLIEVC00198",
+      "code": "EXP-IDA-TRANSCRIPTION-INIT-MAPPING-S1",
+      "codeRule": 15,
+      "name": "S1 nuclease protection assay evidence for transcription start site determination evidence",
+      "note": "A type of nuclease protection assay evidence where RNA is hybridized with complementary DNA probes and exposed to S1 nuclease for unbound RNA degradation after which the intact RNA is run on a gel for probe size determination and RNA identification to detect and map the 5' end of the mRNA."
+    }
+  ]
+}
