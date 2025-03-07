@@ -22,7 +22,7 @@ const query = gql`query GetDatasetsFromSearch($advancedSearch: String) {
     geneExpressionFiltered
     growthConditions {
       aeration
-      aerationSpeed
+      agitationSpeed
       geneticBackground
       growthPhase
       growthRate

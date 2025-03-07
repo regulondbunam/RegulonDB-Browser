@@ -104,7 +104,7 @@ export const query_GET_DATASET_BY_ADVANCE_SEARCH = gql`query GetDatasetsFromSear
     geneExpressionFiltered
     growthConditions {
       aeration
-      aerationSpeed
+      agitationSpeed
       geneticBackground
       growthPhase
       growthRate
