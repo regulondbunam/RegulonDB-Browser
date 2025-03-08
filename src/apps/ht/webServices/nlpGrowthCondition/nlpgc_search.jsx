@@ -46,7 +46,7 @@ function query(keyword) {
       vesselType {
         ...NLPGC
       }
-      aerationSpeed {
+      agitationSpeed {
         ...NLPGC
       }
       mediumSupplements {

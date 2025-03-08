@@ -69,7 +69,7 @@ const query = gql`
         growthPhase
         growthRate
         vesselType
-        aerationSpeed
+        agitationSpeed
         mediumSupplements
         otherTerms
       }

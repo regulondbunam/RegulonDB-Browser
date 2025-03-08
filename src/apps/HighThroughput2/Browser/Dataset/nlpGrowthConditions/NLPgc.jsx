@@ -18,7 +18,7 @@ export default function NLPgc({ datasetId }) {
             });
         }
         _nlpgc?.aeration.length > 0 && inf.push({ title: "Aeration", data: _nlpgc?.aeration });
-        _nlpgc?.aerationSpeed.length > 0 && inf.push({ title: "Aeration Speed", data: _nlpgc?.aerationSpeed });
+        _nlpgc?.agitationSpeed.length > 0 && inf.push({ title: "Aeration Speed", data: _nlpgc?.agitationSpeed });
         _nlpgc?.geneticBackground.length > 0 && inf.push({ title: "Genetic Background", data: _nlpgc?.geneticBackground });
         _nlpgc?.growthPhase.length > 0 && inf.push({ title: "Growth Phase", data: _nlpgc?.growthPhase });
         _nlpgc?.growthRate.length > 0 && inf.push({ title: "Growth Rate", data: _nlpgc?.growthRate });

@@ -79,7 +79,7 @@ function query(ht_query) {
             growthPhase
             growthRate
             vesselType
-            aerationSpeed
+            agitationSpeed
           }
           releaseDataControl {
             date

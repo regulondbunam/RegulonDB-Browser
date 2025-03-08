@@ -13,7 +13,7 @@ opticalDensity: String
 growthPhase: String
 growthRate: String
 vesselType: String
-aerationSpeed: String
+agitationSpeed: String
 mediumSupplements: String
 otherTerms: [String]
 */

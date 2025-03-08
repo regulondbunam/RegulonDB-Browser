@@ -18,7 +18,7 @@ export const query_GETNLPGrowthConditionById = gql`query GetNLPGrowthConditionBy
         score
         value
       }
-      aerationSpeed {
+      agitationSpeed {
         associatedPhrase
         nameField
         score

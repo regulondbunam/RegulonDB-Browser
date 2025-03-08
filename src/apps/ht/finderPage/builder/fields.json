@@ -152,7 +152,7 @@
         },
         {
             "value": "Aeration Speed",
-            "query": "growthConditions.aerationSpeed"
+            "query": "growthConditions.agitationSpeed"
         }
     ],
     "nlpGC":[
@@ -167,7 +167,7 @@
         { "value": "Growth phase", "query": "growthPhase" },
         { "value": "Growth rate", "query": "growthRate" },
         { "value": "Vessel type", "query": "vesselType" },
-        { "value": "Aeration Speed", "query": "aerationSpeed" },
+        { "value": "Aeration Speed", "query": "agitationSpeed" },
         { "value": "Medium supplements", "query": "mediumSupplements" },
         { "value": "Dataset ID", "query": "datasetIds" }
     ],

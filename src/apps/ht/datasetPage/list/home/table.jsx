@@ -158,7 +158,7 @@ function Table({ columns, datasetType, data, ignoreColumns, hiddenColumns }) {
 
 export function DatasetTable({ jsonTable, datasetType }) {
 
-    let hiddenColumns = ['_id', 'referenceGenome', "datasetType", "objectsTested_name", "sample_title", "publications_title", "publications_authors", "sourceSerie_title", "sourceSerie_strategy", "sourceSerie_method", "growthConditions_organism", "growthConditions_geneticBackground", "growthConditions_medium", "growthConditions_aeration", "growthConditions_temperature", "growthConditions_ph", "growthConditions_pressure", "growthConditions_opticalDensity", "growthConditions_growthPhase", "growthConditions_growthRate", "growthConditions_vesselType", "growthConditions_aerationSpeed", "growthConditions_mediumSupplements"]
+    let hiddenColumns = ['_id', 'referenceGenome', "datasetType", "objectsTested_name", "sample_title", "publications_title", "publications_authors", "sourceSerie_title", "sourceSerie_strategy", "sourceSerie_method", "growthConditions_organism", "growthConditions_geneticBackground", "growthConditions_medium", "growthConditions_aeration", "growthConditions_temperature", "growthConditions_ph", "growthConditions_pressure", "growthConditions_opticalDensity", "growthConditions_growthPhase", "growthConditions_growthRate", "growthConditions_vesselType", "growthConditions_agitationSpeed", "growthConditions_mediumSupplements"]
     let ignoreColumns = ['datasetType']
 
     //console.log(jsonTable);
@@ -201,7 +201,7 @@ export function DatasetTable({ jsonTable, datasetType }) {
             show.forEach(element => {
                 remove(hiddenColumns, element)
             });
-            ignoreColumns = ["objectsTested_name", "sample_title", "growthConditions_organism", "growthConditions_geneticBackground", "growthConditions_medium", "growthConditions_aeration", "growthConditions_temperature", "growthConditions_ph", "growthConditions_pressure", "growthConditions_opticalDensity", "growthConditions_growthPhase", "growthConditions_growthRate", "growthConditions_vesselType", "growthConditions_aerationSpeed", "growthConditions_mediumSupplements"]
+            ignoreColumns = ["objectsTested_name", "sample_title", "growthConditions_organism", "growthConditions_geneticBackground", "growthConditions_medium", "growthConditions_aeration", "growthConditions_temperature", "growthConditions_ph", "growthConditions_pressure", "growthConditions_opticalDensity", "growthConditions_growthPhase", "growthConditions_growthRate", "growthConditions_vesselType", "growthConditions_agitationSpeed", "growthConditions_mediumSupplements"]
             break;
         default:
             break;

@@ -46,7 +46,7 @@ function query(id_dataset) {
       vesselType {
         ...NLPGC
       }
-      aerationSpeed {
+      agitationSpeed {
         ...NLPGC
       }
       mediumSupplements {
