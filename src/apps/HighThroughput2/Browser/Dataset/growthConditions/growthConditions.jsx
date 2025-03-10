@@ -1,6 +1,40 @@
 import React, { useMemo } from 'react';
 import Style from './growthC.module.css';
 
+const CONDITION_ORDER = [
+    "Organism",
+    "Genetic Background",
+    "Medium",
+    "Medium Supplements",
+    "Aeration",
+    "Temperature",
+    "pH",
+    "Pressure",
+    "Growth Phase",
+    "Optical Density",
+    "Growth Rate",
+    "Vessel Type",
+    "Agitation Speed",
+    "Other Terms"
+];
+
+const TITLE_MAPPING = {
+    organism: "Organism",
+    geneticBackground: "Genetic Background",
+    medium: "Medium",
+    mediumSupplements: "Medium Supplements",
+    aeration: "Aeration",
+    temperature: "Temperature",
+    pH: "pH",
+    pressure: "Pressure",
+    growthPhase: "Growth Phase",
+    opticalDensity: "Optical Density",
+    growthRate: "Growth Rate",
+    vesselType: "Vessel Type",
+    agitationSpeed: "Agitation Speed",
+    otherTerms: "Other Terms"
+};
+
 export default function GrowthConditions({ growthCondition }) {
     const informations = useMemo(() => {
         if (!Array.isArray(growthCondition)) return [];
@@ -13,12 +47,22 @@ export default function GrowthConditions({ growthCondition }) {
                     ([key, value]) => key !== "__typename" && value !== null
                 );
 
-                return filteredEntries.map(([key, value]) => ({
-                    title: key.toUpperCase().replace(/_/g, ' '),
+                // Transform keys into titles and sort based on CONDITION_ORDER
+                const transformedEntries = filteredEntries.map(([key, value]) => ({
+                    title: TITLE_MAPPING[key] || key.toUpperCase().replace(/_/g, ' '),
                     data: value,
                 }));
+
+                // Sort entries based on CONDITION_ORDER
+                transformedEntries.sort((a, b) => {
+                    const indexA = CONDITION_ORDER.indexOf(a.title);
+                    const indexB = CONDITION_ORDER.indexOf(b.title);
+                    return indexA - indexB;
+                });
+
+                return transformedEntries;
             })
-            .filter(Boolean);
+            .filter(Boolean); // Remove null or empty rows
     }, [growthCondition]);
 
     if (!informations || informations.length === 0) {
