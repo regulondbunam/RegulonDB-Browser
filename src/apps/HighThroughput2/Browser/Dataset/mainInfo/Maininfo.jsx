@@ -29,10 +29,40 @@ export default function Maininfo({ _id, sample, fivePrimeEnrichment, datasetType
                 fivePrimeEnrichment && <p style={{ fontSize: "14px" }} >5' Enrichment: {fivePrimeEnrichment}</p>
             }
             {
-                sample?.controlId.length > 0 && <p style={{ fontSize: "14px" }} >Control ID: {sample?.controlId.join(", ")}</p>
+                sample?.controlId.length > 0 && (
+                    <p style={{ fontSize: "14px" }}>
+                        Control ID:{" "}
+                        {sample?.controlId.map((id, index) => (
+                            <a 
+                                key={id} 
+                                href={`https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=${id}`} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                style={{ marginRight: "5px" }}
+                            >
+                                {id}
+                            </a>
+                        ))}
+                    </p>
+                )
             }
             {
-                sample?.experimentId.length > 0 && <p style={{ fontSize: "14px" }} >Experiment ID: {sample?.experimentId.join(", ")}</p>
+                sample?.experimentId.length > 0 && (
+                    <p style={{ fontSize: "14px" }}>
+                        Experiment ID:{" "}
+                        {sample?.experimentId.map((id, index) => (
+                            <a 
+                                key={id} 
+                                href={`https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=${id}`} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                style={{ marginRight: "5px" }}
+                            >
+                                {id}
+                            </a>
+                        ))}
+                    </p>
+                )
             }
             <SourceSerie sourceSerie={sourceSerie} />
             {
