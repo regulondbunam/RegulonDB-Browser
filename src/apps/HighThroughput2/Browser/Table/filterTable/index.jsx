@@ -161,21 +161,29 @@ export default function FilterTable({ columns, data, tableName = "Table", titleV
  // console.log(state);
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }} >
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingRight: "10px" }} >
         <div>
-          <Typography variant={titleVariant} >{tableName}</Typography>
+          <Typography variant={"h1"}>{tableName}</Typography>
         </div>
         <Options state={state} dispatch={dispatch} tableName={tableName} tableId={tableId} />
       </div>
-      <div style={{ width: "99vw", height: (state.items * 39) + "px", maxHeight: "70vh", overflow: "auto", position: "relative" }}>
-        <div style={{ position: "absolute" }} >
+      <div
+          style={{
+            // width: "99vw",
+            height: (state.items * 39) + "px",
+            maxHeight: "70vh",
+            // overflow: "auto",
+            // overflowX: "auto",
+            position: "relative"
+          }}>
+        <div style={{ position: "absolute", paddingRight: "10px"}} >
           <table className={Style.table}>
             <Thead state={state} dispatch={dispatch} tableId={tableId} />
             <Tbody state={state} dispatch={dispatch} tableId={tableId} />
           </table>
         </div>
       </div>
-      <div style={{ display: "flex", justifyContent: "flex-end" }} >
+      <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: "10px"}} >
         <Pagination state={state} dispatch={dispatch} />
       </div>
     </div>

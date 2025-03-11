@@ -19,7 +19,7 @@ export default function Home() {
     console.error("error to getListOfTypeDatasets");
     return (
       <Cover state={"error"}>
-        <h1>Error, failed to load collection list</h1>
+        <h1>Error, failed to load collections list</h1>
       </Cover>
     );
   }
@@ -27,23 +27,35 @@ export default function Home() {
   if (loading) {
     return (
       <Cover state={"loading"}>
-        <h1>Loading collection list</h1>
+        <h1>Loading collections list</h1>
       </Cover>
     );
   }
 
   if (data) {
+    let allDatasetTypes = [];
+    allDatasetTypes = [...data.listAllDatasetTypes];
+    // console.log(allDatasetTypes.sort((a, b) => b.localeCompare(a)));
+    const allDatasetTypesSorted = allDatasetTypes.sort((a, b) => {
+      if (a.startsWith('G') && !b.startsWith('G')) {
+        return 1;  // 'a' se mueve después de 'b'
+      }
+      if (!a.startsWith('G') && b.startsWith('G')) {
+        return -1; // 'a' se mueve antes de 'b'
+      }
+      return 0;  // Si ambos empiezan o no empiezan con 'G', no se cambia el orden
+    });
     return (
       <div>
         <Cover>
           <h1>High Throughput Collection</h1>
         </Cover>
 
-        {DataVerifier.isValidArray(data.listAllDatasetTypes) && (
+        {DataVerifier.isValidArray(allDatasetTypesSorted) && (
           <Box sx={{ padding: 2 }}>
             <Grid container spacing={2}>
-              {data.listAllDatasetTypes.map((datasetType) => (
-                <Grid item xs={12} sm={6} md={4} lg={3} key={"card_" + datasetType}>
+              {allDatasetTypesSorted.map((datasetType) => (
+                <Grid item xs={12} sm={6} md={4} lg={6} key={"card_" + datasetType}>
                   <CollectionCard datasetType={datasetType} sources={data.listAllHTSources} />
                 </Grid>
               ))}

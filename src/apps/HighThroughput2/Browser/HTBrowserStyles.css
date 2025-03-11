@@ -1,0 +1,25 @@
+.description-container {
+
+}
+.description {
+    overflow: hidden;
+    padding: 10px;
+    background: white;
+    z-index: 1;
+    filter: blur(0px);
+    transition: all 0.3s ease-in-out;
+    max-height: 70px;
+}
+
+.description.expanded {
+    overflow: auto;
+    filter: blur(0);
+    height: auto;
+    max-height: 500px;
+}
+
+.toggle-button {
+    bottom: 15px;
+    left: 50%;
+    z-index: 2;
+}

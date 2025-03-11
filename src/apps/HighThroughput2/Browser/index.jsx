@@ -1,8 +1,13 @@
-import React, {useReducer} from 'react'
+import React, {useReducer, useState} from 'react'
 import { Cover, DataVerifier } from '../../../components/ui-components'
 import TreeView from './Tree'
 import Table from './Table'
 import { DISPATCH_TYPE } from './static';
+import {Grid, IconButton, Tooltip} from "@mui/material/";
+import {ExpandMore, ExpandLess} from "@mui/icons-material"
+import './HTBrowserStyles.css'
+import {Typography} from "@mui/material";
+
 
 function setDir(
     datasetType,
@@ -66,16 +71,16 @@ function reducer(state, action) {
     return state
 }
 
+
 export default function Browser({
     datasetType,
     source,
     experimentType
 }) {
-
     const [state, dispatch] = useReducer(reducer, { datasetType, source, experimentType }, initState)
 
-
     const handleUpdateDatasets = (newDatasetType, newSource, newExperimentType) => {
+        console.log("AQUI?",newDatasetType, newSource, newExperimentType);
         dispatch({
             type: DISPATCH_TYPE.UPDATE_TREE,
             datasetType: newDatasetType,
@@ -84,22 +89,45 @@ export default function Browser({
         })
     }
 
+    const [tooltipMessage, setTooltipMessage] = useState("Read more");
+    const [expanded, setExpanded] = useState(false);
+
+    const toggleDescription = () => {
+        setExpanded(!expanded);
+        setTooltipMessage(prevMessage => prevMessage === "Read more" ? "Read less" : "Read more");
+    };
     return (
         <div>
             <Cover>
                 <h1>{`High Throughput Collection ${state.dir}`}</h1>
             </Cover>
-            <div style={{ display: "flex" }} >
-                <div style={{ minWidth: "200px", overflow: "auto" }} >
-                    <TreeView updateDataset={handleUpdateDatasets} />
-                </div>
-
-                <div style={{ width: "100%" }} >
-                    <Table dir={state.dir} datasetType={state.datasetType} source={state.source} experimentType={state.experimentType} />
-                </div>
-
-            </div>
-
+            <Grid container spacing={2} >
+                <Grid item className='' xs={2}>
+                    <TreeView updateDataset={handleUpdateDatasets} datasetType={datasetType} sources={source} />
+                </Grid>
+                <Grid item className='' xs={10}>
+                    <Grid container spacing={1} direction={"column"}>
+                        <Grid item xs={1}>
+                            <Typography className={`description ${expanded ? "expanded" : ""}`}>
+                                {state.datasetType} {state.source} {state.experimentType}
+                            </Typography>
+                            <Tooltip title={tooltipMessage} enterDelay={500} followCursor={true}>
+                                <IconButton onClick={toggleDescription} className="toggle-button">
+                                    {expanded ? <ExpandLess /> : <ExpandMore />}
+                                </IconButton>
+                            </Tooltip>
+                        </Grid>
+                        <Grid item xs={11}>
+                            <Table
+                                dir={state.dir}
+                                datasetType={state.datasetType}
+                                source={state.source}
+                                experimentType={state.experimentType}
+                            />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
         </div>
     )
 }

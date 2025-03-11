@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import Home from "./Home";
 import Browser from "./Browser";
 import DatasetInfo from "./Browser/Dataset";
+import Finder from "../ht/finderPage/Finder";
+// import Finder from "../ht/finderPage/Finder";
 
 export const PATH_HT = {
   path: "ht2",
@@ -25,7 +27,7 @@ export const PATH_HT = {
 };
 
 function HT() {
-  const { site, datasetType, info } = useParams();
+  const { site, datasetType, info} = useParams();
   if (datasetType) {
     switch (site) {
       case "dataset":
@@ -33,9 +35,9 @@ function HT() {
         if(query.get('datasetId')){
           return <DatasetInfo datasetId={query.get('datasetId')} />
         }
-        return <Browser datasetType={datasetType}  tfName={query.get('tf')} experimentType={query.get('experimentType')}/>;
+        return <Browser datasetType={datasetType} source={query.get('source')}  tfName={query.get('tf')} experimentType={query.get('experimentType')}/>;
       case "finder":
-        return <>finder</>;
+        return <Finder datasetType={datasetType} />;
       default:
         return <Home />;
     }
