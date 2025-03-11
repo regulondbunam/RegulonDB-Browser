@@ -1,7 +1,7 @@
 
 import DataVerifier from "../utils"
 import { useNavigate } from "react-router-dom"
-import { Button } from "@mui/material"
+import { Button, Typography } from "@mui/material"
 
 export default function formatTUS(datasets = [],datasetType) {
     let table = {
@@ -34,7 +34,7 @@ export default function formatTUS(datasets = [],datasetType) {
         let genes = []
         if (DataVerifier.isValidArray(dataset.objectsTested)) {
             dataset.objectsTested.forEach((obj) => {
-                objects.push(obj.name)
+                objects.push(obj.abbreviatedName || obj.name)
                 if (DataVerifier.isValidArray(obj.genes)) {
                     genes = obj.genes.map(gene => gene.name)
                 }
@@ -61,13 +61,13 @@ export default function formatTUS(datasets = [],datasetType) {
         }
         table.data.push({
             "id": <LinkDataset value={dataset._id} datasetId={dataset._id} datasetType={datasetType} />,
-            "Transcription Factor": objects.join(", "),
+            "Transcription Factor": <LinkDatasetFromName value={objects.join(", ")} datasetId={dataset._id} datasetType={datasetType} tfName={objects.join(", ")}/>,
             "Title": DataVerifier.isValidString(dataset?.sourceSerie?.title) ? dataset?.sourceSerie.title : "",
             "Strategy": DataVerifier.isValidString(dataset?.sourceSerie?.strategy) ? dataset?.sourceSerie.strategy : "",
             "Genes": genes.join(", "),
             "Publication Title": publicationsTitle.join(", "),
             "Publication Authors": [...publicationsAuthors].join(", "),
-            "Growth Conditions": growthConditions.join("; ")
+            "Growth Conditions":  growthConditions.length > 0 ? growthConditions.length : undefined
         })
     })
     return table
@@ -77,4 +77,23 @@ function LinkDataset({ datasetId, datasetType }) {
     const navigate = useNavigate()
     //TFBINDING
     return <Button onClick={() => { navigate("./dataset/"+datasetType+"/datasetId=" + datasetId) }} >{datasetId}</Button>
+}
+
+function LinkDatasetFromName({ datasetId, datasetType, tfName }) {
+    const navigate = useNavigate()
+    //TFBINDING
+    return (
+        <Typography 
+          onClick={() => { navigate("./dataset/"+datasetType+"/datasetId=" + datasetId) }} 
+          sx={{ 
+            fontWeight: "bold", 
+            fontFamily: "Arial, sans-serif", 
+            cursor: "pointer",
+            fontSize: "14px",
+            color: "#1F3D4F"
+          }}
+        >
+          {tfName}
+        </Typography>
+      );
 }

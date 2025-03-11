@@ -1,6 +1,6 @@
 import DataVerifier from "../utils"
 import { useNavigate } from "react-router-dom"
-import { Button } from "@mui/material"
+import { Button, Typography } from "@mui/material"
 
 export default function formatRNAP(datasets = [], experimentType) {
     let table = {
@@ -41,7 +41,7 @@ export default function formatRNAP(datasets = [], experimentType) {
         let genes = []
         if (DataVerifier.isValidArray(dataset.objectsTested)) {
             dataset.objectsTested.forEach((obj) => {
-                objects.push(obj.name)
+                objects.push(obj.abbreviatedName || obj.name)
                 if (DataVerifier.isValidArray(obj.genes)) {
                     genes = obj.genes.map(gene => gene.name)
                 }
@@ -68,13 +68,13 @@ export default function formatRNAP(datasets = [], experimentType) {
         }
         table.data.push({
             "id": <LinkDataset value={dataset._id} datasetId={dataset._id} />,
-            "Transcription Factor": objects.join(", "),
+            "Transcription Factor": <LinkDatasetFromName value={objects.join(", ")} datasetId={dataset._id} tfName={objects.join(", ")}/>,
             "Dataset Title": DataVerifier.isValidString(dataset?.sample.title) ? dataset?.sample.title : "",
             "Strategy": dataset?.sourceSerie.strategy,
             "Genes": genes.join(", "),
             "Publication Title": publicationsTitle.join(", "),
             "Publication Authors": [...publicationsAuthors].join(", "),
-            "Growth Conditions": growthConditions.join("; ")
+            "Growth Conditions":  growthConditions.length > 0 ? growthConditions.length : undefined
         })
     })
     return table
@@ -84,4 +84,23 @@ function LinkDataset({ datasetId }) {
     const navigate = useNavigate()
     //TFBINDING
     return <Button onClick={() => { navigate("./dataset/RNAP_BINDING_SITES/datasetId=" + datasetId) }} >{datasetId}</Button>
+}
+
+function LinkDatasetFromName({ datasetId, tfName }) {
+    const navigate = useNavigate()
+    //TFBINDING
+    return (
+        <Typography 
+          onClick={() => { navigate("./dataset/RNAP_BINDING_SITES/datasetId=" + datasetId) }} 
+          sx={{ 
+            fontWeight: "bold", 
+            fontFamily: "Arial, sans-serif", 
+            cursor: "pointer",
+            fontSize: "14px",
+            color: "#1F3D4F"
+          }}
+        >
+          {tfName}
+        </Typography>
+      );
 }

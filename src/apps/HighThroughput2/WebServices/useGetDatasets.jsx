@@ -77,6 +77,7 @@ const query = gql`
       objectsTested {
         _id
         name
+        abbreviatedName
         genes {
           _id
           name

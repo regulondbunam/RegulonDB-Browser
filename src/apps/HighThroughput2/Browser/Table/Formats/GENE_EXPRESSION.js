@@ -1,6 +1,6 @@
 import DataVerifier from "../utils"
 import { useNavigate } from "react-router-dom"
-import { Button } from "@mui/material"
+import { Button, Typography } from "@mui/material"
 
 export default function formatGE(datasets = [], nlgc){
     //console.log(nlgc);
@@ -32,7 +32,7 @@ export default function formatGE(datasets = [], nlgc){
         let genes = []
         if (DataVerifier.isValidArray(dataset.objectsTested)) {
             dataset.objectsTested.forEach((obj) => {
-                objects.push(obj.name)
+                objects.push(obj.abbreviatedName || obj.name)
                 if (DataVerifier.isValidArray(obj.genes)) {
                     genes = obj.genes.map(gene => gene.name)
                 }
@@ -82,7 +82,7 @@ export default function formatGE(datasets = [], nlgc){
         }
         table.data.push({
             "id": <LinkDataset value={dataset._id} datasetId={dataset._id} />,
-            "Transcription Factor": objects.join(", "),
+            "Transcription Factor": <LinkDatasetFromName value={objects.join(", ")} datasetId={dataset._id} tfName={objects.join(", ")}/>,
             "Title": DataVerifier.isValidString(dataset?.sample?.title) ? dataset?.sample.title : "",
             "Strategy": DataVerifier.isValidString(dataset?.sample?.strategy) ? dataset?.sample.strategy : "",
             "Genes": genes.join(", "),
@@ -97,4 +97,23 @@ export default function formatGE(datasets = [], nlgc){
 function LinkDataset({ datasetId }) {
     const navigate = useNavigate()
     return <Button onClick={() => { navigate("./dataset/GENE_EXPRESSION/datasetId=" + datasetId) }} >{datasetId}</Button>
+}
+
+function LinkDatasetFromName({ datasetId, tfName }) {
+    const navigate = useNavigate()
+    //TFBINDING
+    return (
+        <Typography 
+          onClick={() => { navigate("./dataset/GENE_EXPRESSION/datasetId=" + datasetId) }} 
+          sx={{ 
+            fontWeight: "bold", 
+            fontFamily: "Arial, sans-serif", 
+            cursor: "pointer",
+            fontSize: "14px",
+            color: "#1F3D4F"
+          }}
+        >
+          {tfName}
+        </Typography>
+      );
 }
