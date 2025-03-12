@@ -148,7 +148,7 @@ function initialState({columns = [], data = [], tableId}) {
   }
 }
 
-export default function FilterTable({ columns, data, tableName = "Table", titleVariant = "h2" }) {
+export default function FilterTable({ columns, data, comments = [""], tableName = "Table", titleVariant = "h2" }) {
 
   const tableId = useId()
   const [state, dispatch] = useReducer(reducer,{columns, data, tableId}, initialState)
@@ -157,8 +157,6 @@ export default function FilterTable({ columns, data, tableName = "Table", titleV
     dispatch({ type: "reset", newState: initialState({columns, data, tableId}) })
   }, [columns, data, tableId])
 
-
- // console.log(state);
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingRight: "10px" }} >
@@ -170,10 +168,10 @@ export default function FilterTable({ columns, data, tableName = "Table", titleV
       <div
           style={{
             // width: "99vw",
-            height: (state.items * 39) + "px",
-            maxHeight: "70vh",
+            height: (state.items * 42) + "px",
+            // maxHeight: "80vh",
             // overflow: "auto",
-            // overflowX: "auto",
+            overflowX: "auto",
             position: "relative"
           }}>
         <div style={{ position: "absolute", paddingRight: "10px"}} >

@@ -58,6 +58,7 @@ function reducer(state, action) {
     switch (action.type) {
         case DISPATCH_TYPE.UPDATE_TREE:
             const dir = setDir(action.datasetType, action.source, action.experimentType)
+            console.log(state)
             return {
                 ...state,
                 dir: dir,

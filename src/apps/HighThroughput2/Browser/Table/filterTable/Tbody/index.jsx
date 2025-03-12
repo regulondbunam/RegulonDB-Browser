@@ -32,12 +32,10 @@ export default function Tbody({ state, dispatch, cellTextStyle, tableId }) {
                     },
                   }}>
                     <Box
-
                       sx={{
                         display: "flex",
                         alignItems: "center",
                         height: "30px",
-                        minWidth: column.width,
                         overflow: "hidden",
                         ":hover": {
                           zIndex: 99,

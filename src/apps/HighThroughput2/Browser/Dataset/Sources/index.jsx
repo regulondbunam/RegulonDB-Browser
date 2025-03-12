@@ -57,7 +57,7 @@ export default function Sources({ datasetId, datasetType }) {
     case "TTS":
     case "TUS":
     case "GENE_EXPRESSION":
-      tabTitle = "Uniformize";
+      tabTitle = "Uniformized";
       break;
     default:
       tabTitle = "";
@@ -73,13 +73,13 @@ export default function Sources({ datasetId, datasetType }) {
   return (
     <div>
       <h2>SOURCE DATA</h2>
-      <Box sx={{ width: "100%" }}>
+      <Box sx={{ width: "100%"}}>
         <Tabs value={value} onChange={handleChange} aria-label="data tabs">
           <Tab value={0} label={tabTitle} />
           <Tab value={1} disabled={!authorData} label="Author" />
         </Tabs>
 
-        <Box sx={{ padding: 2 }}>
+        <Box sx={{ padding: 2, overflowX: "hiden"}}>
           {data && (<></>)}
           {value === 0 && (<>
           <ProcessData peaks={peaks} TFBs={TFBs} TSs={TSs} TTs={TTs} TUs={TUs} />
