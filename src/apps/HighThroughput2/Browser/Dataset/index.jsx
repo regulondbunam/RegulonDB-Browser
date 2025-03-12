@@ -98,7 +98,7 @@ console.log(_dataset);
         <br />
       </article>
       <div>
-        <Button
+        {/* <Button
           variant="outlined"
           onClick={() => {
             if (_dataset) {
@@ -136,6 +136,23 @@ console.log(_dataset);
           }}
         >
           Download Dataset Info
+        </Button> */}
+        <Button
+          variant="outlined"
+          onClick={() => {
+            if (_dataset) {
+              const dataStr = JSON.stringify(_dataset, null, 2);
+              const file = new Blob([dataStr], { type: "application/json" });
+              const element = document.createElement("a");
+              element.href = URL.createObjectURL(file);
+              element.download = "dataset_" + _dataset?._id + ".json";
+              document.body.appendChild(element);
+              element.click();
+              document.body.removeChild(element);
+            }
+          }}
+        >
+          Download Dataset (.json)
         </Button>
       </div>
     </div>

@@ -2,38 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ExternalRef from "./externalRef";
 import Note from "./note";
-import { gql, useQuery } from "@apollo/client";
-import { DataVerifier } from "../../../../../components/ui-components";
-
-const query = gql`
-  query getIDRegulon($advanceSearch: String) {
-    getRegulonBy(advancedSearch: $advanceSearch) {
-      data {
-        _id
-      }
-    }
-  }
-`;
 
 export function ObjectTested({ obj, i }) {
-  const { data } = useQuery(query, {
-    variables: {
-      advanceSearch: `${obj.name}[regulator.name]`,
-    },
-  });
-  let regulonId;
-  if (data) {
-    regulonId = DataVerifier.isValidArray(data.getRegulonBy.data) ?  data.getRegulonBy.data[0]._id : undefined;
-  }
   return (
     <div>
-      {regulonId ? (
-        <Link to={"/regulon/" + regulonId}>
-          <h3>{obj.name}</h3>
-        </Link>
-      ) : (
-        <h3>{obj.name}</h3>
-      )}
+      <Link to={`/regulon/${obj._id}`} className="inline-block w-fit">
+        <h1 className="text-blue-600 font-bold hover:underline !inline">
+          {obj.name}
+        </h1>
+      </Link>
+
 
       {obj.genes.length > 0 && linkGenes(obj.genes)}
 

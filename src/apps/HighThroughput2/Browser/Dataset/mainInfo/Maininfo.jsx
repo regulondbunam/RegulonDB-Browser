@@ -23,7 +23,6 @@ export default function Maininfo({ _id, sample, fivePrimeEnrichment, datasetType
             {
                 sourceSerie?.strategy && <p style={{ fontSize: "14px" }} >|  Strategy: {sourceSerie.strategy}</p>
             }
-            
             <hr />
             {
                 fivePrimeEnrichment && <p style={{ fontSize: "14px" }} >5' Enrichment: {fivePrimeEnrichment}</p>
@@ -31,18 +30,20 @@ export default function Maininfo({ _id, sample, fivePrimeEnrichment, datasetType
             {
                 sample?.controlId.length > 0 && (
                     <p style={{ fontSize: "14px" }}>
-                        Control ID:{" "}
-                        {sample?.controlId.map((id, index) => (
-                            <a 
-                                key={id} 
-                                href={`https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=${id}`} 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                style={{ marginRight: "5px" }}
-                            >
-                                {id}
-                            </a>
+                    Control ID:{" "}
+                    <span style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
+                        {sample?.controlId.map((id) => (
+                        <a
+                            key={id}
+                            href={`https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=${id}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ textDecoration: "underline"}}
+                        >
+                            {id}
+                        </a>
                         ))}
+                    </span>
                     </p>
                 )
             }
@@ -50,17 +51,19 @@ export default function Maininfo({ _id, sample, fivePrimeEnrichment, datasetType
                 sample?.experimentId.length > 0 && (
                     <p style={{ fontSize: "14px" }}>
                         Experiment ID:{" "}
-                        {sample?.experimentId.map((id, index) => (
-                            <a 
-                                key={id} 
-                                href={`https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=${id}`} 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                style={{ marginRight: "5px" }}
-                            >
-                                {id}
-                            </a>
+                        <span style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
+                        {sample?.experimentId.map((id) => (
+                        <a
+                            key={id}
+                            href={`https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=${id}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ textDecoration: "underline"}}
+                        >
+                            {id}
+                        </a>
                         ))}
+                    </span>
                     </p>
                 )
             }
