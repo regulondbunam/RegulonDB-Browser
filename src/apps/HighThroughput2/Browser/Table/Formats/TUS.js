@@ -50,14 +50,20 @@ export default function formatTUS(datasets = [],datasetType) {
                 }
             })
         }
-        let growthConditions = []
-        if (DataVerifier.isValidObject(dataset.growthConditions)) {
-            Object.keys(dataset.growthConditions).forEach(key => {
-                if (DataVerifier.isValidString(dataset.growthConditions[key]) && !key.includes("__")) {
-                    growthConditions.push(`${key}: ${dataset.growthConditions[key]}`)
+        let growthConditions = [];
+        if (Array.isArray(dataset.growthConditions)) {
+            dataset.growthConditions.forEach(condition => {
+                if (DataVerifier.isValidObject(condition)) {
+                    let validValues = [];
+                    Object.keys(condition).forEach(key => {
+                        // Validate the value and exclude keys with "__" (e.g., __typename)
+                        if (DataVerifier.isValidString(condition[key]) && !key.includes("__")) {
+                            validValues.push(`${key}: ${condition[key]}`);
+                        }
+                    });
+                    growthConditions.push(validValues);
                 }
-
-            })
+            });
         }
         table.data.push({
             "id": <LinkDataset value={dataset._id} datasetId={dataset._id} datasetType={datasetType} />,
@@ -67,7 +73,9 @@ export default function formatTUS(datasets = [],datasetType) {
             "Genes": genes.join(", "),
             "Publication Title": publicationsTitle.join(", "),
             "Publication Authors": [...publicationsAuthors].join(", "),
-            "Growth Conditions":  growthConditions.length > 0 ? growthConditions.length : undefined
+            "Growth Conditions": growthConditions.length > 0
+            ? `${growthConditions.length} | ${growthConditions[0].join("; ")}`
+            : undefined
         })
     })
     return table
