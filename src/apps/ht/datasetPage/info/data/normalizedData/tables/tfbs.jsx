@@ -90,7 +90,7 @@ export default function TFBS({
 
 function linkGenes(genes = []) {
     //console.log(window.finder);
-    if(window.IN_URL.isEmbed){
+    if(window.IN_URL?.isEmbed){
         return (
             <div >
                 {
