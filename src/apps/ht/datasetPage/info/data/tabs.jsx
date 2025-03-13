@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { SpinnerCircle } from "../../../components/ui-components_old/ui_components";
 import NormData from "./normalizedData/normData";
-import AuthorData from "./authors/authors";
 
 import GetAuthorData from "../../../webServices/authors/authorsData_dataset";
 import GetPeaks from "../../../webServices/peaks/peaks_dataset";
@@ -10,7 +9,6 @@ import GetTUs from "../../../webServices/transUnits/tu_dataset";
 import GetTSS from "../../../webServices/tss/tss_dataset";
 import GetTTS from "../../../webServices/tts/tts_dataset";
 import Summary from "./summary";
-import Style from "./tabs.module.css";
 
 import { Viewer } from "../igv/viewer";
 
@@ -21,10 +19,9 @@ export default function Tabs({ id_dataset, data }) {
   const [_jsonTable, set_jsonTable] = useState();
 
   useEffect(() => {
-    if (data?.datasetType === "GENE_EXPRESSION") {
+    if (data?.collectionData.type === "GENE_EXPRESSION") {
       if (!_jsonTable) {
         try {
-          //REACT_APP_PROSSES_SERVICE
           fetch(
             `${process.env.REACT_APP_PROSSES_SERVICE}/${id_dataset}/ge/jsonTable`,
             { cache: "default" }
@@ -47,118 +44,30 @@ export default function Tabs({ id_dataset, data }) {
     }
   }, [data, _jsonTable, id_dataset, set_jsonTable, set_datasetData]);
 
-  let tabTitle1 = "";
-  switch (data?.datasetType) {
-    case "TFBINDING":
-      tabTitle1 = "Normalized";
-      break;
-    case "RNAP_BINDING_SITES":
-    case "TSS":
-    case "TTS":
-    case "TUS":
-    case "GENE_EXPRESSION":
-      tabTitle1 = "Uniformize";
-      break;
-    default:
-      tabTitle1 = undefined;
-      break;
-  }
-
-  const open = (id) => {
-    set_openTab(id);
-  };
-
-  const isActive = (id) => {
-    if (_openTab === id) {
-      return Style.selected;
-    }
-    return "";
-  };
-
-
-  if (data?.datasetType === "RNAP_BINDING_SITES" && _autorData) {
-    return (
-      <div>
-        <h2>DATA FROM DATASET</h2>
-        <div className={Style.tab}>
-          {Array.isArray(_autorData) && _autorData.length ? (
-            <button
-              className={"" + isActive(1)}
-              id={`TAB_${id_dataset}_1`}
-              onClick={() => {
-                open(1);
-              }}
-            >
-              Author data
-            </button>
-          ) : null}
-        </div>
-        <div className={Style.tabcontent}>
-          <AuthorData id_dataset={id_dataset} data={_autorData} />
-        </div>
-      </div>
-    );
-  }
-
-  if ((_datasetData === 1 && _autorData === 1) || !tabTitle1) {
-    return null;
-  }
-
   if (
     (_datasetData || _datasetData === 1) &&
     (_autorData || _autorData === 1)
   ) {
     return (
-      <div>
-        <h2>DATA FROM DATASET</h2>
-        <div className={Style.tab}>
-          {_datasetData !== 1 ? (
-            <button
-              className={"" + isActive(0)}
-              id={`TAB_${id_dataset}_0`}
-              onClick={(event) => {
-                open(0);
-              }}
-            >
-              {tabTitle1}
-            </button>
-          ) : null}
-          {Array.isArray(_autorData) && _autorData.length ? (
-            <button
-              className={"" + isActive(1)}
-              id={`TAB_${id_dataset}_1`}
-              onClick={() => {
-                open(1);
-              }}
-            >
-              Author data
-            </button>
-          ) : null}
-        </div>
-        {_openTab === 0 ? (
-          <div className={Style.tabcontent}>
-            <Summary data={data} />
-            <NormData
-              datasetType={data?.datasetType}
-              datasetData={_datasetData}
-              jsonTable={_jsonTable}
+      <div style={{ paddingTop: '20px' }}>
+        <h1>IGV Browser</h1>
+        <div>
+          <Summary data={data} />
+          <NormData
+            datasetType={data?.collectionData.type}
+            datasetData={_datasetData}
+            jsonTable={_jsonTable}
+          />
+          <div id="igv-view">
+            <Viewer
+              id_dataset={data?._id}
+              tfs={data?.objectsTested}
+              datasetType={data?.collectionData.type}
             />
-            <div id="igv-view">
-              <Viewer
-                id_dataset={data?._id}
-                tfs={data?.objectsTested}
-                datasetType={data?.datasetType}
-              />
-              <br />
-              <br />
-            </div>
+            <br />
+            <br />
           </div>
-        ) : null}
-        {_openTab === 1 ? (
-          <div className={Style.tabcontent}>
-            <AuthorData id_dataset={id_dataset} data={_autorData} />
-          </div>
-        ) : null}
+        </div>
       </div>
     );
   }
@@ -178,7 +87,7 @@ export default function Tabs({ id_dataset, data }) {
           }
         }}
       />
-      {data?.datasetType === "TFBINDING" && (
+      {data?.collectionData.type === "TFBINDING" && (
         <GetTFBSData
           id_dataset={id_dataset}
           set_datasetData={(data) => {
@@ -189,7 +98,7 @@ export default function Tabs({ id_dataset, data }) {
           }}
         />
       )}
-      {data?.datasetType === "TUS" && (
+      {data?.collectionData.type === "TUS" && (
         <GetTUs
           id_dataset={id_dataset}
           resoultsData={(data) => {
@@ -207,7 +116,7 @@ export default function Tabs({ id_dataset, data }) {
           }}
         />
       )}
-      {data?.datasetType === "TSS" && (
+      {data?.collectionData.type === "TSS" && (
         <GetTSS
           id_dataset={id_dataset}
           resoultsData={(data) => {
@@ -222,7 +131,7 @@ export default function Tabs({ id_dataset, data }) {
           }}
         />
       )}
-      {data?.datasetType === "TTS" && (
+      {data?.collectionData.type === "TTS" && (
         <GetTTS
           id_dataset={id_dataset}
           resoultsData={(data) => {

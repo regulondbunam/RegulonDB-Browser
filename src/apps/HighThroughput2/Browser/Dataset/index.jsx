@@ -7,6 +7,7 @@ import GrowthConditions from "./growthConditions/growthConditions";
 import NLPgc from "./nlpGrowthConditions/NLPgc";
 import Sources from "./Sources";
 import Related from "./related/Related";
+import Tabs from "../../../../apps/ht/datasetPage/info/data/tabs";
 import txtTemplate from "./template.txt";
 import { Button } from "@mui/material";
 import ParseJSONtoTemplate from "../../../../components/transformJSON";
@@ -83,6 +84,7 @@ console.log(_dataset);
         )}
         <GrowthConditions growthCondition={_dataset?.growthConditions} />
         <NLPgc datasetId={_dataset?._id} />
+        <Tabs id_dataset={_dataset?._id} data={_dataset} />
         <Sources datasetId={_dataset?._id} datasetType={_dataset?.collectionData?.type} />
         {_dataset?.collectionData?.type === "TFBINDING" && (
           <Related

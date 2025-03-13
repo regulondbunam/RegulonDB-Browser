@@ -7,7 +7,7 @@ import Finder from "../ht/finderPage/Finder";
 // import Finder from "../ht/finderPage/Finder";
 
 export const PATH_HT = {
-  path: "ht2",
+  path: "ht",
   element: <HT />,
   children: [
     {

@@ -17,7 +17,7 @@ import { useLazyQuery, gql } from "@apollo/client";
 import { useNavigate, Link } from "react-router-dom";
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import DataObjectIcon from '@mui/icons-material/DataObject';
-import ListAltIcon from '@mui/icons-material/ListAlt';
+//import ListAltIcon from '@mui/icons-material/ListAlt';
 import { DATASET_TYPE_NAME, SOURCE_NAMES, DATASET_DESCRIPTIONS_PATHS} from "../static";
 import { DataVerifier } from "../../../components/ui-components";
 import './CardStyles.css';
@@ -160,7 +160,7 @@ const CollectionCard = ({ datasetType, sources = [] }) => {
                 {metadata.map((data, index) => (
                     <Grid container item xs={6} alignContent={"center"}>
                       <Grid item xs={10}>
-                        <Button variant="outlined" fullWidth
+                        <Button variant="outlined" fullWidth sx={{textTransform:"none"}}
                           // startIcon={<ListAltIcon />}
                           onClick={() => {
                             handleGoSource(data.metadata.source);
