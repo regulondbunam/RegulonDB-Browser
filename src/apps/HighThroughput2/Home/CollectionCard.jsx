@@ -141,8 +141,8 @@ const CollectionCard = ({ datasetType, sources = [] }) => {
               {/* QBuilder IconButton */}
               <Grid item xs={1} alignContent={"center"}>
                 <Tooltip title="Query Builder" enterDelay={500}>
-                  <IconButton color="primary" aria-label="icon" variant="text" component={Link}
-                              to={`${window.IN_URL.finder}${datasetType}`} >
+                  <IconButton color="primary" aria-label="icon" variant="text" component={Link} disabled
+                              to={"/ht/finder/" + datasetType} >
                     <DataObjectIcon/>
                   </IconButton>
                 </Tooltip>
