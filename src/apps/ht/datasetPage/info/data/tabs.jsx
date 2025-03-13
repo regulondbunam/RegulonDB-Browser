@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { SpinnerCircle } from "../../../components/ui-components_old/ui_components";
-import NormData from "./normalizedData/normData";
+// import NormData from "./normalizedData/normData";
 
 import GetAuthorData from "../../../webServices/authors/authorsData_dataset";
 import GetPeaks from "../../../webServices/peaks/peaks_dataset";
@@ -53,11 +53,6 @@ export default function Tabs({ id_dataset, data }) {
         <h1>IGV Browser</h1>
         <div>
           <Summary data={data} />
-          <NormData
-            datasetType={data?.collectionData.type}
-            datasetData={_datasetData}
-            jsonTable={_jsonTable}
-          />
           <div id="igv-view">
             <Viewer
               id_dataset={data?._id}

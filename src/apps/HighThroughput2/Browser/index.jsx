@@ -7,6 +7,7 @@ import {Grid, IconButton, Tooltip} from "@mui/material/";
 import {ExpandMore, ExpandLess} from "@mui/icons-material"
 import './HTBrowserStyles.css'
 import {Typography} from "@mui/material";
+import {DATASET_TYPE_NAME} from "../static";
 
 
 function setDir(
@@ -81,7 +82,7 @@ export default function Browser({
     const [state, dispatch] = useReducer(reducer, { datasetType, source, experimentType }, initState)
 
     const handleUpdateDatasets = (newDatasetType, newSource, newExperimentType) => {
-        console.log("AQUI?",newDatasetType, newSource, newExperimentType);
+
         dispatch({
             type: DISPATCH_TYPE.UPDATE_TREE,
             datasetType: newDatasetType,
@@ -100,7 +101,7 @@ export default function Browser({
     return (
         <div>
             <Cover>
-                <h1>{`High Throughput Collection ${state.dir}`}</h1>
+                <h1>{`High Throughput Collection / ${DATASET_TYPE_NAME(state.datasetType)}`}</h1>
             </Cover>
             <Grid container spacing={2} >
                 <Grid item className='' xs={2}>
@@ -111,6 +112,7 @@ export default function Browser({
                         <Grid item xs={1}>
                             <Typography className={`description ${expanded ? "expanded" : ""}`}>
                                 {state.datasetType} {state.source} {state.experimentType}
+                                {/*TODO: Summary tabla*/}
                             </Typography>
                             <Tooltip title={tooltipMessage} enterDelay={500} followCursor={true}>
                                 <IconButton onClick={toggleDescription} className="toggle-button">
@@ -120,7 +122,7 @@ export default function Browser({
                         </Grid>
                         <Grid item xs={11}>
                             <Table
-                                dir={state.dir}
+                                // dir={state.dir}
                                 datasetType={state.datasetType}
                                 source={state.source}
                                 experimentType={state.experimentType}

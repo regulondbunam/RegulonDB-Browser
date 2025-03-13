@@ -1,6 +1,5 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Accordion from '@mui/material/Accordion';
-//import AccordionActions from '@mui/material/AccordionActions';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -19,58 +18,42 @@ export default function ProcessData({
     TUs,
 }) {
 
+    const [expanded, setExpanded] = useState({
+        peaks_state: true,
+        TFBs_state: true,
+        TSs_state: true,
+        TTs_state: true,
+        TUs_state: true,
+    })
+    const handleChange = (panel) => (event, isExpanded) => {
+        setExpanded({ ...expanded, [panel]: isExpanded });
+    };
+
+    const data = [
+        { key: 'peaks_state', label: 'Peaks', content: peaks, component: <Peaks peaks={peaks} /> },
+        { key: 'TFBs_state', label: 'TFBS', content: TFBs, component: <TFBS TFBs={TFBs} /> },
+        { key: 'TSs_state', label: 'TSS', content: TSs, component: <TSS tss={TSs} /> },
+        { key: 'TTs_state', label: 'TTS', content: TTs, component: <TTS tts={TTs} /> },
+        { key: 'TUs_state', label: 'TUS', content: TUs, component: <TUS tus={TUs} /> },
+    ];
   return (
     <div>
-        {peaks && (
-            <Accordion>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <h3>Peaks</h3>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Peaks peaks={peaks} />
-            </AccordionDetails>
-          </Accordion>
-        )}
-        {TFBs && (
-            <Accordion>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <h3>Transcription Factor Bindings Sites</h3>
-            </AccordionSummary>
-            <AccordionDetails>
-              <TFBS TFBs={TFBs} />
-            </AccordionDetails>
-          </Accordion>
-        )}
-        {TSs && (
-            <Accordion>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <h3>Transcription Start Sites</h3>
-            </AccordionSummary>
-            <AccordionDetails>
-              <TSS tss={TSs} />
-            </AccordionDetails>
-          </Accordion>
-        )}
-        {TTs && (
-            <Accordion>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <h3>Transcription Termination Sites</h3>
-            </AccordionSummary>
-            <AccordionDetails>
-              <TTS tts={TTs} />
-            </AccordionDetails>
-          </Accordion>
-        )}
-        {TUs && (
-            <Accordion>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <h3>Transcription Units</h3>
-            </AccordionSummary>
-            <AccordionDetails>
-              <TUS tus={TUs} />
-            </AccordionDetails>
-          </Accordion>
-        )}
+        {data.map(({ key, label, content , component}) => (
+            content && (
+                <Accordion
+                    key={key}
+                    expanded={expanded[key]}
+                    onChange={handleChange(key)}
+                >
+                    <AccordionSummary expandIcon={<ExpandMoreIcon/>}>
+                        {content && <h3>{label}</h3>}
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        {content && component}
+                    </AccordionDetails>
+                </Accordion>
+            )
+        ))}
     </div>
   )
 }

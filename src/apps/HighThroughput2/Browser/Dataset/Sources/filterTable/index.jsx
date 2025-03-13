@@ -148,7 +148,7 @@ function initialState({columns = [], data = [], tableId}) {
   }
 }
 
-export default function FilterTable({ columns, data, tableName = "Table", titleVariant = "h2" }) {
+export default function FilterTable({ columns, data, tableName = "", titleVariant = "h2" }) {
 
   const tableId = useId()
   const [state, dispatch] = useReducer(reducer,{columns, data, tableId}, initialState)

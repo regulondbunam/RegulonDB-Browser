@@ -42,7 +42,7 @@ export default function Sources({ datasetId, datasetType }) {
     }
   }
 
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -78,16 +78,16 @@ export default function Sources({ datasetId, datasetType }) {
           <Tab value={0} label={tabTitle} />
           <Tab value={1} disabled={!authorData} label="Author" />
         </Tabs>
-
-        <Box sx={{ padding: 2, overflowX: "hiden"}}>
+        <Box sx={{ padding: 2, overflowX: "hidden" }}>
           {data && (<></>)}
-          {value === 0 && (<>
-          <ProcessData peaks={peaks} TFBs={TFBs} TSs={TSs} TTs={TTs} TUs={TUs} />
-          </>)}
-          {value === 1 && <Author data={authorData} />}
+          {value === 0 && (
+              <>
+                <ProcessData peaks={peaks} TFBs={TFBs} TSs={TSs} TTs={TTs} TUs={TUs} />
+              </>
+          )}
+          {value === 1 && authorData && <Author data={authorData} />}
         </Box>
       </Box>
-      {datasetId}
     </div>
   );
 }

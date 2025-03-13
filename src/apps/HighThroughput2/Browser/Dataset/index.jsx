@@ -2,15 +2,12 @@ import React, { useState, useEffect } from "react";
 import GetInfoDataset from "../../ws_old/dataset/dataset_info";
 import { SpinnerCircle } from "../../components/ui-components_old/ui_components";
 import Maininfo from "./mainInfo/Maininfo";
-import TranscriptionFactor from "./transcriptionFactor/TranscriptionFactor";
 import GrowthConditions from "./growthConditions/growthConditions";
 import NLPgc from "./nlpGrowthConditions/NLPgc";
 import Sources from "./Sources";
 import Related from "./related/Related";
 import Tabs from "../../../../apps/ht/datasetPage/info/data/tabs";
-import txtTemplate from "./template.txt";
 import { Button } from "@mui/material";
-import ParseJSONtoTemplate from "../../../../components/transformJSON";
 
 export default function DatasetInfo({ datasetId }) {
   const [_datasetId, set_datasetId] = useState(datasetId);
@@ -64,24 +61,18 @@ export default function DatasetInfo({ datasetId }) {
     return <div>dataset no existe</div>;
   }
 console.log(_dataset);
-
   return (
     <div>
       <article>
         <h2>DATASET</h2>
         <Maininfo
-          _id={_dataset?._id}
-          sample={_dataset?.sample}
-          datasetType={_dataset?.collectionData?.type}
-          sourceSerie={_dataset?.sourceSerie}
-          publications={_dataset?.publications}
+            _id={_dataset?._id}
+            sample={_dataset?.sample}
+            datasetType={_dataset?.collectionData?.type}
+            sourceSerie={_dataset?.sourceSerie}
+            publications={_dataset?.publications}
+            objectTested={_dataset?.objectsTested}
         />
-        {_dataset?.collectionData?.type === "TFBINDING" && (
-          <div>
-            <h2>TRANSCRIPTION FACTOR</h2>
-            <TranscriptionFactor objectsTested={_dataset?.objectsTested} />
-          </div>
-        )}
         <GrowthConditions growthCondition={_dataset?.growthConditions} />
         <NLPgc datasetId={_dataset?._id} />
         <Tabs id_dataset={_dataset?._id} data={_dataset} />

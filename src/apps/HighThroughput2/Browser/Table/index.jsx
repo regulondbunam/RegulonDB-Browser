@@ -29,7 +29,7 @@ export default function Table({
 
     if (datasets) {
         const table = formatDatasetFilterTable(datasets, datasetType, experimentType, source)
-        return <FilterTable columns={table.columns} data={table.data} tableName={dir.replace('/','>')} />
+        return <FilterTable columns={table.columns} data={table.data} tableName={dir} />
     }
 
     return <>...</>
