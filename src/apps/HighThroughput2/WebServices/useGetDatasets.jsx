@@ -75,7 +75,7 @@ const query = gql`
         agitationSpeed
         mediumSupplements
         experimentTitle
-        experimentID
+        experimentId
         otherTerms
       }
       nlpGrowthConditionsId
