@@ -90,10 +90,25 @@ export default function GrowthConditions({ growthCondition }) {
 }
 
 function BitInfo({ title, data }) {
+    const isExperimentID = title === "Experiment ID";
+
     return (
         <div className={Style.gridItem}>
             <p className={Style.title}>{title}</p>
-            <p className={Style.data}>{data}</p>
+            <p className={Style.data}>
+                {isExperimentID ? (
+                    <a
+                        href={`https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=${data}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: 'blue', textDecoration: 'underline' }}
+                    >
+                        {data}
+                    </a>
+                ) : (
+                    data
+                )}
+            </p>
         </div>
     );
 }

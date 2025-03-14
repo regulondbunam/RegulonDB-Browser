@@ -127,7 +127,7 @@ export default function Browser({
                                 To download the whole union peaks click <a href="http://regulondbdata.ccg.unam.mx/ht/galagan/tf_binding/tf_binding_peaks_galagan.zip" target="_blank" rel="noopener noreferrer" style={{ fontSize: "inherit", textDecoration: "underline" }}>here</a>.{" "}
                                 When using this information please cite:{" "}
                                 <a href="https://pubmed.ncbi.nlm.nih.gov/38826350/" target="_blank" rel="noopener noreferrer" style={{ fontSize: "inherit", textDecoration: "underline" }}>
-                                    38826350
+                                    Lally P. et al (PMID:38826350)
                                 </a>.
                                 This information corresponds to <strong>RegulonDB version 13.6</strong>.
                             </Typography>

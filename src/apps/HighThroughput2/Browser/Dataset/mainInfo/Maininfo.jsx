@@ -78,7 +78,7 @@ export default function Maininfo({ _id, sample, fivePrimeEnrichment, datasetType
             }
             {
                 sample?.experimentId.length > 0 && (
-                    <p style={{ fontSize: "14px" }}>
+                    <p style={{ fontSize: "14px" , marginTop:'15px' }}>
                         Experiment ID:{" "}
                         <span style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
                         {sample?.experimentId.map((id) => (
