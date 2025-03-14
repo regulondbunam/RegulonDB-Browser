@@ -13,10 +13,13 @@ export default function formatTUS(datasets = [],datasetType) {
                 label: "Title"
             },
             {
-                label: "Strategy",
+                label: "Experiment Title"
             },
             {
                 label: "Publication Title",
+            },
+            {
+                label: "Strategy",
             },
             {
                 label: "Publication Authors",
@@ -24,6 +27,7 @@ export default function formatTUS(datasets = [],datasetType) {
             },
             {
                 label: "Growth Conditions",
+                hide: true
             },
         ],
         data: []
@@ -75,7 +79,8 @@ export default function formatTUS(datasets = [],datasetType) {
             "Publication Authors": [...publicationsAuthors].join(", "),
             "Growth Conditions": growthConditions.length > 0
             ? `${growthConditions.length} | ${growthConditions[0].join("; ")}`
-            : undefined
+            : undefined,
+            "Experiment Title": dataset?.sourceSerie?.title
         })
     })
     return table

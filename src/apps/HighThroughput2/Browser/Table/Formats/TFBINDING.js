@@ -15,11 +15,15 @@ export default function formatTFBS(datasets = [], experimentType) {
                 label: "Dataset Title"
             },
             {
+                label: "Experiment Title"
+            },
+            {
                 label: "Strategy",
                 setFilter: experimentType
             },
             {
                 label: "Genes",
+                hide: true
             },
             {
                 label: "Publication Title",
@@ -31,7 +35,8 @@ export default function formatTFBS(datasets = [], experimentType) {
             },
             {
                 label: "Growth Conditions",
-            },
+                hide: true
+            }
         ],
         data: []
     }
@@ -82,7 +87,8 @@ export default function formatTFBS(datasets = [], experimentType) {
             "Publication Authors": [...publicationsAuthors].join(", "),
             "Growth Conditions": growthConditions.length > 0
             ? `${growthConditions.length} | ${growthConditions[0].join("; ")}`
-            : undefined
+            : undefined,
+            "Experiment Title": dataset?.sourceSerie?.title
         })
     })
     return table

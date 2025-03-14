@@ -2,6 +2,8 @@ import React, { useMemo } from 'react';
 import Style from './growthC.module.css';
 
 const CONDITION_ORDER = [
+    "Experiment ID",
+    "Experiment Title",
     "Organism",
     "Genetic Background",
     "Medium",
@@ -19,6 +21,8 @@ const CONDITION_ORDER = [
 ];
 
 const TITLE_MAPPING = {
+    experimentId: "Experiment ID",
+    experimentTitle: "Experiment Title",
     organism: "Organism",
     geneticBackground: "Genetic Background",
     medium: "Medium",
@@ -71,7 +75,7 @@ export default function GrowthConditions({ growthCondition }) {
 
     return (
         <div>
-            <h2>GROWTH CONDITIONS</h2>
+            <h2>EXPERIMENT DETAILS</h2>
             <div className={Style.gridContainer}>
                 {informations.map((row, rowIndex) => (
                     <div key={`row_${rowIndex}`} className={Style.row}>

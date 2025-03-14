@@ -8,6 +8,7 @@ import {ExpandMore, ExpandLess} from "@mui/icons-material"
 import './HTBrowserStyles.css'
 import {Typography} from "@mui/material";
 import {DATASET_TYPE_NAME} from "../static";
+import { useLocation } from "react-router-dom";
 
 
 function setDir(
@@ -98,6 +99,8 @@ export default function Browser({
         setExpanded(!expanded);
         setTooltipMessage(prevMessage => prevMessage === "Read more" ? "Read less" : "Read more");
     };
+    const location = useLocation();
+    const isTargetPath = location.pathname === "/ht/dataset/TFBINDING/source=GALAGAN";
     return (
         <div>
             <Cover>
@@ -109,17 +112,33 @@ export default function Browser({
                 </Grid>
                 <Grid item className='' xs={10}>
                     <Grid container spacing={1} direction={"column"}>
-                        <Grid item xs={1}>
-                            <Typography className={`description ${expanded ? "expanded" : ""}`}>
-                                {state.datasetType} {state.source} {state.experimentType}
-                                {/*TODO: Summary tabla*/}
+                    <Grid item xs={1}>
+                        <Typography className="description" style={{ marginBottom: isTargetPath ? "8px" : "0px" }}>
+                            <strong>{state.datasetType} {state.source} {state.experimentType}</strong>
+                        </Typography>
+
+                        {isTargetPath && (
+                            <Typography className={`description ${expanded ? "expanded" : ""}`} sx={{ mt: 1 }}>
+                                Access to the whole Galagan collection of union peaks for each TF and their corresponding individual experiments.{" "}
+                                For details of the whole collection click{" "}
+                                <a a href="#" onClick={(e) => e.preventDefault()} target="_blank" rel="noopener noreferrer" style={{ fontSize: "inherit", textDecoration: "underline" }}>
+                                    here
+                                </a>.{" "}
+                                To download the whole union peaks click <a href="http://regulondbdata.ccg.unam.mx/ht/galagan/tf_binding/tf_binding_peaks_galagan.zip" target="_blank" rel="noopener noreferrer" style={{ fontSize: "inherit", textDecoration: "underline" }}>here</a>.{" "}
+                                When using this information please cite:{" "}
+                                <a href="https://pubmed.ncbi.nlm.nih.gov/38826350/" target="_blank" rel="noopener noreferrer" style={{ fontSize: "inherit", textDecoration: "underline" }}>
+                                    38826350
+                                </a>.
+                                This information corresponds to <strong>RegulonDB version 13.6</strong>.
                             </Typography>
-                            <Tooltip title={tooltipMessage} enterDelay={500} followCursor={true}>
-                                <IconButton onClick={toggleDescription} className="toggle-button">
-                                    {expanded ? <ExpandLess /> : <ExpandMore />}
-                                </IconButton>
-                            </Tooltip>
-                        </Grid>
+                        )}
+
+                        <Tooltip title={tooltipMessage} enterDelay={500} followCursor>
+                            <IconButton onClick={toggleDescription} className="toggle-button">
+                                <ExpandMore />
+                            </IconButton>
+                        </Tooltip>
+                    </Grid>
                         <Grid item xs={11}>
                             <Table
                                 // dir={state.dir}
