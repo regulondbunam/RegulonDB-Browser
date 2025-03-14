@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Tabs, Tab, Box } from "@mui/material";
 import Author from "./Author";
 import { useQuery } from "@apollo/client";
@@ -43,6 +43,15 @@ export default function Sources({ datasetId, datasetType }) {
   }
 
   const [value, setValue] = useState(0);
+  const [onlyAuthorData, setOnlyAuthor] = useState(false);
+  // Lógica para actualizar `value` cuando solo existe authorData
+  useEffect(() => {
+    if (authorData && !peaks && !TFBs && !TSs && !TTs && !TUs) {
+      setValue(1);  // Cambia a 1 solo si authorData existe y no existen otros datos
+      setOnlyAuthor(true);
+    }
+  }, [authorData, peaks, TFBs, TSs, TTs, TUs]);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -64,8 +73,6 @@ export default function Sources({ datasetId, datasetType }) {
       break;
   }
 
-  console.log(data);
-
   if (loading) {
     return <div><CircularProgress/></div>
   }
@@ -75,7 +82,7 @@ export default function Sources({ datasetId, datasetType }) {
       <h2>SOURCE DATA</h2>
       <Box sx={{ width: "100%"}}>
         <Tabs value={value} onChange={handleChange} aria-label="data tabs">
-          <Tab value={0} label={tabTitle} />
+          <Tab value={0} disabled={onlyAuthorData} label={tabTitle} />
           <Tab value={1} disabled={!authorData} label="Author" />
         </Tabs>
         <Box sx={{ padding: 2, overflowX: "hidden" }}>

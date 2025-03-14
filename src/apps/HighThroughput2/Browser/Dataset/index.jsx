@@ -7,7 +7,7 @@ import NLPgc from "./nlpGrowthConditions/NLPgc";
 import Sources from "./Sources";
 import Related from "./related/Related";
 import Tabs from "../../../../apps/ht/datasetPage/info/data/tabs";
-import { Button } from "@mui/material";
+import {Button} from "@mui/material";
 
 export default function DatasetInfo({ datasetId }) {
   const [_datasetId, set_datasetId] = useState(datasetId);
@@ -60,7 +60,6 @@ export default function DatasetInfo({ datasetId }) {
   if (!_dataset?._id) {
     return <div>dataset no existe</div>;
   }
-console.log(_dataset);
   return (
     <div>
       <article>
@@ -75,7 +74,11 @@ console.log(_dataset);
         />
         <GrowthConditions growthCondition={_dataset?.growthConditions} />
         <NLPgc datasetId={_dataset?._id} />
-        <Tabs id_dataset={_dataset?._id} data={_dataset} />
+        {
+            _dataset?.collectionData.source !== "RNAP_BINDING_SITES" && (
+                <Tabs id_dataset={_dataset?._id} data={_dataset} />
+            )
+        }
         <Sources datasetId={_dataset?._id} datasetType={_dataset?.collectionData?.type} />
         {_dataset?.collectionData?.type === "TFBINDING" && (
           <Related

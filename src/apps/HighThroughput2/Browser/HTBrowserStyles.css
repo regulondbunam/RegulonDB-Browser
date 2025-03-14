@@ -2,7 +2,7 @@
 
 }
 .description {
-    overflow: hidden;
+    overflow: auto;
     padding: 10px;
     background: white;
     z-index: 1;
