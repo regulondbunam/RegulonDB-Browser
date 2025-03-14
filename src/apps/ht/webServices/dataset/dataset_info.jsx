@@ -73,6 +73,8 @@ function query(datasetId) {
                   growthRate
                   vesselType
                   agitationSpeed
+                  experimentId
+                  experimentTitle
                 }
                 releaseDataControl {
                   date

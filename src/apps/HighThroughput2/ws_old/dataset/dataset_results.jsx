@@ -80,6 +80,8 @@ function query(ht_query) {
             growthRate
             vesselType
             agitationSpeed
+            experimentId
+            experimentTitle
           }
           releaseDataControl {
             date

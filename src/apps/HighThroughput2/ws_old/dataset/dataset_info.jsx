@@ -35,6 +35,8 @@ const query = gql`query GetDatasetsFromSearch($advancedSearch: String) {
       pressure
       temperature
       vesselType
+      experimentId
+      experimentTitle
     }
     linkedDataset {
       controlId
