@@ -157,18 +157,37 @@ export default function FilterTable({ columns, data, comments = [""], tableName 
     dispatch({ type: "reset", newState: initialState({columns, data, tableId}) })
   }, [columns, data, tableId])
 
+  const calculateHeight = (tableName) => {
+    switch (tableName) {
+      case 'Author data':
+        return (state.items * 42) + "px";
+      case 'Weight Matrix':
+        return (state.items * 24) + "px";
+      default:
+        return (state.items * 42) + "px";
+    }
+  };
+
+  const tableHeight = calculateHeight(tableName);
+
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingRight: "10px" }} >
         <div>
-          <Typography variant={"h1"}>{tableName}</Typography>
+          {tableName !== "Weight Matrix" && (
+              <Typography variant={"h1"}>{tableName}</Typography>
+          )}
+          {tableName === "Weight Matrix" && (
+              <Typography variant={"h2"}></Typography>
+          )}
         </div>
         <Options state={state} dispatch={dispatch} tableName={tableName} tableId={tableId} />
       </div>
       <div
           style={{
             // width: "99vw",
-            height: (state.items * 42) + "px",
+            height: tableHeight,
+            minHeight: ((state.items * 21) + "px"),
             // maxHeight: "80vh",
             // overflow: "auto",
             overflowX: "auto",
@@ -176,7 +195,7 @@ export default function FilterTable({ columns, data, comments = [""], tableName 
           }}>
         <div style={{ position: "absolute", paddingRight: "10px"}} >
           <table className={Style.table}>
-            <Thead state={state} dispatch={dispatch} tableId={tableId} />
+            <Thead state={state} dispatch={dispatch} tableId={tableId} tableName={tableName} />
             <Tbody state={state} dispatch={dispatch} tableId={tableId} />
           </table>
         </div>

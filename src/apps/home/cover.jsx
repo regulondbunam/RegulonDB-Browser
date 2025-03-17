@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
+// import {Button} from "@mui/material";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "transparent",
@@ -122,7 +123,14 @@ export default function Cover() {
             {searchLinks.map((link) => {
               return (
                 <Item elevation={0} key={"cover_link_" + link.label}>
-                  <Link style={{ color: "#ffffff" }} to={link.link}>
+                    {/*<Button variant="contained" fullWidth*/}
+                    {/*        component={Link} to={link.link}*/}
+                    {/*>*/}
+                    {/*    <Typography className={'CollectionButton'}>*/}
+                    {/*        {link.label}*/}
+                    {/*    </Typography>*/}
+                    {/*</Button>*/}
+                  <Link style={{ color: "#ffffff", fontSize:"large", fontWeight: "bold", textDecoration: "link" }} to={link.link}>
                     {link.label}
                   </Link>
                 </Item>

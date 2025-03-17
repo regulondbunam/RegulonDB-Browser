@@ -36,7 +36,6 @@ export default function Footer() {
                 <p className={Style.link} >
                 Terms and conditions
                 </p>
-               
               </Link>
               <Link
                 to="/manual/aboutUs/funding"
@@ -45,8 +44,15 @@ export default function Footer() {
                 <p className={Style.link}>
                 Funding
                 </p>
-                
               </Link>
+              {/*<Link*/}
+              {/*  to="/manual/aboutUs/contact"*/}
+              {/*  style={{ paddingLeft: "10px" }}*/}
+              {/*>*/}
+              {/*  <p className={Style.link}>*/}
+              {/*  Contact Us*/}
+              {/*  </p>*/}
+              {/*</Link>*/}
             </>
         </div>
       </div>

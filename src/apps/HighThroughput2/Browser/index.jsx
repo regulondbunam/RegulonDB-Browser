@@ -119,7 +119,7 @@ export default function Browser({
                         {/*TODO: Set on a dictionary*/}
                         {isTargetPath && (
                             <Typography className={`description ${expanded ? "expanded" : ""}`} sx={{ mt: 1 }} fontSize={"medium"}>
-                                Access to the whole Galagan collection of union peaks for each TF and their corresponding individual experiments.{" "}
+                                Access to the whole <strong>Galagan collection</strong> of union peaks for each TF and their corresponding individual experiments.{" "}
                                 For details of the whole collection click{" "}
                                 <a a href="#" onClick={(e) => e.preventDefault()} target="_blank" rel="noopener noreferrer" style={{ fontSize: "inherit", textDecoration: "underline" }}>
                                     here

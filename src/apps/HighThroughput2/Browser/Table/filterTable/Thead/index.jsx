@@ -12,7 +12,7 @@ const LABEL_STYLE = {
     maxHeight: "26px",
     textWrap: "nowrap",
 }
-export default function Thead({ labelStyle, state, dispatch, tableId }) {
+export default function Thead({ labelStyle, state, dispatch, tableId, tableName=""}) {
 
     return (
         <thead >
@@ -21,10 +21,23 @@ export default function Thead({ labelStyle, state, dispatch, tableId }) {
                     if (column.hide) {
                         return null
                     }
+                    const calculateWidth = (tableName) => {
+                        switch (tableName) {
+                            case 'Author data':
+                                return column.width+50;
+                            case 'Weight Matrix':
+                                return column.width;
+                            default:
+                                return column.width+50;
+                        }
+                    };
+
+                    const columnWidth = calculateWidth(tableName);
+
                     return (
                         <th id={column.id}
                             key={column.key}
-                            style={{ width: column.width+50, height: "26px", position: "sticky", top: 0 }}
+                            style={{ width: columnWidth, height: "26px", position: "sticky", top: 0 }}
                         >
                             <Box sx={{ display: "grid", gridTemplateColumns: " auto 20px 5px" }} >
                                 <Tooltip title={column.label} placement="top" arrow >

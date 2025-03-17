@@ -35,8 +35,8 @@
             "url":"/TermsConditions"
         },
         {
-            "name":"Contac US",
-            "url":"/Contac"
+            "name":"Contact Us",
+            "url":"/manual/aboutUs/contact"
         },
         {
             "name":"Funding",

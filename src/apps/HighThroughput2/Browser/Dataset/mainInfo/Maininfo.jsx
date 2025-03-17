@@ -6,9 +6,10 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import TranscriptionFactor from "../transcriptionFactor/TranscriptionFactor";
+import WeightComponent from "../weightMatrix/weightMatrix";
 
 
-export default function Maininfo({ _id, sample, fivePrimeEnrichment, datasetType, sourceSerie, publications, objectTested}) {
+export default function Maininfo({ _id, sample, fivePrimeEnrichment, datasetType, sourceSerie, publications, objectTested, source}) {
     let datasetTitle = ""
     //Condicion para filtrar comentarios de Victor (curador) saludos n.n
     if (sample?.title) {
@@ -103,7 +104,11 @@ export default function Maininfo({ _id, sample, fivePrimeEnrichment, datasetType
                     <Publications publications={publications} />
                 </div>
             }
-
+            {/*{*/}
+            {/*    source === "GALAGAN" &&(*/}
+            {/*        <WeightComponent fileName={objectTested[0].abbreviatedName}/>*/}
+            {/*    )*/}
+            {/*}*/}
         </div>
     )
 }

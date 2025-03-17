@@ -8,6 +8,7 @@ import Sources from "./Sources";
 import Related from "./related/Related";
 import Tabs from "../../../../apps/ht/datasetPage/info/data/tabs";
 import {Button} from "@mui/material";
+import WeightComponent from "./weightMatrix/weightMatrix";
 
 export default function DatasetInfo({ datasetId }) {
   const [_datasetId, set_datasetId] = useState(datasetId);
@@ -71,7 +72,13 @@ export default function DatasetInfo({ datasetId }) {
             sourceSerie={_dataset?.sourceSerie}
             publications={_dataset?.publications}
             objectTested={_dataset?.objectsTested}
+            source={_dataset?.collectionData.source }
         />
+        {
+          _dataset?.collectionData.source === "GALAGAN" &&(
+            <WeightComponent fileName={_dataset?.objectsTested[0].abbreviatedName}/>
+          )
+        }
         <GrowthConditions growthCondition={_dataset?.growthConditions} />
         <NLPgc datasetId={_dataset?._id} />
         {
