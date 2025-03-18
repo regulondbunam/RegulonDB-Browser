@@ -163,7 +163,8 @@ export default function Browser({
                         </Typography>
                         {/*TODO: Set on a dictionary*/}
                         {isTargetPath && (
-                            <Typography className={`description ${expanded ? "expanded" : ""}`} sx={{ mt: 1 }} fontSize={"medium"}>
+                            <Typography className={`description ${"expanded"}`} sx={{ mt: 1 }} fontSize={"medium"}>
+                            {/*<Typography className={`description ${expanded ? "expanded" : ""}`} sx={{ mt: 1 }} fontSize={"medium"}>*/}
                                 <strong>Access the complete Galagan collection of ChIP-seq binding sites</strong>, which includes union peaks for each transcription factor (<strong>TF</strong>) and their corresponding individual experiments.{" "}
                                 <strong>For details on the full collection</strong>{" "}
                                 <span role='button' tabIndex="0" onClick={handleClickOpen} style={{ fontSize: "inherit", textDecoration: "underline", color: "#0C6A87", cursor: "pointer" }}>

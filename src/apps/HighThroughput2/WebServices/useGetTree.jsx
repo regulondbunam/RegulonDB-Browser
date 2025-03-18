@@ -36,10 +36,14 @@ function setSourceNodes(source, source_list, datasetType) {
     for (const source in source_list["sources"]) {
       // console.log("HasSource: "+source+" sourceList: ", source_list["sources"][source]);
       const strategyList = source_list["sources"][source];
+        let src_label = source;
+        if (source === "PALSON") {
+            src_label = "PALSSON";
+        }
       sourcesNode.push(
           {
             id: "source:" + source + "&datasetType:"+datasetType,
-            label: source,
+            label: src_label,
             children: setStrategyNodes(strategyList, source, datasetType),
           }
       );

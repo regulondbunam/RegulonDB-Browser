@@ -112,7 +112,7 @@ const WeightComponent = ({ fileName }) => {
     };
     return (
         <div>
-            <h2>LOGO AND WEIGHT MATRIX</h2>
+            <h2>WEIGHT MATRIX</h2>
             <Accordion
                 expanded={expanded}
                 onChange={handleAccordionChange}
