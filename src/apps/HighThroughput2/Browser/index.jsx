@@ -155,7 +155,13 @@ export default function Browser({
                                 )
                             }
                             {
-                                state.source !== "PALSON" &&
+                                state.source === "GALAGAN" &&
+                                (
+                                    <strong>Galagan Collection of Transcription Factor Binding Sites (ChIP-seq)</strong>
+                                )
+                            }
+                            {
+                                state.source !== "PALSON" && state.source !== "GALAGAN" &&
                                 (
                                     <strong>{state.datasetType} {state.source} {state.experimentType}</strong>
                                 )
