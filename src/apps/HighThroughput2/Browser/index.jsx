@@ -147,7 +147,18 @@ export default function Browser({
                     <Grid container spacing={0} direction={"column"}>
                     <Grid item xs={1}>
                         <Typography className="description" style={{ marginBottom: isTargetPath ? "8px" : "0px" }}>
-                            <strong>{state.datasetType} {state.source} {state.experimentType}</strong>
+                            {
+                                state.source === "PALSON" &&
+                                (
+                                    <strong>{state.datasetType} PALSSON {state.experimentType}</strong>
+                                )
+                            }
+                            {
+                                state.source !== "PALSON" &&
+                                (
+                                    <strong>{state.datasetType} {state.source} {state.experimentType}</strong>
+                                )
+                            }
                         </Typography>
                         {/*TODO: Set on a dictionary*/}
                         {isTargetPath && (

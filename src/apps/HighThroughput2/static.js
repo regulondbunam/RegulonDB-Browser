@@ -33,6 +33,9 @@ export const SOURCE_NAMES = (source, datasetType) =>{
             if (!source) {
                 return datasetType;
             }
+            if (source === "PALSON") {
+                return "PALSSON "+sources[source];
+            }
             return source+" "+sources[source];
         case "TSS":
             return DATASET_TYPE_NAME(datasetType)
