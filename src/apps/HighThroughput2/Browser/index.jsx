@@ -104,7 +104,8 @@ export default function Browser({
     }
 
     const { data, error } = useQuery(GET_DATASETS_WITH_METADATA, {
-        variables: {datasetType: datasetType, source: source}
+        variables: {datasetType: datasetType, source: source},
+        skip: !source,
     });
 
     const [tooltipMessage, setTooltipMessage] = useState("Read more");
