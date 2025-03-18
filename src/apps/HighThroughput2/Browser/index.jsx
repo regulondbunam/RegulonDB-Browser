@@ -152,17 +152,17 @@ export default function Browser({
                         {/*TODO: Set on a dictionary*/}
                         {isTargetPath && (
                             <Typography className={`description ${expanded ? "expanded" : ""}`} sx={{ mt: 1 }} fontSize={"medium"}>
-                                Access to the whole <strong>Galagan collection</strong> of union peaks for each TF and their corresponding individual experiments.{" "}
-                                For details of the whole collection click{" "}
+                                <strong>Access the complete Galagan collection of ChIP-seq binding sites</strong>, which includes union peaks for each transcription factor (<strong>TF</strong>) and their corresponding individual experiments.{" "}
+                                <strong>For details on the full collection</strong>{" "}
                                 <span role='button' tabIndex="0" onClick={handleClickOpen} style={{ fontSize: "inherit", textDecoration: "underline", color: "#0C6A87", cursor: "pointer" }}>
-                                    here
+                                    click here
                                 </span>.{" "}
-                                To download the whole union peaks click <a href="http://regulondbdata.ccg.unam.mx/ht/galagan/tf_binding/tf_binding_peaks_galagan.zip" target="_blank" rel="noopener noreferrer" style={{ fontSize: "inherit", textDecoration: "underline" }}>here</a>.{" "}
-                                When using this information please cite:{" "}
+                                <strong>To download the complete set of union peaks</strong> <a href="http://regulondbdata.ccg.unam.mx/ht/galagan/tf_binding/tf_binding_peaks_galagan.zip" target="_blank" rel="noopener noreferrer" style={{ fontSize: "inherit", textDecoration: "underline" }}>click here</a>.{" "}
+                                If you use this information, <strong>please cite</strong>:{" "}
                                 <a href="https://pubmed.ncbi.nlm.nih.gov/38826350/" target="_blank" rel="noopener noreferrer" style={{ fontSize: "inherit", textDecoration: "underline" }}>
                                     Lally P. et al (PMID:38826350)
-                                </a>.
-                                This information corresponds to <strong>RegulonDB version 13.6</strong>.
+                                </a>{" "}
+                                and <strong>specify the RegulonDB version used in your work</strong>. You can find details about the latest release of <strong>RegulonDB</strong> <a href="https://regulondb.ccg.unam.mx/releasesNote" style={{ fontSize: "inherit", textDecoration: "underline" }}>here</a>.
                             </Typography>
                         )}
 
