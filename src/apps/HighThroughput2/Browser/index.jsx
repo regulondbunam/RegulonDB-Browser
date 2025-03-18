@@ -1,15 +1,26 @@
-import React, {useReducer, useState} from 'react'
+import React, {useReducer, useState } from 'react'
 import { Cover, DataVerifier } from '../../../components/ui-components'
 import TreeView from './Tree'
 import Table from './Table'
 import { DISPATCH_TYPE } from './static';
-import {Grid, IconButton, Tooltip} from "@mui/material/";
+import {Grid, IconButton, Tooltip, Dialog, DialogContent, DialogActions, Button, DialogTitle} from "@mui/material/";
 import {ExpandMore, ExpandLess} from "@mui/icons-material"
 import './HTBrowserStyles.css'
 import {Typography} from "@mui/material";
 import {DATASET_TYPE_NAME} from "../static";
 import { useLocation } from "react-router-dom";
+import { useQuery, gql } from "@apollo/client";
+import ReactMarkdown from 'react-markdown';
 
+const GET_DATASETS_WITH_METADATA  = gql`
+    query GetDatasetsWithMetadata($datasetType: String!, $source: String!) {
+        getDatasetsWithMetadata(datasetType: $datasetType, source: $source) {
+            metadata {
+                metadataContent
+            }
+        }
+    }
+`;
 
 function setDir(
     datasetType,
@@ -92,8 +103,14 @@ export default function Browser({
         })
     }
 
+    const { data, error } = useQuery(GET_DATASETS_WITH_METADATA, {
+        variables: {datasetType: datasetType, source: source}
+    });
+
     const [tooltipMessage, setTooltipMessage] = useState("Read more");
     const [expanded, setExpanded] = useState(false);
+    const [open, setOpen] = useState(false);
+    let note = ""
 
     const toggleDescription = () => {
         setExpanded(!expanded);
@@ -101,6 +118,22 @@ export default function Browser({
     };
     const location = useLocation();
     const isTargetPath = location.pathname === "/ht/dataset/TFBINDING/source=GALAGAN";
+
+    if(data){
+        note = data["getDatasetsWithMetadata"]["metadata"]["metadataContent"]
+    }
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    if (error) {
+        return <>error...</>
+    }
     return (
         <div>
             <Cover>
@@ -121,9 +154,9 @@ export default function Browser({
                             <Typography className={`description ${expanded ? "expanded" : ""}`} sx={{ mt: 1 }} fontSize={"medium"}>
                                 Access to the whole <strong>Galagan collection</strong> of union peaks for each TF and their corresponding individual experiments.{" "}
                                 For details of the whole collection click{" "}
-                                <a a href="#" onClick={(e) => e.preventDefault()} target="_blank" rel="noopener noreferrer" style={{ fontSize: "inherit", textDecoration: "underline" }}>
+                                <span role='button' tabIndex="0" onClick={handleClickOpen} style={{ fontSize: "inherit", textDecoration: "underline", color: "#0C6A87", cursor: "pointer" }}>
                                     here
-                                </a>.{" "}
+                                </span>.{" "}
                                 To download the whole union peaks click <a href="http://regulondbdata.ccg.unam.mx/ht/galagan/tf_binding/tf_binding_peaks_galagan.zip" target="_blank" rel="noopener noreferrer" style={{ fontSize: "inherit", textDecoration: "underline" }}>here</a>.{" "}
                                 When using this information please cite:{" "}
                                 <a href="https://pubmed.ncbi.nlm.nih.gov/38826350/" target="_blank" rel="noopener noreferrer" style={{ fontSize: "inherit", textDecoration: "underline" }}>
@@ -150,6 +183,21 @@ export default function Browser({
                     </Grid>
                 </Grid>
             </Grid>
+            <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
+                <DialogTitle>
+                    <div>
+                        <h1>{source} {datasetType}</h1>
+                    </div>
+                </DialogTitle>
+                <DialogContent>
+                    <ReactMarkdown>{note}</ReactMarkdown>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        Close
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </div>
     )
 }

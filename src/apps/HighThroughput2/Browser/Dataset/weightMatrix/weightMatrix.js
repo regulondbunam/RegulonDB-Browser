@@ -87,7 +87,7 @@ const WeightComponent = ({ fileName }) => {
                     throw new Error('Error al cargar el archivo CSV');
                 }
                 let text = await response.text();
-                text = '✖'+text;
+                text = '●'+text;
                 setCsvData(text);
             } catch (error) {
                 console.error('Error al cargar CSV:', error);
