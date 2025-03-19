@@ -20,7 +20,7 @@ export const DATASET_TYPE_NAME = (datasetType) => {
 const sources = {
     "MULTIPLE_AUTHORS": "ChIP-seq",
     "BAUMGART": "DAP",
-    "PALSON": "ChIP-exo",
+    "PALSSON": "ChIP-exo",
     "ISHIHAMA": "gSELEX-chip",
     "GALAGAN": "ChIP-seq",
     "REGULONDB": "REGULONDB",
@@ -32,9 +32,6 @@ export const SOURCE_NAMES = (source, datasetType) =>{
         case "TFBINDING":
             if (!source) {
                 return datasetType;
-            }
-            if (source === "PALSON") {
-                return "PALSSON "+sources[source];
             }
             return source+" "+sources[source];
         case "TSS":

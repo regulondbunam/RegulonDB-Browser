@@ -7,7 +7,7 @@ export const COLLECTION_NODES = {
             "BAUMGART":[
                 "DAP"
             ],
-            "PALSON":[
+            "PALSSON":[
                 "ChIP-exo",
             ],
             "ISHIHAMA":[
