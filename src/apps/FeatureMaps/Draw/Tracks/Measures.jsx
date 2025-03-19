@@ -24,7 +24,7 @@ export default function Measures({
                     return <div key={"measureUnder_" + i} 
                                 style={{ ...lineUnderStyle,
                                         left: left - 0.5,
-                                        width: "2px",
+                                        width: "1px",
                                         backgroundColor:  backgroundColor,
                                     }} />
                 }

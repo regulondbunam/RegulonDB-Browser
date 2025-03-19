@@ -16,6 +16,19 @@ export const FM_COLUMNS = { //FEATURE_MAPS_COLUMNS
     additional: 9
 }
 
+export const FM_TSV_COLUMNS = { //FEATURE_MAPS_COLUMNS
+    mapName: 0, //is a track name
+    type: 1,
+    identifier: 2,
+    strand: 3,
+    startPosition: 4,
+    endPosition: 5,
+    function: 6,
+    score: 7,
+    evidence:8,
+    additional: 9
+}
+
 export const SCHEMA_FEATURE = {
     "id": "",
     "type": "",
