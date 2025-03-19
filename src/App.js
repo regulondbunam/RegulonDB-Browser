@@ -28,7 +28,7 @@ import IGVBrowser from "./apps/IGVBrowser";
 import GeneOntology from "./apps/GeneOntology";
 import UiDocs from "./UiComponents/UiDocs";
 import { PATH_HT } from "./apps/HighThroughput2";
-//import HT from "./apps/ht"
+import {FeatureMap_PATH} from "./apps/FeatureMaps"
 
 //wsSandbox
 const router = createBrowserRouter([
@@ -40,6 +40,7 @@ const router = createBrowserRouter([
         path: "*",
         element: <>site no found</>,
       },
+        FeatureMap_PATH,
       {
         index: true,
         element: <Home />,

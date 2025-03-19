@@ -1,0 +1,7 @@
+.tooltipContent {
+    visibility: hidden;
+}
+
+.tooltipContent :hover {
+    visibility: visible;
+}
