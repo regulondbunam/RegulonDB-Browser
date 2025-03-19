@@ -1,0 +1,12 @@
+.relatedCard{
+    background-color: #cadce7;
+    margin: 8px;
+    padding: 2px;
+}
+
+.relatedCard:hover{
+    -webkit-box-shadow:0px 0px 2px 1px #383838 ;
+-moz-box-shadow:0px 0px 2px 1px #383838 ;
+box-shadow:0px 0px 2px 1px #383838 ;
+cursor: pointer;
+}

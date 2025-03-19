@@ -89,7 +89,7 @@ export default function TSS({ data }) {
 }
 
 function linkGenes(genes = []) {
-    if(window.IN_URL.isEmbed){
+    if(window.IN_URL?.isEmbed){
         return (
             <div >
                 {

@@ -26,7 +26,7 @@ export default function PanelResult({ ds, match_data }) {
         growthCondition?.growthPhase && inf.push({ title: "GROWTH PHASE", data: growthCondition?.growthPhase });
         growthCondition?.growthRate && inf.push({ title: "GROWTH RATE", data: growthCondition?.growthRate });
         growthCondition?.vesselType && inf.push({ title: "VESSEL TYPE", data: growthCondition?.vesselType });
-        growthCondition?.aerationSpeed && inf.push({ title: "AERATION SPEED", data: growthCondition?.aerationSpeed });
+        growthCondition?.agitationSpeed && inf.push({ title: "AERATION SPEED", data: growthCondition?.agitationSpeed });
         if(inf.length === 0 ) {return undefined;}
         return inf;
     }, [growthCondition])

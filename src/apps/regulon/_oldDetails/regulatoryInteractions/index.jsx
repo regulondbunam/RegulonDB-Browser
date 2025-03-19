@@ -178,10 +178,7 @@ function formatData(regulatoryInteractions = [], allCitations) {
       let _regulatoryInteraction_function = ri.function;
       let _distanceGene = ri.distanceToFirstGene;
       let _distancePromoter = ri.distanceToPromoter;
-      let citations = []
-      if (DataVerifier.isValidArray(ri.citations)) {
-        citations = ri.citations;
-      }
+      let citations = ri.citations;
       let _regulatoryBindingSite_LeftPos = "";
       let _regulatoryBindingSite_RightPos = "";
       let _regulatoryBindingSite_strand = "";
@@ -198,7 +195,8 @@ function formatData(regulatoryInteractions = [], allCitations) {
         _regulatoryBindingSite_strand = ri.regulatoryBindingSites.strand;
         _regulatoryBindingSite_sequence = ri.regulatoryBindingSites.sequence;
         if (DataVerifier.isValidArray(ri.regulatoryBindingSites.citations)) {
-          citations = [...citations, ...ri.regulatoryBindingSites.citations]
+          if (ri.regulatoryBindingSites.citations.length > citations.length)
+            citations = ri.regulatoryBindingSites.citations;
         }
       }
       data.push({
@@ -330,7 +328,6 @@ function RIMap({ regulatoryInteractions, allCitations }) {
 }
 
 function RITable({ regulatoryInteractions, allCitations }) {
-
   const data = useMemo(() => {
     return formatData(regulatoryInteractions, allCitations);
   }, [regulatoryInteractions, allCitations]);

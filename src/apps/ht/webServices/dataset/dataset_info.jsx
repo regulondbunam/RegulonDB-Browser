@@ -72,7 +72,9 @@ function query(datasetId) {
                   growthPhase
                   growthRate
                   vesselType
-                  aerationSpeed
+                  agitationSpeed
+                  experimentId
+                  experimentTitle
                 }
                 releaseDataControl {
                   date

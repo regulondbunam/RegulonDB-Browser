@@ -20,7 +20,7 @@ export const query_GETALLNPC = gql`query GetNLPGrowthConditionBySearch($advanced
       score
       value
     }
-    aerationSpeed {
+    agitationSpeed {
       associatedPhrase
       nameField
       score
@@ -104,7 +104,7 @@ export const query_GET_DATASET_BY_ADVANCE_SEARCH = gql`query GetDatasetsFromSear
     geneExpressionFiltered
     growthConditions {
       aeration
-      aerationSpeed
+      agitationSpeed
       geneticBackground
       growthPhase
       growthRate
@@ -117,6 +117,8 @@ export const query_GET_DATASET_BY_ADVANCE_SEARCH = gql`query GetDatasetsFromSear
       pressure
       temperature
       vesselType
+      experimentId
+      experimentTitle
     }
     objectsTested {
       name
@@ -221,7 +223,7 @@ export const query_GET_DATASET_BY_ID = gql`query GetDatasetByID($datasetId: Stri
       geneExpressionFiltered
       growthConditions {
         aeration
-        aerationSpeed
+        agitationSpeed
         geneticBackground
         growthPhase
         growthRate
@@ -234,7 +236,8 @@ export const query_GET_DATASET_BY_ID = gql`query GetDatasetByID($datasetId: Stri
         pressure
         temperature
         vesselType
-        
+        experimentId
+        experimentTitle
       }
       linkedDataset {
         controlId

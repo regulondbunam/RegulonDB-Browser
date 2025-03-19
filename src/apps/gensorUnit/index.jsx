@@ -79,7 +79,6 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Summary from "./guSummary";
-import { descriptions } from "./descriptions";
 
 
 
@@ -136,93 +135,84 @@ function GoInfo({ guId }) {
     return <>error</>;
   }
   if (guData?._id) {
-
+    
     /**
      * Description placeholder
      *
      * @type {string}
      */
     let idSite = "site_" + guData._id;
-
-    let summary = {}
-    let molBioLvl = {}
-    let phyLvl = {}
-    if (guData.gensorUnit?.summary) {
-      summary = guData.gensorUnit.summary
-      molBioLvl = {
-        'detailed': guData.gensorUnit.summary.molecularBiologyLevel?.detailed,
-        'general': guData.gensorUnit.summary.molecularBiologyLevel?.general
-      }
-      phyLvl = {
-        'detailed': guData.gensorUnit.summary.physiologyLevel?.detailed,
-        'general': guData.gensorUnit.summary.physiologyLevel?.general
-      }
-    }
-    console.log(guData.gensorUnit)
-    return (
-      <div>
-        <Cover
+    if(display === DISPLAY_TYPES.summary){
+      return (
+        <div>
+          <Cover
           coverId={idSite + "_cover"}
+          coverStyle={display === DISPLAY_TYPES.graphic ? { position: "absolute", zIndex: "10" } : {}}
           coverBackgroundStile={{
             backgroundColor: "#f4f5f5e8",
             padding: "10px 0 10px 0",
           }}
         >
-          <div style={{ display: "flex", margin: "0 3% 0 0" }}>
+          <div style={{ display: "flex" }}>
             <div>{SelectDisplay(display, setDisplay)}</div>
             <div>
               <h1>{`Gensor Unit ${guData.gensorUnit.name}`}</h1>
-              {Object.keys(molBioLvl).length > 0 && Object.keys(phyLvl).length > 0 && (
-                <div>
-                  <b>{`Summary: `}</b>
-                  <div style={{marginLeft: "20px"}} >
-                    {molBioLvl?.detailed && molBioLvl?.general && (
-                      <>
-                      <b>{`Molecular Biology Level: `} </b>
-                        <ul style={{listStyle: "circle inside"}} >
-                          <li><b>{`Detailed: `}</b>{molBioLvl.detailed}</li>
-                          <li><b>{`General: `}</b>{molBioLvl.general}</li>
-                        </ul>
-                      </>
-                    )}
-
-                    {phyLvl?.detailed && phyLvl?.general && (
-                      <>
-                        <b>{`Physiology Level: `} </b>
-                        <ul style={{listStyle: "circle inside"}} >
-                          <li><b>{`Detailed: `}</b>{phyLvl.detailed}</li>
-                          <li><b>{`General: `}</b>{phyLvl.general}</li>
-                        </ul>
-                      </>
-                    )}
-                  </div>
-                </div>
-              )}
               {DataVerifier.isValidArray(guData.gensorUnit.groups) && (
-                <div>
-                  <b>{`Functional Group${guData.gensorUnit.groups.length > 1 ? "s" : ""
-                    }: `}</b>
+                <p>
+                  <b>{`Functional Group${
+                    guData.gensorUnit.groups.length > 1 ? "s" : ""
+                  }: `}</b>
                   {guData.gensorUnit.groups.join(", ")}
-                </div>
+                </p>
               )}
               <br />
             </div>
           </div>
         </Cover>
-        <div>
-          {display === DISPLAY_TYPES.summary && (
-            <Summary idSite={idSite} {...guData} />
-          )}
-          {display === DISPLAY_TYPES.graphic && (
-            <GuInfo
-              idSite={idSite}
-              nReactions={guData.reactions.length}
-              {...guData}
-            />
-          )}
+        <Summary idSite={idSite} {...guData} />
         </div>
+        
+      )
+    }
+    return (
+      <div
+        id={idSite}
+        style={display === DISPLAY_TYPES.graphic ? { width: "100%", position: "absolute", top: "0", bottom: "0" } : {}}
+      >
+        <Cover
+          coverId={idSite + "_cover"}
+          coverStyle={display === DISPLAY_TYPES.graphic ? { position: "absolute", zIndex: "10" } : {}}
+          coverBackgroundStile={{
+            backgroundColor: "#f4f5f5e8",
+            padding: "10px 0 10px 0",
+          }}
+        >
+          <div style={{ display: "flex" }}>
+            <div>{SelectDisplay(display, setDisplay)}</div>
+            <div>
+              <h1>{`Gensor Unit ${guData.gensorUnit.name}`}</h1>
+              {DataVerifier.isValidArray(guData.gensorUnit.groups) && (
+                <p>
+                  <b>{`Functional Group${
+                    guData.gensorUnit.groups.length > 1 ? "s" : ""
+                  }: `}</b>
+                  {guData.gensorUnit.groups.join(", ")}
+                </p>
+              )}
+              <br />
+            </div>
+          </div>
+        </Cover>
+        {display === DISPLAY_TYPES.graphic && (
+          <GuInfo
+            idSite={idSite}
+            nReactions={guData.reactions.length}
+            {...guData}
+          />
+        )}
+        
       </div>
-    )
+    );
   }
   return <div>info</div>;
 }
@@ -251,7 +241,7 @@ function SelectDisplay(display, setDisplay) {
       >
         {Object.keys(DISPLAY_TYPES).map((key, i) => {
           return (
-            <MenuItem key={"displayOption_" + key + "_" + i} value={DISPLAY_TYPES[key]}>{DISPLAY_TYPES[key]}</MenuItem>
+            <MenuItem key={"displayOption_"+key+"_"+i}  value={DISPLAY_TYPES[key]}>{DISPLAY_TYPES[key]}</MenuItem>
           );
         })}
       </Select>
@@ -268,7 +258,7 @@ function SelectDisplay(display, setDisplay) {
 function GoHome() {
   const { gusData, error, loading } = useGetAllGus();
 
-
+  
   /**
    * Description placeholder
    *
@@ -276,7 +266,7 @@ function GoHome() {
    */
   let state = "done";
 
-
+  
   /**
    * Description placeholder
    *

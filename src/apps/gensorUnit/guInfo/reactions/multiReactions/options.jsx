@@ -25,7 +25,7 @@ export default function Options(props) {
   return (
     <div
       className="GuOptions"
-      style={{ zIndex: "10", backgroundColor:"#f4f5f5ad" }}
+      style={{ position: "relative", top: `${heightCover}px`, zIndex: "10", backgroundColor:"#f4f5f5ad" }}
     >
       <div></div>
       <Search {...props} />

@@ -9,6 +9,9 @@ export default function featureMapsToTrackJson(featureMaps,currentTracks,state) 
         "_governmentLabels": {...currentTracks._governmentLabels}
     }
     for (const line of lines) {
+        if (line.trim().startsWith('#')) {
+            continue;
+        }
         const cells = line.split(/\t/);
         if (cells.length > 1) {
             let track = { ...SCHEMA_TRACK }

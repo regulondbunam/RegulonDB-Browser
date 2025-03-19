@@ -90,7 +90,7 @@ export default function TTS({ data }) {
 }
 
 function linkGenes(genes = []) {
-    if(window.IN_URL.isEmbed){
+    if(window.IN_URL?.isEmbed){
         return (
             <div >
                 {

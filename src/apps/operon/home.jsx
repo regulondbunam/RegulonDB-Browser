@@ -88,7 +88,7 @@ function LoadTable({ objectsList }) {
     return formatData(objectsList);
   }, [objectsList]);
   return (
-    <div style={{ margin: "10px 3% 10px 3%" }}>
+    <div style={{ display: "flex", justifyContent: "center" }} >
       <FilterTable data={data} columns={COLUMNS} fileName="GeneSummaryData" />
     </div>
   );

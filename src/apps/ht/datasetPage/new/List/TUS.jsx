@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 export default function TUS({ experimentType, tfName, datasetType }) {
-    const { datasets, loading, error } = useGetDatasetByAdvancedSearch(datasetType+"[datasetType]")
+    const { datasets, loading, error } = useGetDatasetByAdvancedSearch(datasetType+"[collectionData.type]")
     let title = datasetType
     if (experimentType) {
         title += ` with strategy ${experimentType}`

@@ -1,0 +1,13 @@
+$#comentario
+$#{
+Plantilla para exportar la informacion del dataset en txt
+}#$
+${_id}
+name: ${sample.title}
+$fragment PUBLICATION(publication){
+${title}
+authors: ${authors}
+
+}
+publications: 
+$[PUBLICATION(publications)]

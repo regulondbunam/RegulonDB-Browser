@@ -1,0 +1,114 @@
+/*
+*----- CheckBox Style --------*
+*/
+
+.checkText {
+  font-family: Arial;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000000;
+}
+
+.checkLabel {
+  display: block;
+  position: relative;
+  padding-left: 27px;
+  margin-bottom: 5px;
+
+  user-select: none;
+}
+.checkLabel input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 15px;
+  width: 15px;
+  background-color: white;
+  border: solid 2px #1f3d4e;
+}
+
+.checkLabel:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.checkLabel input:checked ~ .checkmark {
+  background-color: #32617d;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkLabel input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkLabel .checkmark:after {
+  left: 3px;
+  top: -2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/*
+*----- RadioButtonStyle --------*
+*/
+
+.rCheckmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 15px;
+  width: 15px;
+  background-color: white;
+  border-radius: 50%;
+  border: solid 2px #000000;
+}
+
+.checkLabel:hover input ~ .rCheckmark {
+  background-color: #ccc;
+  cursor: pointer;
+}
+
+.checkLabel input:checked ~ .rCheckmark {
+  background-color: white;
+}
+
+.rCheckmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkLabel input:checked ~ .rCheckmark:after {
+  display: block;
+}
+
+.checkLabel .rCheckmark:after {
+  top: 1px;
+  left: 1px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #32617d;
+}
