@@ -99,7 +99,7 @@ async function processAuthorsDataCSV(authorData) {
             const cells = row.split(",");
             cells.forEach((cell, index) => {
                 if (columns[index]?.label) {
-                    newData[columns[index].label] = cell;
+                    newData[columns[index].label] = (cell.trim().toLowerCase() === 'nan' || isNaN(cell.trim())) ? "" : cell.trim();
                 }
             });
             data.push(newData);
