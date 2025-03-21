@@ -32,7 +32,7 @@ export default function Maininfo({ _id, sample, fivePrimeEnrichment, datasetType
         <div style={{ marginLeft: "5%" }} id={`dataset_${_id}_main_info`} >
             <p style={{ fontSize: "22px" }} className="p_accent">{datasetTitle}</p>
 
-            <p style={{ fontSize: "14px", float:'left', marginRight:'10px' }} >
+            <p style={{ fontSize: "14px", float:'left', marginRight:'10px', marginBottom:"5px"}} >
                 Dataset ID: {_id} | Dataset Type: {datasetType}
             </p>
             { sourceSerie?.strategy &&
@@ -40,7 +40,9 @@ export default function Maininfo({ _id, sample, fivePrimeEnrichment, datasetType
                     |  Strategy: {sourceSerie.strategy}
                 </p>
             }
-            <hr />
+            <div>
+                <hr style={{ width: "100%", marginTop:"5px"}} />
+            </div>
             {datasetType === "TFBINDING" && (
                 <Accordion
                     expanded={expanded}
