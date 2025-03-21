@@ -122,4 +122,15 @@ getAuthorsDataOfDataset(datasetId: $datasetId) {
     strand
     termType
   }
+  getAllGeneExpressionOfDataset(datasetId: $datasetId) {
+    _id
+    gene {
+        _id
+        name
+        leftEndPosition
+        rightEndPosition
+    }
+    tpm
+    fpkm
+  }
 }`

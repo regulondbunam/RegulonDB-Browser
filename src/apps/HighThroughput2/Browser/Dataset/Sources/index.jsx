@@ -21,6 +21,7 @@ export default function Sources({ datasetId, datasetType }) {
   let TSs
   let TTs
   let TUs
+  let GEs
   if (data) {
     if (DataVerifier.isValidArray(data?.getAuthorsDataOfDataset)) {
       authorData = data?.getAuthorsDataOfDataset[0]
@@ -39,6 +40,9 @@ export default function Sources({ datasetId, datasetType }) {
     }
     if (DataVerifier.isValidArray(data?.getAllTransUnitsOfDataset)) {
       TUs = data?.getAllTransUnitsOfDataset
+    }
+    if (DataVerifier.isValidArray(data?.getAllGeneExpressionOfDataset)) {
+      GEs = data?.getAllGeneExpressionOfDataset
     }
   }
 
@@ -89,7 +93,7 @@ export default function Sources({ datasetId, datasetType }) {
           {data && (<></>)}
           {value === 0 && (
               <>
-                <ProcessData peaks={peaks} TFBs={TFBs} TSs={TSs} TTs={TTs} TUs={TUs} />
+                <ProcessData peaks={peaks} TFBs={TFBs} TSs={TSs} TTs={TTs} TUs={TUs} GEs={GEs}/>
               </>
           )}
           {value === 1 && authorData && <Author data={authorData} />}

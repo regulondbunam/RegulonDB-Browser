@@ -8,6 +8,7 @@ import TFBS from './TFBS';
 import TUS from './TUs';
 import TSS from './TSS';
 import TTS from './TTS';
+import GENEX from './GENEX';
 
 
 export default function ProcessData({
@@ -16,6 +17,7 @@ export default function ProcessData({
     TSs,
     TTs,
     TUs,
+    GEs
 }) {
 
     const [expanded, setExpanded] = useState({
@@ -24,6 +26,7 @@ export default function ProcessData({
         TSs_state: true,
         TTs_state: true,
         TUs_state: true,
+        GEs_state: true,
     })
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded({ ...expanded, [panel]: isExpanded });
@@ -35,6 +38,7 @@ export default function ProcessData({
         { key: 'TSs_state', label: 'TSS', content: TSs, component: <TSS tss={TSs} /> },
         { key: 'TTs_state', label: 'TTS', content: TTs, component: <TTS tts={TTs} /> },
         { key: 'TUs_state', label: 'TUS', content: TUs, component: <TUS tus={TUs} /> },
+        { key: 'GEs_state', label: 'GENE EXPRESSION', content: GEs, component: <GENEX genex={GEs} /> },
     ];
   return (
     <div>
