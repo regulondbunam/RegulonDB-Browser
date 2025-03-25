@@ -8,18 +8,22 @@ import Grid from "@mui/material/Grid";
 import PageMap from "./pageMap";
 import { Summary, ReleaseInfo } from "./infoApp";
 import {
-  Card,
-  CardActions,
-  CardMedia,
-  CardContent,
-  Typography,
-  Button,
-  Paper,
+    Card,
+    CardActions,
+    CardMedia,
+    CardContent,
+    Typography,
+    Button,
+    Paper,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
+import "./slider.css"
+import "./sliderTheme.css"
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
 const GRID_CONTENT = [
   {
@@ -74,15 +78,32 @@ const GRID_CONTENT = [
 
 export function Body() {
   const carruselSettings = {
-    dots: true,
-    infinite: true,
-    slidesToShow: 1,
+    dots: false,
+    arrows: false,
+    infinite: false,
+    slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: false,
     autoplaySpeed: 10000,
     cssEase: "linear",
-    variableWidth: true,
+    variableWidth: false,
+    prevArrow: <NavigateBeforeIcon />,
+    nextArrow: <NavigateNextIcon />,
     responsive: [
+      {
+        breakpoint: 1600,
+        settings: {
+          dots: true,
+          arrows: true,
+          infinite: true,
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          autoplay: false,
+          autoplaySpeed: 10000,
+          cssEase: "linear",
+          variableWidth: true,
+        },
+      },
       {
         breakpoint: 600,
         settings: {
@@ -103,12 +124,12 @@ export function Body() {
 
   return (
     <Box sx={{ flexGrow: 1, p: "10px 6% 10px 6%"}}>
-      <div style={{ height: "180px", width: "100%" }}>
+      <div className="slider-container">
         <Slider {...carruselSettings}>
           {cardData.map((card, index) => (
-            <div key={"card_" + index} style={{ width: 500, height: 175}}>
-              <div style={{ width: 450, height: 175 }}>
-                <Card style={{ width: 450, height: 170, paddingInline:5 }}>{card}</Card>
+            <div key={"card_" + index} className={'slider-item'}>
+              <div className={"item-container"}>
+                <Card className={'item-card'} >{card}</Card>
               </div>
             </div>
           ))}
@@ -125,20 +146,27 @@ export function Body() {
               md={4}
               key={"card_" + index + "_" + card.id}
             >
-              <Card sx={{ minWidth: 275, minHeight: 450 }} elevation={3}>
+              <Card sx={{
+                minWidth: 275,
+                minHeight: 450,
+              }} elevation={3}>
                 {card?.imgUrl && (
                   <CardMedia
                     component="div"
                     sx={{
                       // 16:9
                       pt: "10.25%",
+                      backgroundImage: `url(${card.imgUrl})`,
+                      '&:hover': {
+                        filter: 'blur(1px)', // Aplica el desenfoque en hover
+                      },
                     }}
-                    image={card.imgUrl}
+                    // image={card.imgUrl}
                   />
                 )}
                 <CardContent>
                   <Typography
-                    sx={{ fontSize: 12 }}
+                    sx={{ fontSize: 12}}
                     color="text.secondary"
                     gutterBottom
                   >
@@ -147,7 +175,7 @@ export function Body() {
                   <Typography variant="h5" component="div">
                     {card.title}
                   </Typography>
-                  <Typography variant="body1">{card.description}</Typography>
+                  <Typography variant="body1" style={{textAlign:"justify"}}>{card.description}</Typography>
                 </CardContent>
                 <CardActions>
                   {card.url && (
