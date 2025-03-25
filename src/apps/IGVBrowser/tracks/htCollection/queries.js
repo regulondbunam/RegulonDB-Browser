@@ -4,7 +4,9 @@ export const QUERY_getDatasetsFromSearch = gql`
   query GetDatasetsFromSearch($advancedSearch: String) {
     getDatasetsFromSearch(advancedSearch: $advancedSearch) {
       _id
-      datasetType
+      collectionData{
+        type
+      }
       objectsTested {
         name
         _id

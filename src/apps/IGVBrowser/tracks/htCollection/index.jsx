@@ -11,7 +11,7 @@ export function useGetAllHTDatasetsTFBINDING() {
   } = useQuery(QUERY_getDatasetsFromSearch, {
     variables: {
       advancedSearch:
-        "'TFBINDING'[datasetType] AND 'ChIP-seq'[sourceSerie.strategy]",
+        "'TFBINDING'[collectionData.type] AND 'ChIP-seq'[sourceSerie.strategy]",
     },
   });
   if (error) {
@@ -36,7 +36,7 @@ export function useGetAllHTDatasetsTUS() {
     error,
   } = useQuery(QUERY_getDatasetsFromSearch, {
     variables: {
-      advancedSearch: "'TU'[datasetType]",
+      advancedSearch: "'TU'[collectionData.type]",
     },
   });
   if (error) {
@@ -61,7 +61,7 @@ export function useGetAllHTDatasetsTTS() {
     error,
   } = useQuery(QUERY_getDatasetsFromSearch, {
     variables: {
-      advancedSearch: "'TTS'[datasetType]",
+      advancedSearch: "'TTS'[collectionData.type]",
     },
   });
   if (error) {
@@ -86,7 +86,7 @@ export function useGetAllHTDatasetsTSS() {
     error,
   } = useQuery(QUERY_getDatasetsFromSearch, {
     variables: {
-      advancedSearch: "'TSS'[datasetType]",
+      advancedSearch: "'TSS'[collectionData.type]",
     },
   });
   if (error) {

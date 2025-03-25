@@ -1,9 +1,10 @@
 import React from "react";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
-import { styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
+// import { styled } from "@mui/material/styles";
+// import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import {textAlign} from "@mui/system";
 
 
 const mirrorData = {
@@ -38,7 +39,7 @@ export default function PageMap() {
         </p>
       </div>
       <div style={{ marginLeft: "10px" }}>
-        <p>{mirrorData.description} </p>
+        <p style={{textAlign: "justify", paddingInline: 5}} >{mirrorData.description} </p>
         {mirrorData.links.map((link, index) => {
           return (
             <Link key={"link_"+index} to={link.url}>
