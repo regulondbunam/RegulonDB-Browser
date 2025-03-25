@@ -125,11 +125,11 @@ export function ReleaseInfo() {
           </p>
         </div>
         <div style={{ marginLeft: "10px" }}>
-          <p>{"date: " + dbInfo.releaseDate} </p>
+          <p>{"Date: " + dbInfo.releaseDate} </p>
           <p>{"RegulonDB version: " + dbInfo.regulonDBVersion} </p>
-          <p> synchronized with:</p>
-          <p>{"    - Ecocyc version: " + dbInfo.ecocycVersion}</p>
-          <p>{"     - Lisen&Curate version: " + dbInfo.lcVersion}</p>
+          <p>Synchronized with:</p>
+          <p>{"- Ecocyc version: " + dbInfo.ecocycVersion}</p>
+          <p>{"- Lisen&Curate version: " + dbInfo.lcVersion}</p>
           <Link to={"/releasesNote"}>
             <Typography color="secondary">Read release notes</Typography>
           </Link>
