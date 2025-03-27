@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Header, { idHeader } from "./header/Header";
 import Menu, { idMenu } from "./menu";
-import Footer, { idFooter } from "./footer/Footer";
+import Footer, { idFooter } from "./footer";
 import { Link, Outlet } from "react-router-dom";
 import { Observer } from "./Observer";
 import Alert from "@mui/material/Alert";

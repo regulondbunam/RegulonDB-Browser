@@ -1,0 +1,8 @@
+.HomeButton{
+    transition: transform 0.5s, background-color 0.5s;
+}
+
+.HomeButton:hover{
+    transform: scale(1.1);
+    background-color: var(--color-blue3);
+}

@@ -114,8 +114,8 @@ export default function Cover() {
           }}
           className={"coverTitle"}
         >
-          <Typography variant="h1Cover">The RegulonDB Database</Typography>
-          <Typography variant="h2Cover">
+          <Typography variant="h1Cover"  fontSize={{xs:"110%", md:"360%"}}>The RegulonDB Database</Typography>
+          <Typography variant="h2Cover" >
             Escherichia coli K-12 Transcriptional Regulatory Network
           </Typography>
         </Grid>

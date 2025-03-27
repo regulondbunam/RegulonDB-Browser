@@ -3,7 +3,7 @@ import Desktop from './Desktop';
 import Mobile from './Mobile';
 import {isMobile} from 'react-device-detect';
 
-export const idMenu = "rdbMenu"
+export const idFooter = "rdbFooter"
 
 export default function Menu() {
     if(isMobile){
