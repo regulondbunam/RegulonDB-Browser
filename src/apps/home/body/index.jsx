@@ -14,7 +14,6 @@ import {
     CardContent,
     Typography,
     Button,
-    Paper,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";

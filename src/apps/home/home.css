@@ -1,13 +1,19 @@
+.coverTitle{
+    filter: drop-shadow(10px 10px 15px rgba(255, 255, 255, 0.4));
+}
 .coverSearch{
     width: 80%;
     position: relative;
     margin: 2%;
+    filter: drop-shadow(10px 10px 15px rgba(255, 255, 255, 0.2));
 }
 
 .coverEcoliImg{
     position: absolute;
-    width: 55vw;
-    max-width: 682px;
+    /*width: 55vw;*/
+    width: 50%;
+    /*max-width: 682px;*/
     right: 0;
     top: 0;
+    filter: drop-shadow(10px 10px 15px rgba(255, 255, 255, 0.4));
 }

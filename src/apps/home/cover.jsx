@@ -1,4 +1,4 @@
-import { useSpring, animated } from "@react-spring/web";
+// import { useSpring, animated } from "@react-spring/web";
 import ecoliImgT3 from "./media/EcoliRegulonDBT3.webp";
 import EcoliWall from "./media/coli.webp";
 import UNAM_LOGO from "./media/unamLogo.png";
@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
-// import {Button} from "@mui/material";
+import {Button} from "@mui/material";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "transparent",
@@ -61,36 +61,58 @@ export default function Cover() {
         backgroundPosition: "center",
         backgroundImage: `url(${EcoliWall})`,
         p: "2% 8% 2% 8%",
+        animation: "moveBackground 120s linear infinite",
       }}
     >
+        <style>
+            {`
+              @keyframes moveBackground {
+                0% {
+                  background-position: 0% 0%;
+                }
+                50% {
+                  background-position: 100% 100%;
+                }
+                100% {
+                  background-position: 0% 0%;
+                }
+              }
+            `}
+        </style>
         <img src={ecoliImgT3} alt="Ecoli RegulonDB" className="coverEcoliImg" />
-      <Grid container >
+      <Grid container>
         <Grid
+            // UNAM LOGO
           item
           xs={1}
           sx={{
+            // backgroundColor: "red", // DEBUG
             display: "flex",
-            alignItems: "center",
-            zIndex: 10
+            zIndex: 10,
           }}
         >
-          <div>
             <img
-              src={UNAM_LOGO}
-              alt="logo unam"
-              style={{ height: "auto", width: "100%", maxWidth: "90px" }}
+                src={UNAM_LOGO}
+                alt="logo unam"
+                style={{
+                    padding:"10%",
+                    height: "100%",
+                    width: "100%",
+                }}
             />
-          </div>
         </Grid>
         <Grid
+            // Title
           item
           xs={8}
           sx={{
+            // backgroundColor: "blue", // DEBUG
             display: "flex",
             alignItems: "flex-start",
             flexDirection: "column",
-            zIndex: 10
+            zIndex: 10,
           }}
+          className={"coverTitle"}
         >
           <Typography variant="h1Cover">The RegulonDB Database</Typography>
           <Typography variant="h2Cover">
@@ -98,45 +120,90 @@ export default function Cover() {
           </Typography>
         </Grid>
         <Grid
+            // Search bar
           item
           xs={12}
           sx={{
-            display: "flex",
             alignItems: "center",
             zIndex: 10
           }}
+          display={{xs:"none", md:"flex"}}
         >
           <div className="coverSearch">
             <Search />
           </div>
         </Grid>
         <Grid
+            // Apps Links
           item
           xs={12}
           sx={{
-            display: "flex",
             alignItems: "center",
-            zIndex: 10
+            zIndex: 10,
           }}
+          display={{xs:"none", md:"flex"}}
         >
-          <Stack direction="row" spacing={1}>
+          <Stack direction={{xs:"row", md:"row"}} spacing={1}>
             {searchLinks.map((link) => {
               return (
                 <Item elevation={0} key={"cover_link_" + link.label}>
-                    {/*<Button variant="contained" fullWidth*/}
-                    {/*        component={Link} to={link.link}*/}
-                    {/*>*/}
-                    {/*    <Typography className={'CollectionButton'}>*/}
-                    {/*        {link.label}*/}
-                    {/*    </Typography>*/}
-                    {/*</Button>*/}
-                  <Link style={{ color: "#ffffff", fontSize:"large", fontWeight: "bold", textDecoration: "link" }} to={link.link}>
+                  <Link to={link.link}
+                    style={{
+                      color: "#ffffff", fontSize:"large", fontWeight: "bold", textDecoration: "link",
+                    }}
+                  >
                     {link.label}
                   </Link>
                 </Item>
               );
             })}
           </Stack>
+        </Grid>
+        <Grid
+            // Apps Links mobile
+            item
+            xs={12}
+            sx={{
+                alignItems: "center",
+                zIndex: 10
+            }}
+            display={{xs:"flex", md:"none"}}
+        >
+            <Stack direction={{xs:"row", md:"row"}} sx={{
+                display: "grid",
+                width: "100%",
+                maxWidth: "100%",
+                gridTemplateColumns:
+                    `repeat(2, 1fr)`,
+
+            }}>
+                {searchLinks.map((link) => {
+                    return (
+                        <Item elevation={0} key={"cover_link_" + link.label}
+                        >
+                            <Button variant="contained" fullWidth
+                                    component={Link} to={link.link}
+                                    sx={{
+                                        width: "100%",
+                                        backgroundColor: "var(--color-blue2)"
+                                    }}
+                            >
+                                <Typography
+                                            sx={{
+                                                color: "#fff",
+                                                '@media (max-width: 400px)': {
+                                                    fontWeight: "bold",
+                                                    fontSize: "80%"
+                                                }
+                                            }}
+                                >
+                                    {link.label}
+                                </Typography>
+                            </Button>
+                        </Item>
+                    );
+                })}
+            </Stack>
         </Grid>
       </Grid>
       <br />
