@@ -26,6 +26,12 @@ export const PATH_HT = {
   ],
 };
 
+window.IN_URL = {
+  main: "/ht",
+  finder: "/ht/finder/",
+  dataset: "/ht/dataset/",
+};
+
 function HT() {
   const { site, datasetType, info} = useParams();
   if (datasetType) {

@@ -7,6 +7,7 @@ import Results from './results/Results'
 //import GetFields from '../webServices/introspection/fields'
 
 export default function Finder({ datasetType }) {
+    // console.log(datasetType)
     const [_state, set_state] = useState()
     const [_queryBox, set_queryBox] = useState("")
     const [_nlpgcBox, set_nlpgcBox] = useState("")
@@ -32,11 +33,12 @@ export default function Finder({ datasetType }) {
         return (
             <div>
                 <GetResultsDataset
-                    ht_query={`'${datasetType}'[datasetType]`}
+                    ht_query={`'${datasetType}'[collectionData.type]`}
                     resoultsData={(data) => { set_datasets(data) }}
                     status={(state) => { set_state(state) }}
                 />
-                <SpinnerCircle />
+                <SpinnerCircle/>
+
             </div>
         )
     }

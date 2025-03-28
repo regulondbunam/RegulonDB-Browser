@@ -152,7 +152,7 @@ export default function Browser({
                                 {
                                     state.source === "GALAGAN"
                                         ? "Galagan Collection of Transcription Factor Binding Sites (ChIP-seq)"
-                                        : `${state.datasetType} ${state.source} ${state.experimentType}`
+                                        : `${state.datasetType || ''} ${state.source || ''} ${state.experimentType || ''}`
                                 }
                             </strong>
                         </Typography>

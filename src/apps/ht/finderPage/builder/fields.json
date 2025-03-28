@@ -53,6 +53,10 @@
             "query": "sourceSerie.series.sourceId"
         },
         {
+            "value": "Source Author",
+            "query": "collectionData.source"
+        },
+        {
             "value": "Source DBName",
             "query": "sourceSerie.series.sourceName"
         },

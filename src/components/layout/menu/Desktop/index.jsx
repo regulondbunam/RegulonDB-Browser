@@ -24,6 +24,7 @@ const BUTTON_HOME_STYLE = {
   width: "60px",
   float: "left",
   marginRight: "3%",
+  transition: 'all .3s ease',
 };
 
 export default function Desktop() {
