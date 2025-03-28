@@ -89,6 +89,7 @@ export default function Cover() {
             // backgroundColor: "red", // DEBUG
             display: "flex",
             zIndex: 10,
+            paddingBottom: "10px",
           }}
         >
             <img
