@@ -1,19 +1,36 @@
-.coverTitle{
+.coverTitle {
     filter: drop-shadow(10px 10px 15px rgba(255, 255, 255, 0.4));
 }
-.coverSearch{
+.coverSearch {
     width: 80%;
     position: relative;
     margin: 2%;
     filter: drop-shadow(10px 10px 15px rgba(255, 255, 255, 0.2));
 }
 
-.coverEcoliImg{
+.coverEcoliImg {
     position: absolute;
     /*width: 55vw;*/
     width: 50%;
+    max-height: 95%;
     /*max-width: 682px;*/
     right: 0;
     top: 0;
     filter: drop-shadow(10px 10px 15px rgba(255, 255, 255, 0.4));
+}
+
+.UNAM_LOGO {
+    filter: drop-shadow(10px 10px 15px rgba(255, 255, 255, 0.2));
+}
+
+@media screen and (max-width: 400px){
+    .coverEcoliImg{
+        width: 30%;
+        z-index: 99;
+        transition: width 0.2s;
+    }
+
+    .coverEcoliImg:hover{
+        width: 100%;
+    }
 }

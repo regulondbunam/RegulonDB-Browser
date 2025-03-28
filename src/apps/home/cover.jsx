@@ -92,6 +92,7 @@ export default function Cover() {
           }}
         >
             <img
+                className={"UNAM_LOGO"}
                 src={UNAM_LOGO}
                 alt="logo unam"
                 style={{

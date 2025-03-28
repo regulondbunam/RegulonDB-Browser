@@ -107,6 +107,7 @@ export default function Desktop() {
                       backgroundColor:
                         menuS.id === menu.id ? "#cadce7" : "#32617D",
                       borderRadius: 0,
+                      transition: 'transform 0.2s ease-in-out, background-color 0.3s ease-in-out',
                       "&:hover": {
                         backgroundColor: "#72a7c7",
                       },
