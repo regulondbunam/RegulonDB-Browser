@@ -63,39 +63,69 @@ async function processDataCSV(textData) {
 const WeightComponent = ({ fileName }) => {
     const [csvData, setCsvData] = useState(null);
     const [imageSrc, setImageSrc] = useState('');
+    const [imageExists, setImageExists] = useState(true);
+    const [csvExists, setCsvExists] = useState(true);
 
     const tfName = fileName;
 
     fileName = fileName.charAt(0).toLowerCase() + fileName.slice(1)
-    console.log("imageUrl:", fileName);
+    // console.log("imageUrl:", fileName);
 
     useEffect(() => {
-        // Construir la URL de la imagen y CSV basados en el fileName
         const imageUrl = `https://regulondbdata.ccg.unam.mx/ht/galagan/weight_matrices/${fileName}_WM.png`;
         // const csvUrl = `https://regulondbdata.ccg.unam.mx/ht/galagan/weight_matrices/${fileName}_WM.csv`;
         const csvUrl = `${process.env.PUBLIC_URL}/media/raw/datasets/galagan_chip_seq/all_weight_matrices/${fileName}_WM.csv`;
 
-        // Establecer la URL de la imagen
         setImageSrc(imageUrl);
 
-        console.log(csvUrl);
-        // Cargar el CSV como texto
+        // console.log(csvUrl);
+        const checkImageExists = async () => {
+            try {
+                const imageResponse = await fetch(imageUrl, { method: 'HEAD' });
+                if (!imageResponse.ok) {
+                    setImageExists(false);
+                }
+            } catch (error) {
+                console.error('Error al verificar imagen:', error);
+                setImageExists(false);
+            }
+        };
+        checkImageExists();
+
+
         const fetchCsvData = async () => {
             try {
                 const response = await fetch(csvUrl);
+
+
                 if (!response.ok) {
-                    throw new Error('Error al cargar el archivo CSV');
+                    setCsvExists(false);
+                    return;
                 }
+
+                // Verificar el tipo de contenido
+                const contentType = response.headers.get('Content-Type');
+                if (!contentType || !contentType.includes('text/csv')) {
+                    setCsvExists(false);
+                    return;
+                }
+
+                // Si todo es correcto, procesamos el archivo CSV
                 let text = await response.text();
-                text = '●'+text;
-                setCsvData(text);
+                if (text.trim().length === 0) {
+                    setCsvExists(false);
+                } else {
+                    setCsvData('●' + text);
+                }
             } catch (error) {
                 console.error('Error al cargar CSV:', error);
+                setCsvExists(false);
             }
         };
-
         fetchCsvData();
-    }, [fileName]); // Solo se ejecuta si fileName cambia
+        // console.log(csvExists);
+
+    }, [fileName]);
 
     const [table, setTable] = useState();
 
@@ -110,6 +140,11 @@ const WeightComponent = ({ fileName }) => {
     const handleAccordionChange = () => {
         setExpanded(!expanded);
     };
+
+    if(!imageExists && !csvExists){
+        return( <div></div> )
+    }
+
     return (
         <div>
             <h2>WEIGHT MATRIX</h2>
@@ -123,22 +158,26 @@ const WeightComponent = ({ fileName }) => {
                 <AccordionDetails>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px'}}>
                         {/* Imagen */}
-                        <img
-                            src={imageSrc}
-                            alt="Weight Matrix logo"
-                            style={{
-                                width: 'auto',
-                                maxWidth: '100%',
-                                maxHeight: '300px',
-                                objectFit: 'contain',
-                                display: 'block', // asegura que no haya espacio extra alrededor
-                                margin: '0 auto 0 0' // alinea a la izquierda
-                            }}
-                        />
+                        {imageExists && (
+                            <img
+                                src={imageSrc}
+                                alt="Weight Matrix logo"
+                                style={{
+                                    width: 'auto',
+                                    maxWidth: '100%',
+                                    maxHeight: '300px',
+                                    objectFit: 'contain',
+                                    display: 'block',
+                                    margin: '0 auto 0 0',
+                                }}
+                            />
+                        )}
                         {/* CSV */}
-                        <div style={{ overflowX: 'auto' }}>
-                            <FilterTable {...table} tableName="Weight Matrix"/>
-                        </div>
+                        {csvExists && (
+                            <div style={{ overflowX: 'auto' }}>
+                                <FilterTable {...table} tableName="Weight Matrix" />
+                            </div>
+                        )}
                     </div>
                 </AccordionDetails>
             </Accordion>
