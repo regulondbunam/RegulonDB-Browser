@@ -4,21 +4,34 @@
     color: white;
     display: flex;
     flex-direction: column;
+    max-height: 10vh;
+    height: 100vh;
+}
+
+@media (max-width: 400px) {
+    .footer {
+        max-height: 30vh;
+    }
 }
 
 .footerHeight {
     display: grid;
     grid-template-columns: 50% 50%;
-    margin-top: 10px;
+    /*margin-top: 10px;*/
 }
 
 .imageLogo {
-    height: 60px;
+    height: 8vh;
+    margin-left: 1vh;
+    margin-top: 1vh;
+    filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.9));
+    padding-inline: 0.5vh;
 }
 
 .logos {
-    display: flex;
-    justify-content: space-evenly;
+    max-width: 50vh;
+    max-height: 10vh;
+    display: grid;
 }
 
 .text {

@@ -248,7 +248,7 @@ export default function Builder({
                                         if (_datasetBox !== "") {
                                             addQuery = `(${box}) ${getLogicConnector()} '${inputText}'[${_datasetFeature}]`
                                         } else {
-                                            addQuery = `('${datasetType}'[datasetType]) AND '${inputText}'[${_datasetFeature}]`
+                                            addQuery = `('${datasetType}'[collectionData.type]) AND '${inputText}'[${_datasetFeature}]`
                                         }
                                         set_datasetBox(addQuery)
                                         if (_nlpgcBox !== "") {

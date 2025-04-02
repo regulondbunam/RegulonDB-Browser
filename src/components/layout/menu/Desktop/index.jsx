@@ -8,13 +8,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import menuConf from "../conf";
-import DrawMenu from "../Movil/DrawMenu";
+import DrawMenu from "../Mobile/DrawMenu";
 import { useNavigate } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import { DataVerifier } from "../../../ui-components";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import List from "@mui/material/List";
+import "./desktopMenu.css"
 
 const BUTTON_HOME_STYLE = {
   border: "solid 4px #ffffff",
@@ -23,6 +24,7 @@ const BUTTON_HOME_STYLE = {
   width: "60px",
   float: "left",
   marginRight: "3%",
+  transition: 'all .3s ease',
 };
 
 export default function Desktop() {
@@ -73,6 +75,7 @@ export default function Desktop() {
                   navigate("/");
                 }}
                 style={BUTTON_HOME_STYLE}
+                className={"HomeButton"}
               >
                 <HomeIcon sx={{ fontSize: 40 }} />
               </IconButton>
@@ -105,6 +108,7 @@ export default function Desktop() {
                       backgroundColor:
                         menuS.id === menu.id ? "#cadce7" : "#32617D",
                       borderRadius: 0,
+                      transition: 'transform 0.2s ease-in-out, background-color 0.3s ease-in-out',
                       "&:hover": {
                         backgroundColor: "#72a7c7",
                       },

@@ -13,83 +13,86 @@ function query(ht_query) {
   try {
     return gql`
     {
-      getDatasetsFromSearch(advancedSearch: "${ht_query}") {
+      getDatasetsFromSearch(advancedSearch: "${ht_query}"){
         _id
-          publications {
-            pmid
-            doi
-            authors
-            title
-            date
-            pmcid
-          }
-          fivePrimeEnrichment
-          objectsTested {
+        collectionData {
+          type
+          source
+        }
+        publications {
+          pmid
+          doi
+          authors
+          title
+          date
+          pmcid
+        }
+        fivePrimeEnrichment
+        objectsTested {
+          name
+          synonyms
+          genes {
+            _id
             name
-            synonyms
-            genes {
-              _id
-              name
-            }
-            note
-            activeConformations
-            externalCrossReferences {
-              externalCrossReferenceId
-              externalCrossReferenceName
-              objectId
-              url
-            }
           }
-          sourceSerie {
-            series{
-              sourceId
-              sourceName
-            }
-            platform{
-              _id
-              title
-            }
-            title
-            strategy
-            method
-          }
-          sample {
-            experimentId
-            controlId
-            title
-          }
-          linkedDataset {
-            controlId
-            experimentId
-            datasetType
-          }
-          referenceGenome
-          datasetType
-          temporalId
-          growthConditions {
-            organism
-            geneticBackground
-            medium
-            mediumSupplements
-            aeration
-            temperature
-            ph
-            pressure
-            opticalDensity
-            growthPhase
-            growthRate
-            vesselType
-            agitationSpeed
-            experimentId
-            experimentTitle
-          }
-          releaseDataControl {
-            date
-            version
+          note
+          activeConformations
+          externalCrossReferences {
+            externalCrossReferenceId
+            externalCrossReferenceName
+            objectId
+            url
           }
         }
+        sourceSerie {
+          series{
+            sourceId
+            sourceName
+          }
+          platform{
+            _id
+            title
+          }
+          title
+          strategy
+          method
+        }
+        sample {
+          experimentId
+          controlId
+          title
+        }
+        linkedDataset {
+          controlId
+          experimentId
+          datasetType
+        }
+        referenceGenome
+        temporalId
+        growthConditions {
+          organism
+          geneticBackground
+          medium
+          mediumSupplements
+          aeration
+          temperature
+          ph
+          pressure
+          opticalDensity
+          growthPhase
+          growthRate
+          vesselType
+          agitationSpeed
+          experimentId
+          experimentTitle
+        }
+        releaseDataControl {
+          date
+          version
+        }
       }
-      `
+    }
+    `
   } catch (error) {
     console.log(error)
   }

@@ -54,7 +54,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Movil() {
+export default function Mobile() {
   const [drawOpen, setDrawOpen] = useState(false);
   const navigate = useNavigate()
   

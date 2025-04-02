@@ -92,22 +92,26 @@ async function processAuthorsDataCSV(authorData) {
     // Procesar las filas de datos
     try {
         let rows = authorData.split("\n");
-        rows.splice(0, firstRowIndex + 1); // Eliminar las filas previas a los datos
+        rows.splice(0, firstRowIndex + 1);
 
         rows.forEach((row) => {
             const newData = {};
             const cells = row.split(",");
-            cells.forEach((cell, index) => {
-                if (columns[index]?.label) {
-                    newData[columns[index].label] = (cell.trim().toLowerCase() === 'nan' || isNaN(cell.trim())) ? "" : cell.trim();
-                }
-            });
-            data.push(newData);
+            if (cells[0]?.trim()) {
+                cells.forEach((cell, index) => {
+                    if (columns[index]?.label) {
+                        newData[columns[index].label] = (cell.trim().toLowerCase() === 'nan') ? "" : cell.trim()
+                    }
+                });
+                data.push(newData);
+            } else {
+                console.log("Empty value in first column", row);
+            }
         });
     } catch (error) {
         console.error("error in process rows content Author Data", error);
     }
-
+    console.log(data);
     return { columns, data, comments };
 }
 

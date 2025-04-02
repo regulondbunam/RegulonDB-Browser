@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import Header, { idHeader } from "./header/Header";
 import Menu, { idMenu } from "./menu";
-import Footer, { idFooter } from "./footer/Footer";
+import Footer, { idFooter } from "./footer";
 import { Link, Outlet } from "react-router-dom";
 import { Observer } from "./Observer";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import Snackbar from "@mui/material/Snackbar";
 import Button from "@mui/material/Button";
+import "./layoutStyles.css"
 
 export function fullScreen(activate = false) {
   if (activate) {
@@ -39,7 +40,7 @@ const Layout = () => {
   //console.log(cookiePolicy,  (cookiePolicy !== "true" || cookiePolicy !== "false"));
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div className={'layout'}>
       <Observer />
       <Header isHome={isHome} />
       <Menu />
@@ -50,6 +51,9 @@ const Layout = () => {
       {(cookiePolicy !== "true" || cookiePolicy !== "false") && (
         <Snackbar
           open={open && !(cookiePolicy === "true" || cookiePolicy === "false")}
+            sx={{
+                width: "100%",
+            }}
         >
           <Alert
             severity="info"
