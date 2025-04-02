@@ -158,7 +158,7 @@ const WeightComponent = ({ fileName }) => {
                 <AccordionDetails>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px'}}>
                         {/* Imagen */}
-                        {imageExists && (
+                        {!imageExists && (
                             <img
                                 src={imageSrc}
                                 alt="Weight Matrix logo"
