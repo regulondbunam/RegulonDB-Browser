@@ -3,11 +3,11 @@ import formatTUS from "./TUS"
 import formatRNAP from "./RNAP"
 import formatGE from "./GENE_EXPRESSION"
 
-export default function formatDatasetFilterTable(datasets,datasetType,experimentType,source,nlgc=[]) {
-   let table = {}
+export default function formatDatasetFilterTable(datasets,datasetType,experimentType,source,tfName) {
+   let table
    switch (datasetType) {
     case "TFBINDING":
-        table = formatTFBS(datasets,experimentType)
+        table = formatTFBS(datasets,experimentType,tfName)
         break;
     case "TSS":
     case "TTS":

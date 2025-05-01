@@ -89,12 +89,12 @@ function reducer(state, action) {
 export default function Browser({
     datasetType,
     source,
-    experimentType
+    experimentType,
+                                    tfName
 }) {
     const [state, dispatch] = useReducer(reducer, { datasetType, source, experimentType }, initState)
 
     const handleUpdateDatasets = (newDatasetType, newSource, newExperimentType) => {
-
         dispatch({
             type: DISPATCH_TYPE.UPDATE_TREE,
             datasetType: newDatasetType,
@@ -157,7 +157,7 @@ export default function Browser({
                             </strong>
                         </Typography>
                         {/*TODO: Set on a dictionary*/}
-                        {isTargetPath && (
+                        {state.source === "GALAGAN" && (
                             <Typography className={`description ${"expanded"}`} sx={{ mt: 1 }} fontSize={"medium"}>
                             {/*<Typography className={`description ${expanded ? "expanded" : ""}`} sx={{ mt: 1 }} fontSize={"medium"}>*/}
                                 <strong>Access the complete Galagan collection of ChIP-seq binding sites</strong>, which includes union peaks for each transcription factor (<strong>TF</strong>) and their corresponding individual experiments.{" "}
@@ -183,6 +183,7 @@ export default function Browser({
                         <Grid item xs={11}>
                             <Table
                                 // dir={state.dir}
+                                tfName={tfName}
                                 datasetType={state.datasetType}
                                 source={state.source}
                                 experimentType={state.experimentType}
