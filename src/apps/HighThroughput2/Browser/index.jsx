@@ -167,8 +167,8 @@ export default function Browser({
                                 </span>.{" "}
                                 <strong>To download the complete set of union peaks</strong> <a href="http://regulondbdata.ccg.unam.mx/ht/galagan/tf_binding/tf_binding_peaks_galagan.zip" target="_blank" rel="noopener noreferrer" style={{ fontSize: "inherit", textDecoration: "underline" }}>click here</a>.{" "}
                                 If you use this information, <strong>please cite</strong>:{" "}
-                                <a href="https://pubmed.ncbi.nlm.nih.gov/38826350/" target="_blank" rel="noopener noreferrer" style={{ fontSize: "inherit", textDecoration: "underline" }}>
-                                    Lally P. et al (PMID:38826350)
+                                <a href="https://pubmed.ncbi.nlm.nih.gov/40335485/" target="_blank" rel="noopener noreferrer" style={{ fontSize: "inherit", textDecoration: "underline" }}>
+                                    Lally P. et al. Predictive biophysical neural network modeling of a compendium of in vivo transcription factor DNA binding profiles for Escherichia coli. (PMID:40335485)
                                 </a>{" "}
                                 and <strong>specify the RegulonDB version used in your work</strong>. You can find details about the latest release of <strong>RegulonDB</strong> <a href="https://regulondb.ccg.unam.mx/releasesNote" style={{ fontSize: "inherit", textDecoration: "underline" }}>here</a>.
                             </Typography>
