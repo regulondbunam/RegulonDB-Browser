@@ -171,6 +171,13 @@ export default function Browser({
                                     Lally P. et al. Predictive biophysical neural network modeling of a compendium of in vivo transcription factor DNA binding profiles for Escherichia coli. (PMID:40335485)
                                 </a>{" "}
                                 and <strong>specify the RegulonDB version used in your work</strong>. You can find details about the latest release of <strong>RegulonDB</strong> <a href="https://regulondb.ccg.unam.mx/releasesNote" style={{ fontSize: "inherit", textDecoration: "underline" }}>here</a>.
+
+                                <div style={{ marginTop: '16px' }}>
+                                    For models, code, and more information please visit{" "}
+                                    <a href="http://boltznet.bu.edu" target="_blank" rel="noopener noreferrer" style={{ fontSize: "inherit", textDecoration: "underline" }}>
+                                    http://boltznet.bu.edu
+                                    </a>
+                                </div>
                             </Typography>
                         )}
 
