@@ -60,7 +60,7 @@ export default function Document({ regulonData, section }) {
                 label: "Regulatory Interactions",
                 title: "Regulatory Interactions",
                 component: <div style={{ overflow: "auto" }} >
-                    <RegulatoryInteractions regulatoryInteractions={regulatoryInteractions} allCitations={indexedCitations} />
+                    <RegulatoryInteractions regulatoryInteractions={regulatoryInteractions} allCitations={indexedCitations} tfName={regulator.abbreviatedName}/>
                 </div>,
             })
         }

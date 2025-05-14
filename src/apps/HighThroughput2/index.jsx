@@ -41,7 +41,9 @@ function HT() {
         if(query.get('datasetId')){
           return <DatasetInfo datasetId={query.get('datasetId')} />
         }
-        return <Browser datasetType={datasetType} source={query.get('source')}  tfName={query.get('tf')} experimentType={query.get('experimentType')}/>;
+        console.log("EXP_TITLE: ", query.get('expTitle'));
+        return <Browser datasetType={datasetType} source={query.get('source')}  tfName={query.get('tf')}
+                        experimentType={query.get('experimentType')} experimentTitle={query.get('expTitle')}/>;
       case "finder":
         return <Finder datasetType={datasetType} />;
       default:

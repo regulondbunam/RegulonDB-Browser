@@ -2,7 +2,7 @@ import DataVerifier from "../utils"
 import { useNavigate } from "react-router-dom"
 import { Button, Typography } from "@mui/material"
 
-export default function formatTFBS(datasets = [], experimentType, tfName) {
+export default function formatTFBS(datasets = [], experimentType, tfName, experimentTitle) {
     let table = {
         columns: [
             {
@@ -16,7 +16,8 @@ export default function formatTFBS(datasets = [], experimentType, tfName) {
                 label: "Dataset Title"
             },
             {
-                label: "Experiment Title"
+                label: "Experiment Title",
+                setFilter: experimentTitle ? experimentTitle : undefined
             },
             {
                 label: "Strategy",

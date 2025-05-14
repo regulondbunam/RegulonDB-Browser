@@ -90,7 +90,8 @@ export default function Browser({
     datasetType,
     source,
     experimentType,
-                                    tfName
+    tfName,
+    experimentTitle
 }) {
     const [state, dispatch] = useReducer(reducer, { datasetType, source, experimentType }, initState)
 
@@ -194,6 +195,7 @@ export default function Browser({
                                 datasetType={state.datasetType}
                                 source={state.source}
                                 experimentType={state.experimentType}
+                                experimentTitle={experimentTitle}
                             />
                         </Grid>
                     </Grid>

@@ -9,7 +9,8 @@ export default function Table({
     dir = "",
     source,
     experimentType,
-                                  tfName
+    tfName,
+    experimentTitle
 }) {
 
     const { datasets, loading, error } = useInitDatasetsByDatasetType(datasetType, source);
@@ -29,7 +30,8 @@ export default function Table({
     }
 
     if (datasets) {
-        const table = formatDatasetFilterTable(datasets, datasetType, experimentType, source, tfName)
+        console.log("EXP_TITLE: ",experimentTitle);
+        const table = formatDatasetFilterTable(datasets, datasetType, experimentType, source, tfName, experimentTitle)
         return <FilterTable columns={table.columns} data={table.data} tableName={dir} />
     }
 

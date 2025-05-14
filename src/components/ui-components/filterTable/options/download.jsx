@@ -10,12 +10,13 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import DataVerifier from '../../utils';
+import {KeyboardArrowRight} from "@mui/icons-material";
 
 export function Download({
-    getAllFlatColumns,
-    fileName = "data",
-    preGlobalFilteredRows = [],
-}) {
+                             getAllFlatColumns,
+                             fileName = "data",
+                             preGlobalFilteredRows = [],
+                         }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const openMenu = Boolean(anchorEl);
 
@@ -27,7 +28,7 @@ export function Download({
     };
 
     const handleDownload = (format) => {
-        console.log(getAllFlatColumns());
+        // console.log(getAllFlatColumns());
         const rows = preGlobalFilteredRows().rows
         //check rows
         if (!DataVerifier.isValidArray(rows)) {
@@ -42,20 +43,62 @@ export function Download({
                 }
             });
         }
-        //console.log(columns);
-        const formatSeparator = {
-            csv: ",",
-            tsv: "\t",
+
+        let fileInfo = "";
+        const filename = fileName + "." + format;
+
+        if (format === "fasta") {
+            const seenPositions = new Set();
+            rows.forEach(row => {
+                // console.log(row.original.id);
+                let identifier = row.original.id;
+                let tfName = fileName;
+                let riFunction = row.getValue("regulatoryInteraction_function");
+                let regulatedEntity = row.getValue("regulatedEntity_type");
+                let promoterName = "";
+                let distToPromoter = "";
+                if (regulatedEntity === "promoter"){
+                    promoterName = row.getValue("regulatedEntity_name");
+                    distToPromoter = row.getValue("regulatoryInteraction_distanceTo_promoter");
+                }
+                let distToGene  = row.getValue("regulatoryInteraction_distanceTo_gene");
+                let len = row.getValue("regulatoryBindingSite_leftPos");
+                let ren = row.getValue("regulatoryBindingSite_RightPos");
+                let confidenceLvl = row.getValue("confidenceLevel");
+                const strandLetter = row => {
+                    const strand = row.getValue("regulatoryBindingSite_strand");
+                    return strand === "forward" ? "F" : strand === "reverse" ? "R" : "";
+                }
+
+                let sequence = row.getValue("regulatoryBindingSite_sequence");
+
+                let positionKey = `${len},${ren}`;
+                if (sequence && !seenPositions.has(positionKey)) {
+                    seenPositions.add(positionKey);
+                    const formatedID = identifier.replace(/^ri_\d+_|_.*$/g, '');
+                    fileInfo += `>${formatedID};\tTF:${tfName};\tFunction:${riFunction};\t` +
+                    (promoterName ? ` Promoter:${promoterName};\tDistToProm:${distToPromoter};\t` :'') +
+                    ` DistToGene:${distToGene};\tLeftPos:${len};\tRightPos:${ren};\tStrand:${strandLetter(row)};\tConfLvl:${confidenceLvl}\n${sequence}\n`;
+
+                }
+            });
+        } else {
+            //console.log(columns);
+            const formatSeparator = {
+                csv: ",",
+                tsv: "\t",
+            }
+            //file head
+            fileInfo = columns.map(column => column.id).join(formatSeparator[format]) + "\n"
+            //create a row file
+            rows.forEach(row => {
+                fileInfo += columns.map(column => {
+                    return row.getValue(column.id)
+                }).join(formatSeparator[format]) + "\n";
+            });
+            console.log(fileInfo); // Log the values for inspection
         }
-        //file head
-        let fileInfo = columns.map(column => column.id).join(formatSeparator[format]) + "\n"
-        const filename = fileName + "." + format
-        //create rows file
-        rows.forEach(row => {
-            fileInfo += columns.map(column => {
-                return row.getValue(column.id)
-            }).join(formatSeparator[format]) + "\n";
-        });
+        // console.log(fileInfo); // Log the values for inspection
         const element = document.createElement('a');
         element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(fileInfo));
         element.setAttribute('download', filename);
@@ -107,6 +150,15 @@ export function Download({
                         <FormatQuoteIcon fontSize="small" />
                     </ListItemIcon>
                     <ListItemText>csv format</ListItemText>
+                </MenuItem>
+                <MenuItem onClick={() => {
+                    handleDownload("fasta");
+                    handleCloseMenu();
+                }}>
+                    <ListItemIcon>
+                        <KeyboardArrowRight fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>FASTA format</ListItemText>
                 </MenuItem>
             </Menu>
         </>
