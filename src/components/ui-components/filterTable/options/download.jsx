@@ -78,7 +78,7 @@ export function Download({
                     const formatedID = identifier.replace(/^ri_\d+_|_.*$/g, '');
                     fileInfo += `>${formatedID};\tTF:${tfName};\tFunction:${riFunction};\t` +
                     (promoterName ? ` Promoter:${promoterName};\tDistToProm:${distToPromoter};\t` :'') +
-                    ` DistToGene:${distToGene};\tLeftPos:${len};\tRightPos:${ren};\tStrand:${strandLetter(row)};\tConfLvl:${confidenceLvl}\n${sequence}\n`;
+                    ` DistToGene:${distToGene};\tLeftPos:${len};\tRightPos:${ren};\tStrand:${strandLetter(row)};\tConfidenceLevel:${confidenceLvl}\n${sequence}\n`;
 
                 }
             });
