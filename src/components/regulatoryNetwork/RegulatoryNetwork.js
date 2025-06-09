@@ -29,7 +29,7 @@ const OPTIONS = {
 }
 
 const initOptions = {
-  layout: LAYOUTS.DAGRE,
+  layout: LAYOUTS.COSE,
   zoom: 0.75,
 }
 
