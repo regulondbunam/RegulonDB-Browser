@@ -38,7 +38,8 @@ export default function RelatedTool({ relatedIds, operonData }) {
         <div className="noPrint" >
             <Navigation idValue={relatedIds.idValue} />
             {DataVerifier.isValidArray(relatedIds.genes) && (
-                <Tool title={"Related Tools"} >
+                //<Tool title={"Related Tools"}>
+                <Tool title={"Tools"}>
                     <List>
                         <ListItemButton sx={{ pl: 4 }} onClick={() => {
                             navigate(`/dtt/leftEndPosition=${operonData.operon.regulationPositions.leftEndPosition - 1000}&rightEndPosition=${operonData.operon.regulationPositions.rightEndPosition + 1000}`)

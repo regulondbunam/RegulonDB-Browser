@@ -180,7 +180,8 @@ export default function RelatedTool({ gene, products, regulation }) {
         htDatasets={htDatasetsRelated}
       />
       {DataVerifier.isValidObject(gene) && (
-        <Tool title={"Related Tools"}>
+        //<Tool title={"Related Tools"}>
+        <Tool title={"Tools"}>
           <List>
             <ListItemButton
               sx={{ pl: 4 }}
