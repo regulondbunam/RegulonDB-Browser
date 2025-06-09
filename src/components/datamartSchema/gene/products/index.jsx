@@ -168,9 +168,9 @@ export function Product({
           </p>
         </Link>
       ) : (
-        <p style={{ fontSize: "18px" }}>
-          <b dangerouslySetInnerHTML={{ __html: name }} />
-        </p>
+        <tr style={{ fontSize: "18px" }}>
+          <td style={{ fontWeight: "bold" }}>Name: <b dangerouslySetInnerHTML={{ __html: name }} /> </td>
+        </tr>
       )}
 
       <table className="table_auto table_content">
@@ -217,7 +217,7 @@ export function Product({
           )}
           {DataVerifier.isValidArray(cellularLocations) && (
             <tr>
-              <td style={{ fontWeight: "bold" }}>Cellular Locations:</td>
+              <td style={{ fontWeight: "bold" }}>Cellular Location:</td>
               <td>{cellularLocations.join(", ")}</td>
             </tr>
           )}

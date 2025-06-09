@@ -96,7 +96,7 @@ export default function Information({ geneData }) {
           tooltip: `Product: ${productName}`,
           title: (
             <span
-              dangerouslySetInnerHTML={{ __html: `Product ${productName}` }}
+              dangerouslySetInnerHTML={{ __html: `Product: ${productName}` }}
             />
           ),
           component: (
