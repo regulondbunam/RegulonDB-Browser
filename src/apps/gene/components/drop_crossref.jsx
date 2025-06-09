@@ -5,10 +5,13 @@ const references = ["ECOCYC", "ecocyc", "REFSEQ", "refseq", "UniProt"];
 export default function DropRef({id, externalCrossReferences = []}) {
   //console.log(externalCrossReferences);
   try {
-    if (externalCrossReferences !== []) {
+    if (externalCrossReferences.length > 0) {
       return (
         <table>
           <tbody>
+            <tr>
+              <td style={{ fontWeight: "bold" }}>External Cross References:</td>
+            </tr>
             <tr>
               <td>{`RegulonDB: ${id}`}</td>
             </tr>
