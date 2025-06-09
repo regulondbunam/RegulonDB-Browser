@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const COLUMNS = [
     { label: "Gene", width: 50 },
     { label: "Function", width: 50 },
-    { label: "Multifunction" },
+    //{ label: "Multifunction" },
     { label: "Biological Process" },
     { label: "Cellular Component" },
     { label: "Molecular Function" }
@@ -24,7 +24,7 @@ function formatTable(genes = []) {
     // console.log(genes[0]);
     genes.forEach((gene) => {
         const terms = gene.terms
-        const strMultifunction = terms?.multifun ? terms.multifun.map((multi) => { return multi.name }).join("; ") : ""
+        //const strMultifunction = terms?.multifun ? terms.multifun.map((multi) => { return multi.name }).join("; ") : ""
         const strBiologicalProcess = terms?.geneOntology ? terms.geneOntology.biologicalProcess.map((multi) => { return multi.name }).join("; ") : ""
         const strCellularComponent = terms?.geneOntology ? terms.geneOntology.cellularComponent.map((multi) => { return multi.name }).join("; ") : ""
         const strMolecularFunction = terms?.geneOntology ? terms.geneOntology.molecularFunction.map((multi) => { return multi.name }).join("; ") : ""
@@ -35,7 +35,7 @@ function formatTable(genes = []) {
                 </Link>
             </div>,
             "Function": gene.function,
-            "Multifunction": strMultifunction,
+            //"Multifunction": strMultifunction,
            // biologicalProcess: ,
             "Biological Process": <OntologyView value={strBiologicalProcess} terms={terms.geneOntology?.biologicalProcess ? terms.geneOntology?.biologicalProcess : []} />,
            // cellularComponent: ,
