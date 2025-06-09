@@ -47,7 +47,7 @@ export default function Document({ sigmulonData }) {
       _sections.push({
         id: "SigmaSection_03",
         label: "Promoters",
-        title: "Transcribed Promoters",
+        title: "Activated Promoters",
         component: (
           <div style={{ overflow: "auto" }}>
             <TranscribedPromoters
