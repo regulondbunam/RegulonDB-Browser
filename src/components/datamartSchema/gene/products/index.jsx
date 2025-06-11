@@ -302,7 +302,7 @@ function GOT({ geneOntologyTerms, allCitations }) {
  */
 function Citations({ citations, allCitations }) {
   return (
-    <Accordion title={"Citations"}>
+    <Accordion title={<p style={{ fontWeight: "bold" }}>Evidences and References</p>}>
       <div>
         <ParagraphCitations citations={citations} allCitations={allCitations} />
       </div>
@@ -318,7 +318,7 @@ function Citations({ citations, allCitations }) {
  */
 function ExternalCrossReferences({ references }) {
   return (
-    <Accordion title={"External Cross References"}>
+    <Accordion title={<p style={{ fontWeight: "bold" }}>External Cross References</p>}>
       <div style={{ display: "grid", gridTemplateColumns: "25% 25% 25% 25%" }}>
         {references.map((reference) => {
           return (

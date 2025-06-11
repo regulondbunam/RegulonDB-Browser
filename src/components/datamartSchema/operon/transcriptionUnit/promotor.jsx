@@ -29,7 +29,7 @@ function confLevel(level) {
   return _confidenceLevel
 }
 
-export default function Promoter({ _id, promoter, strand, allCitations }) {
+export default function Promoter({ _id, promoter, strand, allCitations, firstGene }) {
   let _confidenceLevel;
   if (DataVerifier.isValidString(promoter.confidenceLevel)) {
     switch (promoter.confidenceLevel) {
@@ -84,6 +84,9 @@ export default function Promoter({ _id, promoter, strand, allCitations }) {
                   </p>
                 )}
             </>
+          )}
+          {DataVerifier.isValidNumber(firstGene.distanceToPromoter) && (
+                    <p><b>Absolute Position of Transcription Start Site(+1):</b>{" " + firstGene.distanceToPromoter + " bp"}</p>
           )}
           {DataVerifier.isValidObject(promoter.bindsSigmaFactor) && (
             <>
@@ -157,7 +160,7 @@ export default function Promoter({ _id, promoter, strand, allCitations }) {
         )}
         {DataVerifier.isValidArray(promoter.citations) && (
           <p>
-            <b>Citations:</b>
+            <b>Evidences and References:</b>
             <br />
             <ParagraphCitations
               citations={promoter.citations}

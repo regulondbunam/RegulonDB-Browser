@@ -251,7 +251,7 @@ export function Evidences({ evidences, publications, small = false }) {
 export function Publications({ evidences, publications, small = false }) {
   //console.log(publications);
   return (
-    <Accordion  title={<h3>Publications</h3>} backgroundColor="#cadce7" >
+    <Accordion  title={<h3>References</h3>} backgroundColor="#cadce7" >
       
       <table>
         <tbody>

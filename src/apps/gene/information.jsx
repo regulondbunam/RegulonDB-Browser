@@ -115,8 +115,8 @@ export default function Information({ geneData }) {
     if (DataVerifier.isValidArray(geneData.allCitations)) {
       tabsInfo.push({
         id: "GeneTab_Citations",
-        label: "Citations",
-        title: "All Citations",
+        label: "All Evidences and References",
+        title: "All Evidences and References",
         component: (
           <div style={{ overflow: "auto" }}>
             <AllCitations {...citations} />

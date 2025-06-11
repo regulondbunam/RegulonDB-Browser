@@ -61,8 +61,8 @@ export default function Document({ sigmulonData }) {
     if (DataVerifier.isValidArray(allCitations)) {
       _sections.push({
         id: "sigmaSections_allCitations",
-        label: "Citations",
-        title: "Citations",
+        label: "Evidence and References",
+        title: "Evidence and References",
         component: (
           <div style={{ overflow: "auto" }}>
             <AllCitations publications={publications} evidences={evidences} />
