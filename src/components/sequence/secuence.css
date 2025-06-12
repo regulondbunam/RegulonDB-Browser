@@ -2,6 +2,8 @@
 	font-family: var(--fontFamily-sequence);
 	font-size: 14px;
     color: black;
+    padding:1px 4px;
+    border-radius:3px;
   }
 
 .rdb_sequence_A{

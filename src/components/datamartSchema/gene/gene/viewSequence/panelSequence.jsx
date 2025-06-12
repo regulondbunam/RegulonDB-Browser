@@ -18,6 +18,7 @@ import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { FastaSequence, GenebankSequence } from "../../../../sequence";
+import type from "cytoscape/src/selector/type";
 
 /**
  * Object defining supported sequence formats.
@@ -135,6 +136,7 @@ export default function PanelSequence({ sequence, _id, name, products }) {
           color={state.color}
           countItems={state.countItems}
           title={title}
+          type="nucleotid"
         />
       );
       break;
@@ -158,6 +160,7 @@ export default function PanelSequence({ sequence, _id, name, products }) {
           countItems={state.countItems}
           title={title}
           charactersPerLine={state.fasta_CharactersPerLine}
+          type="nucleotid"
         />
       );
       break;
