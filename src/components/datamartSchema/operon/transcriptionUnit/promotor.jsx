@@ -1,8 +1,13 @@
 import { Accordion, DataVerifier } from "../../../ui-components";
-import { ParagraphCitations, NoteCitations } from "../../citations";
+import {ParagraphCitations, NoteCitations, ModalCitation} from "../../citations";
 import SimpleTrack from "../../../drawingTrack/_old";
 //import RegulatorBindingSites from "./regulatorBindingSites";
-import { useMemo } from "react";
+import React, { useMemo } from "react";
+import { useState } from "react";
+import Box from "@mui/material/Box";
+import {Publication} from "../../citations/publication";
+import {Evidences} from "../../citations/evidences";
+import {EvidenceTitle} from "../../citations/evidence";
 
 function confLevel(level) {
   let _confidenceLevel = <></>
@@ -29,8 +34,25 @@ function confLevel(level) {
   return _confidenceLevel
 }
 
+function Modal({ show, onClose, children }) {
+  if (!show) return null;
+  return (
+      <div style={{
+        position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+        background: 'rgba(0,0,0,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10
+      }}>
+        <div style={{background: 'white', padding: 20, borderRadius: 8, minWidth: 300}}>
+          <button onClick={onClose} style={{float: 'right'}}>Cerrar</button>
+          {children}
+        </div>
+      </div>
+  );
+}
+
 export default function Promoter({ _id, promoter, strand, allCitations, firstGene }) {
   let _confidenceLevel;
+  const [showModal, setShowModal] = useState(false);
+
   if (DataVerifier.isValidString(promoter.confidenceLevel)) {
     switch (promoter.confidenceLevel) {
       case "S":
@@ -40,19 +62,34 @@ export default function Promoter({ _id, promoter, strand, allCitations, firstGen
         break;
       case "C":
         _confidenceLevel = (
-          <span style={{ fontWeight: "bold", color: "#000000" }}>
-            Confirmed
-          </span>
+            <span
+                style={{fontWeight: "bold", color: "#000000", cursor: "pointer", textDecoration: 'underline'}}
+                onClick={() => setShowModal(true)}
+            >
+              Confirmed
+            </span>
         );
         break;
       case "W":
-        _confidenceLevel = <span style={{ color: "#0C6A87" }}>Weak</span>;
+        _confidenceLevel = <span style={{color: "#0C6A87"}}>Weak</span>;
         break;
       default:
         _confidenceLevel = <span>.</span>;
         break;
     }
   }
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
 
   return (
     <Accordion
@@ -107,33 +144,33 @@ export default function Promoter({ _id, promoter, strand, allCitations, firstGen
             </>
           )}
         </div>
-        {DataVerifier.isValidArray(promoter.additiveEvidences) && (
-          <div>
-            <table >
-              <thead>
-                <tr>
-                  <th colSpan={3}>Additive Evidence</th>
-                </tr>
-                <tr>
-                  <th>category</th>
-                  <th>code</th>
-                  <th>type</th>
-                </tr>
-              </thead>
-              <tbody>
-                {promoter.additiveEvidences.map((additiveEvidence, index) => {
-                  return (
-                    <tr key={"AdditiveEvidence_" + promoter._id + "_" + index}>
-                      <td>{additiveEvidence.category}</td>
-                      <td>{additiveEvidence.code}</td>
-                      <td>{confLevel(additiveEvidence.type)}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        )}
+        {/*{DataVerifier.isValidArray(promoter.additiveEvidences) && (*/}
+        {/*  <div>*/}
+        {/*    <table >*/}
+        {/*      <thead>*/}
+        {/*        <tr>*/}
+        {/*          <th colSpan={3}>Additive Evidence</th>*/}
+        {/*        </tr>*/}
+        {/*        <tr>*/}
+        {/*          <th>category</th>*/}
+        {/*          <th>code</th>*/}
+        {/*          <th>type</th>*/}
+        {/*        </tr>*/}
+        {/*      </thead>*/}
+        {/*      <tbody>*/}
+        {/*        {promoter.additiveEvidences.map((additiveEvidence, index) => {*/}
+        {/*          return (*/}
+        {/*            <tr key={"AdditiveEvidence_" + promoter._id + "_" + index}>*/}
+        {/*              <td>{additiveEvidence.category}</td>*/}
+        {/*              <td>{additiveEvidence.code}</td>*/}
+        {/*              <td>{confLevel(additiveEvidence.type)}</td>*/}
+        {/*            </tr>*/}
+        {/*          );*/}
+        {/*        })}*/}
+        {/*      </tbody>*/}
+        {/*    </table>*/}
+        {/*  </div>*/}
+        {/*)}*/}
         {DataVerifier.isValidString(promoter.sequence) && (
           <div>
             <SequencePromoter
@@ -169,18 +206,31 @@ export default function Promoter({ _id, promoter, strand, allCitations, firstGen
           </p>
         )}
       </div>
+      <Modal show={showModal}
+             // aria-labelledby="modal-modal-title"
+             // aria-describedby="modal-modal-description"
+             onClose={() => setShowModal(false)}
+      >
+        <Box sx={style}>
+          <h3>¿Qué significa "Confirmed"?</h3>
+          <p>
+            Texto explicativo del significado de un nivel de confianza "Confirmed".<br/>
+            Puedes poner aquí la definición, referencias, etc.
+          </p>
+        </Box>
+      </Modal>
     </Accordion>
   );
 }
 
 function SequencePromoter({
-  _id,
-  boxes,
-  name,
-  transcriptionStartSite,
-  sequence = "",
-  strand,
-}) {
+                            _id,
+                            boxes,
+                            name,
+                            transcriptionStartSite,
+                            sequence = "",
+                            strand,
+                          }) {
   const drawPlaceId = "canva_sequence_" + _id;
   const width = sequence.length;
   const height = 50;
