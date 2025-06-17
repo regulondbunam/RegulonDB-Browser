@@ -29,6 +29,7 @@ import GeneOntology from "./apps/GeneOntology";
 import UiDocs from "./UiComponents/UiDocs";
 import { PATH_HT } from "./apps/HighThroughput2";
 import {FeatureMap_PATH} from "./apps/FeatureMaps"
+import Phrases from "./components/Phrases";
 
 //wsSandbox
 const router = createBrowserRouter([
@@ -259,6 +260,7 @@ const THEME = createTheme({
 function App() {
   return (
     <ThemeProvider theme={THEME}>
+      <Phrases/>
       <RouterProvider router={router} />
     </ThemeProvider>
   );

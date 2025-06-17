@@ -186,7 +186,7 @@ export default function Promoter({ _id, promoter, strand, allCitations, firstGen
         {DataVerifier.isValidString(promoter.note) && (
           <>
             <p>
-              <b>Note:</b>
+              <b className={"phraseElement"} data-phrase-associated-property="note" data-phrase-object-id={promoter._id} >Note:</b>
             </p>
             <p
               dangerouslySetInnerHTML={{

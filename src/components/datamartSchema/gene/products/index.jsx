@@ -114,6 +114,11 @@ const PROP_TYPES = {
   type: PropTypes.string,
 };
 
+
+/*
+function to get Phrases
+* */
+
 /**
  * Description placeholder
  *
