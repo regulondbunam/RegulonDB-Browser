@@ -135,14 +135,14 @@ export default function Promoter({ _id, promoter, strand, allCitations, firstGen
                 promoter.transcriptionStartSite.leftEndPosition
               ) && (
                   <p>
-                    <b>Transcription start site:</b>
+                    <b>Absolute Position of Transcription Start Site(+1):</b>
                     {" " + promoter.transcriptionStartSite.leftEndPosition}
                   </p>
                 )}
             </>
           )}
           {DataVerifier.isValidNumber(firstGene.distanceToPromoter) && (
-                    <p><b>Absolute Position of Transcription Start Site(+1):</b>{" " + firstGene.distanceToPromoter + " bp"}</p>
+                    <p><b>Distance from TSS to first gene:</b>{" " + firstGene.distanceToPromoter + " bp"}</p>
           )}
           {DataVerifier.isValidObject(promoter.bindsSigmaFactor) && (
             <>
