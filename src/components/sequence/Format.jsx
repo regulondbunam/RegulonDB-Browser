@@ -38,8 +38,8 @@ export default class Formats {
                         style="
                             background:${bgColor};
                             color:${fgColor};
-                            padding:1px 4px;
-                            border-radius:3px;
+                            /*padding:1px 4px;*/
+                            /*border-radius:3px;*/
                             cursor:pointer;
                             " 
                         title="${title}"
