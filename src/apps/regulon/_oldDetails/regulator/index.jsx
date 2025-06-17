@@ -114,7 +114,7 @@ export default function Regulator({
       {DataVerifier.isValidArray(citations) && (
         <>
           <p>
-            <b>Evidences and References</b>
+            <b>References and Evidence</b>
           </p>
           <ParagraphCitations
             allCitations={allCitations}

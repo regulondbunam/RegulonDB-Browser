@@ -307,7 +307,7 @@ function GOT({ geneOntologyTerms, allCitations }) {
  */
 function Citations({ citations, allCitations }) {
   return (
-    <Accordion title={<p style={{ fontWeight: "bold" }}>Evidences and References</p>}>
+    <Accordion title={<p style={{ fontWeight: "bold" }}>References and Evidence</p>}>
       <div>
         <ParagraphCitations citations={citations} allCitations={allCitations} />
       </div>
