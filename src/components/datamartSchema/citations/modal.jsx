@@ -148,6 +148,7 @@ export function ModalCitation({
       <p
         style={{
           fontWeight: open ? "bold" : "normal",
+          fontSize: open ? "13px" : "13px"
         }}
         className="aBase citation"
         onClick={handleOpen}

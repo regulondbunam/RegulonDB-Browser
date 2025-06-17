@@ -71,7 +71,7 @@ let _confidenceLevel
                     </div>
                 )}
                 {DataVerifier.isValidArray(citations) && (
-                    <p><b>Evidences and References:</b><br /><ParagraphCitations citations={citations} allCitations={allCitations} /></p>
+                    <p><b>References and Evidence:</b><br /><ParagraphCitations citations={citations} allCitations={allCitations} /></p>
                 )}
                 <br />
                 <Divider />

@@ -77,8 +77,8 @@ export default function Document({ regulonData, section }) {
         if(DataVerifier.isValidArray(allCitations)){
             _sections.push({
                 id: "RegulonTab_Citations",
-                label: "All Evidences and References",
-                title: "All Evidences and References",
+                label: "All References and Evidence",
+                title: "All References and Evidence",
                 component: <div style={{ overflow: "auto" }} >
                     <AllCitations evidences={evidences} publications={publications}/>
                 </div>,

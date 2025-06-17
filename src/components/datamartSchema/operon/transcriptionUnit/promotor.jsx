@@ -216,7 +216,7 @@ export default function Promoter({ _id, promoter, strand, allCitations, firstGen
         )}
         {DataVerifier.isValidArray(promoter.citations) && (
           <p>
-            <b>Evidences and References:</b>
+            <b>References and Evidence:</b>
             <br />
             <ParagraphCitations
               citations={promoter.citations}
