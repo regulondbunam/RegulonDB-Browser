@@ -34,16 +34,46 @@ function confLevel(level) {
   return _confidenceLevel
 }
 
-function Modal({ show, onClose, children }) {
+function Modal({ show, onClose, children, evidences = []  }) {
   if (!show) return null;
+
+  const confirmedEvidences = (evidences || []).filter(ev => ev.type === "C");
+  let evidenceToShow = null;
+  if (confirmedEvidences.length > 0) {
+    evidenceToShow = confirmedEvidences.reduce((minEv, ev) =>
+            !minEv || (ev.code && ev.code.length < minEv.code.length)
+                ? ev
+                : minEv
+        , null);
+  }
+
   return (
       <div style={{
         position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
         background: 'rgba(0,0,0,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10
       }}>
-        <div style={{background: 'white', padding: 20, borderRadius: 8, minWidth: 300}}>
-          <button onClick={onClose} style={{float: 'right'}}>Cerrar</button>
+        <div style={{background: '#faf4f2', padding: 20, borderRadius: 1, minWidth: 300, border: "2px solid #000"}}>
+          <button onClick={onClose} style={{float: 'inline-end', background: '#c93a1d', borderRadius: '5px'}}>Close</button>
           {children}
+          {evidenceToShow && (
+              <div>
+                <table>
+                  <thead>
+                  <tr>
+                    <th>Category</th>
+                    <th>Code</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>{evidenceToShow.category}</td>
+                    <td>{evidenceToShow.code}</td>
+                  </tr>
+                  </tbody>
+                </table>
+                <a href={"/manual/help/evidenceclassification"} style={{float: 'inline-end', fontWeight: 'bold'}}>Evidence Classification in RegulonDB</a>
+              </div>
+          )}
         </div>
       </div>
   );
@@ -79,17 +109,6 @@ export default function Promoter({ _id, promoter, strand, allCitations, firstGen
     }
   }
 
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
 
   return (
     <Accordion
@@ -207,17 +226,12 @@ export default function Promoter({ _id, promoter, strand, allCitations, firstGen
         )}
       </div>
       <Modal show={showModal}
-             // aria-labelledby="modal-modal-title"
-             // aria-describedby="modal-modal-description"
+             aria-labelledby="modal-modal-title"
+             aria-describedby="modal-modal-description"
              onClose={() => setShowModal(false)}
+             evidences={promoter.additiveEvidences}
       >
-        <Box sx={style}>
-          <h3>¿Qué significa "Confirmed"?</h3>
-          <p>
-            Texto explicativo del significado de un nivel de confianza "Confirmed".<br/>
-            Puedes poner aquí la definición, referencias, etc.
-          </p>
-        </Box>
+          <h3>Additive Evidence</h3>
       </Modal>
     </Accordion>
   );
