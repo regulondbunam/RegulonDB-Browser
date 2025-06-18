@@ -114,6 +114,11 @@ const PROP_TYPES = {
   type: PropTypes.string,
 };
 
+
+/*
+function to get Phrases
+* */
+
 /**
  * Description placeholder
  *
@@ -168,9 +173,9 @@ export function Product({
           </p>
         </Link>
       ) : (
-        <p style={{ fontSize: "18px" }}>
-          <b dangerouslySetInnerHTML={{ __html: name }} />
-        </p>
+        <tr style={{ fontSize: "18px" }}>
+          <td style={{ fontWeight: "bold" }}>Name: <b dangerouslySetInnerHTML={{ __html: name }} /> </td>
+        </tr>
       )}
 
       <table className="table_auto table_content">
@@ -217,7 +222,7 @@ export function Product({
           )}
           {DataVerifier.isValidArray(cellularLocations) && (
             <tr>
-              <td style={{ fontWeight: "bold" }}>Cellular Locations:</td>
+              <td style={{ fontWeight: "bold" }}>Cellular Location:</td>
               <td>{cellularLocations.join(", ")}</td>
             </tr>
           )}
@@ -302,7 +307,7 @@ function GOT({ geneOntologyTerms, allCitations }) {
  */
 function Citations({ citations, allCitations }) {
   return (
-    <Accordion title={"Citations"}>
+    <Accordion title={<p style={{ fontWeight: "bold" }}>References and Evidence</p>}>
       <div>
         <ParagraphCitations citations={citations} allCitations={allCitations} />
       </div>
@@ -318,7 +323,7 @@ function Citations({ citations, allCitations }) {
  */
 function ExternalCrossReferences({ references }) {
   return (
-    <Accordion title={"External Cross References"}>
+    <Accordion title={<p style={{ fontWeight: "bold" }}>External Cross References</p>}>
       <div style={{ display: "grid", gridTemplateColumns: "25% 25% 25% 25%" }}>
         {references.map((reference) => {
           return (

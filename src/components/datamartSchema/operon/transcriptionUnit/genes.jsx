@@ -57,12 +57,10 @@ let _confidenceLevel
                         {genes.map(gene => <Link key={"link_gene_tu_" + gene._id} style={{ marginRight: "5px" }} to={"/gene/" + gene._id} ><b>{gene.name}</b></Link>)}
                     </p>
                 )}
-                
                 </div>
-                
-                {DataVerifier.isValidNumber(firstGene.distanceToPromoter) && (
+                {/*{DataVerifier.isValidNumber(firstGene.distanceToPromoter) && (
                     <p><b>Distance from TSS to first gene:</b>{" " + firstGene.distanceToPromoter + " bp"}</p>
-                )}
+                )}*/}
                 {DataVerifier.isValidString(confidenceLevel) && (
                         <p><b>Confidence Level:</b>{" "}{_confidenceLevel}</p>
                     )}
@@ -73,7 +71,7 @@ let _confidenceLevel
                     </div>
                 )}
                 {DataVerifier.isValidArray(citations) && (
-                    <p><b>Citations:</b><br /><ParagraphCitations citations={citations} allCitations={allCitations} /></p>
+                    <p><b>References and Evidence:</b><br /><ParagraphCitations citations={citations} allCitations={allCitations} /></p>
                 )}
                 <br />
                 <Divider />

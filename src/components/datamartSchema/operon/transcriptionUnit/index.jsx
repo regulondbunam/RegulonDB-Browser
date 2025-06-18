@@ -91,6 +91,7 @@ export default function TranscriptionUnit({
             promoter={promoter}
             allCitations={allCitations}
             strand={strand}
+            firstGene= {firstGene}
           />
         )}
         <Divider />

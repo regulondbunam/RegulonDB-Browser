@@ -51,8 +51,8 @@ export default function Document({ operonData, section }) {
         if (DataVerifier.isValidArray(citations.indexedCitations)) {
             _sections.push({
                 id: "GeneTab_Citations",
-                label: "Citations",
-                title: "All Citations",
+                label: "All References and Evidence",
+                title: "All References and Evidence",
                 component: <div style={{ overflow: "auto" }} >
                     <AllCitations {...citations} />
                 </div>,

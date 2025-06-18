@@ -88,7 +88,7 @@ function Terminator({ terminator, allCitations, tuID }) {
       )}
       {DataVerifier.isValidArray(terminator.citations) && (
         <p>
-          <b>Citations:</b>
+          <b>References and Evidence:</b>
           <br />
           <ParagraphCitations
             citations={terminator.citations}

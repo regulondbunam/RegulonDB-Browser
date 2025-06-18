@@ -75,8 +75,9 @@ export default function DatasetInfo({ datasetId }) {
             source={_dataset?.collectionData.source }
         />
         {
-          _dataset?.collectionData.source === "GALAGAN" &&(
-            <WeightComponent fileName={_dataset?.objectsTested[0].abbreviatedName}/>
+          _dataset?.collectionData.source === "GALAGAN" &&
+          _dataset?.objectsTested?.[0]?.abbreviatedName && (
+            <WeightComponent fileName={_dataset.objectsTested[0].abbreviatedName} />
           )
         }
         <GrowthConditions growthCondition={_dataset?.growthConditions} />

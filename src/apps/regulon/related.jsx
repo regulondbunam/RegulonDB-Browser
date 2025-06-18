@@ -104,7 +104,8 @@ export default function RelatedTool({ regulonData }) {
         guIds={[guIdRelated]}
       />
       {DataVerifier.isValidArray(genes) && (
-        <Tool title={"Related Tools"}>
+        //<Tool title={"Related Tools"}>
+        <Tool title={"Tools"}>
           {genes.length < 800 && (
             <List>
               <ListItemButton

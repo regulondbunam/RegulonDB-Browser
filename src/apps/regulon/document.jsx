@@ -60,15 +60,15 @@ export default function Document({ regulonData, section }) {
                 label: "Regulatory Interactions",
                 title: "Regulatory Interactions",
                 component: <div style={{ overflow: "auto" }} >
-                    <RegulatoryInteractions regulatoryInteractions={regulatoryInteractions} allCitations={indexedCitations} />
+                    <RegulatoryInteractions regulatoryInteractions={regulatoryInteractions} allCitations={indexedCitations} tfName={regulator.abbreviatedName}/>
                 </div>,
             })
         }
         if(DataVerifier.isValidObject(terms)){
             _sections.push({
                 id: "RegulonTab_Terms",
-                label: "Terms of regulated genes",
-                title: "Terms of regulated genes ",
+                label: "GO Terms of regulated genes",
+                title: "GO Terms of regulated genes ",
                 component: <div style={{ overflow: "auto" }} >
                     <Terms geneOntology={terms.geneOntology} multifun={terms.multifun} allCitations={indexedCitations} />
                 </div>,
@@ -77,8 +77,8 @@ export default function Document({ regulonData, section }) {
         if(DataVerifier.isValidArray(allCitations)){
             _sections.push({
                 id: "RegulonTab_Citations",
-                label: "Citations",
-                title: "Citations ",
+                label: "All References and Evidence",
+                title: "All References and Evidence",
                 component: <div style={{ overflow: "auto" }} >
                     <AllCitations evidences={evidences} publications={publications}/>
                 </div>,

@@ -89,12 +89,13 @@ function reducer(state, action) {
 export default function Browser({
     datasetType,
     source,
-    experimentType
+    experimentType,
+    tfName,
+    experimentTitle
 }) {
     const [state, dispatch] = useReducer(reducer, { datasetType, source, experimentType }, initState)
 
     const handleUpdateDatasets = (newDatasetType, newSource, newExperimentType) => {
-
         dispatch({
             type: DISPATCH_TYPE.UPDATE_TREE,
             datasetType: newDatasetType,
@@ -157,7 +158,7 @@ export default function Browser({
                             </strong>
                         </Typography>
                         {/*TODO: Set on a dictionary*/}
-                        {isTargetPath && (
+                        {state.source === "GALAGAN" && (
                             <Typography className={`description ${"expanded"}`} sx={{ mt: 1 }} fontSize={"medium"}>
                             {/*<Typography className={`description ${expanded ? "expanded" : ""}`} sx={{ mt: 1 }} fontSize={"medium"}>*/}
                                 <strong>Access the complete Galagan collection of ChIP-seq binding sites</strong>, which includes union peaks for each transcription factor (<strong>TF</strong>) and their corresponding individual experiments.{" "}
@@ -167,10 +168,17 @@ export default function Browser({
                                 </span>.{" "}
                                 <strong>To download the complete set of union peaks</strong> <a href="http://regulondbdata.ccg.unam.mx/ht/galagan/tf_binding/tf_binding_peaks_galagan.zip" target="_blank" rel="noopener noreferrer" style={{ fontSize: "inherit", textDecoration: "underline" }}>click here</a>.{" "}
                                 If you use this information, <strong>please cite</strong>:{" "}
-                                <a href="https://pubmed.ncbi.nlm.nih.gov/38826350/" target="_blank" rel="noopener noreferrer" style={{ fontSize: "inherit", textDecoration: "underline" }}>
-                                    Lally P. et al (PMID:38826350)
+                                <a href="https://pubmed.ncbi.nlm.nih.gov/40335485/" target="_blank" rel="noopener noreferrer" style={{ fontSize: "inherit", textDecoration: "underline" }}>
+                                    Lally P. et al. Predictive biophysical neural network modeling of a compendium of in vivo transcription factor DNA binding profiles for Escherichia coli. (PMID:40335485)
                                 </a>{" "}
                                 and <strong>specify the RegulonDB version used in your work</strong>. You can find details about the latest release of <strong>RegulonDB</strong> <a href="https://regulondb.ccg.unam.mx/releasesNote" style={{ fontSize: "inherit", textDecoration: "underline" }}>here</a>.
+
+                                <div style={{ marginTop: '16px' }}>
+                                    For models, code, and more information please visit{" "}
+                                    <a href="http://boltznet.bu.edu" target="_blank" rel="noopener noreferrer" style={{ fontSize: "inherit", textDecoration: "underline" }}>
+                                    http://boltznet.bu.edu
+                                    </a>
+                                </div>
                             </Typography>
                         )}
 
@@ -183,9 +191,11 @@ export default function Browser({
                         <Grid item xs={11}>
                             <Table
                                 // dir={state.dir}
+                                tfName={tfName}
                                 datasetType={state.datasetType}
                                 source={state.source}
                                 experimentType={state.experimentType}
+                                experimentTitle={experimentTitle}
                             />
                         </Grid>
                     </Grid>

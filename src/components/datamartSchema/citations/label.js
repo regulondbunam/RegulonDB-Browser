@@ -91,7 +91,7 @@ export function labelCitation({
     if (DataVerifier.isValidArray(evidencesCodes)) {
       switch (citationSize) {
         case CITATION_SIZE.LARGE:
-          evidenceLabel = `${(evidencesCodes.length > 1 ? "Evidences: " : "Evidence: ")}${evidencesCodes.join(", ")}`;
+          evidenceLabel = `${(evidencesCodes.length > 1 ? "<b>EVIDENCE:</b> " : "<b>EVIDENCE:</b> ")}${evidencesCodes.join(", ")}`;
           break;
         case CITATION_SIZE.SMALL:
           evidenceLabel = `${evidencesCodes.join(",")}`;

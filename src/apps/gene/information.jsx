@@ -96,7 +96,7 @@ export default function Information({ geneData }) {
           tooltip: `Product: ${productName}`,
           title: (
             <span
-              dangerouslySetInnerHTML={{ __html: `Product ${productName}` }}
+              dangerouslySetInnerHTML={{ __html: `Product: ${productName}` }}
             />
           ),
           component: (
@@ -115,8 +115,8 @@ export default function Information({ geneData }) {
     if (DataVerifier.isValidArray(geneData.allCitations)) {
       tabsInfo.push({
         id: "GeneTab_Citations",
-        label: "Citations",
-        title: "All Citations",
+        label: "All References and Evidence",
+        title: "All References and Evidence",
         component: (
           <div style={{ overflow: "auto" }}>
             <AllCitations {...citations} />

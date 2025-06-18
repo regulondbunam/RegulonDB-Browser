@@ -327,12 +327,12 @@ function RIMap({ regulatoryInteractions, allCitations }) {
   //return <Map featureData={data} />;
 }
 
-function RITable({ regulatoryInteractions, allCitations }) {
+function RITable({ regulatoryInteractions, allCitations, tfName}) {
   const data = useMemo(() => {
     return formatData(regulatoryInteractions, allCitations);
   }, [regulatoryInteractions, allCitations]);
   //console.log(regulatoryInteractions);
-  return  <FilterTable data={data} columns={COLUMNS} />;
+  return  <FilterTable data={data} columns={COLUMNS} fileName={tfName} />;
 }
 
 export default RegulatoryInteractions;

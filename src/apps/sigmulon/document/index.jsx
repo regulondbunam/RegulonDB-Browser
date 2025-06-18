@@ -47,7 +47,7 @@ export default function Document({ sigmulonData }) {
       _sections.push({
         id: "SigmaSection_03",
         label: "Promoters",
-        title: "Transcribed Promoters",
+        title: "Activated Promoters",
         component: (
           <div style={{ overflow: "auto" }}>
             <TranscribedPromoters
@@ -61,8 +61,8 @@ export default function Document({ sigmulonData }) {
     if (DataVerifier.isValidArray(allCitations)) {
       _sections.push({
         id: "sigmaSections_allCitations",
-        label: "Citations",
-        title: "Citations",
+        label: "Evidence and References",
+        title: "Evidence and References",
         component: (
           <div style={{ overflow: "auto" }}>
             <AllCitations publications={publications} evidences={evidences} />

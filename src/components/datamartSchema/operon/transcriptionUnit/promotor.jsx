@@ -1,8 +1,13 @@
 import { Accordion, DataVerifier } from "../../../ui-components";
-import { ParagraphCitations, NoteCitations } from "../../citations";
+import {ParagraphCitations, NoteCitations, ModalCitation} from "../../citations";
 import SimpleTrack from "../../../drawingTrack/_old";
 //import RegulatorBindingSites from "./regulatorBindingSites";
-import { useMemo } from "react";
+import React, { useMemo } from "react";
+import { useState } from "react";
+import Box from "@mui/material/Box";
+import {Publication} from "../../citations/publication";
+import {Evidences} from "../../citations/evidences";
+import {EvidenceTitle} from "../../citations/evidence";
 
 function confLevel(level) {
   let _confidenceLevel = <></>
@@ -29,8 +34,55 @@ function confLevel(level) {
   return _confidenceLevel
 }
 
-export default function Promoter({ _id, promoter, strand, allCitations }) {
+function Modal({ show, onClose, children, evidences = []  }) {
+  if (!show) return null;
+
+  const confirmedEvidences = (evidences || []).filter(ev => ev.type === "C");
+  let evidenceToShow = null;
+  if (confirmedEvidences.length > 0) {
+    evidenceToShow = confirmedEvidences.reduce((minEv, ev) =>
+            !minEv || (ev.code && ev.code.length < minEv.code.length)
+                ? ev
+                : minEv
+        , null);
+  }
+
+  return (
+      <div style={{
+        position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+        background: 'rgba(0,0,0,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10
+      }}>
+        <div style={{background: '#faf4f2', padding: 20, borderRadius: 1, minWidth: 300, border: "2px solid #000"}}>
+          <button onClick={onClose} style={{float: 'inline-end', background: '#c93a1d', borderRadius: '5px'}}>Close</button>
+          {children}
+          {evidenceToShow && (
+              <div>
+                <table>
+                  <thead>
+                  <tr>
+                    <th>Category</th>
+                    <th>Code</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>{evidenceToShow.category}</td>
+                    <td>{evidenceToShow.code}</td>
+                  </tr>
+                  </tbody>
+                </table>
+                <a href={"/manual/help/evidenceclassification"} style={{float: 'inline-end', fontWeight: 'bold'}}>Evidence Classification in RegulonDB</a>
+              </div>
+          )}
+        </div>
+      </div>
+  );
+}
+
+export default function Promoter({ _id, promoter, strand, allCitations, firstGene }) {
   let _confidenceLevel;
+  const [showModal, setShowModal] = useState(false);
+
   if (DataVerifier.isValidString(promoter.confidenceLevel)) {
     switch (promoter.confidenceLevel) {
       case "S":
@@ -40,19 +92,23 @@ export default function Promoter({ _id, promoter, strand, allCitations }) {
         break;
       case "C":
         _confidenceLevel = (
-          <span style={{ fontWeight: "bold", color: "#000000" }}>
-            Confirmed
-          </span>
+            <span
+                style={{fontWeight: "bold", color: "#000000", cursor: "pointer", textDecoration: 'underline'}}
+                onClick={() => setShowModal(true)}
+            >
+              Confirmed
+            </span>
         );
         break;
       case "W":
-        _confidenceLevel = <span style={{ color: "#0C6A87" }}>Weak</span>;
+        _confidenceLevel = <span style={{color: "#0C6A87"}}>Weak</span>;
         break;
       default:
         _confidenceLevel = <span>.</span>;
         break;
     }
   }
+
 
   return (
     <Accordion
@@ -79,11 +135,14 @@ export default function Promoter({ _id, promoter, strand, allCitations }) {
                 promoter.transcriptionStartSite.leftEndPosition
               ) && (
                   <p>
-                    <b>Transcription start site:</b>
+                    <b>Absolute Position of Transcription Start Site(+1):</b>
                     {" " + promoter.transcriptionStartSite.leftEndPosition}
                   </p>
                 )}
             </>
+          )}
+          {DataVerifier.isValidNumber(firstGene.distanceToPromoter) && (
+                    <p><b>Distance from TSS to first gene:</b>{" " + firstGene.distanceToPromoter + " bp"}</p>
           )}
           {DataVerifier.isValidObject(promoter.bindsSigmaFactor) && (
             <>
@@ -104,33 +163,33 @@ export default function Promoter({ _id, promoter, strand, allCitations }) {
             </>
           )}
         </div>
-        {DataVerifier.isValidArray(promoter.additiveEvidences) && (
-          <div>
-            <table >
-              <thead>
-                <tr>
-                  <th colSpan={3}>Additive Evidence</th>
-                </tr>
-                <tr>
-                  <th>category</th>
-                  <th>code</th>
-                  <th>type</th>
-                </tr>
-              </thead>
-              <tbody>
-                {promoter.additiveEvidences.map((additiveEvidence, index) => {
-                  return (
-                    <tr key={"AdditiveEvidence_" + promoter._id + "_" + index}>
-                      <td>{additiveEvidence.category}</td>
-                      <td>{additiveEvidence.code}</td>
-                      <td>{confLevel(additiveEvidence.type)}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        )}
+        {/*{DataVerifier.isValidArray(promoter.additiveEvidences) && (*/}
+        {/*  <div>*/}
+        {/*    <table >*/}
+        {/*      <thead>*/}
+        {/*        <tr>*/}
+        {/*          <th colSpan={3}>Additive Evidence</th>*/}
+        {/*        </tr>*/}
+        {/*        <tr>*/}
+        {/*          <th>category</th>*/}
+        {/*          <th>code</th>*/}
+        {/*          <th>type</th>*/}
+        {/*        </tr>*/}
+        {/*      </thead>*/}
+        {/*      <tbody>*/}
+        {/*        {promoter.additiveEvidences.map((additiveEvidence, index) => {*/}
+        {/*          return (*/}
+        {/*            <tr key={"AdditiveEvidence_" + promoter._id + "_" + index}>*/}
+        {/*              <td>{additiveEvidence.category}</td>*/}
+        {/*              <td>{additiveEvidence.code}</td>*/}
+        {/*              <td>{confLevel(additiveEvidence.type)}</td>*/}
+        {/*            </tr>*/}
+        {/*          );*/}
+        {/*        })}*/}
+        {/*      </tbody>*/}
+        {/*    </table>*/}
+        {/*  </div>*/}
+        {/*)}*/}
         {DataVerifier.isValidString(promoter.sequence) && (
           <div>
             <SequencePromoter
@@ -146,7 +205,7 @@ export default function Promoter({ _id, promoter, strand, allCitations }) {
         {DataVerifier.isValidString(promoter.note) && (
           <>
             <p>
-              <b>Note:</b>
+              <b className={"phraseElement"} data-phrase-associated-property="note" data-phrase-object-id={promoter._id} >Note:</b>
             </p>
             <p
               dangerouslySetInnerHTML={{
@@ -157,7 +216,7 @@ export default function Promoter({ _id, promoter, strand, allCitations }) {
         )}
         {DataVerifier.isValidArray(promoter.citations) && (
           <p>
-            <b>Citations:</b>
+            <b>References and Evidence:</b>
             <br />
             <ParagraphCitations
               citations={promoter.citations}
@@ -166,18 +225,26 @@ export default function Promoter({ _id, promoter, strand, allCitations }) {
           </p>
         )}
       </div>
+      <Modal show={showModal}
+             aria-labelledby="modal-modal-title"
+             aria-describedby="modal-modal-description"
+             onClose={() => setShowModal(false)}
+             evidences={promoter.additiveEvidences}
+      >
+          <h3>Additive Evidence</h3>
+      </Modal>
     </Accordion>
   );
 }
 
 function SequencePromoter({
-  _id,
-  boxes,
-  name,
-  transcriptionStartSite,
-  sequence = "",
-  strand,
-}) {
+                            _id,
+                            boxes,
+                            name,
+                            transcriptionStartSite,
+                            sequence = "",
+                            strand,
+                          }) {
   const drawPlaceId = "canva_sequence_" + _id;
   const width = sequence.length;
   const height = 50;

@@ -16,42 +16,36 @@ export default class Formats {
         return `<span ${attributeId} ${attributeColor} >${x}</span>`
     }
 
-    putColor(x) {
-        switch (x) {
-            case 'A':
-                x = `<span class="rdb_sequence_A">${x}</span>`
-                break;
-            case 'C':
-                x = `<span class="rdb_sequence_C">${x}</span>`
-                break;
-            case 'T':
-                x = `<span class="rdb_sequence_T">${x}</span>`
-                break;
-            case 'G':
-                x = `<span class="rdb_sequence_G">${x}</span>`
-                break;
-            case 'U':
-                x = `<span class="rdb_sequence_U">${x}</span>`
-                break;
-            case 'a':
-                x = `<span class="rdb_sequence_a">${x}</span>`
-                break;
-            case 'c':
-                x = `<span class="rdb_sequence_c">${x}</span>`
-                break;
-            case 't':
-                x = `<span class="rdb_sequence_t">${x}</span>`
-                break;
-            case 'g':
-                x = `<span class="rdb_sequence_g">${x}</span>`
-                break;
-            case 'u':
-                x = `<span class="rdb_sequence_u">${x}</span>`
-                break;
-            default:
-                break;
+    /**
+     * Contraste automático: blanco si el fondo es oscuro, negro si es claro
+     * Recibe un string 'rgb(r, g, b)'
+     */
+    getContrastYIQ(rgb) {
+        if (!rgb) return '#000'; // fallback
+        let [r,g,b] = rgb.match(/\d+/g).map(Number);
+        // Fórmula YIQ, para contraste de letras.
+        let yiq = ((r*299)+(g*587)+(b*114))/1000;
+        return (yiq >= 128) ? '#222' : '#fff';
+    }
+
+    putColor(x, seqColors) {
+        let biomonomer = seqColors[x];
+        if (biomonomer) {
+            const bgColor = biomonomer.color;
+            const fgColor = this.getContrastYIQ(bgColor);
+            const title = `${x}: ${biomonomer.name} - ${biomonomer.description}`;
+            return `<span 
+                        style="
+                            background:${bgColor};
+                            color:${fgColor};
+                            /*padding:1px 4px;*/
+                            /*border-radius:3px;*/
+                            cursor:pointer;
+                            " 
+                        title="${title}"
+                    >${x}</span>`;
         }
-        return x
+        return x;
     }
 
     getInfoSequence() {
@@ -82,7 +76,7 @@ export default class Formats {
         return strInfoSequence
     }
 
-    getFastaFormat({ color = false, charactersPerLine = 60 }) {
+    getFastaFormat({ color = false, charactersPerLine = 60 }, seqColors) {
         if(!Number.isInteger(charactersPerLine)){
             charactersPerLine = parseInt(charactersPerLine)
         }
@@ -92,7 +86,7 @@ export default class Formats {
             
             let x = this.sequence[index];
             if (color) {
-                x = this.putColor(x)
+                x = this.putColor(x, seqColors);
             }
             if (count === charactersPerLine) {
                 
@@ -106,12 +100,12 @@ export default class Formats {
         return `>${this.title}|${this.getStrInfoSequence()}<br>${sequenceFormat}`
     }
 
-    getGenebankFormat({ color = false }) {
+    getGenebankFormat({ color = false }, seqColors) {
         const spaceNumber = this.size.toString().length
         let count = 0, innerCount = 0, line = ''
         let sequenceFormat = this.sequence.map((x, index) => {
             if (color) {
-                x = this.putColor(x)
+                x = this.putColor(x, seqColors);
             }
             count += 1
             innerCount += 1
