@@ -3,7 +3,7 @@ import { Cover, DataVerifier } from '../../../components/ui-components'
 import TreeView from './Tree'
 import Table from './Table'
 import { DISPATCH_TYPE } from './static';
-import {Grid, IconButton, Tooltip, Dialog, DialogContent, DialogActions, Button, DialogTitle} from "@mui/material/";
+import {Grid, IconButton, Tooltip, Dialog, DialogContent, DialogActions, Button, DialogTitle} from "@mui/material";
 import {ExpandMore, ExpandLess} from "@mui/icons-material"
 import './HTBrowserStyles.css'
 import {Typography} from "@mui/material";
