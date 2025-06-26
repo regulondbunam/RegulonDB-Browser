@@ -30,6 +30,7 @@ import UiDocs from "./UiComponents/UiDocs";
 import { PATH_HT } from "./apps/HighThroughput2";
 import {FeatureMap_PATH} from "./apps/FeatureMaps"
 import Phrases from "./components/Phrases";
+import PATH_REGULONEXPLORER, {TEST_PATH} from "./apps/RegulonExplorer";
 
 //wsSandbox
 const router = createBrowserRouter([
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
         element: <>site no found</>,
       },
         FeatureMap_PATH,
+      PATH_REGULONEXPLORER,
       {
         index: true,
         element: <Home />,
