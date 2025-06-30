@@ -262,6 +262,7 @@ export default function RegulonExplorer() {
     setIsLoading(true); setError(null); setProcessedData(null); setDisplayData([]); setFilterOptions({ regulators: [], riTypes: [], sigmas: [] });
     const formData = new FormData(); formData.append('risetFile', selectedFile);
     try {
+      //coment
       const service = process.env.REACT_APP_PROSSES_SERVICE 
       const response = await fetch(service+'/gramaticalTool/process/', { method: 'POST', body: formData });
       const result = await response.json();
