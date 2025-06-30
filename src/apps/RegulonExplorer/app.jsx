@@ -379,7 +379,7 @@ export default function RegulonExplorer() {
   return (
     <Box p={3} maxWidth="xl" mx="auto">
       
-      <Typography variant="h5" component="h1" color="primary" align="center" sx={{ fontWeight: 'bold', mb: 1 }}> RegulonExplorer </Typography>
+      <Typography variant="h5" component="h1" color="primary" align="center" sx={{ fontWeight: 'bold', mb: 1 }}> Regulatory Syntax Classifier </Typography>
       <Typography variant="body1" color="text.secondary" align="center" sx={{ mb: 4 }}> Define your filters to explore regulatory regions </Typography>
 
       <Grid container spacing={2} sx={{ mb: 4 }}>

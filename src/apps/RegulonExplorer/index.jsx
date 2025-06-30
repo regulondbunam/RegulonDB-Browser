@@ -2,7 +2,7 @@ import RegulonExplorer from "./app";
 
 
 export const PATH_REGULONEXPLORER = {
-  path: "regulonExplorer",
+  path: "Resycla",
   element: <RegulonExplorer />,
 };
 
