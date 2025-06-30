@@ -262,7 +262,8 @@ export default function RegulonExplorer() {
     setIsLoading(true); setError(null); setProcessedData(null); setDisplayData([]); setFilterOptions({ regulators: [], riTypes: [], sigmas: [] });
     const formData = new FormData(); formData.append('risetFile', selectedFile);
     try {
-      const response = await fetch('http://localhost:5000/wdps/gramaticalTool/process/', { method: 'POST', body: formData });
+      const service = process.env.REACT_APP_PROSSES_SERVICE 
+      const response = await fetch(service+'/gramaticalTool/process/', { method: 'POST', body: formData });
       const result = await response.json();
       if (!response.ok) {
         throw new Error(result.detail || result.error || `Error del servidor: ${response.statusText || response.status}`);
@@ -379,7 +380,7 @@ export default function RegulonExplorer() {
   return (
     <Box p={3} maxWidth="xl" mx="auto">
       
-      <Typography variant="h5" component="h1" color="primary" align="center" sx={{ fontWeight: 'bold', mb: 1 }}> RegulonExplorer </Typography>
+      <Typography variant="h5" component="h1" color="primary" align="center" sx={{ fontWeight: 'bold', mb: 1 }}> Regulatory Syntax Classifier </Typography>
       <Typography variant="body1" color="text.secondary" align="center" sx={{ mb: 4 }}> Define your filters to explore regulatory regions </Typography>
 
       <Grid container spacing={2} sx={{ mb: 4 }}>
