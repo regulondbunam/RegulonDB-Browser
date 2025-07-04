@@ -51,7 +51,11 @@ function Terminator({ terminator, allCitations, tuID }) {
   return (
     <div>
       {DataVerifier.isValidString(terminator.class) && (
-        <p>
+        <p
+            className={"phraseElement"}
+            data-phrase-associated-property="class"
+            data-phrase-object-id={terminator._id}
+        >
           <b>Class:</b>
           {" " + terminator.class}
         </p>
@@ -62,7 +66,11 @@ function Terminator({ terminator, allCitations, tuID }) {
         </p>
       )}
       {DataVerifier.isValidObject(terminator.transcriptionTerminationSite) && (
-        <p>
+        <p
+            className={"phraseElement"}
+            data-phrase-associated-property="transcriptionTerminationSite"
+            data-phrase-object-id={terminator._id}
+        >
           <b>Transcription Termination Site:</b>
           {" " +
             terminator.transcriptionTerminationSite.leftEndPosition +
@@ -72,7 +80,11 @@ function Terminator({ terminator, allCitations, tuID }) {
       )}
       {DataVerifier.isValidString(terminator.sequence) && (
         <>
-          <p>
+          <p
+              className={"phraseElement"}
+              data-phrase-associated-property="sequence"
+              data-phrase-object-id={terminator._id}
+          >
             <b>Termination Sequence:</b>
           </p>
           <SequenceTerminator

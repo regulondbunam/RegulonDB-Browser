@@ -15,7 +15,32 @@ export default function Summary({
           cellularComponent,
           molecularFunction
         } = gensorUnit.geneOntology
-        console.log(gensorUnit);
+        if(DataVerifier.isValidObject(gensorUnit.summary)){
+            if (DataVerifier.isValidObject(gensorUnit.summary.molecularBiologyLevel)){
+                _sections.push({
+                    id: "gi_section2_molecularBiologyLevel",
+                    label: `Molecular Biology Level`,
+                    title: `Molecular Biology Level`,
+                    component: (
+                        <div style={{margin: "15px"}} >
+                            {gensorUnit.summary.molecularBiologyLevel?.detailed}
+                        </div>
+                    ),
+                });
+            }
+            if (DataVerifier.isValidObject(gensorUnit.summary.physiologyLevel)){
+                _sections.push({
+                    id: "gi_section2_physiologyLevel",
+                    label: `Physiology Level`,
+                    title: `Physiology Level`,
+                    component: (
+                        <div style={{margin: "15px"}} >
+                            {gensorUnit.summary.physiologyLevel?.detailed}
+                        </div>
+                    ),
+                });
+            }
+        }
         if(DataVerifier.isValidArray(reactions)){
           _sections.push({
             id: "gi_section1_reactions",
@@ -40,6 +65,7 @@ export default function Summary({
             ),
           });
         }
+
         return _sections
       },[reactions, gensorUnit])
     return (

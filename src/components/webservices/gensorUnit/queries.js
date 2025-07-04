@@ -36,6 +36,16 @@ export const /** object */ query_getGuById = gql`
         data {
           _id
           gensorUnit {
+          summary {
+          molecularBiologyLevel {
+            detailed
+            general
+          }
+          physiologyLevel {
+            detailed
+            general
+          }
+        }
             components {
               function
               name

@@ -10,8 +10,9 @@ export default function Regulator({
   allCitations,
   isEmbed = false,
 }) {
-  //console.log(regulator);
+  console.log(regulator);
   const {
+    _id,
     citations,
     confidenceLevel,
     conformations,
@@ -25,7 +26,6 @@ export default function Regulator({
     synonyms,
     type,
   } = regulator;
-  //console.log(synonyms);
   //console.log(DataVerifier.isValidArray(synonyms));
   let _confidenceLevel = "";
   if (DataVerifier.isValidString(confidenceLevel)) {
@@ -56,7 +56,11 @@ export default function Regulator({
         {isEmbed && (
           <>
             {DataVerifier.isValidArray(synonyms) && (
-              <p>
+              <p
+                  className={"phraseElement"}
+                  data-phrase-associated-property="synonyms"
+                  data-phrase-object-id={_id}
+              >
                 <b>Synonyms: </b>
                 <span dangerouslySetInnerHTML={{__html: synonyms.join(", ")}} />
               </p>
@@ -64,13 +68,21 @@ export default function Regulator({
           </>
         )}
         {DataVerifier.isValidArray(siteLength) && (
-          <p>
+          <p
+              className={"phraseElement"}
+              data-phrase-associated-property="siteLength"
+              data-phrase-object-id={_id}
+          >
             <b>Site Length; </b>
             {siteLength.map((s) => s).join(", ")}
           </p>
         )}
         {DataVerifier.isValidArray(symmetry) && (
-          <p>
+          <p
+              className={"phraseElement"}
+              data-phrase-associated-property="symmetry"
+              data-phrase-object-id={_id}
+          >
             <b>Symmetry: </b>
             {symmetry.map((s) => s).join(", ")}
           </p>
@@ -97,7 +109,11 @@ export default function Regulator({
 
       {DataVerifier.isValidString(note) && (
         <>
-          <p>
+          <p
+              className={"phraseElement"}
+              data-phrase-associated-property="note"
+              data-phrase-object-id={_id}
+          >
             <b>Note:</b>
           </p>
           <div style={{ marginLeft: "1%" }}>
