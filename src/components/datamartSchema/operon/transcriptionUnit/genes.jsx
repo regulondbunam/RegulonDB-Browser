@@ -44,7 +44,11 @@ let _confidenceLevel
     return (
         <div>
             <div style={{ marginLeft: "5px" }}>
-            <p><IsPropertyPhrases property="strand" propertiesPhrase={propertiesPhrase} />{" "+strand}</p>
+                <p className={"phraseElement"}
+                   data-phrase-associated-property="strand"
+                   data-phrase-object-id={tuId}>
+                    <b>Strand:</b>{" "}{strand}
+                </p>
                 <div onMouseEnter={()=>{
                     let drawGene = document.getElementById("draw_"+tuId+"_"+firstGene._id)
                     if(drawGene){
@@ -53,7 +57,11 @@ let _confidenceLevel
                     }
                 }} >
                     {DataVerifier.isValidArray(genes) && (
-                    <p><b>Genes:</b>{" "}
+                    <p
+                        className={"phraseElement"}
+                        data-phrase-associated-property="strand"
+                        data-phrase-object-id={tuId}
+                    ><b>Genes:</b>{" "}
                         {genes.map(gene => <Link key={"link_gene_tu_" + gene._id} style={{ marginRight: "5px" }} to={"/gene/" + gene._id} ><b>{gene.name}</b></Link>)}
                     </p>
                 )}

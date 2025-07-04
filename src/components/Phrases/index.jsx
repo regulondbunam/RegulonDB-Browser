@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useLazyGetPhraseByObjectId } from "../webservices/phrases";
 import PhrasePanel from "./PhrasePanel";
 
+const icon = "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAUJJREFUSEvtlbFOwzAQhv9zVSgbI1vkN4CNN6jYutEwMdKRDRQhjEjEyEg3YCEZ+wasbDxCGhbWbq2IHKOEWkqaJhhFZUrG5L/7/jufL4QNP7Th/GgMOHbDQ0bMV0nyHFxxsWq4EWB4Gwpi7DpNqpLkphZwKsLeV7dzr6DOym2jyXYs7SfBF/lvVYA0l9ZmFQzd6JMIewbnMZvHCZ8IPsviKiqwvUgBmPqOxTPA8gUINN6K5fmqU9uN7kC40AZ8x/oxVg9AqisAdGBVJdpIC6g867ZF2VjV3YV1LQLr9MGkHVzyqY7N6xqNqck4/y8gvcnrdhEB4xfHGuVLP/E+Hqq0Csj2WekmG+yiP0lKAAV6W8TySC+zNNtAhLs7XXoEaFDMTsE8lqOylr0C2C9UYGrL9qL3ZeCBaUyjH44JpAX82qVvTQ0qKDtRnw4AAAAASUVORK5CYII=)"
+
 export default function Phrases() {
   const { getPhrasesInProperty } = useLazyGetPhraseByObjectId();
   const [open, setOpen] = useState(false);
@@ -11,10 +13,7 @@ export default function Phrases() {
     const phraseElement = document.createElement("div");
     phraseElement.style.width = "24px";
     phraseElement.style.height = "24px";
-    phraseElement.style.float = "left";
-    phraseElement.style.backgroundImage =
-      "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAXCAYAAADgKtSgAAAAAXNSR0IArs4c6QAAAMdJREFUSEvtlcENwjAMRV8nATaBSYBJgEnoKGUSugn0i0SK3NRpDpU4xMfUfv620p+ODaPbkI2F751mo/lWzE3hb8ArGIAXsAMuhYkPU86Ywj+hwCqMHNvYy7tOQnsLV4G65uIO3KTIyXmGqarhWoWKe0DFuWjwtpbfBtptyd6E/16LJD8yuuWIMq7099ck1szO4WzmLSXLrXlXTsCQuuJxwc+lLipKG2jCJduVuc1eIk9dtFytSMqKUfuGajrBV0UtfBU0Jn0BcJdgGJko4YkAAAAASUVORK5CYII=')";
-
+    phraseElement.style.backgroundImage = icon
     const items = document.getElementsByClassName("phraseElement");
     if (items && items.length > 0) {
       for (const item of Array.from(items)) {
@@ -29,7 +28,7 @@ export default function Phrases() {
             "phrase-object-" + objectId + "-" + associatedProperty;
           if (!document.getElementById(objectPhraseId)) {
             const phrases = await getPhrasesInProperty(
-              associatedProperty,
+              associatedProperty.toLowerCase(),
               objectId,
             );
             if (phrases) {
