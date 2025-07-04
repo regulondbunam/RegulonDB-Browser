@@ -119,13 +119,22 @@ export default function Promoter({ _id, promoter, strand, allCitations, firstGen
       >
         <div>
           {DataVerifier.isValidArray(promoter.synonyms) && (
-            <p>
+            <p
+                className={"phraseElement"}
+                data-phrase-associated-property="synonyms"
+                data-phrase-object-id={_id}
+            >
               <b>Synonyms:</b>
               {" " + promoter.synonyms.join(", ")}
             </p>
           )}
           {DataVerifier.isValidString(promoter.confidenceLevel) && (
-            <p>
+            <p
+                className={"phraseElement"}
+                data-phrase-associated-property="confidenceLevel"
+                data-phrase-object-id={_id}
+            >
+
               <b>Confidence Level:</b> {_confidenceLevel}
             </p>
           )}
@@ -204,8 +213,11 @@ export default function Promoter({ _id, promoter, strand, allCitations, firstGen
         )}
         {DataVerifier.isValidString(promoter.note) && (
           <>
-            <p>
-              <b className={"phraseElement"} data-phrase-associated-property="note" data-phrase-object-id={promoter._id} >Note:</b>
+            <p className={"phraseElement"}
+               data-phrase-associated-property="note"
+               data-phrase-object-id={promoter._id}
+            >
+              <b>Note:</b>
             </p>
             <p
               dangerouslySetInnerHTML={{

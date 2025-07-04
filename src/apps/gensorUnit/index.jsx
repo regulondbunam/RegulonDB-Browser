@@ -121,7 +121,7 @@ const DISPLAY_TYPES = {
 function GoInfo({ guId }) {
   const [display, setDisplay] = useState(DISPLAY_TYPES.graphic);
   const { guData, loading, error } = useGetGuById(guId);
-  // console.log(guData);
+  console.log(guData);
   if (loading) {
     return (
       <div>
