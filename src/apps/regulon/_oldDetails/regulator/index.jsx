@@ -114,7 +114,7 @@ export default function Regulator({
               data-phrase-associated-property="note"
               data-phrase-object-id={_id}
           >
-            <b>Note:</b>
+            <b>Summary:</b>
           </p>
           <div style={{ marginLeft: "1%" }}>
             <CNote citationsNote={NoteCitations(allCitations, note)} />
