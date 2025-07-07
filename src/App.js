@@ -31,6 +31,7 @@ import { PATH_HT } from "./apps/HighThroughput2";
 import {FeatureMap_PATH} from "./apps/FeatureMaps"
 import Phrases from "./components/Phrases";
 import PATH_REGULONEXPLORER, {TEST_PATH} from "./apps/RegulonExplorer";
+import PATH_HOME from "./apps/Main";
 
 //wsSandbox
 const router = createBrowserRouter([
@@ -38,16 +39,13 @@ const router = createBrowserRouter([
     path: "/",
     element: <Layout />,
     children: [
+      ...PATH_HOME,
       {
         path: "*",
         element: <>site no found</>,
       },
         FeatureMap_PATH,
       PATH_REGULONEXPLORER,
-      {
-        index: true,
-        element: <Home />,
-      },
       PATH_HT,
       {
         path: "wsSandbox",
@@ -87,10 +85,6 @@ const router = createBrowserRouter([
         path: "evidenceTree",
         element: <EvidenceTree />,
         children: [{ path: ":tree" }],
-      },
-      {
-        path: "home",
-        element: <Home />,
       },
       {
         path: "doc_datamarts",

@@ -1,0 +1,17 @@
+.home-cover{
+    background-color: #000;
+    height: 70vh;
+}
+
+
+@keyframes moveHomeCoverBackground {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}

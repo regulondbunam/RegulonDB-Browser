@@ -9,18 +9,8 @@ import Cover from "./cover";
 export default function Home() {
   return (
     <div>
-      <CssBaseline />
-      <Container
-        maxWidth={false}
-        sx={{
-          "&.MuiContainer-root": {
-            padding: 0,
-          },
-        }}
-      >
         <Cover />
         <Body />
-      </Container>
     </div>
   );
 }
