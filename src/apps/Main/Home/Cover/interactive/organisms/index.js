@@ -30,7 +30,7 @@ class Organism {
 
     draw() {
         //const svgString = this.organismSVGS[this.type]; // Obtiene la cadena SVG
-        const head = this.canva.rect(1, 15).move(75,0).id("head");
+        const head = this.canva.rect(1, 15).fill('#999999').move(70,0).id("head");
         const cell = this.canva.path("M 0 0 C -8.333 0 -8.333 -16.667 0 -16.667 L 33.333 -16.667 C 41.667 -16.667 41.667 0 33.333 0 L 0 0")
             .fill('#999999')
             .move(30, 0);
@@ -47,63 +47,111 @@ class Organism {
         this.body.rotate(this.angle);
     }
 
+    moveForward(speed=100){
+        this.moveInterval = setInterval(()=>{
+            this.body.move(this.body.x()+1, this.body.y());
+        },speed)
+    }
+
+    async moveRotateTo(
+        speed = 100,
+        angleTarget =  (Math.floor(Math.random()*360)),
+    ){
+        let angle = Math.floor((this.body.transform().rotate % 360 + 360) % 360);
+        angleTarget = Math.floor((angleTarget+180 % 360 + 360) % 360);
+        const {direction} = getShortestRotation(angle, angleTarget);
+        const time = angleTarget*100;
+        this.moveInterval = setInterval(()=>{
+            angle += direction;
+            if(angle > 360) angle = 0;
+            if(angle < 0) angle = 360;
+            this.body.rotate(direction);
+            this.body.move(this.body.x()+1, this.body.y());
+        },speed)
+        setTimeout(()=>{
+            clearInterval(this.moveInterval)
+        },time)
+        await delay(time+100)
+    }
+
+    stop(){
+        if(this.modeNpcOn) this.modeNpcOn = false;
+        clearInterval(this.moveInterval)
+    }
+
     startNPCMode(){
-        this.modeInterval = setInterval(()=>{
-            this.lazyMove()
-        })
+        this.modeNpcOn = true;
+        const run = async ()=>{
+            this.moveForward(100)
+            const distance = Math.floor(Math.random()*100)
+            const time = distance*100
+            await delay(time)
+            clearInterval(this.moveInterval)
+            await this.moveRotateTo(100,getAngle())
+        }
+        const initMode = async ()=>{
+            while (this.modeNpcOn){
+                await run()
+            }
+        }
+        initMode()
     }
 
     stopNPCMode(){
-        clearInterval(this.modeInterval);
+        this.modeNpcOn = false;
+        clearInterval(this.moveInterval)
     }
 
-    async goTo(x,y,speed=10){
-
-    }
-
-
-    async lazyMove(){
-        if(this.isMove) return;
-        this.isMove = true;
-        const height = this.canva.height();
-        const width = this.canva.width();
-        const head = getHead(this.body);
-        const moveRotate = async (
-                distance =  (Math.floor(Math.random()*360)),
-                direction = Math.random() < 0.5 ? 1 : -1,
-                speed = 100
-        )=>{
-            for(let i=0; i<distance; i++){
-                let newX = this.body.x()+1;
-                let newY = this.body.y()+0;
-                this.body.move(newX, newY);
+    startFollowMode(x,y,speed = 100){
+        this.stopNPCMode();
+        const rotateTo = async (angleTarget)=>{
+            if(this.isRotate) return;
+            this.isRotate = true;
+            let angle = Math.floor((this.body.transform().rotate % 360 + 360) % 360);
+            angleTarget = Math.floor((angleTarget+180 % 360 + 360) % 360);
+            const {direction} = getShortestRotation(angle, angleTarget);
+            while(angle !== angleTarget){
+                angle += direction;
+                if(angle > 360) angle = 0;
+                if(angle < 0) angle = 360;
                 this.body.rotate(direction);
-                await delay(speed);
+                await delay(5);
             }
+            this.isRotate = false;
         }
-        const moveOn = async (distance)=>{
-            for(let i=0; i<distance; i++){
-                let newX = this.body.x()+1;
-                let newY = this.body.y()+0;
-                let collision = checkCollisionWithCanvas(head, width, height);
-                if(!collision.any){
-                    this.body.move(newX, newY);
-                }else{
-                    const direction =Math.random() < 0.5 ? 1 : -1
-                    while (checkCollisionWithCanvas(head, width, height).any){
-                        await moveRotate(5,direction,100);
-                    }
+        const checkEnd = ()=>{
+            let position = this.getCurrentPosition();
+            const dx = position.x - x;
+            const dy = position.y - y;
+            let distance = Math.floor(Math.sqrt(dx * dx + dy * dy));
+            while(distance > 20){
+                let position = this.getCurrentPosition();
+                const dx = position.x - x;
+                const dy = position.y - y;
+                let distance = Math.floor(Math.sqrt(dx * dx + dy * dy));
+                if(distance <= 20){
+                    this.stop();
                 }
-                await delay(100);
             }
-            this.x = this.body.x();
-            this.y = this.body.y();
+
         }
-        const distance = (Math.floor(Math.random()*300))
-        await moveOn(distance);
-        //await moveRotate(getAngle());
-        this.isMove = false;
+        const currentPosition = this.getCurrentPosition()
+        const dx = currentPosition.x - x;
+        const dy = currentPosition.y - y;
+        const angle = Math.atan2(dy, dx) * (180/ Math.PI);
+        rotateTo(angle)
+        this.moveForward(10)
+
     }
+
+    getCurrentPosition(){
+        return {
+            x: this.body.rbox().x,
+            y: this.body.rbox().y,
+            rotation: this.body.transform().rotate
+        }
+    }
+
 
 
 }
@@ -125,6 +173,22 @@ const getHead = (group)=>{
     }
     return null;
 }
+
+const getShortestRotation = (currentAngle, targetAngle) => {
+
+    let diff = targetAngle - currentAngle;
+
+    if (diff > 180) {
+        diff -= 360;
+    } else if (diff < -180) {
+        diff += 360;
+    }
+
+    const direction = Math.sign(diff); // +1 para horario, -1 para antihorario
+    const absDiff = Math.abs(diff);
+
+    return { direction, diff: absDiff };
+};
 
 function checkCollisionWithCanvas(group, canvasWidth, canvasHeight) {
     const bbox = group.rbox();
