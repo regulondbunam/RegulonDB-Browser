@@ -12,6 +12,9 @@ class Organism {
     }
     alive = true
     absolutePosition = {x:0,y:0}
+    noScourge = false;
+    modeNpcOn = false;
+    isRotate = false;
 
 
     constructor(posX, posY, type="example", properties={}) {
@@ -34,16 +37,48 @@ class Organism {
         const cell = this.canva.path("M 0 0 C -8.333 0 -8.333 -16.667 0 -16.667 L 33.333 -16.667 C 41.667 -16.667 41.667 0 33.333 0 L 0 0")
             .fill('#999999')
             .move(30, 0);
-        const nSourge = Math.floor(Math.random()*5);
+        const nScourge = [0,1,3,5]
         const scourges = [];
-        for(let i=0; i<nSourge; i++){
-            const scourge = this.canva.path("M 0 0 C 12.5 -6.25 18.75 6.25 28.125 0 C 25 0 25 3.125 15.625 0 C 6.25 -3.125 3.125 0 0 0")
-                .fill('#999999')
-                .move(0, 7)
-                .rotate();
+        const scourgesPositions = [
+            {
+                x: 0,
+                y: 7,
+                rotate: 0
+            },
+            {
+                x: 10,
+                y: -10,
+                rotate: 45
+            },
+            {
+                x: 10,
+                y: 20,
+                rotate: 315
+            },
+            {
+                x: 40,
+                y: -5,
+                rotate: 90
+            },
+            {
+                x: 40,
+                y: 20,
+                rotate: 270
+            }
+        ]
+        const randomScourge = Math.floor(Math.random()*nScourge.length);
+        if(randomScourge !== 0){
+            for(let i=0; i<nScourge[randomScourge]; i++){
+                const pos = scourgesPositions[i];
+                const scourge = this.canva.path("M 0 0 C 12.5 -6.25 18.75 6.25 28.125 0 C 25 0 25 3.125 15.625 0 C 6.25 -3.125 3.125 0 0 0")
+                    .fill('#999999')
+                    .move(pos.x, pos.y)
+                    .rotate(pos.rotate);
+                scourges.push(scourge, 0,25);
+            }
+        }else{
+            this.noScourge = true;
         }
-        
-
         this.body = this.canva.group();
         this.body.add(head)
         this.body.add(cell)
@@ -110,6 +145,7 @@ class Organism {
     }
 
     startNPCMode(){
+        if(this.modeNpcOn || this.noScourge) return;
         this.modeNpcOn = true;
         const run = async ()=>{
             this.moveForward(100)
@@ -140,6 +176,7 @@ class Organism {
     }
 
     startFollowMode(x,y,speed = 100){
+        if(this.noScourge) return;
         this.stopNPCMode();
         const rotateTo = async (angleTarget)=>{
             if(this.isRotate) return;
@@ -178,7 +215,6 @@ class Organism {
         const angle = Math.atan2(dy, dx) * (180/ Math.PI);
         rotateTo(angle)
         this.moveForward(10)
-
     }
 
     getCurrentPosition(){

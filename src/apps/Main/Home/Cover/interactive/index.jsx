@@ -27,7 +27,7 @@ export default function InteractiveCover(){
                     followers.push(organism)
                     numFollowers--
                 }
-                organism.startNPCMode();
+               organism.startNPCMode();
             }
             setFollower(followers)
             setIsInit(true)
