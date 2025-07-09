@@ -11,9 +11,6 @@ export default function InteractiveCover(){
 
     useEffect(() => {
         if(panel.current && !isInit && svgInstance.current === null){
-            //respawn de bacterias
-
-
             const numOrganisms = 50
             const rect = panel.current.getBoundingClientRect();
             const canva = SVG().addTo(panel.current).size(rect.width, rect.height);

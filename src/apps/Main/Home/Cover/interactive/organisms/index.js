@@ -34,14 +34,22 @@ class Organism {
         const cell = this.canva.path("M 0 0 C -8.333 0 -8.333 -16.667 0 -16.667 L 33.333 -16.667 C 41.667 -16.667 41.667 0 33.333 0 L 0 0")
             .fill('#999999')
             .move(30, 0);
-        const scourge = this.canva.path("M 0 0 C 12.5 -6.25 18.75 6.25 28.125 0 C 25 0 25 3.125 15.625 0 C 6.25 -3.125 3.125 0 0 0")
-            .fill('#999999')
-            .move(0, 7);
+        const nSourge = Math.floor(Math.random()*5);
+        const scourges = [];
+        for(let i=0; i<nSourge; i++){
+            const scourge = this.canva.path("M 0 0 C 12.5 -6.25 18.75 6.25 28.125 0 C 25 0 25 3.125 15.625 0 C 6.25 -3.125 3.125 0 0 0")
+                .fill('#999999')
+                .move(0, 7)
+                .rotate();
+        }
+        
 
         this.body = this.canva.group();
         this.body.add(head)
         this.body.add(cell)
-        this.body.add(scourge)
+        for (const scourge of scourges) {
+            this.body.add(scourge)
+        }
         this.body.move(this.x,this.y)
         this.angle = getAngle();
         this.body.rotate(this.angle);
@@ -51,6 +59,28 @@ class Organism {
         this.moveInterval = setInterval(()=>{
             this.body.move(this.body.x()+1, this.body.y());
         },speed)
+    }
+
+    async die(){
+        this.alive = false;
+        this.body.transform({
+            scale: 0
+        })
+    }
+
+    async born(){
+        this.alive = true;
+        const xRandom = Math.floor(Math.random()*this.canva.width());
+        const yRandom = Math.floor(Math.random()*this.canva.height());
+        this.body.move(xRandom,yRandom)
+        const angle = getAngle();
+        for (let i = 0; i < 100; i++) {
+            this.body.transform({
+                scale: i/100,
+                rotate: angle
+            })
+            await delay(50)
+        }
     }
 
     async moveRotateTo(
@@ -91,7 +121,14 @@ class Organism {
         }
         const initMode = async ()=>{
             while (this.modeNpcOn){
+                if(!this.alive) {
+                    await this.born()
+                }
                 await run()
+                const bbox = this.body.rbox();
+                if (bbox.x < 0 || bbox.x > this.canva.width() || bbox.y < 0 || bbox.y > this.canva.height()){
+                    await this.die();
+                }
             }
         }
         initMode()
