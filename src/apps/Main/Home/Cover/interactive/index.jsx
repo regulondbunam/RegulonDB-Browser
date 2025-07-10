@@ -2,6 +2,7 @@ import {useEffect, useRef, useState, useCallback} from "react";
 import { SVG } from '@svgdotjs/svg.js';
 import Organism from "./organisms";
 
+
 export default function InteractiveCover(){
     const [isInit, setIsInit] = useState(false)
     const [follower, setFollower] = useState([])

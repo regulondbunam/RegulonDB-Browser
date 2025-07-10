@@ -119,7 +119,7 @@ export default function Cover() {
           <Typography variant="h1Cover"  fontSize={{xs:"110%", md:"360%"}}>The RegulonDB Database</Typography>
           <Typography variant="h2Cover" >
             Escherichia coli K-12 Transcriptional Regulatory Network
-          </Typography>
+        </Typography>
         </Grid>
         <Grid
             // Search bar

@@ -1,17 +1,13 @@
 .home-cover{
     background-color: #000;
-    height: 70vh;
+    height: 80vh;
+    width: 100%;
+    position: relative;
 }
 
-
-@keyframes moveHomeCoverBackground {
-    0% {
-        background-position: 0% 0%;
-    }
-    50% {
-        background-position: 100% 100%;
-    }
-    100% {
-        background-position: 0% 0%;
-    }
+.home-cover-background{
+    z-index: 1;
+    position: absolute;
+    height: 100%;
+    width: 100%;
 }

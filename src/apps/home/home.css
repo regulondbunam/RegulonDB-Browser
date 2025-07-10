@@ -19,9 +19,7 @@
     filter: drop-shadow(10px 10px 15px rgba(255, 255, 255, 0.4));
 }
 
-.UNAM_LOGO {
-    filter: drop-shadow(10px 10px 15px rgba(255, 255, 255, 0.2));
-}
+
 
 @media screen and (max-width: 400px){
     .coverEcoliImg{
