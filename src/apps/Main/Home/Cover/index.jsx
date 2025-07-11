@@ -4,6 +4,7 @@ import Title from "./Title";
 import Search from "./Search";
 import Links from "./Links";
 import Dna from "./Dna";
+import Cards from "./Cards";
 
 export default function Cover(){
     return(
@@ -19,7 +20,7 @@ export default function Cover(){
                     <Links />
                 </div>
                 <Dna/>
-
+                <Cards />
             </div>
         </div>
 

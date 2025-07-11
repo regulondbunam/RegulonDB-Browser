@@ -36,19 +36,19 @@ export default function InteractiveCover(){
     }, [isInit]);
 
     const handleMouseMove = (event)=>{
-        const rect = panel.current.getBoundingClientRect();
+        /*const rect = panel.current.getBoundingClientRect();
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
         for (let i = 0; i < follower.length; i++) {
             follower[i].startFollowMode(x, y)
-        }
+        }*/
     };
 
     const returnNPCFollowers = ()=>{
-        for (let i = 0; i < follower.length; i++) {
+       /* for (let i = 0; i < follower.length; i++) {
             follower[i].stop()
             follower[i].startNPCMode()
-        }
+        }*/
     }
 
     return <div
