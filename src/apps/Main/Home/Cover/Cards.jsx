@@ -6,7 +6,7 @@ import Summary from "./Summary";
 export default function Cards() {
 
     return (
-        <div style={{display: "grid", gridTemplateColumns: "1fr 2fr", marginTop: "20px"}} >
+        <div className={"home-cover-cards"} >
             <Card ><Sites/></Card>
             <Card ><Summary/></Card>
         </div>
@@ -17,7 +17,7 @@ export default function Cards() {
 function Card({children}) {
     return (
         <div style={{display: "flex", alignItems: "center", justifyContent: "center", width: "100%"}} >
-            <Paper elevation={3} sx={{width: "90%", minWidth:"240px", height: "140px"}}>
+            <Paper elevation={3} sx={{width: "90%", minWidth:"240px"}}>
                 {children}
             </Paper>
         </div>

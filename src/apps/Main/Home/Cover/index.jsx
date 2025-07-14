@@ -1,10 +1,13 @@
 import "./style.css"
+import MediaQuery from 'react-responsive'
+import React from "react";
 import InteractiveCover from "./interactive";
 import Title from "./Title";
 import Search from "./Search";
 import Links from "./Links";
 import Dna from "./Dna";
 import Cards from "./Cards";
+import LogoRegulonDB from "./media/RegulonDB-logo-white.png";
 
 export default function Cover(){
     return(
@@ -14,14 +17,29 @@ export default function Cover(){
                 <div style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%", backgroundColor: "rgba(0,0,0,0.8)", zIndex: 2 }} />
             </div>
             <div style={{zIndex: 3, position: "absolute", width: "100%"}} >
+                <img
+                    className="home-cover-logo"
+                    src={LogoRegulonDB}
+                    alt="Logo RegulonDB"
+                />
                 <Title />
                 <div style={{display: "flex", flexDirection: "column", alignItems: "center", width: "100%"}} >
-                    <Search />
+                    <MediaQuery minWidth={600}>
+                        <Search />
+                    </MediaQuery>
                     <Links />
                 </div>
-                <Dna/>
+                <MediaQuery minWidth={740}>
+                    <Dna/>
+                </MediaQuery>
                 <Cards />
             </div>
+            {/*
+            <div style={{zIndex: 3, position: "absolute", width: "100%"}} >
+
+
+            </div>
+            */}
         </div>
 
     )

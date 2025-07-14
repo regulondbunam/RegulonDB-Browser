@@ -64,9 +64,9 @@ export default function Summary() {
     })
 
     return (
-        <div style={{padding: "5px", width: "100%", minWidth: "700px"}}>
+        <div style={{padding: "5px", width: "100%"}}>
             <p style={{color: "black"}} ><b>Release & Summary</b></p>
-            <div style={{display: "flex"}}>
+            <div className={"home-cover-cards-summary-content"} style={{display: "flex"}}>
                 <div style={{ marginLeft: "10px" }}>
                     <p>{"Date: " + dbInfo.releaseDate} </p>
                     <p>{"Version: " + dbInfo.regulonDBVersion} </p>

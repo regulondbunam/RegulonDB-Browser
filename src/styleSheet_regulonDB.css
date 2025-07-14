@@ -45,7 +45,6 @@ Ver: 0.0.28
 }
 
 body {
-	padding-top: 1%;
 	background-color: var(--color-rest);
 	font-family: var(--fontFamily-principal);
 	font-size: 12px;
