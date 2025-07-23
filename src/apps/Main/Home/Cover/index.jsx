@@ -7,7 +7,7 @@ import Search from "./Search";
 import Links from "./Links";
 import Dna from "./Dna";
 import Cards from "./Cards";
-import ecoliPNG from "./media/ecoli-img.png";
+import ecoliPNG from "./media/ecoli-img-a.png";
 import LogoRegulonDB from "./media/RegulonDB-logo-white.png";
 
 export default function Cover(){
@@ -19,16 +19,15 @@ export default function Cover(){
                 <div style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%", backgroundColor: "rgba(0,0,0,0.5)", zIndex: 2 }} />
             </div>
             <div className={"home-cover-background-ecoli"}
-                 style={{position: "absolute", top: 0, right: 50, zIndex: 1}}
+                 style={{position: "absolute", top: 0, right: 0, zIndex: 1}}
             >
                 <img
                     className={"home-cover-background-ecoli-img"}
                     src={ecoliPNG}
                     alt="ecoli"
                     style={{
-                        height: "420px",
+                        height: "350px",
                         width: "auto",
-                        transform: "rotate(15deg)",
                     }}
                 />
             </div>
