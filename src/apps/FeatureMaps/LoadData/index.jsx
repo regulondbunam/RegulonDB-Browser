@@ -4,6 +4,7 @@ import FileUploadIcon from "@mui/icons-material/FileUpload";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import TitleSection from "../components/TitleSection";
 import {ACTIONS, FORMATS} from "../static";
 import {DEMO_FEATURE_MAP} from "./demo";
 import React from "react";
@@ -89,20 +90,4 @@ export default function LoadData({state, dispatch, handleToDraw, handleToConfVis
             </div>
         </div>
     </div>
-}
-
-function TitleSection({title="title", help="help", subtitle}){
-    return(
-        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}} >
-            <div>
-                <Typography component="div" variant="subtitle1" >{title}</Typography>
-                {subtitle && (<div>{subtitle}</div>)}
-            </div>
-            <div>
-                <Tooltip title={help}>
-                    <HelpCenterIcon/>
-                </Tooltip>
-            </div>
-        </div>
-    )
 }

@@ -18,6 +18,8 @@ export let featureMapData = {
             origin: 0
         },
         "backgroundColor": "#ffffff",
+        "scaleBarColor": "#32617d",
+        "scaleBarTextColor": "#ffffff",
         "trackHeight": 50,
         "trackColor": "#ffffff",
         "handleAnnotation": undefined,

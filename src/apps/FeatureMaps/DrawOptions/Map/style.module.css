@@ -1,0 +1,10 @@
+.optionContainer{
+    display: grid;
+    grid-template-columns: 250px 250px ;
+}
+
+@media screen and (max-width: 500px){
+    .optionContainer{
+        grid-template-columns: 1fr;
+    }
+}

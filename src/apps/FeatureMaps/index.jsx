@@ -12,6 +12,7 @@ import { featureMapsToTrackJson } from './Process';
 import { ACTIONS, FORMATS } from './static'
 import Draw from './Draw';
 import {DialogLoading, DialogError} from "../../components/ui-components/Dialogs";
+import DrawOptions from './DrawOptions'
 
 export const FeatureMap_PATH = {
     path: "featureMaps",
@@ -104,7 +105,7 @@ export default function FeatureMaps({ idSession = "" }) {
                         </TabList>
                     </Box>
                     <TabPanel sx={{padding: "0 24px 12px 24px"}} value="1"><LoadData handleToDraw={handleToDraw} handleToConfVisual={""} state={state} dispatch={dispatch} /></TabPanel>
-                    <TabPanel sx={{padding: 0}} value="2" >Holis</TabPanel>
+                    <TabPanel sx={{padding: "0 24px 12px 24px"}} value="2" ><DrawOptions handleToDraw={handleToDraw} state={state} dispatch={dispatch} /></TabPanel>
                     <TabPanel sx={{padding: 0}} value="3" ><Draw state={state} dispatch={dispatch} /></TabPanel>
                 </TabContext>
             </Box>

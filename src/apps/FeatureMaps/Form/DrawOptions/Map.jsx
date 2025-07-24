@@ -46,8 +46,9 @@ export default function Map({
   }
 
   const handleSetColor = (color)=>{
+    console.log(color)
     dispatch({type: ACTIONS.SET_BACKGROUND_COLOR, value: color+""})
-    
+
   }
 
   return (
