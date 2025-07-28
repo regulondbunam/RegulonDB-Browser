@@ -33,6 +33,8 @@ const Piker = ({color, handleSetColor =()=>{}, setOpen=()=>{}}) => {
                 !colorPickerRef.current.contains(event.target) // Verifica si el clic ocurrió fuera del `div`
             ) {
                 setOpen(false); // Cierra el color picker si se hace clic fuera
+
+
             }
         };
 
@@ -42,8 +44,9 @@ const Piker = ({color, handleSetColor =()=>{}, setOpen=()=>{}}) => {
         };
     }, [setOpen, colorPickerRef]);
 
-    return (<div ref={colorPickerRef} style={{position: 'absolute', top: 0, left: 0, zIndex: 1000, width: '220px', height: '200px' }} >
+    return (<div ref={colorPickerRef} style={{position: 'absolute', top: 0, left: 0, zIndex: 1000, width: '220px', height: '220px' }} >
         <Paper elevation={3} sx={{display: "flex", flexDirection: "column", p:1}} >
+            <p>Select Color</p>
             <HexColorPicker color={color} onChange={handleSetColor} />
         </Paper>
     </div>)

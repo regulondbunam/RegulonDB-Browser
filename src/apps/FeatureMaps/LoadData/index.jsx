@@ -52,6 +52,7 @@ export default function LoadData({state, dispatch, handleToDraw, handleToConfVis
                       }
         />
         <TextField fullWidth variant="outlined" size="small" multiline rows={10}
+                   sx={{".MuiOutlinedInput-input":{whiteSpace: "nowrap", overflow: "auto"}}}
                    value={state.originData.raw}
                    onChange={(e) => { handleUpdateData(e.target.value); }}
         />

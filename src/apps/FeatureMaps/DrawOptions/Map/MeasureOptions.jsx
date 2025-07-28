@@ -7,14 +7,16 @@ import {useState} from "react";
 import {ACTIONS} from "../../static";
 
 export default function MeasureOptions({dispatch, state}) {
-    const { measure, limits } = state._controlState
+    const { measure, limits, trackHeight } = state._controlState
     const [scale, setScale] = useState(measure)
     const [limitStart, setLimitStart] = useState(limits.start)
     const [limitEnd, setLimitEnd] = useState(limits.end)
+    const [_trackHeight, setTrackHeight] = useState(trackHeight)
 
     const scaleSelectRef = React.useRef(null);
     const limitStartRef = React.useRef(null);
     const limitEndRef = React.useRef(null);
+    const trackHeightRef = React.useRef(null);
 
     const handleChangeMeasureStep = (e) => {
         const value = Number(e.target.value)
@@ -54,6 +56,19 @@ export default function MeasureOptions({dispatch, state}) {
                 dispatch({ type: ACTIONS.SET_END_LIMIT, value: value })
             }
         },300)
+    }
+
+    const handleChangeTrackHeight = (e) => {
+        const value = Number(e.target.value)
+        setTrackHeight(e.target.value);
+        if(trackHeightRef.current){
+            clearTimeout(trackHeightRef.current)
+        }
+        trackHeightRef.current = setTimeout(()=>{
+            if(value>50 && value<1000 && value!==_trackHeight){
+                dispatch({ type: ACTIONS.SET_TRACK_HEIGHT, value: value })
+            }
+        })
     }
 
     return (
@@ -107,6 +122,21 @@ export default function MeasureOptions({dispatch, state}) {
                     <FormHelperText id="outlined-End-helper-text">End</FormHelperText>
                 </FormControl>
             </div>
+            <FormControl variant="outlined" sx={{width: "210px", mb: 1}}>
+                <p>Track Height</p>
+                <OutlinedInput
+                    id="outlined-adornment-Measure-Step"
+                    endAdornment={<InputAdornment position="end">px</InputAdornment>}
+                    aria-describedby="outlined-Measure-Step-helper-text"
+                    inputProps={{
+                        'aria-label': 'Measure-Step',
+                    }}
+                    value={_trackHeight}
+                    onChange={handleChangeTrackHeight}
+                    type="number"
+                    size="small"
+                />
+            </FormControl>
         </div>
     )
 }

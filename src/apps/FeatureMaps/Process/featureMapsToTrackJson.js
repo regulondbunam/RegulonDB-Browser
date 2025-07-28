@@ -6,10 +6,17 @@ export default function featureMapsToTrackJson(featureMaps,currentTracks,state) 
     const lines = featureMaps.trim().split('\n');
     let tracks = {
         "_governmentSymbols": {...currentTracks._governmentSymbols},
-        "_governmentLabels": {...currentTracks._governmentLabels}
+        "_governmentLabels": {...currentTracks._governmentLabels},
     }
     for (const line of lines) {
         if (line.trim().startsWith('#')) {
+            if (line.trim().startsWith('#->')){
+                const cells = line.split(/\t/);
+                cells[0] = cells[0].slice(3)
+                tracks["_governmentColumns"] = {
+                    originalColumns: cells
+                }
+            }
             continue;
         }
         const cells = line.split(/\t/);
