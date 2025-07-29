@@ -10,7 +10,6 @@ export default function DrawOptions({state, dispatch}){
             <Map state={state} dispatch={dispatch} />
             <TitleSection title="Features Options"/>
             <Features state={state} dispatch={dispatch} />
-            <TitleSection title="Annotation Options"/>
         </div>
     )
 }

@@ -47,6 +47,8 @@ export default function reducer(state, action) {
                 }
             }
             return { ...state, tracks: {...state.tracks, _governmentLabels: _governmentLabels}, _controlState: { ...state._controlState, labelColumn: action.value } }
+        case ACTIONS.SET_FEATURE_COLOR:
+            return {...state, tracks: {...state.tracks, _governmentLabels: {...state.tracks._governmentLabels, [action.feature]: action.color}}}
         case ACTIONS.SET_BASE_COLOR:
             return {...state, _controlState: { ...state._controlState, featureBaseColor: action.value } }
         default:

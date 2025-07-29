@@ -12,6 +12,7 @@ export const ACTIONS = {
     SET_HANDLE_ANNOTATIONS: 10,
     SET_COLUMN_LABEL: 11,
     SET_BASE_COLOR: 12,
+    SET_FEATURE_COLOR: 13,
 }
 
 export const HANDLE_ANNOTATIONS = {

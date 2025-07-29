@@ -24,7 +24,17 @@ export default function ColorPicker({name="name",handleSetColor, color}){
 
 }
 
-const Piker = ({color, handleSetColor =()=>{}, setOpen=()=>{}}) => {
+export function SimpleSquareColorPicker({handleSetColor = () => {}, color = "#000000" }){
+    const [open, setOpen] = useState(false)
+    return(
+        <div style={{position: 'relative'}} >
+            <div onClick={()=>{setOpen(true)}} style={{display:"flex", alignItems:"center",width: '20px', height: '20px', backgroundColor: color, border: '1px solid black', cursor: 'pointer'}} />
+            {open && <Piker color={color} handleSetColor={handleSetColor} setOpen={setOpen} />}
+        </div>
+    )
+}
+
+export const Piker = ({color, handleSetColor =()=>{}, setOpen=()=>{}}) => {
     const colorPickerRef = useRef(null);
     useEffect(() => {
         const handleClickOutside = (event) => {
