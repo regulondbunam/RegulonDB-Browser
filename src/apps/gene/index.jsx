@@ -85,6 +85,10 @@ import Home from "./Home";
  */
 export default function Gene() {
 
+  window.gtag('event', 'page_view', {
+    page_path: window.location.pathname,
+  });
+
   
   let { geneId } = useParams();
 
