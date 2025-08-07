@@ -1,0 +1,298 @@
+import example from "./assets/example"
+
+const defaultProperties = {
+    size: 1,
+    alive: true
+}
+
+class Organism {
+
+    organismSVGS = {
+        example: example
+    }
+    alive = true
+    absolutePosition = {x:0,y:0}
+    noScourge = false;
+    modeNpcOn = false;
+    isRotate = false;
+
+
+    constructor(posX, posY, type="example", properties={}) {
+        this.x = posX;
+        this.y = posY;
+        this.absolutePosition.x = posX;
+        this.absolutePosition.y = posY;
+        this.type = type;
+        this.size = properties.size || defaultProperties.size;
+        this.alive = properties.alive || defaultProperties.alive;
+    }
+
+    setStage(canva){
+        this.canva = canva;
+    }
+
+    draw() {
+        //const svgString = this.organismSVGS[this.type]; // Obtiene la cadena SVG
+        const head = this.canva.rect(1, 15).fill('#999999').move(70,0).id("head");
+        const cell = this.canva.path("M 0 0 C -8.333 0 -8.333 -16.667 0 -16.667 L 33.333 -16.667 C 41.667 -16.667 41.667 0 33.333 0 L 0 0")
+            .fill('#999999')
+            .move(30, 0);
+        const nScourge = [0,1,3,5]
+        const scourges = [];
+        const scourgesPositions = [
+            {
+                x: 0,
+                y: 7,
+                rotate: 0
+            },
+            {
+                x: 10,
+                y: -10,
+                rotate: 45
+            },
+            {
+                x: 10,
+                y: 20,
+                rotate: 315
+            },
+            {
+                x: 40,
+                y: -5,
+                rotate: 90
+            },
+            {
+                x: 40,
+                y: 20,
+                rotate: 270
+            }
+        ]
+        const randomScourge = Math.floor(Math.random()*nScourge.length);
+        if(randomScourge !== 0){
+            for(let i=0; i<nScourge[randomScourge]; i++){
+                const pos = scourgesPositions[i];
+                const scourge = this.canva.path("M 0 0 C 12.5 -6.25 18.75 6.25 28.125 0 C 25 0 25 3.125 15.625 0 C 6.25 -3.125 3.125 0 0 0")
+                    .fill('#999999')
+                    .move(pos.x, pos.y)
+                    .rotate(pos.rotate);
+                scourges.push(scourge, 0,25);
+            }
+        }else{
+            this.noScourge = true;
+        }
+        this.body = this.canva.group();
+        this.body.add(head)
+        this.body.add(cell)
+        for (const scourge of scourges) {
+            this.body.add(scourge)
+        }
+        this.body.move(this.x,this.y)
+        this.angle = getAngle();
+        this.body.rotate(this.angle);
+    }
+
+    moveForward(speed=100){
+        this.moveInterval = setInterval(()=>{
+            this.body.move(this.body.x()+1, this.body.y());
+        },speed)
+    }
+
+    async die(){
+        this.alive = false;
+        this.body.transform({
+            scale: 0
+        })
+    }
+
+    async born(){
+        this.alive = true;
+        const xRandom = Math.floor(Math.random()*this.canva.width());
+        const yRandom = Math.floor(Math.random()*this.canva.height());
+        this.body.move(xRandom,yRandom)
+        const angle = getAngle();
+        for (let i = 0; i < 100; i++) {
+            this.body.transform({
+                scale: i/100,
+                rotate: angle
+            })
+            await delay(50)
+        }
+    }
+
+    async moveRotateTo(
+        speed = 100,
+        angleTarget =  (Math.floor(Math.random()*360)),
+    ){
+        let angle = Math.floor((this.body.transform().rotate % 360 + 360) % 360);
+        angleTarget = Math.floor((angleTarget+180 % 360 + 360) % 360);
+        const {direction} = getShortestRotation(angle, angleTarget);
+        const time = angleTarget*100;
+        this.moveInterval = setInterval(()=>{
+            angle += direction;
+            if(angle > 360) angle = 0;
+            if(angle < 0) angle = 360;
+            this.body.rotate(direction);
+            this.body.move(this.body.x()+1, this.body.y());
+        },speed)
+        setTimeout(()=>{
+            clearInterval(this.moveInterval)
+        },time)
+        await delay(time+100)
+    }
+
+    stop(){
+        if(this.modeNpcOn) this.modeNpcOn = false;
+        clearInterval(this.moveInterval)
+    }
+
+    startNPCMode(){
+        if(this.modeNpcOn || this.noScourge) return;
+        this.modeNpcOn = true;
+        const run = async ()=>{
+            this.moveForward(100)
+            const distance = Math.floor(Math.random()*100)
+            const time = distance*100
+            await delay(time)
+            clearInterval(this.moveInterval)
+            await this.moveRotateTo(100,getAngle())
+        }
+        const initMode = async ()=>{
+            while (this.modeNpcOn){
+                if(!this.alive) {
+                    await this.born()
+                }
+                await run()
+                const bbox = this.body.rbox();
+                if (bbox.x < 0 || bbox.x > this.canva.width() || bbox.y < 0 || bbox.y > this.canva.height()){
+                    await this.die();
+                }
+            }
+        }
+        initMode()
+    }
+
+    stopNPCMode(){
+        this.modeNpcOn = false;
+        clearInterval(this.moveInterval)
+    }
+
+    startFollowMode(x,y,speed = 100){
+        if(this.noScourge) return;
+        this.stopNPCMode();
+        const rotateTo = async (angleTarget)=>{
+            if(this.isRotate) return;
+            this.isRotate = true;
+            let angle = Math.floor((this.body.transform().rotate % 360 + 360) % 360);
+            angleTarget = Math.floor((angleTarget+180 % 360 + 360) % 360);
+            const {direction} = getShortestRotation(angle, angleTarget);
+            while(angle !== angleTarget){
+                angle += direction;
+                if(angle > 360) angle = 0;
+                if(angle < 0) angle = 360;
+                this.body.rotate(direction);
+                await delay(5);
+            }
+            this.isRotate = false;
+        }
+        const checkEnd = ()=>{
+            let position = this.getCurrentPosition();
+            const dx = position.x - x;
+            const dy = position.y - y;
+            let distance = Math.floor(Math.sqrt(dx * dx + dy * dy));
+            while(distance > 20){
+                let position = this.getCurrentPosition();
+                const dx = position.x - x;
+                const dy = position.y - y;
+                let distance = Math.floor(Math.sqrt(dx * dx + dy * dy));
+                if(distance <= 20){
+                    this.stop();
+                }
+            }
+
+        }
+        const currentPosition = this.getCurrentPosition()
+        const dx = currentPosition.x - x;
+        const dy = currentPosition.y - y;
+        const angle = Math.atan2(dy, dx) * (180/ Math.PI);
+        rotateTo(angle)
+        this.moveForward(10)
+    }
+
+    getCurrentPosition(){
+        return {
+            x: this.body.rbox().x,
+            y: this.body.rbox().y,
+            rotation: this.body.transform().rotate
+        }
+    }
+
+
+
+}
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+const getAngle = () =>{
+    return Math.floor(Math.random()*360)
+}
+
+const getHead = (group)=>{
+    for(let i=0; i<group.children().length; i++){
+        const child = group.children()[i];
+        if(child.id()+"" === "head"){
+            return child;
+        }
+    }
+    return null;
+}
+
+const getShortestRotation = (currentAngle, targetAngle) => {
+
+    let diff = targetAngle - currentAngle;
+
+    if (diff > 180) {
+        diff -= 360;
+    } else if (diff < -180) {
+        diff += 360;
+    }
+
+    const direction = Math.sign(diff); // +1 para horario, -1 para antihorario
+    const absDiff = Math.abs(diff);
+
+    return { direction, diff: absDiff };
+};
+
+function checkCollisionWithCanvas(group, canvasWidth, canvasHeight) {
+    const bbox = group.rbox();
+
+    let collision = {
+        left: false,
+        right: false,
+        top: false,
+        bottom: false,
+        any: false // Para saber si hay alguna colisión
+    };
+
+    if (bbox.x < 0) {
+        collision.left = true;
+        collision.any = true;
+    }
+    if (bbox.x + bbox.width > canvasWidth) {
+        collision.right = true;
+        collision.any = true;
+    }
+    if (bbox.y < 0) {
+        collision.top = true;
+        collision.any = true;
+    }
+    if (bbox.y + bbox.height > canvasHeight) {
+        collision.bottom = true;
+        collision.any = true;
+    }
+
+    return collision;
+}
+
+
+export default Organism;

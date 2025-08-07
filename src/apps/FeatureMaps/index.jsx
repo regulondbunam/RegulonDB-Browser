@@ -4,13 +4,15 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import Form from './Form'
+import LoadData from './LoadData'
 import { Cover, DataVerifier } from '../../components/ui-components'
 import reducer from './actions';
 import { featureMapData } from './featureMapData';
 import { featureMapsToTrackJson } from './Process';
 import { ACTIONS, FORMATS } from './static'
 import Draw from './Draw';
+import {DialogLoading, DialogError} from "../../components/ui-components/Dialogs";
+import DrawOptions from './DrawOptions'
 
 export const FeatureMap_PATH = {
     path: "featureMaps",
@@ -40,8 +42,21 @@ export default function FeatureMaps({ idSession = "" }) {
     const [state, dispatch] = useReducer(reducer, { idSession }, initFeatureMapData)
     const [tab, setTab] = React.useState('1');
     const [drawState, setDrawState] = useState()
+    const [drawErrorDetails, setDrawErrorDetails] = useState("")
 
     const handleChange = (event, newValue) => {
+        if (newValue !== '1') {
+            if (!DataVerifier.isValidString(state.originData.raw)) {
+                setDrawState("error")
+                setDrawErrorDetails("Please provide data for drawing feature maps.")
+                return
+            }else{
+                if(newValue === '3'){
+                    handleToDraw()
+                    return
+                }
+            }
+        }
         setTab(newValue);
     };
 
@@ -50,15 +65,27 @@ export default function FeatureMaps({ idSession = "" }) {
             setDrawState("loading");
             toDrawResolverData(state.originData.format,state.originData.raw,state)
             .then((data)=>{
-                dispatch({type: ACTIONS.TO_DRAW,data: data})
-                setTab('2')
-                setDrawState("done");
+                if (data){
+                    setTimeout(()=>{
+                        dispatch({type: ACTIONS.TO_DRAW,data: data})
+                        setTab('3')
+                        setDrawState("done");
+                    },500)
+                }
             }).catch((error)=>{
                 setDrawState("error");
                 console.error(error);
-                alert("Error Format")
+                setDrawErrorDetails("Format file error. Please check the format file and try again.")
             })
+        }else{
+            setDrawState("error")
+            setDrawErrorDetails("No data has been provided for drawing feature maps.")
         }
+    }
+
+    const handleCloseError = ()=>{
+        setDrawState(null)
+        setDrawErrorDetails("")
     }
 
     console.log(state);
@@ -69,18 +96,21 @@ export default function FeatureMaps({ idSession = "" }) {
                 <h1>Feature Maps</h1>
             </Cover>
             <Box sx={{ width: '100%', typography: 'body1' }}>
-                <TabContext value={tab}>
+                <TabContext value={tab}  >
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                        <TabList onChange={handleChange} aria-label="lab API tabs example">
-                            <Tab label="Data" value="1" />
-                            <Tab onClick={handleToDraw} label="Draw" value="2" />
+                        <TabList onChange={handleChange} aria-label="step tabs">
+                            <Tab label="1- Load Data" value="1" />
+                            <Tab label="2- Configure Visualization" value="2" />
+                            <Tab label="3- View" value="3" />
                         </TabList>
                     </Box>
-                    <TabPanel value="1"><Form handleToDraw={handleToDraw} state={state} dispatch={dispatch} /></TabPanel>
-                    <TabPanel value="2" sx={{padding: 0}}><Draw state={state} dispatch={dispatch} /></TabPanel>
+                    <TabPanel sx={{padding: "0 24px 12px 24px"}} value="1"><LoadData handleToDraw={handleToDraw} handleToConfVisual={""} state={state} dispatch={dispatch} /></TabPanel>
+                    <TabPanel sx={{padding: "0 24px 12px 24px"}} value="2" ><DrawOptions handleToDraw={handleToDraw} state={state} dispatch={dispatch} /></TabPanel>
+                    <TabPanel sx={{padding: 0}} value="3" ><Draw state={state} dispatch={dispatch} /></TabPanel>
                 </TabContext>
             </Box>
-
+            {drawState === "loading" && <DialogLoading title={"Drawing... please wait"} />}
+            {drawState === "error" && <DialogError title={"Error to Draw"} message={drawErrorDetails} action={handleCloseError} />}
         </div>
     )
 }

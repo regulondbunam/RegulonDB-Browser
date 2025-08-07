@@ -75,8 +75,8 @@ export default function Features({
                   <MenuItem value={undefined}>
                     <em>None</em>
                   </MenuItem>
-                  {Object.keys(HANDLE_ANNOTATIONS).map((key) => (
-                    <MenuItem value={HANDLE_ANNOTATIONS[key]}>{key}</MenuItem>
+                  {Object.keys(HANDLE_ANNOTATIONS).map((key,i) => (
+                    <MenuItem key={key+"-"+i} value={HANDLE_ANNOTATIONS[key]}>{key}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -91,8 +91,8 @@ export default function Features({
                   label="Palette"
                   onChange={handleColorPalette}
                 >
-                  {Object.keys(COLOR_PALETTE_OPTIONS).map((key) => (
-                    <MenuItem value={COLOR_PALETTE_OPTIONS[key]}>{key}</MenuItem>
+                  {Object.keys(COLOR_PALETTE_OPTIONS).map((key, i) => (
+                    <MenuItem key={key+"-"+i} value={COLOR_PALETTE_OPTIONS[key]}>{key}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -105,8 +105,8 @@ export default function Features({
                   label="Opacity by"
                   onChange={handleColorOpacity}
                 >
-                  {Object.keys(COLOR_OPACITY_BY).map((key) => (
-                    <MenuItem value={COLOR_OPACITY_BY[key]}>{key}</MenuItem>
+                  {Object.keys(COLOR_OPACITY_BY).map((key, i) => (
+                    <MenuItem key={key+"-"+i} value={COLOR_OPACITY_BY[key]}>{key}</MenuItem>
                   ))}
                 </Select>
               </FormControl>

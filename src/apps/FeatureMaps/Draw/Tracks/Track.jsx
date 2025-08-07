@@ -44,7 +44,9 @@ export default function Track({
         backgroundColor: "black"
     }
 
-    const features = processFeatures(track.features, _governmentSymbols, _governmentLabels, handleAnnotation, labelColumn)
+    const _features = track.features.filter(item => item !== null && item !== undefined);
+
+    const features = processFeatures(_features, _governmentSymbols, _governmentLabels, handleAnnotation, labelColumn)
 
     return (
         <div id={"div_" + track.id} style={{ ...styleTrack }} >

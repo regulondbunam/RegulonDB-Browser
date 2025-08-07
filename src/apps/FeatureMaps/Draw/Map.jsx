@@ -58,8 +58,6 @@ export default function Map({ state, dispatch }) {
             id={idMap}
             ref={mapRef}
             style={{
-                width: "80%",
-                height: "calc(100vh - 184px)",
                 overflow: 'auto',
                 cursor: 'grab',
                 background: backgroundColor,
