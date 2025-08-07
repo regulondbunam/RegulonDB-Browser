@@ -6,7 +6,6 @@ import Organism from "./organisms";
 export default function InteractiveCover(){
     const [isInit, setIsInit] = useState(false)
     const [follower, setFollower] = useState([])
-    const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
     const panel = useRef();
     const svgInstance = useRef(null);
 
@@ -35,26 +34,33 @@ export default function InteractiveCover(){
         }
     }, [isInit]);
 
-    const handleMouseMove = (event)=>{
-        /*const rect = panel.current.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-        for (let i = 0; i < follower.length; i++) {
-            follower[i].startFollowMode(x, y)
-        }*/
-    };
+    /*useEffect(() => {
+        const handleGlobalMouseMove = (event) => {
+            if (!panel.current) return;
+            const rect = panel.current.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            follower.forEach((f) => f.startFollowMode(x, y));
+        };
 
-    const returnNPCFollowers = ()=>{
-       /* for (let i = 0; i < follower.length; i++) {
-            follower[i].stop()
-            follower[i].startNPCMode()
-        }*/
-    }
+        const handleMouseLeave = () => {
+            follower.forEach((f) => {
+                f.stop();
+                f.startNPCMode();
+            });
+        };
+
+        window.addEventListener('mousemove', handleGlobalMouseMove);
+        window.addEventListener('mouseout', handleMouseLeave); // o usar 'mouseleave'
+
+        return () => {
+            window.removeEventListener('mousemove', handleGlobalMouseMove);
+            window.removeEventListener('mouseout', handleMouseLeave);
+        };
+    }, [follower]);*/
 
     return <div
             style={{width: "100%", height:"100%"}}
             ref={panel} id={"interactive-cover"}
-            onMouseMove={ handleMouseMove}
-            onMouseLeave={returnNPCFollowers}
     />
 }
