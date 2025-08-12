@@ -24,7 +24,21 @@ export default function Track({
     const offset = labelLeft ? offsetLeft : offsetRight
 
     useEffect(() => {
+        if(offsetRight === 0){
+            const container = document.getElementById("canvaMapFeatureMaps")
+            if (!container) return;
+            if (!labelRef?.current) return;
+            const rectContainer = container.getBoundingClientRect();
+            const rectLabel = labelRef.current.getBoundingClientRect();
+            const widthLabel = rectLabel.width;
+            const widthContainer = rectContainer.width;
+            setOffsetRight(widthContainer - widthLabel - 20)
+        }
+    }, [offsetRight]);
+
+    useEffect(() => {
         const container = document.getElementById("canvaMapFeatureMaps")
+        if (!container) return;
         const handleScroll = () => {
             const scrollX = container.scrollLeft;
             const rectContainer = container.getBoundingClientRect();
@@ -32,8 +46,8 @@ export default function Track({
             const rectLabel = labelRef.current.getBoundingClientRect();
             const widthLabel = rectLabel.width;
 
-            setOffsetLeft(Math.min(scrollX))
-            setOffsetRight(Math.max(scrollX + widthContainer - widthLabel))
+            setOffsetLeft(scrollX)
+            setOffsetRight(scrollX + widthContainer - widthLabel -20)
         };
 
         if (container && labelRef.current) {
@@ -47,6 +61,8 @@ export default function Track({
     const handleChangePositon = () => {
         setLabelLeft(!labelLeft)
     }
+
+    console.log(offsetRight)
 
     const styleTrack = {
         width: widthTrack + "px",
@@ -81,7 +97,10 @@ export default function Track({
 
 
     return (
-        <>
+        <div id={"div_" + track.id} style={{ ...styleTrack }} >
+            <Measures widthMap={widthMap} heightTrack={heightTrack} scale={scale} measure={measure} originPoint={originPoint} />
+            <div style={middleLine}></div>
+            <div style={middleLineS} />
             <div ref={labelRef}
                  style={{
                      position: "relative",
@@ -91,23 +110,17 @@ export default function Track({
                  }}
                  onClick={handleChangePositon}
             >{track.name}</div>
-            <div id={"div_" + track.id} style={{ ...styleTrack }} >
-                <Measures widthMap={widthMap} heightTrack={heightTrack} scale={scale} measure={measure} originPoint={originPoint} />
-                <div style={middleLine}></div>
-                <div style={middleLineS} />
-                {features.map((item, i) => <Feature key={"keyFeature_" + i + "_" + track.id + "_" + item.id}
-                                                    trackId={track.id}
-                                                    feature={item.feature}
-                                                    annotation={item.annotation}
-                                                    originPoint={originPoint}
-                                                    maxScore={item.maxScore}
-                                                    scale={scale}
-                                                    color={item.color}
-                                                    heightTrack={heightTrack}
-                                                    isAnnotation={handleAnnotation!==undefined}
-                />)}
-            </div>
-        </>
-
+            {features.map((item, i) => <Feature key={"keyFeature_" + i + "_" + track.id + "_" + item.id}
+                                                trackId={track.id}
+                                                feature={item.feature}
+                                                annotation={item.annotation}
+                                                originPoint={originPoint}
+                                                maxScore={item.maxScore}
+                                                scale={scale}
+                                                color={item.color}
+                                                heightTrack={heightTrack}
+                                                isAnnotation={handleAnnotation!==undefined}
+            />)}
+        </div>
     )
 }

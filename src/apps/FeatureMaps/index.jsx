@@ -104,7 +104,7 @@ export default function FeatureMaps({ idSession = "" }) {
                             <Tab label="3- View" value="3" />
                         </TabList>
                     </Box>
-                    <TabPanel sx={{padding: "0 24px 12px 24px"}} value="1"><LoadData handleToDraw={handleToDraw} handleToConfVisual={""} state={state} dispatch={dispatch} /></TabPanel>
+                    <TabPanel sx={{padding: "0 24px 12px 24px"}} value="1"><LoadData handleToDraw={handleToDraw} handleToConfVisual={()=>{setTab("2")}} state={state} dispatch={dispatch} /></TabPanel>
                     <TabPanel sx={{padding: "0 24px 12px 24px"}} value="2" ><DrawOptions handleToDraw={handleToDraw} state={state} dispatch={dispatch} /></TabPanel>
                     <TabPanel sx={{padding: 0}} value="3" ><Draw state={state} dispatch={dispatch} /></TabPanel>
                 </TabContext>

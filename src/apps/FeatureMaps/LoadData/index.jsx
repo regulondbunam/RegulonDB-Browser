@@ -11,7 +11,7 @@ import React from "react";
 
 
 
-export default function LoadData({state, dispatch, handleToDraw, handleToConfVisual}){
+export default function LoadData({state, dispatch, handleToDraw, handleToConfVisual=()=>{}}){
     const fileInputRef = React.useRef(null);
 
     const handleUpdateData = (raw) => {
@@ -85,7 +85,9 @@ export default function LoadData({state, dispatch, handleToDraw, handleToConfVis
                 >
                     Draw whit default configuration
                 </Button>
-                <Button  size='small' variant="contained" color="secondary" endIcon={<KeyboardArrowRightIcon/>} >
+                <Button  size='small' variant="contained" color="secondary" endIcon={<KeyboardArrowRightIcon/>}
+                    onClick={handleToConfVisual}
+                >
                     Next Step
                 </Button>
             </div>

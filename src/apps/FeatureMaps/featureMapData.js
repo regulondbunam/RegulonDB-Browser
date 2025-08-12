@@ -21,7 +21,7 @@ export let featureMapData = {
         "scaleBarColor": "#32617d",
         "scaleBarTextColor": "#ffffff",
         "trackHeight": 50,
-        "trackColor": "#ffffff",
+        "trackColor": "#c6fffb",
         "handleAnnotation": undefined,
         "labelColumn": FEATURE_MAP_COLUMNS[2],
         "featureBaseColor": "#AA01F9",
