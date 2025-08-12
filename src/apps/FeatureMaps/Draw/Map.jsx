@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef, useId } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Tracks from "./Tracks";
 import ScaleBar from "./ScaleBar";
 
 export default function Map({ state, dispatch }) {
     const mapRef = useRef(null);
-    const idMap = useId()
+    const idMap = "canvaMapFeatureMaps"
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
     /*_-_-_-_-_-_-_-_-_-_-_-_-constants-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ */
@@ -61,6 +61,7 @@ export default function Map({ state, dispatch }) {
                 overflow: 'auto',
                 cursor: 'grab',
                 background: backgroundColor,
+                userSelect: 'none',
             }}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}

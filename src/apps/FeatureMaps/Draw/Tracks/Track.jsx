@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import Feature from './Feature'
 import Measures from './Measures'
 import processFeatures from './processFeatures'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 export default function Track({
     handleAnnotation,
@@ -16,6 +17,36 @@ export default function Track({
     _governmentLabels = {},
     _governmentSymbols = {},
 }) {
+    const [offsetLeft, setOffsetLeft] = useState(0);
+    const [offsetRight, setOffsetRight] = useState(0);
+    const [labelLeft, setLabelLeft] = useState(true)
+    const labelRef = useRef(null)
+    const offset = labelLeft ? offsetLeft : offsetRight
+
+    useEffect(() => {
+        const container = document.getElementById("canvaMapFeatureMaps")
+        const handleScroll = () => {
+            const scrollX = container.scrollLeft;
+            const rectContainer = container.getBoundingClientRect();
+            const widthContainer = rectContainer.width;
+            const rectLabel = labelRef.current.getBoundingClientRect();
+            const widthLabel = rectLabel.width;
+
+            setOffsetLeft(Math.min(scrollX))
+            setOffsetRight(Math.max(scrollX + widthContainer - widthLabel))
+        };
+
+        if (container && labelRef.current) {
+            container.addEventListener("scroll", handleScroll);
+        }
+
+        return () => container.removeEventListener("scroll", handleScroll);
+
+    },[labelLeft])
+
+    const handleChangePositon = () => {
+        setLabelLeft(!labelLeft)
+    }
 
     const styleTrack = {
         width: widthTrack + "px",
@@ -48,28 +79,35 @@ export default function Track({
 
     const features = processFeatures(_features, _governmentSymbols, _governmentLabels, handleAnnotation, labelColumn)
 
+
     return (
-        <div id={"div_" + track.id} style={{ ...styleTrack }} >
-            <Measures widthMap={widthMap} heightTrack={heightTrack} scale={scale} measure={measure} originPoint={originPoint} />
-            <div style={middleLine}></div>
-            <div style={middleLineS} />
-            <div style={
-                {
-                    position: "fixed",
-                    right: 0
-                }
-            }>{track.name}</div>
-            {features.map((item, i) => <Feature key={"keyFeature_" + i + "_" + track.id + "_" + item.id}
-                trackId={track.id}
-                feature={item.feature}
-                annotation={item.annotation}
-                originPoint={originPoint}
-                maxScore={item.maxScore}
-                scale={scale}
-                color={item.color}
-                heightTrack={heightTrack}
-                isAnnotation={handleAnnotation!==undefined}
-            />)}
-        </div>
+        <>
+            <div ref={labelRef}
+                 style={{
+                     position: "relative",
+                     transform: `translateX(${offset}px)`,
+                     width: "fit-content",
+                     cursor: "pointer"
+                 }}
+                 onClick={handleChangePositon}
+            >{track.name}</div>
+            <div id={"div_" + track.id} style={{ ...styleTrack }} >
+                <Measures widthMap={widthMap} heightTrack={heightTrack} scale={scale} measure={measure} originPoint={originPoint} />
+                <div style={middleLine}></div>
+                <div style={middleLineS} />
+                {features.map((item, i) => <Feature key={"keyFeature_" + i + "_" + track.id + "_" + item.id}
+                                                    trackId={track.id}
+                                                    feature={item.feature}
+                                                    annotation={item.annotation}
+                                                    originPoint={originPoint}
+                                                    maxScore={item.maxScore}
+                                                    scale={scale}
+                                                    color={item.color}
+                                                    heightTrack={heightTrack}
+                                                    isAnnotation={handleAnnotation!==undefined}
+                />)}
+            </div>
+        </>
+
     )
 }
