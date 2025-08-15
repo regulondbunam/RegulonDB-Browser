@@ -1,5 +1,5 @@
 ///////////////////////////////////////////
-export const DEMO_FEATURE_MAP = `#promoterName\ttype\tregulatorName\tstrand\ttfrsDistToPm_minus_half\ttfrsDistToPm_plus_half\t11)riFunction
+export const DEMO_FEATURE_MAP = `#->promoterName\ttype\tregulatorName\tstrand\ttfrsDistToPm_minus_half\ttfrsDistToPm_plus_half\t11)riFunction
 araBp\ttfbs\tAraC\tR\t-72.0\t-56.0\t+
 araBp\ttfbs\tAraC\tR\t-51.0\t-35.0\t+
 araBp\ttfbs\tAraC\tR\t-146.0\t-130.0\t-

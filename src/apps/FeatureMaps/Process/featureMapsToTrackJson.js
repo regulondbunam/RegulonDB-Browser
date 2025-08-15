@@ -1,5 +1,6 @@
 import { SCHEMA_FEATURE, SCHEMA_TRACK, FM_COLUMNS, toNumber, convertStrand, getRandomSymbol, getRandomBrightColorHex } from "./util";
 import governmentLabelColor from "./governmentColors";
+import {FEATURE_MAP_COLUMNS} from "../static";
 
 export default function featureMapsToTrackJson(featureMaps,currentTracks,state) {
     const { labelColumn } = state._controlState
@@ -13,9 +14,22 @@ export default function featureMapsToTrackJson(featureMaps,currentTracks,state) 
             if (line.trim().startsWith('#->')){
                 const cells = line.split(/\t/);
                 cells[0] = cells[0].slice(3)
-                tracks["_governmentColumns"] = {
-                    originalColumns: cells
+                const _governmentsColumns = {
+                    columns: cells,
+                    mapping:{
+                        [FEATURE_MAP_COLUMNS[FM_COLUMNS.identifier]]: cells[FM_COLUMNS.identifier],
+                        [FEATURE_MAP_COLUMNS[FM_COLUMNS.type]]: cells[FM_COLUMNS.type],
+                        [FEATURE_MAP_COLUMNS[FM_COLUMNS.startPosition]]: cells[FM_COLUMNS.startPosition],
+                        [FEATURE_MAP_COLUMNS[FM_COLUMNS.endPosition]]: cells[FM_COLUMNS.endPosition],
+                        [FEATURE_MAP_COLUMNS[FM_COLUMNS.score]]: cells[FM_COLUMNS.score],
+                        [FEATURE_MAP_COLUMNS[FM_COLUMNS.evidence]]: cells[FM_COLUMNS.evidence],
+                        [FEATURE_MAP_COLUMNS[FM_COLUMNS.sequence]]: cells[FM_COLUMNS.sequence],
+                        [FEATURE_MAP_COLUMNS[FM_COLUMNS.additional]]: cells[FM_COLUMNS.additional],
+                        [FEATURE_MAP_COLUMNS[FM_COLUMNS.mapName]]: cells[FM_COLUMNS.mapName],
+                        [FEATURE_MAP_COLUMNS[FM_COLUMNS.strand]]: cells[FM_COLUMNS.strand],
+                    }
                 }
+                localStorage.setItem('featureMapColumns', JSON.stringify(_governmentsColumns))
             }
             continue;
         }

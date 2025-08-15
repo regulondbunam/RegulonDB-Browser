@@ -62,8 +62,6 @@ export default function Track({
         setLabelLeft(!labelLeft)
     }
 
-    console.log(offsetRight)
-
     const styleTrack = {
         width: widthTrack + "px",
         height: heightTrack + "px",
