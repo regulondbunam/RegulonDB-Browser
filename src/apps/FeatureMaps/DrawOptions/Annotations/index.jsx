@@ -15,13 +15,15 @@ export default function Annotations() {
 }
 
 export function AnnotationColumnSelect({state, dispatch}){
-    const { labelColumn } = state._controlState
+    let columnSelect = state._controlState.labelColumn
     let columns = null
     let storeColumns = null
+    //console.log(columnSelect)
     if(localStorage.getItem("featureMapColumns")){
         try{
             storeColumns = JSON.parse(localStorage.getItem("featureMapColumns"));
             columns = storeColumns.columns;
+            columnSelect = storeColumns.mapFMtoCL[columnSelect]
         }catch (e){
             console.error("Error parsing columns: ", e)
             columns = FEATURE_MAP_COLUMNS;
@@ -30,8 +32,18 @@ export function AnnotationColumnSelect({state, dispatch}){
         columns = FEATURE_MAP_COLUMNS;
     }
 
+    //console.log(columnSelect)
+
     const handleChange = (e) => {
-        dispatch({ type: ACTIONS.SET_COLUMN_LABEL, value: e.target.value })
+        let value = e.target.value;
+        console.log(value)
+        if(storeColumns){
+            const mapping = storeColumns.mapCLtoFM;
+            console.log(mapping)
+            value = mapping[value]
+        }
+        console.log(value)
+        dispatch({ type: ACTIONS.SET_COLUMN_LABEL, value: value })
     }
     return(
         <div>
@@ -39,7 +51,7 @@ export function AnnotationColumnSelect({state, dispatch}){
                 variant="standard"
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"
-                value={labelColumn}
+                value={columnSelect}
                 onChange={handleChange}
                 label="Age"
             >

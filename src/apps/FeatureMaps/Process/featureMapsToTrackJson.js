@@ -16,7 +16,7 @@ export default function featureMapsToTrackJson(featureMaps,currentTracks,state) 
                 cells[0] = cells[0].slice(3)
                 const _governmentsColumns = {
                     columns: cells,
-                    mapping:{
+                    mapFMtoCL:{
                         [FEATURE_MAP_COLUMNS[FM_COLUMNS.identifier]]: cells[FM_COLUMNS.identifier],
                         [FEATURE_MAP_COLUMNS[FM_COLUMNS.type]]: cells[FM_COLUMNS.type],
                         [FEATURE_MAP_COLUMNS[FM_COLUMNS.startPosition]]: cells[FM_COLUMNS.startPosition],
@@ -27,9 +27,24 @@ export default function featureMapsToTrackJson(featureMaps,currentTracks,state) 
                         [FEATURE_MAP_COLUMNS[FM_COLUMNS.additional]]: cells[FM_COLUMNS.additional],
                         [FEATURE_MAP_COLUMNS[FM_COLUMNS.mapName]]: cells[FM_COLUMNS.mapName],
                         [FEATURE_MAP_COLUMNS[FM_COLUMNS.strand]]: cells[FM_COLUMNS.strand],
+                    },
+                    mapCLtoFM:{
+                        [cells[FM_COLUMNS.identifier]]:FEATURE_MAP_COLUMNS[FM_COLUMNS.identifier],
+                        [cells[FM_COLUMNS.type]]:FEATURE_MAP_COLUMNS[FM_COLUMNS.type],
+                        [cells[FM_COLUMNS.startPosition]]:FEATURE_MAP_COLUMNS[FM_COLUMNS.startPosition],
+                        [cells[FM_COLUMNS.endPosition]]:FEATURE_MAP_COLUMNS[FM_COLUMNS.endPosition],
+                        [cells[FM_COLUMNS.sequence]]:FEATURE_MAP_COLUMNS[FM_COLUMNS.sequence],
+                        [cells[FM_COLUMNS.score]]:FEATURE_MAP_COLUMNS[FM_COLUMNS.score],
+                        [cells[FM_COLUMNS.evidence]]:FEATURE_MAP_COLUMNS[FM_COLUMNS.evidence],
+                        [cells[FM_COLUMNS.additional]]:FEATURE_MAP_COLUMNS[FM_COLUMNS.additional],
+                        [cells[FM_COLUMNS.mapName]]:FEATURE_MAP_COLUMNS[FM_COLUMNS.mapName],
                     }
                 }
                 localStorage.setItem('featureMapColumns', JSON.stringify(_governmentsColumns))
+            }else{
+                if (localStorage.getItem('featureMapColumns')){
+                    localStorage.removeItem('featureMapColumns')
+                }
             }
             continue;
         }
