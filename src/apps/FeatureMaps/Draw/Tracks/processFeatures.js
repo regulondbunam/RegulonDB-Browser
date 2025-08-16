@@ -22,7 +22,7 @@ export default function processFeatures(features, _governmentSymbols, _governmen
                 size: size
             },
             maxScore: maxScore,
-            color: _governmentLabels[feature[labelColumn]],
+            color: _governmentLabels[label],
         })
     }
     if (handleAnnotation) {
@@ -46,7 +46,17 @@ export default function processFeatures(features, _governmentSymbols, _governmen
 }
 
 function getLabelColumn(feature, labelColumn) {
-    return feature['label']
+    switch (labelColumn) {
+        case "mapName":
+            return feature.trackKey
+        case "endPosition":
+            return feature.rightEndPosition
+        case "startPosition":
+            return feature.leftEndPosition
+        default:
+            return feature[labelColumn]
+    }
+
 }
 
 function getSize(label, handleAnnotation) {

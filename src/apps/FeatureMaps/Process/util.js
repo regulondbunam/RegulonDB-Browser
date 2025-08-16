@@ -39,7 +39,8 @@ export const SCHEMA_FEATURE = {
     "sequence": "",
     "score": 0,
     "evidence": "", //s->strong w->week c->confirmed
-    "additional": ""
+    "additional": "",
+    "trackKey": "",
 }
 
 export const SCHEMA_TRACK = {

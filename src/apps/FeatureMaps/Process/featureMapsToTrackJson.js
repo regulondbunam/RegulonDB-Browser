@@ -38,6 +38,7 @@ export default function featureMapsToTrackJson(featureMaps,currentTracks,state) 
                         [cells[FM_COLUMNS.evidence]]:FEATURE_MAP_COLUMNS[FM_COLUMNS.evidence],
                         [cells[FM_COLUMNS.additional]]:FEATURE_MAP_COLUMNS[FM_COLUMNS.additional],
                         [cells[FM_COLUMNS.mapName]]:FEATURE_MAP_COLUMNS[FM_COLUMNS.mapName],
+                        [cells[FM_COLUMNS.strand]]:FEATURE_MAP_COLUMNS[FM_COLUMNS.strand],
                     }
                 }
                 localStorage.setItem('featureMapColumns', JSON.stringify(_governmentsColumns))
@@ -69,6 +70,7 @@ export default function featureMapsToTrackJson(featureMaps,currentTracks,state) 
                     break;
                 default:
                     let feature = { ...SCHEMA_FEATURE };
+                    feature.trackKey = cells[FM_COLUMNS.mapName]
                     feature.id = `feature_${cells[FM_COLUMNS.mapName]}_${Math.floor(Math.random() * 1000)}`
                     feature.type = cells[FM_COLUMNS.type]
                     feature.label = cells[FM_COLUMNS.identifier];

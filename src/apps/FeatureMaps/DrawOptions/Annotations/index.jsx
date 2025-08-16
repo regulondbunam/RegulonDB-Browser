@@ -36,13 +36,10 @@ export function AnnotationColumnSelect({state, dispatch}){
 
     const handleChange = (e) => {
         let value = e.target.value;
-        console.log(value)
         if(storeColumns){
             const mapping = storeColumns.mapCLtoFM;
-            console.log(mapping)
             value = mapping[value]
         }
-        console.log(value)
         dispatch({ type: ACTIONS.SET_COLUMN_LABEL, value: value })
     }
     return(

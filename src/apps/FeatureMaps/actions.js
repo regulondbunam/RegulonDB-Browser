@@ -1,5 +1,6 @@
 import { initControlState } from "./Process";
 import governmentLabelColor from "./Process/governmentColors";
+import governmentLabels from "./Process/governmentLabels";
 import { ACTIONS } from "./static";
 
 export default function reducer(state, action) {
@@ -31,21 +32,7 @@ export default function reducer(state, action) {
         case ACTIONS.SET_HANDLE_ANNOTATIONS:
             return { ...state, _controlState: { ...state._controlState, handleAnnotation: action.value } }
         case ACTIONS.SET_COLUMN_LABEL:
-            let _governmentLabels = {}
-            for (const key in state.tracks) {
-                if (
-                    Object.prototype.hasOwnProperty.call(state.tracks, key) 
-                    && key !== "_governmentLabels" 
-                    && key !== "_governmentSymbols" ) {
-                    const features = state.tracks[key].features;
-                    for (const feature of features) {
-                        const value = feature[action.value]
-                        if (!_governmentLabels[value]) {
-                            _governmentLabels[value] = governmentLabelColor(action.value,value)
-                        }
-                    }
-                }
-            }
+            let _governmentLabels = governmentLabels(state.tracks, action.value)
             return { ...state, tracks: {...state.tracks, _governmentLabels: _governmentLabels}, _controlState: { ...state._controlState, labelColumn: action.value } }
         case ACTIONS.SET_FEATURE_COLOR:
             return {...state, tracks: {...state.tracks, _governmentLabels: {...state.tracks._governmentLabels, [action.feature]: action.color}}}
