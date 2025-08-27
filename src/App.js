@@ -2,7 +2,7 @@ import React from "react";
 import Layout from "./components/layout/Layout";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./apps/home";
+//import Home from "./apps/home";
 import Search from "./apps/search";
 import Gene from "./apps/gene";
 import DrawingTracesInterface from "./apps/dtt";
@@ -20,12 +20,12 @@ import GensorUnit from "./apps/gensorUnit";
 import { EmbeddedSandbox } from "./apps/wsSandbox";
 import Manual from "./apps/manual";
 import ExperimentalDatasets from "./apps/experimentalDatasets";
-import MCO from "./apps/mco";
+import {MCO, GO} from "./apps/mco/ontologies";
 import EvidenceTree from './apps/evidences'
 import TFPSSMs, { TFPSSMsTest } from "./apps/TF-PSSMs";
 import Notebooks from "./apps/Notebooks";
 import IGVBrowser from "./apps/IGVBrowser";
-import GeneOntology from "./apps/GeneOntology";
+//import GeneOntology from "./apps/GeneOntology";
 import UiDocs from "./UiComponents/UiDocs";
 import { PATH_HT } from "./apps/HighThroughput2";
 import {FeatureMap_PATH} from "./apps/FeatureMaps"
@@ -53,8 +53,8 @@ const router = createBrowserRouter([
       },
       {
         path: "go",
-        element: <GeneOntology />,
-        children: [{ path: ":keyword" }],
+        element: <GO />,
+        children: [{ path: ":tree" }],
       },
       {
         path: "uiDocs",

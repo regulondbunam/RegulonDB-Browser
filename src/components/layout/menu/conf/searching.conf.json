@@ -61,6 +61,12 @@
           "link" : "/mco"
         },
         {
+          "id": "GO-browsing",
+          "label": "Gene Ontology",
+          "disabled": true,
+          "link" : "/go"
+        },
+        {
           "id": "Evidence-browsing",
           "label": "Evidences Tree",
           "disabled": true,
