@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { DataVerifier } from "../../../../components/ui-components";
 
 function GeneOntology({
@@ -6,26 +6,54 @@ function GeneOntology({
   cellularComponent,
   molecularFunction,
 }) {
-  return <div>
-    {DataVerifier.isValidArray(biologicalProcess) && (
-        <div>
-            <p><b>Biological Process:</b></p>
-            {biologicalProcess.map((bp, indx)=><p key={"biologicalProcess_"+indx} >{bp.name}</p>)}
-        </div>
-    )}
-    {DataVerifier.isValidArray(biologicalProcess) && (
-        <div>
-            <p><b>Cellular Component:</b></p>
-            {cellularComponent.map((cc, indx)=><p key={"cellularComponent_"+indx} >{cc.name}</p>)}
-        </div>
-    )}
-    {DataVerifier.isValidArray(molecularFunction) && (
-        <div>
-            <p><b>Biological Process:</b></p>
-            {molecularFunction.map((mf, indx)=><p key={"molecularFunction_"+indx} >{mf.name}</p>)}
-        </div>
-    )}
-  </div>;
+  const [expanded, setExpanded] = useState(null); // guarda la key expandida
+
+  const renderTerms = (terms, keyPrefix, title) =>
+    DataVerifier.isValidArray(terms) && (
+      <div>
+        <p><b>{title}:</b></p>
+        {terms.map((t, indx) => {
+          const key = keyPrefix + "_" + indx;
+          const isExpanded = expanded === key;
+
+          return (
+            <p key={key}>
+              {t.name}{" "}
+              <i>
+                (
+                {isExpanded ? (
+                  <span>
+                    {t.genes.join(", ")}{" "}
+                    <span
+                      style={{ cursor: "pointer", color: "#72A7C7" }}
+                      onClick={() => setExpanded(null)}
+                    >
+                      [hide]
+                    </span>
+                  </span>
+                ) : (
+                  <span
+                    style={{ cursor: "pointer", color: "#72A7C7" }}
+                    onClick={() => setExpanded(key)}
+                  >
+                    {t.genes.length}
+                  </span>
+                )}
+                )
+              </i>
+            </p>
+          );
+        })}
+      </div>
+    );
+
+  return (
+    <div>
+      {renderTerms(biologicalProcess, "biologicalProcess", "Biological Process")}
+      {renderTerms(cellularComponent, "cellularComponent", "Cellular Component")}
+      {renderTerms(molecularFunction, "molecularFunction", "Molecular Function")}
+    </div>
+  );
 }
 
 export default GeneOntology;

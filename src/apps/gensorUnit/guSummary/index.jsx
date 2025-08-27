@@ -56,8 +56,8 @@ export default function Summary({
         if(DataVerifier.isValidArray(biologicalProcess) || DataVerifier.isValidArray(cellularComponent) || DataVerifier.isValidArray(molecularFunction)){
           _sections.push({
             id: "gi_section2_geneOntology",
-            label: `Gene Ontology`,
-            title: `Gene Ontology`,
+            label: `Gene Ontology of genes of the GU`,
+            title: `Gene Ontology of genes of the GU`,
             component: (
               <div >
                <GeneOntology {...gensorUnit.geneOntology}/>
