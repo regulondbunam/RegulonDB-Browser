@@ -67,8 +67,8 @@ export default function Document({ regulonData, section }) {
         if(DataVerifier.isValidObject(terms)){
             _sections.push({
                 id: "RegulonTab_Terms",
-                label: "GO Terms of regulated genes",
-                title: "GO Terms of regulated genes ",
+                label: "GO Terms of regulator",
+                title: "GO Terms of regulator",
                 component: <div style={{ overflow: "auto" }} >
                     <Terms geneOntology={terms.geneOntology} multifun={terms.multifun} allCitations={indexedCitations} />
                 </div>,

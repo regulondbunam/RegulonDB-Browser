@@ -72,15 +72,24 @@ function formatOntologyData(ontology) {
   return { items, allParents };
 }
 
-export default function OntologyBrowser(params) {
-  const ontology = ontologyData.collectionData?.filter(term => term.ontologyId === "RDBONTOLMCO00001") || [];
+export default function OntologyBrowser({ ontologyId, title }) {
+  const ontology =
+    ontologyData.collectionData?.filter(
+      (term) => term.ontologyId === ontologyId
+    ) || [];
+
   if (!ontology || ontology.length === 0) {
-    return <div style={{ padding: "20px", textAlign: "center" }}>No ontology data available.</div>;
+    return (
+      <div style={{ padding: "20px", textAlign: "center" }}>
+        No ontology data available.
+      </div>
+    );
   }
+
   return (
     <div>
       <Cover>
-        <h1>Ontology Tree Browser</h1>
+        <h1>{title}</h1>
       </Cover>
       <TreeOntology terms={ontology} />
     </div>

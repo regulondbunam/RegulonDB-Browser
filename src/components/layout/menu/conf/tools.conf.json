@@ -27,6 +27,11 @@
                     "id": "mco_explorer",
                     "label": "Microbial Conditions Ontology (MCO) Browser",
                     "link" : "/mco"
+                },
+                {
+                    "id": "go_explorer",
+                    "label": "Gene Ontology (GO) Browser",
+                    "link" : "/go"
                 }
             ]
         },
