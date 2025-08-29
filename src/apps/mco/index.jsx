@@ -91,12 +91,12 @@ export default function OntologyBrowser({ ontologyId, title }) {
       <Cover>
         <h1>{title}</h1>
       </Cover>
-      <TreeOntology terms={ontology} />
+      <TreeOntology terms={ontology} ontologyId={ontologyId} />
     </div>
   );
 }
 
-function TreeOntology({ terms }) {
+function TreeOntology({ terms, ontologyId }) {
   const [focusedItem, setFocusedItem] = useState(null);
   const [expandedItems, setExpandedItems] = useState(["root"]);
   const [selectedItems, setSelectedItems] = useState([]);
@@ -187,7 +187,7 @@ function TreeOntology({ terms }) {
         </div>
       </div>
       <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "auto" }}>
-        {selectedItems.length > 0 && <Term {...items[selectedItems[0]].details} />}
+        {selectedItems.length > 0 && <Term {...items[selectedItems[0]].details } ontologyId={ontologyId}/>}
       </div>
     </div>
   );

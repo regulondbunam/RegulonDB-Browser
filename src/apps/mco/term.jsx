@@ -4,6 +4,7 @@ import growthConditionsData from "./growthCondition.json";
 
 export default function Term({
   name,
+  description,
   definition,
   oboId,
   path,
@@ -12,7 +13,8 @@ export default function Term({
   hasDbXRef,
   hasOboNameSpace,
   hasRelatedSynonyms,
-  synonyms
+  synonyms,
+  ontologyId
 }) {
   const [activeTab, setActiveTab] = useState("details");
 
@@ -20,6 +22,8 @@ export default function Term({
   const relatedGrowthConditions = growthConditionsData.filter(gc =>
     gc.terms.some(term => term.name === name)
   );
+
+  const isGO = ontologyId === "RDBONTOLGON00001";
 
   return (
     <div style={{
@@ -37,13 +41,21 @@ export default function Term({
         <button
           style={{ padding: "10px", border: "none", background: activeTab === "details" ? "#1F3D4E" : "#ccc", color: "white", cursor: "pointer" }}
           onClick={() => setActiveTab("details")}>Details</button>
-        <button
-          style={{ padding: "10px", border: "none", background: activeTab === "growth" ? "#1F3D4E" : "#ccc", color: "white", cursor: "pointer" }}
-          onClick={() => setActiveTab("growth")}>Growth Conditions</button>
+        {!isGO && (
+          <button
+            style={{ padding: "10px", border: "none", background: activeTab === "growth" ? "#1F3D4E" : "#ccc", color: "white", cursor: "pointer" }}
+            onClick={() => setActiveTab("growth")}>Growth Conditions</button>
+        )}
       </div>
 
       {activeTab === "details" && (
         <div>
+          {description && isGO &&(
+            <div style={{ marginBottom: "10px" }}>
+              <h4 style={{ color: "#1F3D4E", margin: 0 }}>Description:</h4>
+              <p style={{ margin: "5px 0" }}>{description}</p>
+            </div>
+          )}
           {path && path.length > 0 && (
             <div style={{ marginBottom: "10px" }}>
               <h4 style={{ color: "#1F3D4E", margin: 0 }}>Path:</h4>
@@ -86,9 +98,11 @@ export default function Term({
               <p style={{ margin: "5px 0" }}>{definition.text}</p>
             </div>
           )}
-          <a href={iri} target="_blank" rel="noopener noreferrer" style={{ color: "#1F3D4E", textDecoration: "none", fontWeight: "bold" }}>
-            obolibrary.org
-          </a>
+          {!isGO && (
+            <a href={iri} target="_blank" rel="noopener noreferrer" style={{ color: "#1F3D4E", textDecoration: "none", fontWeight: "bold" }}>
+              obolibrary.org
+            </a>
+          )}
         </div>
       )}
 
