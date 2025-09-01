@@ -6,6 +6,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import Tab from "@mui/material/Tab";
 import useTabsVM from "../viewModel/useTabsVM";
 import LoadData from "./LoadData";
+import OptionsDraw from "./OptionsDraw";
 
 export default function Tabs() {
     const {tab, handleChangeTab} = useTabsVM();
@@ -22,7 +23,7 @@ export default function Tabs() {
                     <Tab label="3- View" value={3} />
                 </TabList>
                 <TabPanel value={1}><LoadData /></TabPanel>
-                <TabPanel value={2}>2</TabPanel>
+                <TabPanel value={2}><OptionsDraw/></TabPanel>
                 <TabPanel value={3}>3</TabPanel>
             </TabContext>
         </div>
