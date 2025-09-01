@@ -10,10 +10,11 @@ import {
   CITATION_SIZE,
 } from "../../../../components/datamartSchema";
 import { LinealSequence } from "../../../../components/sequence";
-//import InputLabel from "@mui/material/InputLabel";
-//import MenuItem from "@mui/material/MenuItem";
-//import FormControl from "@mui/material/FormControl";
-//import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import FeatureMap from "./FeatureMaps";
 //import Map from "../../../FeatureMaps/Map";
 
 const COLUMNS = [
@@ -225,107 +226,40 @@ function formatData(regulatoryInteractions = [], allCitations) {
   return data;
 }
 
-function getOverlap(l, r, positions = []) {
-  return positions.some((pos) => l <= pos.r && r >= pos.l);
-}
-
-function formatDataTracks(regulatoryInteractions = []) {
-  let tracks = {};
-  let promoters = {};
-  let genes = {};
-  regulatoryInteractions.forEach((regulatoryInteraction) => {
-    if (
-      DataVerifier.isValidObject(regulatoryInteraction.regulatedEntity) &&
-      DataVerifier.isValidObject(regulatoryInteraction.regulatoryBindingSites)
-    ) {
-      const RE = regulatoryInteraction.regulatedEntity;
-      const RBS = regulatoryInteraction.regulatoryBindingSites;
-      if (!tracks.hasOwnProperty(RE._id)) {
-        tracks[RE._id] = {
-          features: {},
-          leftEndPosition: undefined,
-          rightEndPosition: undefined,
-          type: "FeatureMap",
-        };
-      }
-      let sequence = "";
-      if (DataVerifier.isValidString(RBS.sequence)) {
-        sequence = RBS.sequence.match(/[A-Z]/g).join("");
-      }
-      tracks[RE._id].features[regulatoryInteraction._id] = {
-        _id: regulatoryInteraction._id,
-        leftEndPosition: RBS.leftEndPosition,
-        rightEndPosition: RBS.rightEndPosition,
-        sequence: sequence,
-        strand: RBS.strand,
-        objectRGBColor:
-          RBS.function === "Activator" ? "0, 250, 0" : "250, 0, 0",
-        objectType: "RegulatoryInteraction",
-        objectData: regulatoryInteraction,
-      };
-      if (
-        DataVerifier.isValidNumber(RBS.leftEndPosition) &&
-        DataVerifier.isValidNumber(RBS.rightEndPosition)
-      ) {
-        if (
-          tracks[RE._id].leftEndPosition === undefined ||
-          tracks[RE._id].leftEndPosition < RBS.leftEndPosition
-        ) {
-          tracks[RE._id].leftEndPosition = RBS.leftEndPosition;
-        }
-        if (
-          tracks[RE._id].rightEndPosition === undefined ||
-          tracks[RE._id].rightEndPosition < RBS.rightEndPosition
-        ) {
-          tracks[RE._id].rightEndPosition = RBS.rightEndPosition;
-        }
-      }
-    }
-  });
-  return tracks;
-}
-
 function RegulatoryInteractions(props) {
   const [viewOption, setViewOption] = React.useState(0);
-  /*
+
   const handleChange = (event) => {
     setViewOption(event.target.value);
-  };*/
+  };
   return (
     <div>
-      {/*
       <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="demo-simple-select-standard-label">
           view Option
         </InputLabel>
         <Select
+            variant="standard"
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
           value={viewOption}
           onChange={handleChange}
           label="View Option"
         >
-          <MenuItem value={0}>RI Table</MenuItem>
-          <MenuItem value={1}>Graphs-TF</MenuItem>
+          <MenuItem value={0}>Table</MenuItem>
+          <MenuItem value={1}>Feature Map (to promoter)</MenuItem>
+          <MenuItem value={2}>Feature Map (to gene)</MenuItem>
         </Select>
       </FormControl>
       <br />
-      */}
       {viewOption === 0 && <RITable {...props} />}
-      {viewOption === 1 && <RIMap {...props} />}
+      {viewOption === 1 && <FeatureMap  {...props} type="promoter" />}
+      {viewOption === 2 && <FeatureMap  {...props} type="gene" />}
     </div>
   );
 }
 
-function RIMap({ regulatoryInteractions, allCitations }) {
-  //console.log(regulatoryInteractions);
-  const tracks = useMemo(() => {
-    return formatDataTracks(regulatoryInteractions);
-  }, [regulatoryInteractions]);
-  console.log(tracks);
-  return <></>;
-  //return <Map featureData={data} />;
-}
+
 
 function RITable({ regulatoryInteractions, allCitations, tfName}) {
   const data = useMemo(() => {
