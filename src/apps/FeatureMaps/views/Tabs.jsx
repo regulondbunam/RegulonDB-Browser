@@ -7,10 +7,12 @@ import Tab from "@mui/material/Tab";
 import useTabsVM from "../viewModel/useTabsVM";
 import LoadData from "./LoadData";
 import OptionsDraw from "./OptionsDraw";
+import DrawFeatureMap from "../DrawFeatureMap";
+import {useStore} from "../store";
 
 export default function Tabs() {
     const {tab, handleChangeTab} = useTabsVM();
-
+    const {drawState} = useStore()
     return (
         <div>
             <Cover >
@@ -22,9 +24,9 @@ export default function Tabs() {
                     <Tab label="2- Configure Visualization" value={2} />
                     <Tab label="3- View" value={3} />
                 </TabList>
-                <TabPanel value={1}><LoadData /></TabPanel>
-                <TabPanel value={2}><OptionsDraw/></TabPanel>
-                <TabPanel value={3}>3</TabPanel>
+                <TabPanel sx={{padding: "0 24px 12px 24px"}} value={1}><LoadData /></TabPanel>
+                <TabPanel sx={{padding: "0 24px 12px 24px"}} value={2}><OptionsDraw/></TabPanel>
+                <TabPanel sx={{padding: 0}} value={3}><DrawFeatureMap featureMapData={drawState} /></TabPanel>
             </TabContext>
         </div>
     )

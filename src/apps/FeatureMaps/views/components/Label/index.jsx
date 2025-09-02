@@ -14,7 +14,7 @@ export default function LabelOptions(){
 
     return(
         <div>
-            <FormControl size="small" fullWidth >
+            <FormControl size="small" sx={{maxWidth: 300, m: 1, minWidth: 120}} >
                 <InputLabel id="handle-feature-selector">Label Mode</InputLabel>
                 <Select
                     labelId="handle-feature-selector"

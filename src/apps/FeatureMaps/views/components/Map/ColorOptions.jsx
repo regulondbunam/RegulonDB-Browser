@@ -5,7 +5,6 @@ import { useStore } from "../../../store";
 export default function ColorOptions(){
   const {drawState, setColorOptions} = useStore()
   const {background, tracks} = drawState.options.colors
-  console.log(drawState);
     const handleSetColor = (color)=>{
       setColorOptions({...drawState.options.colors, background: color+""})
     }
