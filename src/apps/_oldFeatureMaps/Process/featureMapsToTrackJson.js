@@ -97,3 +97,16 @@ export default function featureMapsToTrackJson(featureMaps,currentTracks,state) 
 
     return tracks;
 }
+
+/*
+const COLUMNS_FM = {
+  MAP_NAME: 0,
+  FEATURE_TYPE: 1,
+  IDENTIFIER: 2,
+  STRAND: 3,
+  START: 4,
+  END: 5,
+  SEQUENCE: 6,
+  SCORE: 7,
+};
+* */

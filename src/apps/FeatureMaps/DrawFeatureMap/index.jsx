@@ -1,16 +1,23 @@
 import { useStore } from "./store";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Controls from  "./views/Controls"
-import { createTracks } from "./model/process";
+import Annotations from "./views/Annotations"
+import { processRaw } from "./model/process";
 
 export default function DrawFeatureMap({featureMapData}) {
   const { featureMapData: _fm,setFeatureMapData, isMenuOpen } = useStore()
 
+
   useEffect(() => {
-    const tracks = createTracks(featureMapData.rawData);
-    console.log(tracks);
-    setFeatureMapData(featureMapData);
+    processRaw(featureMapData.rawData).then((data)=>{
+      if (data){
+        setTimeout(()=>{
+          setFeatureMapData({...featureMapData, ...data });
+        },500)
+      }
+    }).catch(e => console.log("error to create tracks"+e));
   }, [featureMapData, setFeatureMapData]);
+
 
   if (!_fm) return(
     <div>
@@ -21,10 +28,10 @@ export default function DrawFeatureMap({featureMapData}) {
   return(
     <div>
       <Controls />
-      <div style={{ display: "grid", gridTemplateColumns: isMenuOpen ? "3fr 1fr" : "4fr", height: "calc(100vh - 184px)"}} >
-
+      <div style={{ display: "grid", gridTemplateColumns: isMenuOpen ? "3fr 1fr" : "4fr", height: "calc(100vh - 40px)"}} >
+        <div>map</div>
+        {isMenuOpen && <Annotations /> }
       </div>
-      DrawFeatureMap
     </div>
   )
 }

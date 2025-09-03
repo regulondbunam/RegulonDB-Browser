@@ -15,7 +15,16 @@ const COLUMNS_FM = {
 
 export default function tracksFromFeatureMap(rawFM) {
   if (!rawFM) return {};
-
+  const columns = [
+      "MAP_NAME",
+      "FEATURE_TYPE",
+      "IDENTIFIER",
+      "STRAND",
+      "START",
+      "END",
+      "SEQUENCE",
+      "SCORE",
+  ];
   const tracks = {};
   const lines = rawFM.split("\n");
 
@@ -61,5 +70,5 @@ export default function tracksFromFeatureMap(rawFM) {
     tracks[trackName].features[featureID] = feature;
   }
 
-  return tracks;
+  return { tracks, columns };
 }

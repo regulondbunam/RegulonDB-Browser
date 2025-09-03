@@ -1,9 +1,12 @@
 export const featureMapDataTemplate = {
   _version: "1.0.0",
   drawState: {
-    annotation: null,
+    annotations: {
+      columnSelect: 0,
+      labels: {}
+    },
     rawData: "",
-    title: "feature map",
+    title: "FeatureMap Demo",
     tracks: null,
     options: {
       measure: 100,

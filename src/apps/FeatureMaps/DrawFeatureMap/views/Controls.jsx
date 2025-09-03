@@ -3,6 +3,8 @@ import {
   RestartAlt as RestartAltIcon,
   Menu as MenuIcon,
   MenuOpen as MenuOpenIcon,
+  ZoomIn,
+  ZoomOut,
 } from "@mui/icons-material";
 import useControlsVM from "../viewModel/useControlsVM";
 
@@ -20,10 +22,13 @@ export default function Controls() {
     <div>
       <div
         style={{
-          height: "33px",
+          height: "36px",
           display: "grid",
           alignItems: "center",
           gridTemplateColumns: "3fr 1fr",
+          backgroundColor: "#a8c5ff",
+          background: "linear-gradient(90deg,rgba(155, 213, 235, 1) 0%, rgba(255, 255, 255, 0) 100%)",
+          padding: "1px 0 3px 1px",
         }}
       >
         <div>
@@ -40,22 +45,20 @@ export default function Controls() {
         <div
           style={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "flex-end",
             alignItems: "center",
           }}
         >
-          <ButtonGroup variant="contained" size="small">
+          <ButtonGroup variant="contained" size="small" >
             <Button color="secondary" onClick={handleUpScale}>
-              +
+              <ZoomIn />
             </Button>
             <Button color="secondary" onClick={handleResetScale}>
               <RestartAltIcon />
             </Button>
             <Button color="secondary" onClick={handleDownScale}>
-              -
+              <ZoomOut />
             </Button>
-          </ButtonGroup>
-          <ButtonGroup variant="contained" size="small">
             <Button onClick={setMenuView}>
               {isMenuOpen ? <MenuIcon /> : <MenuOpenIcon />}
             </Button>
