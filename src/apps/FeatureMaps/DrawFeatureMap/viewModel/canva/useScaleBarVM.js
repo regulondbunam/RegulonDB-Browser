@@ -21,8 +21,6 @@ export default function useScaleBarVM() {
   const refScaleBar = useRef(null);
   const refResizeBar = useRef(null);
 
-  console.log(lines);
-
   useEffect(() => {
     const element = refScaleBar.current
     const resizeObserver = new ResizeObserver((entries) => {

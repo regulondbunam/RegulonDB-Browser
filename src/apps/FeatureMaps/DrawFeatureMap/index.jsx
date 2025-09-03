@@ -19,7 +19,7 @@ export default function DrawFeatureMap({featureMapData}) {
     }).catch(e => console.log("error to create tracks"+e));
   }, [featureMapData, setFeatureMapData, setDrawData]);
 
-  console.log(scaleBar);
+  //console.log(scaleBar);
 
   if (!_fm) return(
     <div>
