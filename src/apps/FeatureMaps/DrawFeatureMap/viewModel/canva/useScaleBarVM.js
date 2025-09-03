@@ -1,5 +1,5 @@
 import { useStore } from "../../store";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function getPosition(event, rect) {
   const x = event.clientX - rect.left;
@@ -10,11 +10,30 @@ function getPosition(event, rect) {
 export default function useScaleBarVM() {
   const { featureMapData, scaleBar } = useStore();
   const { start: endLimit, end: startLimit, origin } = featureMapData.options.limits;
+  const { end: endPosition, start: startPosition,  } = scaleBar.positions
   const [initResize, setInitResize] = useState(null);
-  const measure = featureMapData.options.measure;
-  const refScaleBar = useRef(null);
-  const refResizeBar = useRef();
+  const [scaleBarWidth, setScaleBarWidth] = useState(0);
 
+  const measure = featureMapData.options.measure;
+  const sizeSection = Math.abs(startPosition - endPosition);
+  const relativeMeasure = Math.floor(measure * scaleBarWidth / sizeSection);
+  const lines = Math.floor(scaleBarWidth / relativeMeasure)+1;
+  const refScaleBar = useRef(null);
+  const refResizeBar = useRef(null);
+
+  console.log(lines);
+
+  useEffect(() => {
+    const element = refScaleBar.current
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        const { width } = entry.contentRect;
+        setScaleBarWidth(width)
+      }
+    });
+    resizeObserver.observe(element);
+    return () => resizeObserver.unobserve(element);
+  }, [refScaleBar]);
 
   const onResizeStart = (e) => {
     if (!refScaleBar.current) return;
@@ -48,11 +67,13 @@ export default function useScaleBarVM() {
 
   //console.log(featureMapData);
   return {
-    endPosition: scaleBar.positions.end,
-    startPosition: scaleBar.positions.start,
+    endPosition,
+    startPosition,
     endLimit,
     startLimit,
+    lines,
     measure,
+    relativeMeasure,
     origin,
     refScaleBar,
     refResizeBar,

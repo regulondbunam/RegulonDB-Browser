@@ -12,7 +12,22 @@
 .resizeBar{
     height: 100%;
     width: 0;
-    position: relative;
+    position: absolute;
     left: 0;
     background-color: rgba(250, 201, 255, 0.61);
+}
+
+.line{
+    height: 10px;
+    width: 1px;
+    background-color: white;
+    position: relative;
+    bottom: -15px;
+}
+
+.lineLabel{
+    position: relative;
+    color: white;
+    top: -10px;
+    font-size: 11px;
 }

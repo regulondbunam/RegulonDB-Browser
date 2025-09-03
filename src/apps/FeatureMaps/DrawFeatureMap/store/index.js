@@ -5,11 +5,12 @@ import setScale from "./setScale";
 import setDrawData from "./setDrawData";
 import setAnnotationColor from "./setAnnotationColor";
 import setAnnotationsLabels from "./setAnnotationsLabels";
+import setFeatureMapData from "./setFeatureMapData";
 
 export const useStore = create((set) => ({
   ...initialMapState,
   setFeatureMapData: (newFeatureMapData) =>
-    set((state) => ({ ...state, featureMapData: newFeatureMapData })),
+    set((state) => (setFeatureMapData(state, newFeatureMapData))),
   setScale: (newScale) => set((state) => setScale(state, newScale)),
   setMenuView: () =>
     set((state) => ({ ...state, isMenuOpen: !state.isMenuOpen })),

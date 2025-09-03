@@ -6,7 +6,7 @@ import Annotations from "./views/Annotations"
 import { processRaw } from "./model/process";
 
 export default function DrawFeatureMap({featureMapData}) {
-  const { featureMapData: _fm,setFeatureMapData, isMenuOpen, setDrawData } = useStore()
+  const { featureMapData: _fm,setFeatureMapData, isMenuOpen, setDrawData, scaleBar } = useStore()
 
   useEffect(() => {
     processRaw(featureMapData.rawData).then((data)=>{
@@ -18,6 +18,8 @@ export default function DrawFeatureMap({featureMapData}) {
       }
     }).catch(e => console.log("error to create tracks"+e));
   }, [featureMapData, setFeatureMapData, setDrawData]);
+
+  console.log(scaleBar);
 
   if (!_fm) return(
     <div>
