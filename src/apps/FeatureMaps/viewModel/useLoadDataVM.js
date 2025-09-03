@@ -1,8 +1,7 @@
 import {useStore} from "../store"
 
 export default function useLoadDataVM() {
-    const {drawState, setTitle, setRawData} = useStore()
-    const { title, rawData } = drawState
+    const { title, rawData , setTitle, setRawData} = useStore()
 
     const handleTitleChange = (event) => {
         const value = event.target.value

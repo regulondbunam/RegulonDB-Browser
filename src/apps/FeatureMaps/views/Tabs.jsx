@@ -12,7 +12,7 @@ import {useStore} from "../store";
 
 export default function Tabs() {
     const {tab, handleChangeTab} = useTabsVM();
-    const {drawState} = useStore()
+    const featureMapData = useStore()
     return (
         <div>
             <Cover >
@@ -26,7 +26,7 @@ export default function Tabs() {
                 </TabList>
                 <TabPanel sx={{padding: "0 24px 12px 24px"}} value={1}><LoadData /></TabPanel>
                 <TabPanel sx={{padding: "0 24px 12px 24px"}} value={2}><OptionsDraw/></TabPanel>
-                <TabPanel sx={{padding: 0}} value={3}><DrawFeatureMap featureMapData={drawState} /></TabPanel>
+                <TabPanel sx={{padding: 0}} value={3}><DrawFeatureMap featureMapData={featureMapData} /></TabPanel>
             </TabContext>
         </div>
     )

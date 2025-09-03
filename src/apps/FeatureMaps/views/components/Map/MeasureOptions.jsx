@@ -6,8 +6,8 @@ import * as React from "react";
 import { useStore } from "../../../store";
 
 export default function MeasureOptions() {
-  const { drawState, setDrawOptions } = useStore()
-    const { measure, limits, trackHeight } = drawState.options
+  const { options, setDrawOptions } = useStore()
+    const { measure, limits, trackHeight } = options
 
     const scaleSelectRef = React.useRef(null);
     const limitStartRef = React.useRef(null);
@@ -22,7 +22,7 @@ export default function MeasureOptions() {
 
         scaleSelectRef.current = setTimeout(()=>{
             if(value>10){
-                setDrawOptions({...drawState.options, measure: value})
+                setDrawOptions({...options, measure: value})
             }
         })
     }
@@ -34,7 +34,7 @@ export default function MeasureOptions() {
         }
         limitStartRef.current = setTimeout(()=>{
             if(value>0 && value>limits.start){
-                setDrawOptions({...drawState.options, limits: {...limits, start: value}})
+                setDrawOptions({...options, limits: {...limits, start: value}})
             }
         },300)
     }
@@ -46,7 +46,7 @@ export default function MeasureOptions() {
         }
         limitEndRef.current = setTimeout(()=>{
             if(value>0 && value<limits.end){
-                setDrawOptions({...drawState.options, limits: {...limits, end: value}})
+                setDrawOptions({...options, limits: {...limits, end: value}})
             }
         },300)
     }
@@ -58,7 +58,7 @@ export default function MeasureOptions() {
         }
         trackHeightRef.current = setTimeout(()=>{
             if(value>50 && value<1000 && value!== trackHeight){
-                setDrawOptions({...drawState.options, trackHeight: value})
+                setDrawOptions({...options, trackHeight: value})
             }
         })
     }
@@ -83,7 +83,7 @@ export default function MeasureOptions() {
             </FormControl>
             <p>Display Coordinates</p>
             <div style={{display: "flex", gap: "10px"}}>
-                <FormControl component="div" sx={{width: "100px"}} >
+                <FormControl component="div" sx={{width: "200px"}} >
                     <OutlinedInput
                         size="small"
                         id="outlined-adornment-Start"
@@ -98,7 +98,7 @@ export default function MeasureOptions() {
                     />
                     <FormHelperText id="outlined-Start-helper-text">Start</FormHelperText>
                 </FormControl>
-                <FormControl component="div" sx={{width: "100px"}} >
+                <FormControl component="div" sx={{width: "200px"}} >
                     <OutlinedInput
                         size="small"
                         id="outlined-adornment-End"

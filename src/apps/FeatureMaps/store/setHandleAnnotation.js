@@ -1,3 +1,3 @@
 export default function setHandleAnnotation(state, handleAnnotation) {
-  return {...state, drawState:{...state.drawState, options: {...state.drawState.options, handleAnnotation: handleAnnotation} }}
+  return {...state, options: {...state.options, handleAnnotation: handleAnnotation}}
 }

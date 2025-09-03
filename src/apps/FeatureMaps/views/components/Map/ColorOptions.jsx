@@ -3,13 +3,13 @@ import ColorPicker from "../../../../../components/ui-components/ColorPiker";
 import { useStore } from "../../../store";
 
 export default function ColorOptions(){
-  const {drawState, setColorOptions} = useStore()
-  const {background, tracks} = drawState.options.colors
+  const {options, setColorOptions} = useStore()
+  const {background, tracks} = options.colors
     const handleSetColor = (color)=>{
-      setColorOptions({...drawState.options.colors, background: color+""})
+      setColorOptions({...options.colors, background: color+""})
     }
     const handleSetTrackColor = (color)=>{
-        setColorOptions({...drawState.options.colors, tracks: color+""})
+        setColorOptions({...options.colors, tracks: color+""})
     }
     return(
         <div>

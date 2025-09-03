@@ -6,8 +6,8 @@ import {useStore} from "../../../store";
 import {HANDLE_ANNOTATIONS} from "../../../model/static";
 
 export default function LabelOptions(){
-  const { drawState, setHandleAnnotation } = useStore()
-    const { handleAnnotation } = drawState.options
+  const { options, setHandleAnnotation } = useStore()
+    const { handleAnnotation } = options
     const handleChange = (e) => {
         setHandleAnnotation(e.target.value)
     };

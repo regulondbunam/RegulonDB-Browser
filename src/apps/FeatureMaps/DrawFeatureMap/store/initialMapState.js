@@ -1,7 +1,17 @@
 const initialMapState = {
-  featureMapData: null,
   isMenuOpen: true,
   scale: 1,
+  scaleBar: {
+    positions: {
+      start: null,
+      end: null,
+    }
+  },
+  featureMapData: null,
+  annotations: null,
+  columns: null,
+  columnMapping: null,
+  tracks: null,
 }
 
 export default initialMapState
