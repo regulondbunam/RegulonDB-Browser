@@ -1,20 +1,25 @@
+import React, { useMemo } from "react";
 import useScaleBarVM from "../../viewModel/canva/useScaleBarVM";
+import Tick from "./TickBase";
 import Style from "./scalebar.module.css";
-import React from "react";
 
 export default function ScaleBar() {
   const {
     endPosition,
     startPosition,
     measure,
-    relativeMeasure,
-    lines,
+    px_bp,
+    sizeSection,
+    ticks,
     refScaleBar,
     refResizeBar,
     onResizeStart,
     onResizeEnd,
     onMoveMouse,
+    onMouseLave, // si fue typo y tu VM expone onMouseLeave, cámbialo aquí y en el div
   } = useScaleBarVM();
+
+
 
   return (
     <div
@@ -22,34 +27,23 @@ export default function ScaleBar() {
       className={Style.bar}
       onMouseDown={onResizeStart}
       onMouseUp={onResizeEnd}
-      onMouseLeave={onResizeEnd}
+      onMouseLeave={onMouseLave}
       onMouseMove={onMoveMouse}
     >
       <div className={Style.resizeBar} ref={refResizeBar} />
-      <div style={{ position: "relative", width: "100%" }}>
-        {lines &&
-          new Array(lines).fill(0).map((_, i) => {
-            const left = relativeMeasure * i;
-            let label = 0;
-            if (startPosition < 0) {
-              label = startPosition + measure * i;
-            } else {
-              label = startPosition - measure * i;
-            }
-            return (
-              <div
-                key={"measure_" + i}
-                style={{ left: left, position: "absolute", userSelect: "none" }}
-              >
-                <div className={`${Style.line} ${label === 0 && Style.zero}`} />
-                <p
-                  className={`${Style.lineLabel}  ${i === lines - 1 ? Style.labelLeft : ""} ${(i !== lines-1 && i !== 0 && label !== 0) ? Style.labelCenter : ""} ${label === 0 ? Style.labelZero : ""}`}
-                >
-                  {label}
-                </p>
-              </div>
-            );
-          })}
+
+      {/* Contenedor de ticks */}
+      <div style={{ position: "relative", width: "100%", height: "100%" }}>
+        {ticks.map((t) => (
+          <Tick
+            key={`tick_${t.i}`}
+            x={t.x}
+            label={t.label}
+            kind={t.kind}
+            showLabel={t.showLabel}
+            Style={Style}
+          />
+        ))}
       </div>
     </div>
   );

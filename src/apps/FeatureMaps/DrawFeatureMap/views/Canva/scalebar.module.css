@@ -16,36 +16,35 @@
     left: 0;
     background-color: rgba(250, 201, 255, 0.61);
 }
-
-.line{
-    height: 10px;
-    width: 1px;
-    background-color: white;
-    position: relative;
-    bottom: -15px;
-}
-
-.zero{
-    width: 3px;
-}
-
-
-
-.lineLabel{
+.tick {
     position: absolute;
+    bottom: -25px;
+    width: 1px;
+    background: white;
+}
+.tick.minor { height: 9px; opacity: .5; }
+.tick.mid   { height: 13px; width: 2px; opacity: .8; }
+.tick.major { height: 15px; width: 2px; }
+.tick.zero {
+    height: 25px;
+    width: 3px;
+    left: -1px;
+}
+
+.label {
+    position: absolute;
+    bottom: -10px;
+    transform: translateX(-50%);
+    font: 9px/1 system-ui, sans-serif;
     color: white;
-    top: 0px;
-    font-size: 11px;
+    user-select: none;
+    pointer-events: none;
 }
-
-.labelLeft{
-    left: -20px
-}
-
-.labelZero{
-    left: -2px
-}
-
-.labelCenter{
-    left: -10px
+.label.zeroLabel{
+    bottom: -16px;
+    background-color: #32617d;
+    z-index: 2;
+    padding: 1px;
+    font: 10px/1 system-ui, sans-serif;
+    left: 1px;
 }
