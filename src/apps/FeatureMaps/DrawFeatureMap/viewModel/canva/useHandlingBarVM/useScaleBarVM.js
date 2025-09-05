@@ -1,6 +1,6 @@
-import { useStore } from "../../store";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { computeTicks } from "../../model/scaleBar";
+import { useStore } from "../../../store";
+import { useMemo, useRef, useState } from "react";
+import { computeTicks } from "../../../model/scaleBar";
 
 function getPosition(event, rect) {
   const x = event.clientX - rect.left;
@@ -8,31 +8,17 @@ function getPosition(event, rect) {
   return { x, y };
 }
 
-export default function useScaleBarVM() {
+export default function useScaleBarVM(width) {
   const { featureMapData, scaleBar, setScaleBarPositions } = useStore();
   const { start: endLimit, end: startLimit, origin } = featureMapData.options.limits;
   const { end: endPosition, start: startPosition,  } = scaleBar.positions
   const [initPositionResize, setInitPositionResize] = useState(null);
-  const [scaleBarWidth, setScaleBarWidth] = useState(null);
 
   const measure = featureMapData.options.measure;
   const sizeSection = Math.abs(startPosition - endPosition);
-  const px_bp = scaleBarWidth ? scaleBarWidth/ sizeSection : null
-
+  const px_bp = width ? width/ sizeSection : null
   const refScaleBar = useRef(null);
-  const refResizeBar = useRef(null);
-
-  useEffect(() => {
-    const element = refScaleBar.current
-    const resizeObserver = new ResizeObserver((entries) => {
-      for (let entry of entries) {
-        const { width } = entry.contentRect;
-        setScaleBarWidth(width)
-      }
-    });
-    resizeObserver.observe(element);
-    return () => resizeObserver.unobserve(element);
-  }, [refScaleBar]);
+  const refResizeBar = useRef(null)
 
   const ticks = useMemo(
     () =>
@@ -64,10 +50,12 @@ export default function useScaleBarVM() {
       relativeStart = x
       relativeEnd = initPositionResize
     }
-    const bp_px = sizeSection / scaleBarWidth
+    const bp_px = sizeSection / width
     const newStart = Math.trunc(relativeStart * bp_px) + startPosition
     const newEnd = Math.trunc(relativeEnd * bp_px) + startPosition
-    setScaleBarPositions(newStart, newEnd)
+    if(Math.abs(newStart - newEnd)>=(0.05*sizeSection)){
+      setScaleBarPositions(newStart, newEnd)
+    }
     setInitPositionResize(null);
     refResizeBar.current.style.left = 0 + "px";
     refResizeBar.current.style.width = 0 + "px";

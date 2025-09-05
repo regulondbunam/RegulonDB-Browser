@@ -1,10 +1,10 @@
-import ScaleBar from "./ScaleBar"
+import HandlingBar from "./HandlingBar"
 
 export default function Canva() {
 
   return(
-    <div>
-      <ScaleBar />
+    <div style={{position: "relative"}} >
+      <HandlingBar/>
     </div>
   )
 }

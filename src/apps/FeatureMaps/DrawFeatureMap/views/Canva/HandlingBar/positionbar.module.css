@@ -1,0 +1,10 @@
+.content{
+    height: 25px;
+    margin: 10px 0 10px 0;
+    display: flex;
+}
+
+.dnaImage {
+    height: 25px;
+    width: 100%;
+}

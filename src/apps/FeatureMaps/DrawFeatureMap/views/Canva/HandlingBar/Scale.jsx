@@ -1,15 +1,10 @@
-import React, { useMemo } from "react";
-import useScaleBarVM from "../../viewModel/canva/useScaleBarVM";
-import Tick from "./TickBase";
+import React from "react";
+import useScaleBarVM from "../../../viewModel/canva/useHandlingBarVM/useScaleBarVM";
+import Tick from "../TickBase";
 import Style from "./scalebar.module.css";
 
-export default function ScaleBar() {
+export default function Scale({ width }) {
   const {
-    endPosition,
-    startPosition,
-    measure,
-    px_bp,
-    sizeSection,
     ticks,
     refScaleBar,
     refResizeBar,
@@ -17,9 +12,7 @@ export default function ScaleBar() {
     onResizeEnd,
     onMoveMouse,
     onMouseLave, // si fue typo y tu VM expone onMouseLeave, cámbialo aquí y en el div
-  } = useScaleBarVM();
-
-
+  } = useScaleBarVM(width);
 
   return (
     <div

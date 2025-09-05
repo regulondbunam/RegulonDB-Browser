@@ -1,25 +1,44 @@
 import { useStore } from "../store";
 
 export default function useControlsVM() {
+  const {
+    scale,
+    isMenuOpen,
+    setScale,
+    setMenuView,
+    scaleBar,
+    setScaleBarPositions,
+    featureMapData,
+  } = useStore();
+  const {
+    start: startLimit,
+    end: endLimit,
+    origin,
+  } = featureMapData.options.limits;
+  const { end: endPosition, start: startPosition } = scaleBar.positions;
   const SCALE_VAL = 1.0;
-  const { scale, isMenuOpen, setScale, setMenuView, featureMapData } =
-    useStore();
   const title = featureMapData?.title || "null";
 
   const handleUpScale = () => {
-    if (scale + SCALE_VAL < 100) {
-      setScale(scale + SCALE_VAL);
+    if(Math.abs(endPosition-startPosition)<10) return;
+    if(startPosition<0){
+      setScaleBarPositions(startPosition+10, endPosition);
+    }else{
+      setScaleBarPositions(startPosition-10, endPosition);
     }
   };
 
   const handleDownScale = () => {
-    if (scale - SCALE_VAL > 0) {
-      setScale(scale - SCALE_VAL);
+    if(Math.abs(endPosition-startPosition)<10) return;
+    if(startPosition<0){
+      setScaleBarPositions(startPosition-10, endPosition);
+    }else{
+      setScaleBarPositions(startPosition+10, endPosition);
     }
   };
 
   const handleResetScale = () => {
-    setScale(1);
+    setScaleBarPositions(startLimit, endLimit);
   };
 
   return {

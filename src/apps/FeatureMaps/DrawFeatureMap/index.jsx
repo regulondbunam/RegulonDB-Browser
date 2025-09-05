@@ -14,6 +14,7 @@ export default function DrawFeatureMap({featureMapData}) {
         setTimeout(()=>{
           setFeatureMapData(featureMapData);
           setDrawData(data);
+          console.log(data.tracks);
         },500)
       }
     }).catch(e => console.log("error to create tracks"+e));
@@ -30,7 +31,7 @@ export default function DrawFeatureMap({featureMapData}) {
   return(
     <div>
       <Controls />
-      <div style={{ display: "grid", gridTemplateColumns: isMenuOpen ? "3fr 1fr" : "4fr", height: "calc(100vh - 40px)"}} >
+      <div style={{ display: "grid", gridTemplateColumns: isMenuOpen ? "3fr 1fr" : "4fr", maxHeight: "calc(100vh - 40px)"}} >
         <Canva />
         {isMenuOpen && <Annotations /> }
       </div>
