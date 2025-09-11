@@ -7,6 +7,7 @@ import setAnnotationColor from "./setAnnotationColor";
 import setAnnotationsLabels from "./setAnnotationsLabels";
 import setFeatureMapData from "./setFeatureMapData";
 import setScaleBarPositions from "./setScaleBarPositions";
+import setScaleBarLeft from "./setScaleBarLeft";
 
 export const useStore = create((set) => ({
   ...initialMapState,
@@ -22,4 +23,5 @@ export const useStore = create((set) => ({
   setDrawData: (newDrawData) => set((state) => setDrawData(state, newDrawData)),
   setScaleBarPositions: (start, end) =>
     set((state) => setScaleBarPositions(state, start, end)),
+  setScaleBarLeft: (left) => set((state) => setScaleBarLeft(state, left)),
 }));

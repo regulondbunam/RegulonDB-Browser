@@ -1,16 +1,12 @@
 import { useStore } from "../../../store";
 import { useMemo, useRef, useState } from "react";
 import { computeTicks } from "../../../model/scaleBar";
+import {getPosition} from "./utils";
 
-function getPosition(event, rect) {
-  const x = event.clientX - rect.left;
-  const y = event.clientY - rect.top;
-  return { x, y };
-}
 
 export default function useScaleBarVM(width) {
   const { featureMapData, scaleBar, setScaleBarPositions } = useStore();
-  const { start: endLimit, end: startLimit, origin } = featureMapData.options.limits;
+  const { start: startLimit, end: endLimit, origin } = featureMapData.options.limits;
   const { end: endPosition, start: startPosition,  } = scaleBar.positions
   const [initPositionResize, setInitPositionResize] = useState(null);
 
@@ -83,8 +79,8 @@ export default function useScaleBarVM(width) {
   return {
     endPosition,
     startPosition,
-    endLimit,
-    startLimit,
+    endLimit: startLimit,
+    startLimit: endLimit,
     //lines,
     sizeSection,
     px_bp,

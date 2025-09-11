@@ -6,6 +6,7 @@ export default function setFeatureMapData(state,featureMapData){
         },
         scaleBar: {
             positions: {
+              ...state.scaleBar.positions,
                 ...featureMapData.options.limits,
             }
         },
