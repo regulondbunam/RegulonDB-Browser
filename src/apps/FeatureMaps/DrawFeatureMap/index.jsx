@@ -6,7 +6,8 @@ import Annotations from "./views/Annotations"
 import { processRaw } from "./model/process";
 
 export default function DrawFeatureMap({featureMapData}) {
-  const { featureMapData: _fm,setFeatureMapData, isMenuOpen, setDrawData, scaleBar } = useStore()
+  const { featureMapData: _fm,setFeatureMapData, setDrawData, document } = useStore()
+  const isMenuOpen = document.menu.open
 
   useEffect(() => {
     processRaw(featureMapData.rawData).then((data)=>{
@@ -30,7 +31,7 @@ export default function DrawFeatureMap({featureMapData}) {
   return(
     <div>
       <Controls />
-      <div style={{ display: "grid", gridTemplateColumns: isMenuOpen ? "3fr 1fr" : "4fr", maxHeight: "calc(100vh - 40px)"}} >
+      <div style={{ display: "grid", gridTemplateColumns: isMenuOpen ? "3fr 1fr" : "4fr"}} >
         <Canva />
         {isMenuOpen && <Annotations /> }
       </div>

@@ -15,7 +15,7 @@ export default function Annotations() {
 
   return (
     <div
-      style={{ height: "100%", overflow: "auto", borderLeft: "1px solid #000", padding: "10px" }}
+      style={{ maxHeight: "calc(100vh - 40px)", overflow: "auto", borderLeft: "1px solid #000", padding: "10px" }}
     >
       <p>
         <b>ANNOTATIONS</b>
