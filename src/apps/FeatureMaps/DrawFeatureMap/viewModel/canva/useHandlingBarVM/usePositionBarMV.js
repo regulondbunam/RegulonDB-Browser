@@ -1,19 +1,23 @@
 import { useRef, useState } from "react";
 import { useStore } from "../../../store";
-import Bar from "./Bar";
 
-export default function usePositionBarMV(width, BarComponent) {
-  const { scaleBar, setScaleBarPositions } = useStore();
-  const { end: endPosition, start: startPosition, right } = scaleBar.positions;
-  const widthSection = Math.abs(startPosition - endPosition);
+export default function usePositionBarMV() {
+  const {
+    fragment,
+    document,
+    setFragmentFocusPositions,
+    setDocumentFocusBarRight,
+  } = useStore();
+  const {
+    startPosition,
+    endPosition,
+  } = fragment.focus;
 
   const [onDrag, setOnDrag] = useState(false);
 
   const initX = useRef(null);
   const isMove = useRef(false);
   const containerRef = useRef(null);
-
-
 
   const onPointerDown = (e) => {
     if (!containerRef.current) return;
@@ -29,13 +33,20 @@ export default function usePositionBarMV(width, BarComponent) {
     if (
       !isMove.current &&
       ((rect.left + delta >= 0 && delta < 0) ||
-        (rect.right + delta <= width && delta > 0))
+        (rect.right + delta <= document.scaleBar.width && delta > 0))
     ) {
       isMove.current = true;
-      const start = delta<0 ? startPosition - Math.abs(delta) : startPosition + Math.abs(delta);
-      const end = delta<0 ? endPosition - Math.abs(delta) : endPosition + Math.abs(delta);
+      const start =
+        delta < 0
+          ? startPosition - Math.abs(delta)
+          : startPosition + Math.abs(delta);
+      const end =
+        delta < 0
+          ? endPosition - Math.abs(delta)
+          : endPosition + Math.abs(delta);
       setTimeout(() => {
-        setScaleBarPositions(start, end, BarComponent.getRightPx(end))
+        setFragmentFocusPositions(start, end);
+        setDocumentFocusBarRight(end)
         isMove.current = false;
       }, 10);
     }
@@ -48,8 +59,8 @@ export default function usePositionBarMV(width, BarComponent) {
   };
 
   return {
-    widthSection: BarComponent.getWidthPx(widthSection),
-    rightSection: right,
+    widthSection: document.focusBar.width,
+    rightSection: document.focusBar.right,
     containerRef,
     onPointerDown,
     onPointerMove,

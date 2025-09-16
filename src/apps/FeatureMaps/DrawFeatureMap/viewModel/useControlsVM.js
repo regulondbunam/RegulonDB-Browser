@@ -2,49 +2,43 @@ import { useStore } from "../store";
 
 export default function useControlsVM() {
   const {
-    isMenuOpen,
-    setMenuView,
-    scaleBar,
-    setScaleBarPositions,
-    setScaleBarRight,
+    document,
+    fragment,
     featureMapData,
+    setMenuView,
+    setFragmentFocusPositions,
+    setDocumentFocusBarRight,
   } = useStore();
-  const {
-    start: startLimit,
-    end: endLimit,
-  } = featureMapData.options.limits;
-  const { end: endPosition, start: startPosition } = scaleBar.positions;
-  const SCALE_VAL = 1.0;
-  const title = featureMapData?.title || "null";
-
-  const handleUpScale = () => {
-    if(Math.abs(endPosition-startPosition)<10) return;
-    if(startPosition<0){
-      setScaleBarPositions(startPosition+10, endPosition);
-    }else{
-      setScaleBarPositions(startPosition-10, endPosition);
-    }
+  const { start: startLimit, end: endLimit } = featureMapData.options.limits;
+  const { endPosition, startPosition } = fragment.focus;
+  const title = featureMapData?.title || "...";
+  const handleZoomIn = () => {
+    if (Math.abs(endPosition - startPosition) < 10) return;
+    const newStart =
+      startPosition < 0 ? startPosition + 10 : startPosition - 10;
+    const newEnd = startPosition > 0 ? endPosition + 10 : endPosition - 10;
+    setFragmentFocusPositions(newStart, newEnd);
+    setDocumentFocusBarRight(newEnd);
   };
-
-  const handleDownScale = () => {
-    if(Math.abs(endPosition-startPosition)<10) return;
-    if(startPosition<0){
-      setScaleBarPositions(startPosition-10, endPosition);
-    }else{
-      setScaleBarPositions(startPosition+10, endPosition);
-    }
+  const handleZoomOut = () => {
+    const newStart =
+      startPosition < 0 ? startPosition - 10 : startPosition + 10;
+    const newEnd = startPosition > 0 ? endPosition - 10 : endPosition + 10;
+    if (newStart < startLimit || newEnd > endLimit) return;
+    setFragmentFocusPositions(newStart, newEnd);
+    setDocumentFocusBarRight(newEnd);
   };
 
   const handleResetScale = () => {
-    setScaleBarPositions(startLimit, endLimit);
-    setScaleBarRight(0)
+    setFragmentFocusPositions(startLimit, endLimit);
+    setDocumentFocusBarRight(endLimit);
   };
 
   return {
-    handleUpScale,
-    handleDownScale,
+    handleZoomIn,
+    handleZoomOut,
     handleResetScale,
-    isMenuOpen,
+    isMenuOpen: document.menu.open,
     setMenuView,
     title,
   };

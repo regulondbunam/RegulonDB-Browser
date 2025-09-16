@@ -14,7 +14,6 @@ export default function DrawFeatureMap({featureMapData}) {
         setTimeout(()=>{
           setFeatureMapData(featureMapData);
           setDrawData(data);
-          console.log(data.tracks);
         },500)
       }
     }).catch(e => console.log("error to create tracks"+e));

@@ -4,13 +4,13 @@ import Position from "./Position";
 import useHandlingBarVM from "../../../viewModel/canva/useHandlingBarVM";
 
 export default function HandlingBar() {
-  const { width, refBar, BarComponent } = useHandlingBarVM();
+  const { loading, refBar } = useHandlingBarVM();
   return (
     <div className={Styles.content} ref={refBar}>
-      {width && (
+      {!loading && (
         <>
-          <Position width={width} BarComponent={BarComponent} />
-          <Scale width={width} BarComponent={BarComponent} />
+          <Position />
+          <Scale/>
         </>
       )}
     </div>

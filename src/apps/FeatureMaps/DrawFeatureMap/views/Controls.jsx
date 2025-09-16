@@ -11,8 +11,8 @@ import useControlsVM from "../viewModel/useControlsVM";
 export default function Controls() {
   const {
     title,
-    handleUpScale,
-    handleDownScale,
+handleZoomIn,
+    handleZoomOut,
     handleResetScale,
     isMenuOpen,
     setMenuView,
@@ -50,13 +50,13 @@ export default function Controls() {
           }}
         >
           <ButtonGroup variant="contained" size="small" >
-            <Button color="secondary" onClick={handleUpScale}>
+            <Button color="secondary" onClick={handleZoomIn}>
               <ZoomIn />
             </Button>
             <Button color="secondary" onClick={handleResetScale}>
               <RestartAltIcon />
             </Button>
-            <Button color="secondary" onClick={handleDownScale}>
+            <Button color="secondary" onClick={handleZoomOut}>
               <ZoomOut />
             </Button>
             <Button onClick={setMenuView}>

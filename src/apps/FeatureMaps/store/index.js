@@ -6,6 +6,7 @@ import setDrawOptions from "./setDrawOptions";
 import setColorOptions from "./setColorOptions";
 import setHandleAnnotation from "./setHandleAnnotation";
 
+
 export const useStore = create((set) => ({
   ...featureMapDataTemplate,
   setTitle: (newTitle) => set((state) => changeTitle(state, newTitle)),
