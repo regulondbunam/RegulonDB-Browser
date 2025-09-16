@@ -1,94 +1,68 @@
 import { useStore } from "../../../store";
 import { useMemo, useRef, useState } from "react";
-import { computeTicks } from "../../../model/scaleBar";
-import {getPosition} from "./utils";
 
 
-export default function useScaleBarVM(width) {
-  const { featureMapData, scaleBar, setScaleBarPositions } = useStore();
-  const { start: startLimit, end: endLimit, origin } = featureMapData.options.limits;
+export default function useScaleBarVM(width, BarComponent) {
+  const { scaleBar, setScaleBarPositions } = useStore();
   const { end: endPosition, start: startPosition,  } = scaleBar.positions
-  const [initPositionResize, setInitPositionResize] = useState(null);
+  const widthSection = Math.abs(startPosition - endPosition);
+  const [initPosition, setInitPosition] = useState(null);
 
-  const measure = featureMapData.options.measure;
-  const sizeSection = Math.abs(startPosition - endPosition);
-  const px_bp = width ? width/ sizeSection : null
   const refScaleBar = useRef(null);
   const refResizeBar = useRef(null)
 
   const ticks = useMemo(
     () =>
-      computeTicks({
-        px_bp,
-        sizeSection,
-        startPosition,
-        step: 10,        // minor cada 10
-        labelEvery: 100, // etiquetas por defecto cada 100 si 'measure' no viene
-        measure,
-      }),
-    [px_bp, sizeSection, startPosition, measure]
+      BarComponent.getTicks(widthSection, startPosition, endPosition),
+    [widthSection, startPosition, endPosition, BarComponent]
   );
 
   const onResizeStart = (e) => {
     if (!refScaleBar.current) return;
-    const rect = refScaleBar.current.getBoundingClientRect();
-    const position = getPosition(e, rect);
-    setInitPositionResize(position.x);
+    setInitPosition(e.clientX)
+  }
+
+  const onMoveMouse = (e)=>{
+    if (!refScaleBar.current || !refResizeBar.current || !initPosition) return;
+    const x = e.clientX
+    const delta = x - initPosition
+    if(delta < 0){
+      refResizeBar.current.style.left = x + "px";
+      refResizeBar.current.style.width = Math.abs(x - initPosition) + "px";
+    }else{
+      refResizeBar.current.style.left = initPosition + "px";
+      refResizeBar.current.style.width = Math.abs(x - initPosition) + "px";
+    }
   }
 
   const onResizeEnd = (e) => {
-    if (!refScaleBar.current || !refResizeBar.current || !initPositionResize) return;
-    const rect = refScaleBar.current.getBoundingClientRect();
-    const {x} = getPosition(e, rect);
-    let relativeStart = initPositionResize
-    let relativeEnd = x
-    if(x < initPositionResize){
-      relativeStart = x
-      relativeEnd = initPositionResize
+    if (!refScaleBar.current || !refResizeBar.current || !initPosition) return;
+    const x = e.clientX
+    const p1 = BarComponent.getBasePairPosition(initPosition,startPosition, widthSection)
+    const p2 = BarComponent.getBasePairPosition(x,startPosition, widthSection)
+    if(Math.abs(p1-p2)>=(0.05*width)){
+      if(p1<p2){
+        setScaleBarPositions(p1, p2, BarComponent.getRightPx(p2))
+      }else{
+        setScaleBarPositions(p2, p1, BarComponent.getRightPx(p1))
+      }
     }
-    const bp_px = sizeSection / width
-    const newStart = Math.trunc(relativeStart * bp_px) + startPosition
-    const newEnd = Math.trunc(relativeEnd * bp_px) + startPosition
-    if(Math.abs(newStart - newEnd)>=(0.05*sizeSection)){
-      setScaleBarPositions(newStart, newEnd)
-    }
-    setInitPositionResize(null);
+    setInitPosition(null);
     refResizeBar.current.style.left = 0 + "px";
     refResizeBar.current.style.width = 0 + "px";
   }
 
-  const onMoveMouse = (e)=>{
-    if (!refScaleBar.current || !refResizeBar.current || !initPositionResize) return;
-    const rect = refScaleBar.current.getBoundingClientRect();
-    const position = getPosition(e, rect);
-    const delta = position.x - initPositionResize
-    if(delta < 0){
-      refResizeBar.current.style.left = position.x + "px";
-      refResizeBar.current.style.width = Math.abs(position.x - initPositionResize) + "px";
-    }else{
-      refResizeBar.current.style.left = initPositionResize + "px";
-      refResizeBar.current.style.width = Math.abs(position.x - initPositionResize) + "px";
-    }
-  }
-
   const onMouseLave = ()=>{
-    setInitPositionResize(null);
+    setInitPosition(null);
+    refResizeBar.current.style.left = 0 + "px";
+    refResizeBar.current.style.width = 0 + "px";
   }
 
   //console.log(featureMapData);
   return {
-    endPosition,
-    startPosition,
-    endLimit: startLimit,
-    startLimit: endLimit,
-    //lines,
-    sizeSection,
-    px_bp,
-    measure,
-    origin,
+    ticks,
     refScaleBar,
     refResizeBar,
-    ticks,
     onResizeStart,
     onResizeEnd,
     onMoveMouse,

@@ -5,7 +5,7 @@ const initialMapState = {
     positions: {
       start: null,
       end: null,
-      left: 0
+      right: 0
     },
   },
   featureMapData: null,

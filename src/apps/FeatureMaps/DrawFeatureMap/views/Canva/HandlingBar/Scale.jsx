@@ -3,7 +3,7 @@ import useScaleBarVM from "../../../viewModel/canva/useHandlingBarVM/useScaleBar
 import Tick from "../TickBase";
 import Style from "./scalebar.module.css";
 
-export default function Scale({ width }) {
+export default function Scale({ width, BarComponent }) {
   const {
     ticks,
     refScaleBar,
@@ -12,7 +12,7 @@ export default function Scale({ width }) {
     onResizeEnd,
     onMoveMouse,
     onMouseLave, // si fue typo y tu VM expone onMouseLeave, cámbialo aquí y en el div
-  } = useScaleBarVM(width);
+  } = useScaleBarVM(width, BarComponent);
 
   return (
     <div

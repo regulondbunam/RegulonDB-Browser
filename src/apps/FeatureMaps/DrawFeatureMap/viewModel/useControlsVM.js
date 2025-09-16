@@ -2,18 +2,16 @@ import { useStore } from "../store";
 
 export default function useControlsVM() {
   const {
-    scale,
     isMenuOpen,
-    setScale,
     setMenuView,
     scaleBar,
     setScaleBarPositions,
+    setScaleBarRight,
     featureMapData,
   } = useStore();
   const {
     start: startLimit,
     end: endLimit,
-    origin,
   } = featureMapData.options.limits;
   const { end: endPosition, start: startPosition } = scaleBar.positions;
   const SCALE_VAL = 1.0;
@@ -39,6 +37,7 @@ export default function useControlsVM() {
 
   const handleResetScale = () => {
     setScaleBarPositions(startLimit, endLimit);
+    setScaleBarRight(0)
   };
 
   return {

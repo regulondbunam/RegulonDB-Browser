@@ -2,15 +2,15 @@ import Styles from "./positionbar.module.css";
 import usePositionBarMV from "../../../viewModel/canva/useHandlingBarVM/usePositionBarMV";
 import dny from "./assets/dnaYW.png";
 
-export default function Position({ width }) {
+export default function Position({ width, BarComponent }) {
   const {
+    widthSection,
+    rightSection,
     containerRef,
-    widthPosition,
-    leftPosition,
     onPointerDown,
     onPointerMove,
     onPointerUp,
-  } = usePositionBarMV(width);
+  } = usePositionBarMV(width,BarComponent);
 
   return (
     <div className={Styles.content}>
@@ -20,7 +20,7 @@ export default function Position({ width }) {
       />
       <div
         ref={containerRef}
-        style={{ width: widthPosition + "px", right: leftPosition + "px" }}
+        style={{ width: widthSection + "px", right: rightSection + "px" }}
         className={Styles.position}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
