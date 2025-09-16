@@ -32,7 +32,7 @@ export default class Bar {
 
   //Obten la posicion en bp a partir de la posision relativa (px)
   getBasePairPosition(relativePosition, startPosition, widthSection) {
-    return (
+    return Math.round(
       startPosition + (relativePosition * widthSection) / this.relativeWidth
     );
   }
@@ -40,22 +40,18 @@ export default class Bar {
   getTicks(widthSection, startPosition, endPosition) {
     const ticks = [];
     const bpPx = this.relativeWidth / widthSection;
-    const labelStep =
-      Number.isFinite(this.labelEach) && this.labelEach > 0
-        ? this.labelEach
-        : 100;
-    // Iteramos sólo en múltiplos de 'step'
-    for (let i = 0; i <= widthSection; i += this.step) {
-      const x = bpPx * i;
-      // lógica de etiqueta:
-      const label = round2(
-        startPosition < 0 ? startPosition + i : startPosition - i,
-      );
-
-      const kind = classifyTick(i, label);
-      const showLabel = i % labelStep === 0;
-
-      ticks.push({ i, x, label, kind, showLabel });
+    let iStep = 1
+    for (let i = 0; i <= widthSection; i += iStep) {
+      const xBp = startPosition + i;
+      if(xBp%10 === 0 && iStep !== this.step){
+        iStep = this.step;
+      }
+      if(iStep === this.step){
+        const x = bpPx * i;
+        const kind = classifyTick(xBp);
+        const showLabel = ((kind !== 'minor') && (kind !== 'mid')) || widthSection<101;
+        ticks.push({ i, x, label:xBp, kind, showLabel });
+      }
     }
     return ticks;
   }
