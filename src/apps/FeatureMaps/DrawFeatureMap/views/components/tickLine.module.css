@@ -1,15 +1,13 @@
 .tick {
     position: absolute;
     width: 1px;
-    background: white;
+    background: black;
 }
 .tick.minor { height: 10px; opacity: .5; }
-.tick.mid   { height: 14px; width: 2px; opacity: .8; }
-.tick.major { height: 16px; width: 2px; }
+.tick.mid   { height: 14px; opacity: .8; }
+.tick.major { height: 16px;  }
 .tick.zero {
     height: 24px;
-    width: 3px;
-    left: -1px;
 }
 
 .label {

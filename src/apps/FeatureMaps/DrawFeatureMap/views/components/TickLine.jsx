@@ -30,7 +30,8 @@ function TickLineBase({ ticks, variant = 'bottom', showLabel=false, heightTrack=
   }
 
   return (
-    <div style={{height: "100%", width: "100%", position: "relative", backgroundColor: "red"}} >
+    <div style={{height: "100%", width: "100%", position: "relative"}} >
+      <div style={{width: "100%", height: "1px", backgroundColor: "black", position: "absolute", top: top}} />
       {ticks.map((t) => {
         let nTop = top
         if(variant === 'middle'){
