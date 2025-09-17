@@ -6,7 +6,7 @@ export const featureMapDataTemplate = {
     measure: 100,
     limits: {
       start: -1000,
-      end: 100,
+      end: 200,
       origin: 0,
     },
     trackHeight: 50,

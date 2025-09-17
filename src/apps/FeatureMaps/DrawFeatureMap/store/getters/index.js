@@ -1,13 +1,14 @@
-import getFragmentPosition from "./getFragmentPosition";
+import getFragmentPosition, {getClientXPosition} from "./getFragmentPosition";
 import getRightFragmentFocusPx from "./getRightFragmentFocusPx";
 import getScaleBarTicks from "./getScaleBarTicks";
-import getWidthFragmentFocusPX from "./getWidthFragmentFocusPX";
+import getWidthFragmentPX from "./getWidthFragmentFocusPX";
 
 const getters = {
   getFragmentPosition,
   getRightFragmentFocusPx,
   getScaleBarTicks,
-  getWidthFragmentFocusPX,
+  getWidthFragmentPX,
+  getClientXPosition,
 }
 
 export default getters;
