@@ -5,9 +5,9 @@ export default function getFragmentPosition(document, fragment, clientX) {
   );
 }
 
-export function getClientXPosition(document, fragment, startPosition) {
-  if(startPosition >= fragment.focus.endPosition){return null}
+export function getClientXPosition(document, fragment, position) {
+  if(position >= fragment.focus.endPosition || position<= fragment.focus.startPosition){return null}
   const pxBp =  document.scaleBar.width/fragment.focus.width
-  const delta = Math.abs(startPosition-fragment.focus.endPosition)
+  const delta = Math.abs(position-fragment.focus.endPosition)
   return Math.round(pxBp*delta)
 }

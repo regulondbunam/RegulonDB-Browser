@@ -8,5 +8,5 @@ export default function useTrackVM() {
     () => getScaleBarTicks(document, fragment),
     [fragment, document, getScaleBarTicks],
   );
-  return { height: trackHeight, color: colors.tracks, ticks }
+  return { fragment, height: trackHeight, color: colors.tracks, ticks }
 }

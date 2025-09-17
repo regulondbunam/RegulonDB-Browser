@@ -1,6 +1,7 @@
+import React from "react";
 import useFeatureVM from "../../../viewModel/canva/useTracksVM/useFeatureVM";
 
-export default function Feature({ feature }) {
+const FeatureBase = ({ feature }) => {
   const { color, height, top, width, right } = useFeatureVM(feature);
 
   if(right === null){return null}
@@ -18,3 +19,6 @@ export default function Feature({ feature }) {
     />
   );
 }
+
+const Feature = React.memo(FeatureBase);
+export default Feature;
