@@ -24,7 +24,7 @@ export default function Tabs() {
                     <Tab label="2- Configure Visualization" value={2} />
                     <Tab label="3- View" value={3} />
                 </TabList>
-                <TabPanel sx={{padding: "0 24px 12px 24px"}} value={1}><LoadData /></TabPanel>
+                <TabPanel sx={{padding: "0 24px 12px 24px"}} value={1}><LoadData handleChangeTab={handleChangeTab} /></TabPanel>
                 <TabPanel sx={{padding: "0 24px 12px 24px"}} value={2}><OptionsDraw/></TabPanel>
                 <TabPanel sx={{padding: 0}} value={3}><DrawFeatureMap featureMapData={featureMapData} /></TabPanel>
             </TabContext>

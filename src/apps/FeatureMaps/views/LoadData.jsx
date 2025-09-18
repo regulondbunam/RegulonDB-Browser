@@ -8,7 +8,7 @@ import useLoadDataVM from "../viewModel/useLoadDataVM";
 import demoData from "../model/demo";
 import React from "react";
 
-export default function LoadData() {
+export default function LoadData({handleChangeTab=()=>{}}) {
   const {
     title,
     handleTitleChange,
@@ -110,7 +110,7 @@ export default function LoadData() {
             color="secondary"
             endIcon={<KeyboardDoubleArrowRightIcon />}
             sx={{ mr: 2 }}
-            onClick={() => {}}
+            onClick={() => {handleChangeTab(null,3)}}
           >
             Draw whit default configuration
           </Button>
@@ -119,7 +119,7 @@ export default function LoadData() {
             variant="contained"
             color="secondary"
             endIcon={<KeyboardArrowRightIcon />}
-            onClick={() => {}}
+            onClick={() => {handleChangeTab(null,2)}}
           >
             Next Step
           </Button>
