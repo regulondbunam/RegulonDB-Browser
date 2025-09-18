@@ -10,8 +10,7 @@ export default function Tooltip({ feature }) {
             style={{ color: "white", fontSize: "10px" }}
             key={feature._id + "_" + column + "_" + i}
           >
-            <b>{`${column} :`}</b>
-            {feature[columnMapping[i]]}
+            {`${column} : ${feature[columnMapping[i]]}`}
           </p>
         );
       })}
