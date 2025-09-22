@@ -12,7 +12,7 @@ export default function useFeatureVM(feature) {
   const { relativeEndPosition, relativeStartPosition } = feature;
   const { options } = featureMapData;
   const color = annotations?.labels[feature.label] || "black";
-  const height = 15;
+  const height = 10;
   const width = getFeatureWidthPX(
     document,
     fragment,

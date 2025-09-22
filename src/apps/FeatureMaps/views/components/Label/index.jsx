@@ -11,7 +11,6 @@ export default function LabelOptions(){
     const handleChange = (e) => {
         setHandleAnnotation(e.target.value)
     };
-
     return(
         <div>
             <FormControl size="small" sx={{maxWidth: 300, m: 1, minWidth: 120}} >

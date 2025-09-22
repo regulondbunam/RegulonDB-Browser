@@ -15,13 +15,11 @@ function validateNumber(value) {
 export default function MeasureOptions() {
   const { options, setDrawOptions } = useStore();
   const { limits, trackHeight } = options;
-
-  console.log(options);
-
+/*
   const limitStartRef = React.useRef(null);
   const limitEndRef = React.useRef(null);
   const trackHeightRef = React.useRef(null);
-
+*/
   const handleChangeStartLimit = (e) => {
     const value = validateNumber(e.target.value)
     if(value){

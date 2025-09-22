@@ -14,7 +14,7 @@ const FeatureBase = ({ feature }) => {
 
   return (
     <div>
-      <Annotations feature={feature} color={color} isReverse={isReverse(feature.strand)} width={width} right={right} top={top} />
+      <Annotations feature={feature} color={color} isReverse={isReverse(feature.strand)} width={width} right={right} />
       <Tooltip title={<ToolTipFeature feature={feature} />} arrow placement={isReverse(feature.strand) ? "top" : "bottom"}>
         <Box
           sx={{

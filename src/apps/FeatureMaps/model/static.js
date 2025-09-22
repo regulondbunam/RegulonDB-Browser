@@ -1,6 +1,6 @@
 export const HANDLE_ANNOTATIONS = {
-    label: 0,
-    dot: 1,
+    label: 'label',
+    dot: 'dot',
 }
 
 export const FORMATS = {
