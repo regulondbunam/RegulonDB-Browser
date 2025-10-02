@@ -142,19 +142,21 @@ export default function RelatedTool({ regulonData }) {
           <p>User Feedback</p>
         </ListItemButton>
       </Tool>
-      <Tool title={"External Cross References"}>
+      {Array.isArray(genesRelated) && genesRelated.length > 0 && (
+        <Tool title={"External Cross References"}>
           <ListItemButton
-          component="a"
-          href={`https://boltznet.bu.edu/ecoli/${genesRelated
-            .map((g) => g.name)
-            .join("&")}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{ pl: 4 }}
-        >
-          <p>Boltznet</p>
-        </ListItemButton>
+            component="a"
+            href={`https://boltznet.bu.edu/ecoli/${genesRelated
+              .map((g) => g.name)
+              .join("&")}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{ pl: 4 }}
+          >
+            <p>Boltznet</p>
+          </ListItemButton>
         </Tool>
+      )}
 
       <Divider />
       <Modal
