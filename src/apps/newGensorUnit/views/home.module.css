@@ -1,0 +1,25 @@
+.body{
+    margin: 20px 5% 0 5%;
+}
+
+.definitionDiv{
+    background-color: #b4cbff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.definitionText{
+    font-size: 16px;
+    color: #000000;
+}
+
+.sortDiv{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.sotText{
+    font-size: 16px;
+    color: #000000;
+}

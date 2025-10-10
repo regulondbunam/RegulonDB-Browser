@@ -1,0 +1,8 @@
+{
+  "home": {
+    "definition": "A Gensor Unit (short for Genetic Sensor Unit) is a functional module within a genetic regulatory network that groups together the components responsible for detecting an environmental signal and triggering a specific genetic response.",
+    "help": {
+      "guList": "Below is the complete list of Gensor Units, which can be sorted by either name or functional group for easier navigation."
+    }
+  }
+}

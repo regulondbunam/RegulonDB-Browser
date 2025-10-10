@@ -32,6 +32,7 @@ import {FeatureMap_PATH} from "./apps/FeatureMaps"
 import Phrases from "./components/Phrases";
 import PATH_REGULONEXPLORER, {TEST_PATH} from "./apps/RegulonExplorer";
 import PATH_HOME from "./apps/Main";
+import { GensorUnit_PATH } from "./apps/newGensorUnit";
 
 //wsSandbox
 const router = createBrowserRouter([
@@ -44,6 +45,7 @@ const router = createBrowserRouter([
         path: "*",
         element: <>site no found</>,
       },
+      GensorUnit_PATH,
         FeatureMap_PATH,
       PATH_REGULONEXPLORER,
       PATH_HT,

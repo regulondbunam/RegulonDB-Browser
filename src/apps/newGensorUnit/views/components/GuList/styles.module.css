@@ -1,0 +1,57 @@
+.table{
+    width: 100%;
+}
+
+.table th{
+    padding: 5px 0 5px 0;
+}
+
+.table td {
+    padding: 5px;
+    align-content: center;
+}
+
+.columns{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+
+.columnHeaderA{
+    background-color: #0C6A87;
+}
+
+.columnA{
+    background-color: rgba(12, 106, 135, 0.63);
+}
+
+.columnHeaderB{
+    background-color: #7ea8f8;
+}
+
+.columnB{
+    background-color: rgb(189, 208, 251);
+}
+
+.cellA{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.group{
+    color: black;
+    font-size: 16px;
+}
+
+.textA{
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.textHeader{
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    margin-left: 10px;
+}
