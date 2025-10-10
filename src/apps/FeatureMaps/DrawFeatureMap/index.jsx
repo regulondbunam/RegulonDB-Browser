@@ -12,6 +12,7 @@ export default function DrawFeatureMap({featureMapData}) {
 
   useEffect(() => {
     if (featureMapData?.rawData){
+      console.log(featureMapData)
       processRaw(featureMapData.rawData).then((data)=>{
         if (data){
           setTimeout(()=>{
