@@ -27,7 +27,8 @@ export default function GuList({list,columnA="", columnB=""}){
             <td className={Style.columnB} >
               {secondary.map((item, index) => {
                 if(item?.id){
-                  return <Link key={"gu_row_secondary_"+index+"_"+item.id} to={"/gu/" + item.id}>{item.label}</Link>
+                  return <p className={Style.guText} key={"gu_row_secondary_"+index+"_"+item.id} >
+                    <Link  to={"/gu/" + item.id}>{item.label}</Link></p>
                 }
                 return <p className={Style.group} key={"gu_row_secondary_"+index+"_"+item.label}>{item.label}</p>
               })}
