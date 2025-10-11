@@ -37,7 +37,7 @@ export default function sortGUsByFunctional(gusData = []) {
   // Arma el arreglo y ordena A-Z por el nombre del grupo (_group)
   return Array.from(groupsMap.values())
     .map((row) => ({
-      name: row.group,
+      label: row.group,
       primary: {
         id: null,
         label: row.group
@@ -46,7 +46,7 @@ export default function sortGUsByFunctional(gusData = []) {
       // (Opcional) ordena los GUs por nombre dentro de cada grupo
     }))
     .sort((a, b) =>
-      (a.name ?? "").localeCompare(b.name ?? "", "es", {
+      (a.label ?? "").localeCompare(b.label ?? "", "es", {
         sensitivity: "base",
         numeric: true,
       }),

@@ -12,15 +12,15 @@ export default function sortGUsByName(gusData = []) {
             })
           : [];
         if(gu?.id) return {name: null}
-        const name = gu?.name || gu._id;
+        const label = gu?.name || gu._id;
         return {
-          name,
+          label,
           primary:{
             id: gu._id,
-            label: name,
+            label,
           },
           secondary: groupsArr,
         };
       })
-      .sort((a, b) => a.name.localeCompare(b.name, "es", { sensitivity: "base", numeric: true }));
+      .sort((a, b) => a.label.localeCompare(b.label, "es", { sensitivity: "base", numeric: true }));
 }
