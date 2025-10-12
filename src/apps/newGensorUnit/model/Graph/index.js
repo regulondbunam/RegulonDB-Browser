@@ -1,46 +1,37 @@
 export default class Graph {
-  constructor(isDirected = false) {
-    this.adjList = new Map();
-    this.isDirected = isDirected;
+
+  nodes = {};
+  edges = {};
+  relationship = {};
+
+  constructor(nodes, edges, relationship) {
+    this.nodes = nodes;
+    this.edges = edges;
+    this.relationship = relationship;
   }
 
-  addVertex(vertex) {
-    if (!this.adjList.has(vertex)) {
-      this.adjList.set(vertex, new Set());
+  getReaction(reaction){
+    const relation = this.relationship[`r-${reaction}`];
+    if(!relation || (Array.isArray(relation) && relation.length ===0)) {
+      console.error("Reaction not found: ",reaction);
+      return [];
     }
+    const _nodes = []
+    const _edges = []
+    relation.forEach((item)=>{
+      const e = item.split('-')
+      switch (e[0]) {
+        case 'n':
+          _nodes.push(this.nodes[item])
+          break;
+        case 'e':
+          _edges.push(this.edges[item])
+          break;
+        default:
+          console.error('Element not found: ', item, ' in reaction: ', reaction);
+      }
+    })
+    return [..._nodes, ..._edges]
   }
 
-  addEdge(v1, v2) {
-    this.addVertex(v1);
-    this.addVertex(v2);
-    this.adjList.get(v1).add(v2);
-
-    if (!this.isDirected) {
-      this.adjList.get(v2).add(v1);
-    }
-  }
-
-  removeEdge(v1, v2) {
-    this.adjList.get(v1)?.delete(v2);
-    if (!this.isDirected) {
-      this.adjList.get(v2)?.delete(v1);
-    }
-  }
-
-  removeVertex(v) {
-    this.adjList.delete(v);
-    for (const [key, neighbors] of this.adjList) {
-      neighbors.delete(v);
-    }
-  }
-
-  getNeighbors(v) {
-    return this.adjList.get(v);
-  }
-
-  print() {
-    for (const [v, neighbors] of this.adjList) {
-      console.log(`${v} → ${[...neighbors].join(", ")}`);
-    }
-  }
 }

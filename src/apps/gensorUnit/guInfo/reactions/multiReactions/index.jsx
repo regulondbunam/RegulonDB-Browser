@@ -64,7 +64,6 @@ export default function MultiReactions({ reactions, nodes, name, idSite }) {
 
   const cyEffects = (cy) => {
     select_cy(cy);
-    cy.fit();
     cy.style(cyStylesheet);
 
     cy.elements('node[type = "transcription_factor"]').style({
