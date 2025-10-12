@@ -2,7 +2,7 @@ import { useGetGuById } from "../../../components/webservices";
 import { useEffect, useRef } from "react";
 import createElements from "../model/createElements";
 import cytoscape from "cytoscape";
-import implementMembrane from "../model/implementMembrane";
+//import implementMembrane from "../model/implementMembrane";
 
 export default function useGUData(guID){
   const { guData, error, loading } = useGetGuById(guID);
@@ -16,6 +16,9 @@ export default function useGUData(guID){
       if(!guData) return;
       cytoscapeRef.current = cytoscape({
         container: cyContainer.current,
+        layout: {
+          name: 'preset'
+        },
         style: [
           {
             selector: 'node',
@@ -25,11 +28,10 @@ export default function useGUData(guID){
           }
         ]
       })
-      createElements(guData).then((graphClass)=>{
+      createElements(guData,500,500).then((graphClass)=>{
         if(graphClass){
           graph.current = graphClass
-          implementMembrane(cytoscapeRef.current, 500)
-          cytoscapeRef.current.add(graph.current.getReaction(1))
+          cytoscapeRef.current.add(graph.current.getTranscriptionFactors())
         }
       })
 
