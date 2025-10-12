@@ -48,7 +48,6 @@ export function useGetGuBySearch(keyword) {
 export function useGetGuById(guId) {
     const { data, loading, error } = useQuery(query_getGuById,{variables:{advancedSearch: `${guId}[_id]`}})
     let guData = []
-    console.log(data);
     try {
         if (data) {
             if(DataVerifier.isValidArray(data.getGUsBy.data)){
