@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import filterByLabel from "../../../model/filterByLabel";
 import filterBySecondaryLabel from "../../../model/filterBySecondaryLabel";
 
@@ -7,6 +7,10 @@ export default function useController(list) {
   const [filterB, setFilterB] = useState("");
   const [rows, setRows] = useState(list);
   const throttleRef = useRef(false);
+
+  useEffect(() => {
+    setRows(list)
+  }, [list]);
 
   const handleFilterA = (e) => {
     const value = e.target.value;

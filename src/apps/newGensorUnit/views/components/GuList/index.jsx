@@ -13,6 +13,12 @@ export default function GuList({ list, columnA = "", columnB = "" }) {
     rows,
   } = useController(list);
 
+  if(!rows) return (
+    <div>
+      <p>Loading...</p>
+    </div>
+  )
+
   return (
     <div>
       <table className={Style.table}>
@@ -56,7 +62,7 @@ export default function GuList({ list, columnA = "", columnB = "" }) {
                 <td className={Style.columnA}>
                   <div className={Style.cellA}>
                     {primary?.id ? (
-                      <Link to={"/gu/" + primary.id}>
+                      <Link to={"/gensorUnits/" + primary.id}>
                         <p className={Style.textA}>{primary.label}</p>
                       </Link>
                     ) : (
@@ -72,7 +78,7 @@ export default function GuList({ list, columnA = "", columnB = "" }) {
                           className={Style.guText}
                           key={"gu_row_secondary_" + index + "_" + item.id}
                         >
-                          <Link to={"/gu/" + item.id}>{item.label}</Link>
+                          <Link to={"/gensorUnits/" + item.id}>{item.label}</Link>
                         </p>
                       );
                     }
