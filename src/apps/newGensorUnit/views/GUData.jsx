@@ -1,16 +1,29 @@
 import useGUData from "../viewmodel/useGUData";
+import Style from "./guData.module.css"
+import { Cover } from "../../../components/ui-components";
+import {CircularProgress} from "@mui/material"
 
-export default function GUData({guId}){
+export default function GUData({ guId }) {
 
-  const {loading, error, cyContainer, handTest} = useGUData(guId);
+  const {
+    guData,
+    error,
+    loading,
+  } = useGUData(guId);
 
-  return(
+  if (loading) return <div className={Style.loadingContainer} ><CircularProgress /></div>;
+
+  if (error) return <div>Error to load graph data...</div>;
+
+  return (
     <div>
-      Hola
-      <div ref={cyContainer} style={{width: "500px", height: "500px", backgroundColor: "whitesmoke"}}   >
-
+      <Cover>
+        <h1>{`Gensor unit ${guData?.gensorUnit?.name || guId}`}</h1>
+      </Cover>
+      <div className={Style.main} >
+        <div className={Style.leftBar} >Lateral Bar</div>
+        <div>graph info</div>
       </div>
-      <button onClick={handTest} >Acction</button>
     </div>
-  )
+  );
 }
