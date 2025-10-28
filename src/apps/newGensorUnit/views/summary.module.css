@@ -1,0 +1,15 @@
+.container {
+    margin: 15px 5% 15px 5%;
+}
+
+.accordionTitle{
+    font-size: 18px;
+    color: black;
+    font-weight: 400;
+}
+
+.bodyText{
+    font-size: 16px;
+    color: black;
+    font-weight: 200;
+}
