@@ -1,12 +1,12 @@
 import {
   Accordion,
   AccordionSummary,
-  Typography,
   AccordionDetails,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Style from "./summary.module.css";
 import useSummary from "../viewmodel/useSummaryVM";
+import GeneOntology from "../components/GeneOntology"
 
 const AccordionItem = ({ children, title = "title" }) => (
   <Accordion defaultExpanded >
@@ -46,19 +46,33 @@ export default function Summary({ guData }) {
           <p className={Style.bodyText}>{description}</p>
         </AccordionItem>
       )}
-      {components && (
-        <AccordionItem title="Components">components</AccordionItem>
-      )}
-      {geneOntology && (
-        <AccordionItem title="Gene Ontology">geneOntology</AccordionItem>
-      )}
-      {groups && <AccordionItem title="Groups">groups</AccordionItem>}
-      {note && <AccordionItem title="Note">note</AccordionItem>}
       {signalName && (
-        <AccordionItem title="Signal Name">
-          <p className={Style.bodyText}>{signalName.join(", ")}</p>
-        </AccordionItem>
+          <AccordionItem title="Signal Name">
+            <p className={Style.bodyText}>{signalName.join(", ")}</p>
+          </AccordionItem>
+      )}
+      {groups && <AccordionItem title="Groups"><Groups groups={groups} /></AccordionItem>}
+      {note && <AccordionItem title="Note">note</AccordionItem>}
+      {geneOntology && (
+        <AccordionItem title="Gene Ontology"><GeneOntology geneOntology={geneOntology} /></AccordionItem>
+      )}
+      {components && (
+          <AccordionItem title="Components">components</AccordionItem>
       )}
     </div>
   );
+}
+
+
+const Groups = ({groups = []})=>{
+  return (
+    <div>
+      {groups.map((group, index)=>{
+        return (
+          <div key={"group_"+index+"_"+group}>
+            <p className={Style.groupText} >{group}</p>
+          </div>
+        )
+      })}
+    </div>)
 }

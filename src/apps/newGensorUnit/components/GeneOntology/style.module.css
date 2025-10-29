@@ -1,0 +1,32 @@
+.selector{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.otName{
+    font-weight: bold;
+    font-size: 16px;
+    color: black;
+}
+
+.otTermName{
+    font-size: 16px;
+    color: black;
+}
+
+.otTermGene{
+    font-size: 16px;
+    color: black;
+}
+
+.otTermGeneContainer{
+    display: flex;
+    gap: 10px;
+    margin-left: 15px;
+}
+
+.otContainer{
+    margin-left: 15px;
+}
