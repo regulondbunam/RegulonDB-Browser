@@ -18,7 +18,6 @@ import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { FastaSequence, GenebankSequence } from "../../../../sequence";
-import type from "cytoscape/src/selector/type";
 
 /**
  * Object defining supported sequence formats.

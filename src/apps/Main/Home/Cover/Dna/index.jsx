@@ -51,7 +51,7 @@ export default function Dna() {
                     <img src={dnaynOpenPNG} alt="dna" style={{width: "50px", height: "auto"}} />
                     { Array.from({length:nDna}).map((n,i)=><img key={"dna-"+i} src={dnaynPNG} alt="dna" style={{width: "50px", height: "auto"}} />)}
                     <img src={dnaynRpng} alt="dna" style={{width: "50px", height: "auto"}} />
-                    <img src={connectorPNG} alt="dna" style={{width: conn+"px", height: "auto", marginBottom: "10px"}} />
+
                 </div>
             </Fragment>}
         </div>
