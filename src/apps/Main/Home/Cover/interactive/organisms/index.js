@@ -15,6 +15,10 @@ class Organism {
     noScourge = false;
     modeNpcOn = false;
     isRotate = false;
+    speed = 0;
+    turnCooldown = 0;
+    targetAngle = 0;
+    turnSpeed = 0;
 
 
     constructor(posX, posY, type="example", properties={}) {
@@ -88,6 +92,60 @@ class Organism {
         this.body.move(this.x,this.y)
         this.angle = getAngle();
         this.body.rotate(this.angle);
+    }
+
+    initMotion(bounds) {
+        if (this.noScourge) return;
+        this.resetMotion(bounds);
+    }
+
+    resetMotion(bounds) {
+        this.speed = Math.random() * 20; // px/s
+        this.turnCooldown = 0.5 + Math.random() * 2; // s
+        this.targetAngle = getAngle();
+        this.turnSpeed = 30 + Math.random() * 90; // deg/s
+        if (bounds) {
+            this.x = Math.floor(Math.random() * bounds.width);
+            this.y = Math.floor(Math.random() * bounds.height);
+            this.angle = getAngle();
+            this.body.move(this.x, this.y);
+            this.body.transform({rotate: this.angle});
+        }
+    }
+
+    update(dt, bounds) {
+        if (this.noScourge) return;
+        if (!this.alive) return;
+
+        this.turnCooldown -= dt;
+        if (this.turnCooldown <= 0) {
+            this.targetAngle = getAngle();
+            this.turnCooldown = 0.5 + Math.random() * 2;
+            this.turnSpeed = 30 + Math.random() * 90;
+        }
+
+        const {direction, diff} = getShortestRotation(this.angle, this.targetAngle);
+        const step = Math.min(diff, this.turnSpeed * dt);
+        if (step > 0) {
+            this.angle += direction * step;
+            if (this.angle > 360) this.angle -= 360;
+            if (this.angle < 0) this.angle += 360;
+            this.body.rotate(direction * step);
+        }
+
+        this.x += this.speed * dt;
+        this.body.move(this.x, this.y);
+
+        if (bounds) {
+            if (
+                this.x < -50 ||
+                this.x > bounds.width + 50 ||
+                this.y < -50 ||
+                this.y > bounds.height + 50
+            ) {
+                this.resetMotion(bounds);
+            }
+        }
     }
 
     moveForward(speed=100){
