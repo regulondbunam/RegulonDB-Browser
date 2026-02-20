@@ -81,13 +81,13 @@ const COLUMNS = [
   {
     id: "regulatoryBindingSite_leftPos",
     filter: "fuzzyText",
-    header: "RBS LeftEndPosition",
+    header: "Binding Site LeftEndPosition",
     accessorKey: "_regulatoryBindingSite_LeftPos",
   },
   {
     id: "regulatoryBindingSite_RightPos",
     filter: "fuzzyText",
-    header: "RBS RightEndPosition",
+    header: "Binding Site RightEndPosition",
     accessorKey: "_regulatoryBindingSite_RightPos",
   },
   {
