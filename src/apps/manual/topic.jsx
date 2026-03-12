@@ -6,9 +6,9 @@ import "markdown-navbar/dist/navbar.css";
 
 const gitUrl = (urlRaw, imgUrl) => {
   return (
-    "https://github.com/regulondbunam/RegulonDBManual/raw/" +
+    "https://github.com/andresloal/testManualRDB/raw/" +
     urlRaw.replace(
-      /^https:\/\/raw\.githubusercontent\.com\/regulondbunam\/RegulonDBManual\/(.*\/)([^/]+)\.md$/,
+      /^https:\/\/raw\.githubusercontent\.com\/andresloal\/testManualRDB\/(.*\/)([^/]+)\.md$/,
       "$1"
     ) +
     imgUrl.replace(/^\.\//, "")
@@ -54,7 +54,9 @@ export default function Topic({ rawUrl, _url, title }) {
   const [markdown, setMarkdown] = useState();
 
   if (!markdown) {
-    downloadMD(setMarkdown, rawUrl);
+    let formatedMD = "https://raw.githubusercontent.com/regulondbunam/regulondb-docs/" + rawUrl;
+    console.log(rawUrl);
+    downloadMD(setMarkdown, formatedMD);
   }
 
   if (!markdown) {

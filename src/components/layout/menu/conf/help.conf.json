@@ -5,54 +5,18 @@
     "options": [
         {
             "id": "subMenuAboutUs",
-            "label": "ABOUT US!",
+            "label": "About Us and Policies",
             "options": [
                 {
-                    "id": "credits",
-                    "label": "Credits",
-                    "link" : "/manual/aboutUs/credits"
+                    "id": "about-policies",
+                    "label": "About Policies",
+                    "link" : "/manual/aboutUs/about-policies"
                 },
                 {
-                    "id": "Funding",
-                    "label": "RegulonDB Funding",
-                    "link" : "/manual/aboutUs/funding"
-                },
-                {
-                    "id":"How_to_cite",
-                    "label":"How to cite",
-                    "link": "/manual/aboutUs/howToCite"
-                },
-                {
-                    "id":"Terms_and_conditions",
-                    "label":"Terms and conditions",
-                    "link":"/manual/aboutUs/terms-conditions"
-                },
-                {
-                    "id":"What_is_RegulonDB",
-                    "label":"What is RegulonDB",
-                    "link":"/manual/aboutUs/whats-regulonDB"
-                }
-            ]
-        },
-        {
-            "id": "subHelp",
-            "label": "Help",
-            "options": [
-                {
-                    "id":"RegulonDB_Glossary",
-                    "label":"RegulonDB Glossary",
+                    "id": "search-and-browse",
+                    "label": "Search and Browse",
                     "disabled": true,
-                    "link":"/manual/help/glossary"
-                },
-                {
-                    "id":"evidence&class",
-                    "label":"Evidence Classification",
-                    "link":"/manual/help/evidenceclassification"
-                },
-                {
-                    "id":"cookies_01",
-                    "label":"COOKIE POLICY",
-                    "link":"/manual/help/cookiePolicy"
+                    "link" : "/manual/aboutUs/search-and-browse"
                 }
             ]
         },

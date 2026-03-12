@@ -136,7 +136,7 @@ import Topic from "./topic";
 const downloadConf = async (setRawConf) => {
   try {
     const response = await fetch(
-      "https://raw.githubusercontent.com/regulondbunam/RegulonDBManual/master/conf.json"
+      "https://raw.githubusercontent.com/regulondbunam/regulondb-docs/main/docs.config.json"
     );
     try {
       const jsonData = await response.json();
