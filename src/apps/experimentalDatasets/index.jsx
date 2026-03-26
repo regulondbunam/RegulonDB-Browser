@@ -293,7 +293,7 @@ export default function ExperimentalDatasets() {
                                 </Button>
                               </Link>
                             </Tooltip>
-                            {["TF-RISet", "RISet"].find(
+                            {["TF-RISet", "RISet", "PromoterSet"].find(
                               (f) => f === file.fileName
                             ) && (
                               <Tooltip title="Confidence Level Calculator Tool">

@@ -16,58 +16,63 @@ import { DataVerifier, Circular } from "../../../components/ui-components";
 function getEvidencesList(content = "") {
   let tfrsEvidence_nColumn = -1;
   let riEvidence_nColumn = -1;
+  let pmEvidence_nColumn = -1;
+
   let evidences = {};
+
   if (DataVerifier.isValidString(content)) {
     const rawContent = content.split("\n");
+
     if (DataVerifier.isValidArray(rawContent)) {
-      //tfrsEvidence
       rawContent.forEach((line, i) => {
         const cells = line.split("\t");
+
+        // HEADER
         if (i === 0) {
           cells.forEach((cell, ci) => {
-            let regex = new RegExp("tfrsEvidence");
-            if (regex.test(cell)) {
+            if (/tfrsEvidence/.test(cell)) {
               tfrsEvidence_nColumn = ci;
-              return null;
             }
-            regex = new RegExp("riEvidence");
-            if (regex.test(cell)) {
+            if (/riEvidence/.test(cell)) {
               riEvidence_nColumn = ci;
-              return null;
+            }
+            if (/pmEvidence/.test(cell)) {
+              pmEvidence_nColumn = ci;
             }
           });
         } else {
-          const col_tfrsEvidence = cells[tfrsEvidence_nColumn];
-          const col_riEvidence = cells[riEvidence_nColumn];
-          //const regex = /\[([^\]]+)\]/g;
-          const codes_tfrsEvidence = col_tfrsEvidence.split(";");
-          const codes_riEvidence = col_riEvidence.split(";");
-          if (codes_tfrsEvidence) {
-            codes_tfrsEvidence.forEach(function (coincidencia) {
+          const processColumn = (colIndex) => {
+            if (colIndex === -1) return; // columna no existe
+
+            const value = cells[colIndex];
+            if (!DataVerifier.isValidString(value)) return;
+
+            const codes = value.split(";");
+
+            codes.forEach((coincidencia) => {
               const evidence = coincidencia.split(":");
+
               if (DataVerifier.isValidString(evidence[0])) {
                 evidences[evidence[0]] = evidence[1];
               }
             });
-          }
-          if (codes_riEvidence) {
-            codes_riEvidence.forEach(function (coincidencia) {
-              const evidence = coincidencia.split(":");
-              if (DataVerifier.isValidString(evidence[0])) {
-                evidences[evidence[0]] = evidence[1];
-              }
-            });
-          }
+          };
+          processColumn(tfrsEvidence_nColumn);
+          processColumn(riEvidence_nColumn);
+          processColumn(pmEvidence_nColumn);
         }
       });
     }
   }
-  //console.log(evidences);
-  let keysSorted = Object.keys(evidences).sort()
-  let evidenceSorted = {}
-  keysSorted.forEach(key => {
-    evidenceSorted[key] = evidences[key]
+
+  // Ordenar resultados
+  const keysSorted = Object.keys(evidences).sort();
+  const evidenceSorted = {};
+
+  keysSorted.forEach((key) => {
+    evidenceSorted[key] = evidences[key];
   });
+
   return evidenceSorted;
 }
 
