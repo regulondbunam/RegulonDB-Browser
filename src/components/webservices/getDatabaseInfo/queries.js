@@ -226,7 +226,6 @@ export const query_getSummaryHistoryData = gql`
             strong
             confirmed
             withoutEvidences
-
             withPublications
             withEvidences
           }
@@ -236,22 +235,17 @@ export const query_getSummaryHistoryData = gql`
             strong
             confirmed
             withoutEvidences
-
             withPublications
             withEvidences
           }
-        }
-        externalReferences {
-          total
-          origin {
-            medline
-            genbank
-            swissprot
-            expasy
-            geneprotec
-            ouMicroArray
-            pdb
-            pir
+          srna {
+            total
+            weak
+            strong
+            confirmed
+            withoutEvidences
+            withPublications
+            withEvidences
           }
         }
       }

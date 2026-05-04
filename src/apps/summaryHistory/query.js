@@ -17,6 +17,7 @@ export const query_getSumaryHistoryData = gql`query GetDatabaseInfo {
     }
     statistics {
       regulons {
+        total
         regulatoryContinuant {
           total
           weak
@@ -219,38 +220,41 @@ export const query_getSumaryHistoryData = gql`query GetDatabaseInfo {
         withEvidences
       }
       product {
+        total
         rnas {
           total
-          weak
-          strong
-          confirmed
-          withoutEvidences
-          withConfidenceLevel
-          withPublications
-          withEvidences
         }
         polypeptides {
           total
-          weak
-          strong
-          confirmed
-          withoutEvidences
-          withConfidenceLevel
-          withPublications
-          withEvidences
+        }
+        srna {
+          total
         }
       }
       externalReferences {
         total
         origin {
-          medline
-          genbank
-          swissprot
-          expasy
-          geneprotec
-          ouMicroArray
-          pdb
-          pir
+          gene
+          promoter
+          product
+          regulator
+          regulatoryComplex
+          regulatoryContinuant
+          sigmaFactor
+          terminator
+          transcriptionUnit
+          regulatoryInteraction
+        }
+      }
+      externalDBSources {
+        total
+        origin {
+          ecocyc
+          refseq
+          asap
+          ecoliwiki
+          uniprot
+          others
         }
       }
     }
