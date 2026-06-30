@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -16,6 +16,14 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import List from "@mui/material/List";
 import "./desktopMenu.css"
+import { useAllOrganisms } from "../../../webservices";
+import OrganismExplorer from "../../../OrganismExplorer";
+import { getRecentOrganisms, saveRecentOrganism } from "../../../OrganismExplorer/utils/recentOrganisms";
+import { getCurrentOrganismLabel } from "../../../OrganismExplorer/utils/organismLabels";
+import Drawer from "@mui/material/Drawer";
+import Chip from "@mui/material/Chip";
+import Tooltip from "@mui/material/Tooltip";
+import BiotechIcon from "@mui/icons-material/Biotech";
 
 const BUTTON_HOME_STYLE = {
   border: "solid 4px #ffffff",
@@ -27,10 +35,78 @@ const BUTTON_HOME_STYLE = {
   transition: 'all .3s ease',
 };
 
+const DEFAULT_ORGANISM_ID = "organism_Escherichia_coli_K-12_MG655";
+
 export default function Desktop() {
   const [menuS, setMenu] = useState({});
   const [drawOpen, setDrawOpen] = useState(false);
+  const [selectedOrganismId, setSelectedOrganismId] = useState("");
+
+  const [recentOrganisms, setRecentOrganisms] = useState([]);
   const navigate = useNavigate();
+  const { organismsData, loading, error } = useAllOrganisms("");
+
+ const [organismDrawerOpen, setOrganismDrawerOpen] = useState(false);
+
+  useEffect(() => {
+    setRecentOrganisms(
+      getRecentOrganisms()
+    );
+  }, []);
+
+  useEffect(() => {
+
+    if (
+      !organismsData?.length || selectedOrganismId
+    ) {
+      return;
+    }
+
+    if (
+      organismsData.some(
+        (item) => item._id === DEFAULT_ORGANISM_ID
+      )
+    ) {
+      const savedOrganism = localStorage.getItem("selectedOrganism");
+      if (savedOrganism && organismsData.some(
+          (item) => item._id === savedOrganism
+        )
+      ) {
+        setSelectedOrganismId(savedOrganism);
+        return;
+      }
+    }
+
+  }, [organismsData, selectedOrganismId]);
+
+  const handleOrganismChange = (
+    organismId
+  ) => {
+
+    localStorage.setItem("selectedOrganism", organismId);
+
+    setSelectedOrganismId(organismId);
+
+    setOrganismDrawerOpen(false);
+
+    const selected =
+    organismsData?.find(
+      (item) => item._id === organismId
+    );
+
+    if (selected) {
+      saveRecentOrganism(selected);
+      setRecentOrganisms(getRecentOrganisms());
+    }
+  };
+
+  const currentOrganism = useMemo(
+    () =>
+      organismsData?.find(
+        (item) => item._id === selectedOrganismId
+      ),
+    [organismsData, selectedOrganismId]
+  );
 
   return (
     <div>
@@ -61,7 +137,7 @@ export default function Desktop() {
                 display: { xs: "flex", md: "none" },
                 flexGrow: 1,
                 fontWeight: 700,
-                color: "withe",
+                color: "white",
                 textDecoration: "none",
               }}
             >
@@ -90,15 +166,11 @@ export default function Desktop() {
                   <Button
                     key={menu.id}
                     onClick={() => {
-                      if (menuS.id) {
-                        if (menuS.id === menu.id) {
-                          setMenu({});
-                        } else {
-                          setMenu(menu);
-                        }
-                      } else {
-                        setMenu(menu);
-                      }
+                      setMenu(
+                        menuS.id === menu.id
+                          ? {}
+                          : menu
+                      );
                     }}
                     sx={{
                       color: menuS.id === menu.id ? "#32617D" : "white",
@@ -119,6 +191,62 @@ export default function Desktop() {
                 );
               })}
             </Box>
+            <Tooltip
+              title={getCurrentOrganismLabel(
+                currentOrganism
+              )}
+            >
+              <Chip
+                icon={<BiotechIcon color="white" />}
+                label={getCurrentOrganismLabel(
+                  currentOrganism
+                )}
+                onClick={() =>
+                  setOrganismDrawerOpen(true)
+                }
+                clickable
+                sx={{
+                  ml: 2,
+                  maxWidth: 350,
+
+                  backgroundColor: "#32617D",
+                  border: "1px solid white",
+                  color: "white",
+                  "& .MuiChip-label": {
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                    fontWeight: 600,
+                  },
+
+                  "&:hover": {
+                    backgroundColor: "#E6EEF3",
+                  },
+                }}
+              />
+            </Tooltip>
+            {!loading && organismsData?.length > 0 && (
+              <Drawer
+                anchor="right"
+                open={organismDrawerOpen}
+                onClose={() =>
+                  setOrganismDrawerOpen(false)
+                }
+                PaperProps={{
+                  sx: {
+                    width: 400,
+                  },
+                }}
+              >
+                <OrganismExplorer
+                  organisms={organismsData}
+                  selectedOrganismId={selectedOrganismId}
+                  recentOrganisms={recentOrganisms}
+                  onChange={handleOrganismChange}
+                  defaultExpanded={false}
+                />
+              </Drawer>
+            )}
           </Toolbar>
         </Container>
       </AppBar>

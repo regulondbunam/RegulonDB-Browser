@@ -8,6 +8,7 @@ import {useGetAllGus, useGetGuById, useGetGuBySearch} from "./gensorUnit";
 import { useGetAllGenes } from "./coexpression";
 import { useGetPhraseByObjectId } from "./phrases";
 import { useGetDataFile, useLazyGetDataFile } from "./dataOfFile";
+import { useAllOrganisms } from "./organisms";
 
 export {
     useGetRegulonBySearch,
@@ -17,5 +18,6 @@ export {
     useGetSigmulonById, useGetSigmulonBySearch,
     useGetAllGus, useGetGuById, useGetGuBySearch,
     useGetPhraseByObjectId,
-    useGetDataFile, useLazyGetDataFile
+    useGetDataFile, useLazyGetDataFile,
+    useAllOrganisms
 }
