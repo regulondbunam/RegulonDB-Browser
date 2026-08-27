@@ -12,11 +12,20 @@ import {
 import RelatedTool from "./components/relatedTool";
 
 export default function Information({ geneData }) {
+  const isDefaultOrganism = geneData.organism._id === "RDBECOLIORC00001";
+
   const citations = useIndexedCitation(geneData.allCitations);
   let relationTool = null;
   let dtt = null;
-  console.log(geneData.gene);
-  if (geneData.gene.leftEndPosition || DataVerifier.isValidArray(geneData.gene.fragments) ) {
+  if (
+    isDefaultOrganism &&
+    (
+      geneData.gene.leftEndPosition ||
+      DataVerifier.isValidArray(
+        geneData.gene.fragments
+      )
+    )
+  ) {
     relationTool = <RelatedTool {...geneData} />;
     dtt = (
       <DrawingTracesTool

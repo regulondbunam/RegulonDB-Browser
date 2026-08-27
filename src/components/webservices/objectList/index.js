@@ -1,11 +1,13 @@
 import { QUERY_GetObjectList } from "./queries";
 import { useQuery } from "@apollo/client";
 
-export default function useGetObjectList({datamartType}) {
+export default function useGetObjectList({datamartType, organismId, skip}) {
     const { data, loading, error } = useQuery(QUERY_GetObjectList, {
         variables: {
-            datamartType: datamartType
-        }
+            datamartType: datamartType,
+            organismId: organismId
+        },
+        skip,
     })
     let objectsList
     try {

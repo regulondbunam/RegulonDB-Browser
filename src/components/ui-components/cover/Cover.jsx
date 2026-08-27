@@ -110,12 +110,12 @@ export function Cover({ children, coverId = "uiCover", state, message, coverStyl
     case "loading":
       coverSTL += " uicover_animation";
       messageSTL += " uiMessage_loading";
-      messageState = "Loading ..."
+      messageState = ""
       break;
     case "error":
       coverSTL += " uicover_error";
       messageSTL += " uiMessage_error";
-      messageState = "UPS :( Error"
+      messageState = ""
       break;
     case "die":
       messageSTL += " uiMessage_die";

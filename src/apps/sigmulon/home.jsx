@@ -4,8 +4,8 @@ import {
   DataVerifier,
   FilterTable,
 } from "../../components/ui-components";
-import { useGetObjectList } from "../../components/webservices";
 import { Link } from "react-router-dom";
+import ObjectListPage from "../../components/objectListPage";
 
 const COLUMNS = [
     {
@@ -90,19 +90,14 @@ const COLUMNS = [
   }
 
   export default function Home() {
-    const { objectsList, loading, error } = useGetObjectList({
-      datamartType: "sigmulon",
-    });
-    let state = "done";
-    let title = "Sigmulon";
-    if (loading) {
-      state = "loading";
-      title = "loading sigmulon list";
-    }
-    if (error) {
-      state = "error";
-      title = "... Sorry, we have an error, try again later 🥲";
-    }
+    const {
+        objectsList,
+        state,
+        title,
+      } = ObjectListPage({
+        datamartType: "sigmulon",
+        title: "Sigmulon",
+      });
   
     return (
       <div>

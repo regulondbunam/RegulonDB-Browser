@@ -225,6 +225,7 @@ function FTable({
   fileName = "tableData",
   rowHeight = 35,
   height,
+  rowLinkBase,
 }) {
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});
@@ -351,7 +352,7 @@ function FTable({
                * @returns {HTMLElement}
                */
               (row) => (
-                <Row row={row} defaultRowHeight={rowHeight}/>
+                <Row row={row} defaultRowHeight={rowHeight} rowLinkBase={rowLinkBase}/>
               )
             )}
             {table.getPageCount() > 1 && (

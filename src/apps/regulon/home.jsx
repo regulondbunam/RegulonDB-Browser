@@ -4,10 +4,10 @@ import { gql, useQuery } from "@apollo/client";
 import { FilterTable } from "../../components/ui-components";
 import CircularProgress from "@mui/material/CircularProgress";
 //import Data from "./exampleData.json";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 const query_GET_ALL_REGULON = gql`
-  {
-    getAllRegulon {
+  query getAllRegulon($organismId: String) {
+    getAllRegulon(organismId: $organismId) {
       data {
         _id
         regulator {
@@ -119,7 +119,13 @@ function formatData(regulons = []) {
   return data;
 }
 export default function Home() {
-  const { data, loading, error } = useQuery(query_GET_ALL_REGULON);
+  const [searchParams] = useSearchParams();
+  const organismId = searchParams.get("organism");
+  const { data, loading, error } = useQuery(query_GET_ALL_REGULON, {
+    variables: {
+      organismId: organismId
+    }
+  });
   //console.log(Data)
   //let data = Data.data
   let state = "done";

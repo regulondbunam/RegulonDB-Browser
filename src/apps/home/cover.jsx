@@ -6,10 +6,11 @@ import Paper from "@mui/material/Paper";
 import Search from "./search";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 import {Button} from "@mui/material";
+import {buildUrlWithOrganism} from "../../components/ui-components/utils/navigation";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "transparent",
@@ -27,6 +28,7 @@ const searchLinks = [
   {
     label: "Operon",
     link: "/operon",
+    "requiresDefaultOrganism": true
   },
   {
     label: "Regulon",
@@ -35,18 +37,25 @@ const searchLinks = [
   {
     label: "Sigmulon",
     link: "/sigmulon",
+    "requiresDefaultOrganism": true
   },
   {
     label: "GENSOR Unit",
     link: "/gu",
+    "requiresDefaultOrganism": true
   },
   {
     label: "High Throughput",
     link: "/ht",
+    "requiresDefaultOrganism": true
   },
 ];
 
 export default function Cover() {
+  const [searchParams] = useSearchParams();
+  const organismId = searchParams.get("organism");
+  const DEFAULT_ORGANISM_ID = "RDBECOLIORC00001";
+  const isDefaultOrganism = organismId === DEFAULT_ORGANISM_ID;
   return (
     <Paper
       elevation={0}
@@ -145,13 +154,28 @@ export default function Cover() {
           }}
           display={{xs:"none", md:"flex"}}
         >
-          <Stack direction={{xs:"row", md:"row"}} spacing={1}>
+          <Stack direction={{ xs: "row", md: "row" }} spacing={1}>
             {searchLinks.map((link) => {
+              const isRestricted = link.requiresDefaultOrganism && !isDefaultOrganism;
+              const linkUrl = buildUrlWithOrganism(link.link, organismId);
+
               return (
                 <Item elevation={0} key={"cover_link_" + link.label}>
-                  <Link to={link.link}
+                  <Link
+                    to={isRestricted ? "#" : linkUrl}
+                    onClick={(e) => {
+                      if (isRestricted) e.preventDefault();
+                    }}
+                    aria-disabled={isRestricted}
+                    tabIndex={isRestricted ? -1 : 0}
                     style={{
-                      color: "#ffffff", fontSize:"large", fontWeight: "bold", textDecoration: "link",
+                      color: "#ffffff",
+                      fontSize: "large",
+                      fontWeight: "bold",
+                      textDecoration: "link",
+                      pointerEvents: isRestricted ? "none" : "auto",
+                      opacity: isRestricted ? 0.5 : 1,
+                      cursor: isRestricted ? "not-allowed" : "pointer",
                     }}
                   >
                     {link.label}
@@ -180,14 +204,27 @@ export default function Cover() {
 
             }}>
                 {searchLinks.map((link) => {
+                    const isRestricted = link.requiresDefaultOrganism && !isDefaultOrganism;
+                    const linkUrl = isRestricted ? "#" : buildUrlWithOrganism(link.link, organismId);
+
                     return (
                         <Item elevation={0} key={"cover_link_" + link.label}
                         >
                             <Button variant="contained" fullWidth
-                                    component={Link} to={link.link}
+                                    component={Link} to={linkUrl}
+                                    onClick={(e) => {
+                                        if (isRestricted) e.preventDefault();
+                                    }}
+                                    aria-disabled={isRestricted}
+                                    tabIndex={isRestricted ? -1 : 0}
                                     sx={{
                                         width: "100%",
-                                        backgroundColor: "var(--color-blue2)"
+                                        backgroundColor: "var(--color-blue2)",
+                                        ...(isRestricted && {
+                                            pointerEvents: "none",
+                                            opacity: 0.5,
+                                            cursor: "not-allowed",
+                                        }),
                                     }}
                             >
                                 <Typography
@@ -209,7 +246,6 @@ export default function Cover() {
         </Grid>
       </Grid>
       <br />
-      
     </Paper>
   );
 }

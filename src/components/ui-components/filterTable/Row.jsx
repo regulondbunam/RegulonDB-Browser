@@ -1,14 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import { flexRender } from "@tanstack/react-table";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function Row({
   row,
   defaultRowHeight = 30,
+  rowLinkBase,
 }) {
   const [resize, setResize] = useState();
   const height = useRef(null);
   const rowId = "tr_" + row.id;
-
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const organismId = searchParams.get("organism");
   useEffect(() => {
     const trCont = document.getElementById(rowId);
     if (trCont && !resize) {
@@ -24,6 +28,20 @@ export default function Row({
     <tr
       key={row.id}
       id={rowId}
+       onClick={() => {
+        if (!rowLinkBase) {
+          return;
+        }
+
+        navigate(
+          `${rowLinkBase}/${row.original.id}?organism=${organismId}`
+        );
+      }}
+      style={{
+        cursor: rowLinkBase
+          ? "pointer"
+          : "default",
+      }}
       onMouseEnter={() => {
         if (height.current > defaultRowHeight) {
           setResize(height.current)

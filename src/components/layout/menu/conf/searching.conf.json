@@ -15,12 +15,14 @@
         {
           "id": "gensorUnit-search",
           "label": "Gensor Unit",
-          "link" : "/gu"
+          "link" : "/gu",
+          "requiresDefaultOrganism": true
         },
         {
           "id": "operon-search",
           "label": "Operon",
-          "link" : "/operon"
+          "link" : "/operon",
+          "requiresDefaultOrganism": true
         },
         {
           "id": "regulon-search",
@@ -30,7 +32,8 @@
         {
           "id": "sigmulon-search",
           "label": "Sigmulon",
-          "link" : "/sigmulon"
+          "link" : "/sigmulon",
+          "requiresDefaultOrganism": true
         }
       ]
     },
@@ -41,12 +44,14 @@
         {
           "id": "ht-browser",
           "label": "High Throughput",
-          "link" : "/ht"
+          "link" : "/ht",
+          "requiresDefaultOrganism": true
         },
         {
           "id": "coexpression-browsing",
           "label": "Coexpression",
-          "link" : "/coexpression"
+          "link" : "/coexpression",
+          "requiresDefaultOrganism": true
         },
         {
           "id": "gensorUnitGroups-browsing",

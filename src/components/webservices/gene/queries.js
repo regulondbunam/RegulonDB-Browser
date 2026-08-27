@@ -238,7 +238,6 @@ query GetGeneInfo(
         schemaVersion
         organism {
           _id
-          name
         }
         allCitations {
           ...CITATIONS

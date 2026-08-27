@@ -4,8 +4,8 @@ import {
   DataVerifier,
   FilterTable,
 } from "../../components/ui-components";
-import { useGetObjectList } from "../../components/webservices";
 import { Link } from "react-router-dom";
+import ObjectListPage from "../../components/objectListPage";
 
 const COLUMNS = [
   {
@@ -59,19 +59,14 @@ function formatData(objectsList = []) {
 }
 
 export default function Home() {
-  const { objectsList, loading, error } = useGetObjectList({
+  const {
+    objectsList,
+    state,
+    title,
+  } = ObjectListPage({
     datamartType: "gene",
+    title: "Genes",
   });
-  let state = "done";
-  let title = "Genes";
-  if (loading) {
-    state = "loading";
-    title = "loading gene list";
-  }
-  if (error) {
-    state = "error";
-    title = "... Sorry, we have an error, try again later 🥲";
-  }
 
   return (
     <div>
@@ -93,6 +88,7 @@ function LoadTable({ objectsList }) {
         data={data}
         columns={COLUMNS}
         fileName="GeneSummaryData"
+        rowLinkBase="/gene"
       />
     </div>
   );

@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
-export const QUERY_GetObjectList = gql`query GetObjectList($datamartType: String!) {
-    getObjectList(datamartType: $datamartType) {
+export const QUERY_GetObjectList = gql`query GetObjectList($datamartType: String! $organismId: String!) {
+    getObjectList(datamartType: $datamartType organismId: $organismId) {
       _id
       datamartType
       encodedGenes
