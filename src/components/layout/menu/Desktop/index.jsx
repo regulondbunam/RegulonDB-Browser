@@ -285,6 +285,10 @@ export default function Desktop() {
     setOrganismDrawerOpen(
       false
     );
+
+    navigate(
+    `/?organism=${organismId}`
+  );
   };
 
 
