@@ -35,7 +35,6 @@ export const query_GET_GE_Interval = gql`query GET_GE(
       objectType
       organism {
         _id
-        name
       }
       relatedGenes {
         _id

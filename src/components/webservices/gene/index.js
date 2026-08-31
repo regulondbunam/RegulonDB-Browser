@@ -110,9 +110,9 @@ export function useGetMainGenesBySearch(search) {
   return { genesData, loading, error };
 }
 
-export function useGetGenesBySearch({ search }) {
+export function useGetGenesBySearch({ search, organismId }) {
   const { data, loading, error } = useQuery(query_GET_GENE_BY, {
-    variables: { search: search },
+    variables: { search: search, organismId: organismId },
   });
   let genesData = [];
   try {
@@ -137,7 +137,7 @@ export function useGetGenesBy({
   advancedSearch,
   fullMatchOnly = false,
   limit = 1,
-  organismName,
+  organismId,
   page,
   properties,
   search,
@@ -150,7 +150,7 @@ export function useGetGenesBy({
       advancedSearch: advancedSearch,
       fullMatchOnly: fullMatchOnly,
       limit: limit,
-      organismName: organismName,
+      organismId: organismId,
       page: page,
       properties: properties,
       search: search,

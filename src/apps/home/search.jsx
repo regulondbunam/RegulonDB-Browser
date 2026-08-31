@@ -7,6 +7,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
+import {buildUrlWithOrganism} from "../../components/ui-components/utils/navigation";
 
 const HtmlTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -21,13 +22,13 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 }));
 
 
-export default function Search({ onClick = () => {} }) {
+export default function Search({ onClick = () => {}, organismId }) {
   const [value, setValue] = useState("")
   let navigate = useNavigate();
   const handleSearch = () => {
     onClick()
     setTimeout(() => {
-      navigate("/search/" + value);
+      navigate(buildUrlWithOrganism("/search/" + value, organismId));
     }, 200);
   }
   return (

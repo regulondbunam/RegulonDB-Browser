@@ -64,7 +64,7 @@ export default function Cover() {
         width: "100%",
         position: "relative",
         backgroundColor: "grey.800",
-        color: "#fff",
+        color: "#ffffff",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
@@ -141,7 +141,7 @@ export default function Cover() {
           display={{xs:"none", md:"flex"}}
         >
           <div className="coverSearch">
-            <Search />
+            <Search organismId={organismId}/>
           </div>
         </Grid>
         <Grid

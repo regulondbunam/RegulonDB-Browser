@@ -28,7 +28,8 @@
             {
                 "id": "experimentalDataset",
                 "label": "Experimental Datasets",
-                "link": "/datasets"
+                "link": "/datasets",
+                "requiresDefaultOrganism": true
             },
             {
                 "id": "pssMS05",

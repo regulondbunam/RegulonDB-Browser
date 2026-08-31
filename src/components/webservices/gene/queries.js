@@ -219,7 +219,7 @@ query GetGeneInfo(
     $advancedSearch: String
     $fullMatchOnly: Boolean = false
     $limit: Int
-    $organismName: String
+    $organismId: String
     $page: Int = 0
     $properties: [String]
     $search: String
@@ -228,7 +228,7 @@ query GetGeneInfo(
       advancedSearch: $advancedSearch
       fullMatchOnly: $fullMatchOnly
       limit: $limit
-      organismName: $organismName
+      organismId: $organismId
       page: $page
       properties: $properties
       search: $search

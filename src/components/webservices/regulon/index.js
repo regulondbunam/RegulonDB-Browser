@@ -4,10 +4,11 @@ import {
   query_GET_REGULON_BYSearch,
 } from "./query";
 
-export function useGetRegulonBySearch({ search }) {
+export function useGetRegulonBySearch({ search, organismId }) {
   const { data, error, loading } = useQuery(query_GET_REGULON_BYSearch, {
     variables: {
       search: search,
+      organismId: organismId,
     },
   });
   let regulonsData;

@@ -72,7 +72,7 @@ Results: it is responsible for coordinating the search and displaying results in
 
 **/
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import Results from './results';
 import CoexpressionResults from "./coexpression";
 import ReactGA from "react-ga4";
@@ -88,7 +88,13 @@ ReactGA.initialize("G-0ZFSS5E5YD");
  * @returns {HTMLElement}
  */
 function Search() {
-    let { keyword } = useParams()
+  const { keyword } = useParams();
+
+  const [searchParams] =
+    useSearchParams();
+
+  const organismId =
+    searchParams.get("organism");
 
     if(keyword){
         ReactGA.event({
@@ -103,7 +109,10 @@ function Search() {
         if(/coexpression/.test(keyword)){
             return <CoexpressionResults keyword={keyword} />
         }
-        return <Results keyword={keyword} />
+        return <Results
+                    keyword={keyword}
+                    organismId={organismId}
+                />
     }
     return <Results keyword={""} />
 }

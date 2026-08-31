@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { buildUrlWithOrganism } from "../../components/ui-components/utils/navigation";
 
 const styleSearch = {
   display: "flex",
@@ -8,13 +9,15 @@ const styleSearch = {
 };
 
 export default function InputSearch({ hint }) {
+  const [searchParams] = useSearchParams();
+  const organismId = searchParams.get("organism");
   let navigate = useNavigate();
   const [keyword, setKeyword] = useState("");
   const handleChange = (event) => {
     setKeyword(event.target.value);
   };
   const handleSearch = () => {
-    navigate("/search/" + keyword, { replace: true });
+    navigate(buildUrlWithOrganism("/search/" + keyword, organismId), { replace: true });
   }
 
   return (

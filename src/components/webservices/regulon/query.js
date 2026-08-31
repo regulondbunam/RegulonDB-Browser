@@ -339,12 +339,12 @@ ${fragment_TERMS}
 ${fragment_ENCODEFROM}
 ${fragment_REGULATOR}
 ${fragment_SUMMARY}
-query GetRegulonInfo($advancedSearch: String, $fullMatchOnly: Boolean = false, $limit: Int = 10, $organismName: String, $page: Int = 0, $search: String) {
+query GetRegulonInfo($advancedSearch: String, $fullMatchOnly: Boolean = false, $limit: Int = 10, $organismId: String, $page: Int = 0, $search: String) {
   getRegulonBy(
     advancedSearch: $advancedSearch
     fullMatchOnly: $fullMatchOnly
     limit: $limit
-    organismName: $organismName
+    organismId: $organismId
     page: $page
     search: $search
   ) {
@@ -392,10 +392,11 @@ ${fragment_REGULATES}
 ${fragment_RI}
 ${fragment_TERMS}
 ${fragment_SUMMARY}
-query GetRegulonInfo($advancedSearch: String, $search: String) {
+query GetRegulonInfo($advancedSearch: String, $search: String, $organismId: String) {
   getRegulonBy(
     advancedSearch: $advancedSearch
     search: $search
+    organismId: $organismId
   ) {
     data {
       _id
@@ -444,12 +445,12 @@ ${fragment_TERMS}
 ${fragment_ENCODEBY}
 ${fragment_REGULATORv2}
 ${fragment_SUMMARY}
-query GetRegulonInfo($advancedSearch: String, $fullMatchOnly: Boolean = false, $limit: Int = 10, $organismName: String, $page: Int = 0, $search: String) {
+query GetRegulonInfo($advancedSearch: String, $fullMatchOnly: Boolean = false, $limit: Int = 10, $organismId: String, $page: Int = 0, $search: String) {
   getRegulonBy(
     advancedSearch: $advancedSearch
     fullMatchOnly: $fullMatchOnly
     limit: $limit
-    organismName: $organismName
+    organismId: $organismId
     page: $page
     search: $search
   ) {

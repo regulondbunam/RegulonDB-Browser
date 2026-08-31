@@ -167,7 +167,6 @@ query GetOperonInfo(
         schemaVersion
         organism {
           _id
-          name
         }
         allCitations {
           ...CITATIONS

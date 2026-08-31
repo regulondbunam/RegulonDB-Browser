@@ -19,29 +19,26 @@ import {
   goFormatResults,
 } from "./dataProcess";
 import CircularProgress from "@mui/material/CircularProgress";
-//import Paper from "@mui/material/Paper";
-//import Button from "@mui/material/Button";
-//import InputBase from "@mui/material/InputBase";
-//import { useState } from "react";
 import { Div } from "../../../components/ui-components/searchKeys/code";
-//import SearchIcon from "@mui/icons-material/Search";
 import CoexpressionResults from "../coexpression";
 import { useGetGOBySearch } from "../../../regulondb-ws/queries/GOTree";
 
-export default function Results({ keyword }) {
-  //const [keyword, setKeyword] = useState(inKeyword ? inKeyword : "");
-  //const [value, setValue] = useState(inKeyword ? inKeyword : "");
-  //const handleSearch = () => {
-  //  setKeyword(value);
-  //};
+export default function Results({ keyword, organismId }) {
+
+  const DEFAULT_ORGANISM_ID = "RDBECOLIORC00001";
+
+  const isDefaultOrganism = organismId === DEFAULT_ORGANISM_ID;
 
   let section = [
-    GeneResult(keyword),
-    OperonResult(keyword),
-    RegulonResult(keyword),
-    SigmulonResult(keyword),
-    GUsResult(keyword)
+    GeneResult(keyword, organismId),
+    RegulonResult(keyword, organismId),
   ];
+
+  if (isDefaultOrganism) {
+    section.push(OperonResult(keyword));
+    section.push(SigmulonResult(keyword));
+    section.push(GUsResult(keyword));
+  }
 
   let title = `${keyword}`;
 
@@ -124,14 +121,14 @@ function GUsResult(keyword) {
   };
 }
 
-function GeneResult(keyword) {
+function GeneResult(keyword, organismId) {
   let type = "Gene";
   let title = type + " (0)";
   const {
     genesData: data,
     loading,
     error,
-  } = useGetGenesBySearch({ search: keyword });
+  } = useGetGenesBySearch({ search: keyword, organismId: organismId });
   let results = [];
   if (DataVerifier.isValidArray(data)) {
     results = geneFormatResults(data, keyword);
@@ -154,6 +151,7 @@ function GeneResult(keyword) {
         error={error}
         results={results}
         keyword={keyword}
+        organismId={organismId}
       />
     ),
   };
@@ -194,14 +192,14 @@ function OperonResult(keyword) {
   };
 }
 
-function RegulonResult(keyword) {
+function RegulonResult(keyword, organismId) {
   let type = "Regulon";
   let title = type + " (0)";
   const {
     regulonsData: data,
     loading,
     error,
-  } = useGetRegulonBySearch({ search: keyword });
+  } = useGetRegulonBySearch({ search: keyword, organismId: organismId });
   let results = [];
   if (DataVerifier.isValidArray(data)) {
     results = regulonFormatResults(data, keyword);
@@ -265,7 +263,7 @@ function SigmulonResult(keyword) {
   };
 }
 
-function Result({ keyword, error, loading, results, type }) {
+function Result({ keyword, error, loading, results, type, organismId }) {
   return (
     <div>
       {loading && (
@@ -278,7 +276,7 @@ function Result({ keyword, error, loading, results, type }) {
       {results.length > 0 && (
         <div style={{ marginLeft: "3%" }}>
           {DataVerifier.isValidArray(results) && (
-            <ListResult results={results} />
+            <ListResult results={results} organismId={organismId} />
           )}
         </div>
       )}

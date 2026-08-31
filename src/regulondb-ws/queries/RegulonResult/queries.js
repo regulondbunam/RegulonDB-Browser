@@ -35,7 +35,6 @@ export const query_GetRegulonBy = gql`query GetRegulonBy($advancedSearch: String
         }
         organism {
           _id
-          name
         }
         regulates {
           genes {

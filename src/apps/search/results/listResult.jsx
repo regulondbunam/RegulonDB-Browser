@@ -9,6 +9,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DataVerifier } from '../../../components/ui-components';
+import {buildUrlWithOrganism} from "../../../components/ui-components/utils/navigation";
 
 function Pagination(results, limit = 10) {
     let _results = []
@@ -31,7 +32,7 @@ function Pagination(results, limit = 10) {
     return _results
 }
 
-export default function ListResult({ results = [] }) {
+export default function ListResult({ results = [], organismId }) {
     let navigate = useNavigate();
     const [page, setPage] = useState(0);
     // eslint-disable-next-line no-unused-vars
@@ -45,7 +46,7 @@ export default function ListResult({ results = [] }) {
                     {data[page].map(dt => {
                         return (
                             <ListItemButton key={dt.type + "_result_" + dt._id}
-                                onClick={() => { navigate("/" + dt.type + "/" + dt._id); }}
+                                onClick={() => { navigate(buildUrlWithOrganism("/" + dt.type + "/" + dt._id, organismId)); }}
                             >
                                 <ListItemText
                                     primary={<p style={{fontSize: "16px"}} dangerouslySetInnerHTML={{__html: dt.title}} />} 

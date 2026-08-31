@@ -249,7 +249,7 @@ ${fragment_GROWTHCONDITIONS}
     $advancedSearch: String
     $fullMatchOnly: Boolean = false
     $limit: Int = 10
-    $organismName: String
+    $organismId: String
     $page: Int = 0
     $search: String
   ) {
@@ -257,7 +257,7 @@ ${fragment_GROWTHCONDITIONS}
       advancedSearch: $advancedSearch
       fullMatchOnly: $fullMatchOnly
       limit: $limit
-      organismName: $organismName
+      organismId: $organismId
       page: $page
       properties: $properties
       search: $search
@@ -267,7 +267,6 @@ ${fragment_GROWTHCONDITIONS}
         schemaVersion
         organism {
           _id
-          name
         }
         allCitations {
           ...CITATIONS
@@ -299,7 +298,7 @@ query GetGeneInfo(
     $advancedSearch: String
     $fullMatchOnly: Boolean = false
     $limit: Int = 10
-    $organismName: String
+    $organismId: String
     $page: Int = 0
     $properties: [String]
     $search: String
@@ -308,7 +307,7 @@ query GetGeneInfo(
       advancedSearch: $advancedSearch
       fullMatchOnly: $fullMatchOnly
       limit: $limit
-      organismName: $organismName
+      organismId: $organismId
       page: $page
       properties: $properties
       search: $search
@@ -318,7 +317,6 @@ query GetGeneInfo(
         schemaVersion
         organism {
           _id
-          name
         }
         allCitations {
           ...CITATIONS
