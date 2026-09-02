@@ -9,7 +9,7 @@ export default function geneFormatResults(geneData, keyword = "") {
                 products = ", " + gene.products.map(product => { return product.name }).join(', ')
             }
             //let re = new RegExp(`${keyword}`, "gm");
-            let title = gene.gene.name + " " + products
+            let title = gene.gene.name + " (" + gene.gene.bnumber + ")" + " " + products
             let matches = title.matchAll(keyword)
             let score = [...matches].length
             title = title.replaceAll(keyword, "<b>" + keyword + "</b>")

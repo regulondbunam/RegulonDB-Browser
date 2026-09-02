@@ -6,6 +6,7 @@ export const QUERY_GetObjectList = gql`query GetObjectList($datamartType: String
       datamartType
       encodedGenes
       name
+      bnumber
       productsName
       sigmulonGeneName
       statistics {

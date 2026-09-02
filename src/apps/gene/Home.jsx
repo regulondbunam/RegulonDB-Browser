@@ -19,6 +19,12 @@ const COLUMNS = [
         <span dangerouslySetInnerHTML={{ __html: info.getValue() }} />
       </Link>
     ),
+  },{
+    id: "geneBNumber",
+    header: "bnumber",
+    accessorKey: "_bnumber",
+    size: 150,
+    filter: "fuzzyText"
   },
   {
     id: "geneSynonyms",
@@ -42,10 +48,11 @@ const COLUMNS = [
 function formatData(objectsList = []) {
   let data = [];
   if (DataVerifier.isValidArray(objectsList)) {
-    objectsList.forEach(({ _id, name, productsName, synonyms }) => {
+    objectsList.forEach(({ _id, name, bnumber, productsName, synonyms }) => {
       data.push({
         id: _id,
         _name: name,
+        _bnumber: bnumber,
         _synonyms: DataVerifier.isValidArray(synonyms)
           ? synonyms.join(", ")
           : "",
