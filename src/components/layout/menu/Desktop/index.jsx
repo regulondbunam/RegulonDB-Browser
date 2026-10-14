@@ -25,6 +25,7 @@ import Chip from "@mui/material/Chip";
 import Tooltip from "@mui/material/Tooltip";
 import BiotechIcon from "@mui/icons-material/Biotech";
 import {buildUrlWithOrganism} from "../../../ui-components/utils/navigation";
+import {DEFAULT_ORGANISM_ID} from "../../../../utils/organismConstants";
 
 
 const BUTTON_HOME_STYLE = {
@@ -36,15 +37,6 @@ const BUTTON_HOME_STYLE = {
   marginRight: "3%",
   transition: "all .3s ease",
 };
-
-
-// Default organism used when:
-// - URL does not contain an organism
-// - localStorage does not contain a valid organism
-// - organism from URL does not exist
-const DEFAULT_ORGANISM_ID =
-  "RDBECOLIORC00001";
-
 
 export default function Desktop() {
 
@@ -645,8 +637,6 @@ function MenuItem({
 }) {
 
   const navigate = useNavigate();
-
-  const DEFAULT_ORGANISM_ID = "RDBECOLIORC00001";
 
   const isDefaultOrganism = selectedOrganismId === DEFAULT_ORGANISM_ID;
 

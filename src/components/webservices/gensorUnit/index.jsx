@@ -22,8 +22,8 @@ export function useGetAllGus() {
     return { gusData, loading, error }
 }
 
-export function useGetGuBySearch(keyword) {
-    const { data, loading, error } = useQuery(query_getGuBySearch,{variables:{search: keyword}})
+export function useGetGuBySearch(keyword, isDefaultOrganism) {
+    const { data, loading, error } = useQuery(query_getGuBySearch,{variables:{search: keyword}, skip: !isDefaultOrganism})
     let gusData = []
     //console.log(data);
     try {

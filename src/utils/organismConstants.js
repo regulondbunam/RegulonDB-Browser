@@ -1,0 +1,2 @@
+export const DEFAULT_ORGANISM_ID =
+  "RDBECOLIORC00001";

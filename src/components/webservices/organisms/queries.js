@@ -9,5 +9,6 @@ export const get_all_organisms = gql`
       strainName
       type
       plasmidName
+      taxonName
   }
   }`

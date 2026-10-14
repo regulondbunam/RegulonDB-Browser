@@ -2,9 +2,10 @@ import { useQuery } from "@apollo/client";
 import { DataVerifier } from "../../ui-components";
 import { query_getSigmulonBy, query_getSigmulonBySearch } from "./query";
 
-export function useGetSigmulonBySearch(keyword) {
+export function useGetSigmulonBySearch(keyword, isDefaultOrganism) {
   const { data, loading, error } = useQuery(query_getSigmulonBySearch, {
-    variables: { search: keyword },
+    variables: { search: keyword},
+    skip: !isDefaultOrganism
   });
   let sigmulonData;
   if (data) {

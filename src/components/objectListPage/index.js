@@ -1,12 +1,12 @@
 import { useSearchParams } from "react-router-dom";
 import useGetObjectList from "../webservices/objectList";
+import { DEFAULT_ORGANISM_ID } from "../../utils/organismConstants";
 
 export default function useObjectListPage({ datamartType, title}) {
 
   const [searchParams] = useSearchParams();
   const organismId = searchParams.get("organism");
 
-  const DEFAULT_ORGANISM_ID = "RDBECOLIORC00001";
   const organismNotSupported = organismId && organismId !== DEFAULT_ORGANISM_ID && datamartType !== "gene";
 
   const {

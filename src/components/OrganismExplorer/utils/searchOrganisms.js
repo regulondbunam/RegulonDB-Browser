@@ -18,7 +18,7 @@ export const searchOrganisms = (
     .filter((item) => {
 
       return [
-        item.name,
+        item.taxonName,
         item.strainName,
         item.plasmidName,
         item._id,

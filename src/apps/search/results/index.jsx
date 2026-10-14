@@ -22,23 +22,60 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { Div } from "../../../components/ui-components/searchKeys/code";
 import CoexpressionResults from "../coexpression";
 import { useGetGOBySearch } from "../../../regulondb-ws/queries/GOTree";
+import {DEFAULT_ORGANISM_ID} from "../../../utils/organismConstants";
 
 export default function Results({ keyword, organismId }) {
 
-  const DEFAULT_ORGANISM_ID = "RDBECOLIORC00001";
-
   const isDefaultOrganism = organismId === DEFAULT_ORGANISM_ID;
 
-  let section = [
-    GeneResult(keyword, organismId),
-    RegulonResult(keyword, organismId),
-  ];
+  const geneSection =
+    GeneResult(
+      keyword,
+      organismId
+    );
 
-  if (isDefaultOrganism) {
-    section.push(OperonResult(keyword));
-    section.push(SigmulonResult(keyword));
-    section.push(GUsResult(keyword));
-  }
+  const regulonSection =
+    RegulonResult(
+      keyword,
+      organismId
+    );
+
+  const operonSection =
+  OperonResult(
+    keyword,
+    isDefaultOrganism
+  );
+
+const sigmulonSection =
+  SigmulonResult(
+    keyword,
+    isDefaultOrganism
+  );
+
+const guSection =
+  GUsResult(
+    keyword,
+    isDefaultOrganism
+  );
+
+  let section = [
+  geneSection,
+  regulonSection,
+];
+
+if (isDefaultOrganism) {
+  section.push(
+    operonSection
+  );
+
+  section.push(
+    sigmulonSection
+  );
+
+  section.push(
+    guSection
+  );
+}
 
   let title = `${keyword}`;
 
@@ -91,9 +128,9 @@ function GOResult(keyword) {
   };
 }
 
-function GUsResult(keyword) {
+function GUsResult(keyword, isDefaultOrganism) {
   let title = "GENSOR Unit (0)";
-  const { gusData, loading, error } = useGetGuBySearch(keyword);
+  const { gusData, loading, error } = useGetGuBySearch(keyword, !isDefaultOrganism);
   let results = [];
   if (DataVerifier.isValidArray(gusData)) {
     results = gusFormatResults(gusData, keyword);
@@ -157,14 +194,14 @@ function GeneResult(keyword, organismId) {
   };
 }
 
-function OperonResult(keyword) {
+function OperonResult(keyword, isDefaultOrganism) {
   let type = "Operon";
   let title = type + " (0)";
   const {
     operonsData: data,
     loading,
     error,
-  } = useGetOperonBySearch({ search: keyword });
+  } = useGetOperonBySearch({ search: keyword, isDefaultOrganism: isDefaultOrganism });
   let results = [];
   if (DataVerifier.isValidArray(data)) {
     results = operonFormatResults(data, keyword);
@@ -227,13 +264,13 @@ function RegulonResult(keyword, organismId) {
   };
 }
 
-function SigmulonResult(keyword) {
+function SigmulonResult(keyword, isDefaultOrganism) {
   let type = "Sigmulon";
   const {
     sigmulonData: data,
     loading,
     error,
-  } = useGetSigmulonBySearch(keyword);
+  } = useGetSigmulonBySearch(keyword, !isDefaultOrganism);
   //console.log(keyword);
   let results = [];
   let title = type + " (0)";

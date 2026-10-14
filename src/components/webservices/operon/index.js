@@ -54,10 +54,12 @@ export function useGetOperonByTuId({
 }
 
 export function useGetOperonBySearch({
-    search
+    search,
+    isDefaultOrganism,
 }) {
     const { data, loading, error } = useQuery(query_GET_OPERON_BY, {
-        variables: { search: search }
+        variables: { search: search },
+        skip: !isDefaultOrganism,
     })
     let operonsData
     try {

@@ -70,7 +70,7 @@ Home: it is an imported component that represents the home page or main page of 
  
 **/
 import React, { useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useGetGenesBy } from "../../components/webservices";
 import Title, { UpdateTitle } from "./components/Title";
 import Information from './information';
@@ -112,7 +112,9 @@ export default function Gene() {
 function GeneDescription({ geneId }) {
 
   const [title, setTitle] = React.useState("gene");
-  const { geneData, loading, error } = useGetGenesBy({ _id: geneId })
+  const [searchParams] = useSearchParams();
+  const organismId = searchParams.get("organism");
+  const { geneData, loading, error } = useGetGenesBy({ _id: geneId, organismId: organismId });
   // console.log(geneData);
   useEffect(() => {
     if (loading) {
@@ -124,7 +126,7 @@ function GeneDescription({ geneId }) {
     }
     if (geneData === null) {
       UpdateTitle({ state: "error" })
-      setTitle(`Sorry, Gene:${geneId} don't found`)
+      setTitle(`Gene not found \n The gene ${geneId} was not found in the currently selected organism. It may belong to a different organism or the identifier may be invalid.`)
     }
     if (error) {
       UpdateTitle({ state: "error" })

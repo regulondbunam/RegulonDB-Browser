@@ -11,6 +11,8 @@ import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 import {Button} from "@mui/material";
 import {buildUrlWithOrganism} from "../../components/ui-components/utils/navigation";
+import {DEFAULT_ORGANISM_ID} from "../../utils/organismConstants";
+import { useAllOrganisms } from "../../components/webservices/";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "transparent",
@@ -54,8 +56,34 @@ const searchLinks = [
 export default function Cover() {
   const [searchParams] = useSearchParams();
   const organismId = searchParams.get("organism");
-  const DEFAULT_ORGANISM_ID = "RDBECOLIORC00001";
   const isDefaultOrganism = organismId === DEFAULT_ORGANISM_ID;
+
+  const {
+      organismsData,
+      loading,
+      error,
+    } = useAllOrganisms("");
+
+    const organisms = organismsData || [];
+
+    const selectedOrganism = organisms.find(
+      (organism) => organism._id === organismId
+    );
+
+    const organismName = selectedOrganism
+    ? [
+        selectedOrganism.taxonName,
+        selectedOrganism.strainName,
+        selectedOrganism.type === "plasmid"
+          ? selectedOrganism.plasmidName
+          : null,
+      ]
+          .filter(Boolean)
+          .join(" ")
+    : loading
+      ? ""
+      : "Escherichia coli K-12";
+
   return (
     <Paper
       elevation={0}
@@ -126,8 +154,8 @@ export default function Cover() {
           className={"coverTitle"}
         >
           <Typography variant="h1Cover"  fontSize={{xs:"110%", md:"360%"}}>The RegulonDB Database</Typography>
-          <Typography variant="h2Cover" >
-            Escherichia coli K-12 Transcriptional Regulatory Network
+          <Typography variant="h2Cover">
+            {organismName} Transcriptional Regulatory Network
           </Typography>
         </Grid>
         <Grid
