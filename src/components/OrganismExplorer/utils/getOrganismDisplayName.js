@@ -1,7 +1,7 @@
 export const getOrganismDisplayName = (organism) => {
   if (!organism) return "";
 
-  let label = `${organism.taxonName} - ${organism.strainName}`;
+  let label = `${organism.name} - ${organism.strainName}`;
 
   if (organism.type === "plasmid" && organism.plasmidName) {
     label += ` - ${organism.plasmidName} (Plasmid)`;

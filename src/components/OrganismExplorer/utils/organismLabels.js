@@ -3,7 +3,7 @@ export const getCurrentOrganismLabel = (organism) => {
     return "No organism selected";
   }
 
-  let label =`${organism.taxonName} - ${organism.strainName}`;
+  let label =`${organism.name} - ${organism.strainName}`;
 
   if (organism.type === "plasmid" && organism.plasmidName) {
     label += ` - ${organism.plasmidName} (Plasmid)`;

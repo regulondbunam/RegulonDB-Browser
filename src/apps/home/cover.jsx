@@ -72,7 +72,7 @@ export default function Cover() {
 
     const organismName = selectedOrganism
     ? [
-        selectedOrganism.taxonName,
+        selectedOrganism.name,
         selectedOrganism.strainName,
         selectedOrganism.type === "plasmid"
           ? selectedOrganism.plasmidName
