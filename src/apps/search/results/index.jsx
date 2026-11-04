@@ -43,7 +43,7 @@ export default function Results({ keyword, organismId }) {
   const operonSection =
   OperonResult(
     keyword,
-    isDefaultOrganism
+    organismId
   );
 
 const sigmulonSection =
@@ -61,12 +61,10 @@ const guSection =
   let section = [
   geneSection,
   regulonSection,
+  operonSection,
 ];
 
 if (isDefaultOrganism) {
-  section.push(
-    operonSection
-  );
 
   section.push(
     sigmulonSection
@@ -194,14 +192,14 @@ function GeneResult(keyword, organismId) {
   };
 }
 
-function OperonResult(keyword, isDefaultOrganism) {
+function OperonResult(keyword, organismId) {
   let type = "Operon";
   let title = type + " (0)";
   const {
     operonsData: data,
     loading,
     error,
-  } = useGetOperonBySearch({ search: keyword, isDefaultOrganism: isDefaultOrganism });
+  } = useGetOperonBySearch({ search: keyword, organismId: organismId });
   let results = [];
   if (DataVerifier.isValidArray(data)) {
     results = operonFormatResults(data, keyword);
@@ -224,6 +222,7 @@ function OperonResult(keyword, isDefaultOrganism) {
         error={error}
         results={results}
         keyword={keyword}
+        organismId={organismId}
       />
     ),
   };

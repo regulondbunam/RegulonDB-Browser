@@ -5,13 +5,14 @@ import DrawingTracesTool from "../../components/DrawingTracesTool";
 import { TranscriptionUnit } from "../../components/datamartSchema";
 import { getRelatedIdsByOperonData } from "../../components/webservices";
 import RelatedTool from "./components/relatedTool";
+import {DEFAULT_ORGANISM_ID} from "../../utils/organismConstants";
 
 
 const cardOptions = {
     showTitle: true
 }
 
-export default function Document({ operonData, section }) {
+export default function Document({ operonData, section, organismId }) {
     const citations = useIndexedCitation(operonData.allCitations)
     //console.log(operonData)
     let relatedIds = getRelatedIdsByOperonData(operonData)
@@ -43,7 +44,7 @@ export default function Document({ operonData, section }) {
                     label: tu.name+promoterName,
                     title: "TU: "+tu.name+promoterName,
                     component: <div>
-                        <TranscriptionUnit {...tu} relatedIds={tuRelatedIds} allCitations={citations.indexedCitations} regulationPositions={operonData.operon.regulationPositions} strand={operonData.operon.strand} />
+                        <TranscriptionUnit {...tu} relatedIds={tuRelatedIds} allCitations={citations.indexedCitations} regulationPositions={operonData.operon.regulationPositions} strand={operonData.operon.strand} organismId={organismId} />
                     </div>
                 })
             });
@@ -61,10 +62,28 @@ export default function Document({ operonData, section }) {
         return _sections
     }, [operonData, relatedIds, citations])
 
+    if (organismId && organismId == DEFAULT_ORGANISM_ID) {
     return (
         <div>
             <AnchorNav sections={sections} cardOptions={cardOptions} aside={relationTool}
                 title={`Operon ${operonData.operon.name}`} header={dtt} />
         </div>
     )
+    } else {
+        return (
+            <div>
+                <AnchorNav sections={sections} cardOptions={cardOptions}
+                    title={`Operon ${operonData.operon.name}`} header={<div
+                        style={{
+                        height: 200,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        }}
+                    >
+                        The DTT visualization is currently unavailable for this organism.
+                    </div>} />
+            </div>
+        )
+    }
 }

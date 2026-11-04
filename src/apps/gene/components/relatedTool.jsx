@@ -16,6 +16,7 @@ import Divider from "@mui/material/Divider";
 import Collapse from "@mui/material/Collapse";
 import Navigation from "./navigation";
 import { gql, useQuery, useLazyQuery } from "@apollo/client";
+import {DEFAULT_ORGANISM_ID} from "../../../utils/organismConstants";
 
 const query_getGu = gql`
   query getGu($advancedSearch: String) {
@@ -78,9 +79,10 @@ const style = {
   p: 4,
 };
 
-export default function RelatedTool({ gene, products, regulation }) {
+export default function RelatedTool({ gene, products, regulation, organismId }) {
   let regulonName = "";
   let geneName = "";
+  console.log("RelatedTool", gene, products, regulation, organismId);
   if (DataVerifier.isValidString(gene.name)) {
     geneName = gene.name;
     regulonName = gene.name.charAt(0).toUpperCase() + gene.name.slice(1);
@@ -179,7 +181,7 @@ export default function RelatedTool({ gene, products, regulation }) {
         guId={guIdRelated}
         htDatasets={htDatasetsRelated}
       />
-      {DataVerifier.isValidObject(gene) && (
+      {DataVerifier.isValidObject(gene) && organismId == DEFAULT_ORGANISM_ID && (
         //<Tool title={"Related Tools"}>
         <Tool title={"Tools"}>
           <List>

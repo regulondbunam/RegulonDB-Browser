@@ -21,6 +21,7 @@ export default function Information({ geneData }) {
   const citations = useIndexedCitation(geneData.allCitations);
   let relationTool = null;
   let dtt = null;
+  relationTool = <RelatedTool {...geneData } organismId={organismId} />;
   if (
     isDefaultOrganism &&
     (
@@ -30,7 +31,6 @@ export default function Information({ geneData }) {
       )
     )
   ) {
-    relationTool = <RelatedTool {...geneData} />;
     dtt = (
       <DrawingTracesTool
         context="gene"

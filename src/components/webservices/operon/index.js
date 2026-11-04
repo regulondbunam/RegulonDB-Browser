@@ -3,9 +3,10 @@ import { query_GET_OPERON_BY } from "./queries"
 
 export function useGetOperonByID({
     _id,
+    organismId
 }) {
     const { data, loading, error } = useQuery(query_GET_OPERON_BY, {
-        variables: { advancedSearch: `${_id}[_id]`, limit: 1 }
+        variables: { advancedSearch: `${_id}[_id]`, limit: 1, organismId: organismId }
     })
     let operonData
     try {
@@ -55,11 +56,10 @@ export function useGetOperonByTuId({
 
 export function useGetOperonBySearch({
     search,
-    isDefaultOrganism,
+    organismId,
 }) {
     const { data, loading, error } = useQuery(query_GET_OPERON_BY, {
-        variables: { search: search },
-        skip: !isDefaultOrganism,
+        variables: { search: search, organismId: organismId },
     })
     let operonsData
     try {

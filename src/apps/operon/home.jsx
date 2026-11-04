@@ -6,15 +6,17 @@ import {
 } from "../../components/ui-components";
 import { Link } from "react-router-dom";
 import ObjectListPage from "../../components/objectListPage";
+import {useSearchParams} from "react-router-dom";
+import {DEFAULT_ORGANISM_ID} from "../../utils/organismConstants";
 
-const COLUMNS = [
+const COLUMNS = (organismId) => [
   {
     id: "operonName",
     header: "Operon name",
     accessorKey: "_name",
     filter: "fuzzyText",
     cell: (info) => (
-      <Link to={"/operon/" + info.row.original.id}>
+      <Link to={"/operon/" + info.row.original.id + "?organism=" + encodeURIComponent(organismId)}>
         <span dangerouslySetInnerHTML={{ __html: info.getValue() }} />
       </Link>
     ),
@@ -79,12 +81,14 @@ function Home() {
 export default Home;
 
 function LoadTable({ objectsList }) {
+  const [searchParams] = useSearchParams();
+  const organismId = searchParams.get("organism");
   const data = useMemo(() => {
     return formatData(objectsList);
   }, [objectsList]);
   return (
     <div style={{ display: "flex", justifyContent: "center" }} >
-      <FilterTable data={data} columns={COLUMNS} fileName="GeneSummaryData" />
+      <FilterTable data={data} columns={COLUMNS(organismId)} fileName="GeneSummaryData" />
     </div>
   );
 }

@@ -6,6 +6,7 @@ import Terminators from "./terminators";
 import { useGetPhraseByObjectId } from "../../../webservices";
 import { Accordion, DataVerifier } from "../../../ui-components";
 import RegulatorBindingSites from "./regulatorBindingSites";
+import { DEFAULT_ORGANISM_ID } from "../../../../utils/organismConstants";
 
 export default function TranscriptionUnit({
   _id,
@@ -25,6 +26,7 @@ export default function TranscriptionUnit({
   statistics,
   synonyms = [],
   terminators = [],
+  organismId
 }) {
   const { propertiesPhrase } = useGetPhraseByObjectId(_id);
   let isPromoterRi = false;
@@ -52,20 +54,33 @@ export default function TranscriptionUnit({
           top: "58px",
           zIndex: "80",
           boxShadow: "0px 2px 2px 0px rgba(0,0,0,0.43)",
-          WebkitBoxShadow: " 0px 2px 2px 0px rgba(0,0,0,0.43)",
-          MozBoxShadow: " 0px 2px 2px 0px rgba(0,0,0,0.43)",
+          WebkitBoxShadow: "0px 2px 2px 0px rgba(0,0,0,0.43)",
+          MozBoxShadow: "0px 2px 2px 0px rgba(0,0,0,0.43)",
         }}
       >
-        <DrawingTracesTool
-          variant="outlined"
-          relatedIds={relatedIds}
-          context="tu"
-          height={200}
-          id={_id}
-          leftEndPosition={regulationPositions.leftEndPosition}
-          rightEndPosition={regulationPositions.rightEndPosition}
-          strand={strand}
-        />
+        {organismId === DEFAULT_ORGANISM_ID ? (
+          <DrawingTracesTool
+            variant="outlined"
+            relatedIds={relatedIds}
+            context="tu"
+            height={200}
+            id={_id}
+            leftEndPosition={regulationPositions.leftEndPosition}
+            rightEndPosition={regulationPositions.rightEndPosition}
+            strand={strand}
+          />
+        ) : (
+          <div
+            style={{
+              height: 200,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            The DTT visualization is currently unavailable for this organism.
+          </div>
+        )}
       </div>
       <div>
         <Accordion>

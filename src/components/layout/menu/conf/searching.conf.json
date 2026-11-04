@@ -21,13 +21,13 @@
         {
           "id": "operon-search",
           "label": "Operon",
-          "link" : "/operon",
-          "requiresDefaultOrganism": true
+          "link" : "/operon"
         },
         {
           "id": "regulon-search",
           "label": "Regulon",
-          "link" : "/regulon"
+          "link" : "/regulon",
+          "requiresDefaultOrganism": true
         },
         {
           "id": "sigmulon-search",

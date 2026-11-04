@@ -80,6 +80,7 @@ import Home from "./home";
 import { useGetOperonByID, useGetOperonByTuId } from "../../components/webservices";
 import Title from "./Title";
 import Document from "./document";
+import {useSearchParams} from "react-router-dom";
 
 
 
@@ -165,8 +166,9 @@ function RedirectToOperon({ tuId }) {
  * @returns {React.JSX}
  */
 function LoadOperon({ operonId, section }) {
-  const { operonData, loading, error } = useGetOperonByID({ _id: operonId })
-  
+  const [searchParams] = useSearchParams();
+  const organismId = searchParams.get("organism");
+  const { operonData, loading, error } = useGetOperonByID({ _id: operonId, organismId: organismId })
   /**
    * Description placeholder
    *
@@ -192,7 +194,7 @@ function LoadOperon({ operonId, section }) {
   if (operonData) {
     if (operonData === null) {
       state = "error"
-      title = "Error, Operon document with id "+operonId+" was not found. 😞"
+      title = "Error, Operon document with id "+operonId+" was not found in the currently selected organism. It may belong to a different organism or the identifier may be invalid.."
     } else {
       state = "done"
       title = operonData.operon.name
@@ -202,7 +204,7 @@ function LoadOperon({ operonId, section }) {
     <div>
       <Title state={state} title={title} operonData={operonData} />
       {operonData && (
-        <Document operonData={operonData} section={section} />
+        <Document operonData={operonData} section={section} organismId={organismId} />
       )}
     </div>
   )

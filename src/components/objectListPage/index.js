@@ -7,7 +7,7 @@ export default function useObjectListPage({ datamartType, title}) {
   const [searchParams] = useSearchParams();
   const organismId = searchParams.get("organism");
 
-  const organismNotSupported = organismId && organismId !== DEFAULT_ORGANISM_ID && datamartType !== "gene";
+  const organismNotSupported = organismId && datamartType !== "gene"&& datamartType !== "operon";
 
   const {
     objectsList,
@@ -28,7 +28,7 @@ export default function useObjectListPage({ datamartType, title}) {
       `Loading ${title.toLowerCase()} list`;
   }
 
-  if (organismNotSupported && title.toLowerCase() !== "genes") {
+  if (organismNotSupported && title.toLowerCase() !== "genes" && title.toLowerCase() !== "operons") {
     state = "error";
     currentTitle =
       `No ${title.toLowerCase()} are currently available for the selected organism`;

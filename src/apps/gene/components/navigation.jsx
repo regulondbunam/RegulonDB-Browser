@@ -58,7 +58,7 @@ export default function Navigation({
                     key={regulon._id}
                     sx={{ pl: 4 }}
                     onClick={() => {
-                      navigate("/regulon/" + regulon._id);
+                      navigate("/regulon/" + regulon._id + "?organism=" + encodeURIComponent(organismId));
                     }}
                   >
                     <p>Regulon</p>

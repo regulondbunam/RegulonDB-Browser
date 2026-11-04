@@ -29,12 +29,12 @@ const searchLinks = [
   },
   {
     label: "Operon",
-    link: "/operon",
-    "requiresDefaultOrganism": true
+    link: "/operon"
   },
   {
     label: "Regulon",
     link: "/regulon",
+    "requiresDefaultOrganism": true
   },
   {
     label: "Sigmulon",

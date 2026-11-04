@@ -156,11 +156,13 @@ query GetOperonInfo(
     $advancedSearch: String
     $search: String
     $limit: Int
+    $organismId: String
   ) {
     getOperonBy(
       advancedSearch: $advancedSearch
       search: $search
       limit: $limit
+      organismId: $organismId
     ) {
       data {
         _id
