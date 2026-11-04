@@ -8,20 +8,20 @@ const COLUMNS = [
     { label: "First Gene",  width: 50 }
 ]
 
-function formatTable(operons = []) {
+function formatTable(operons = [], organismId) {
     let data = []
     
     operons.forEach((operon) => {
         //console.log(operon.firstGene.name)
         data.push({
             "Operon": <div value={operon.name}>
-                <Link to={"/operon/" + operon._id}>
+                <Link to={`/operon/${operon._id}?organism=${encodeURIComponent(organismId)}`}>
                     <p>{`${operon.name}`}</p>
                 </Link>
             </div>,
             "Function": operon.function,
             "First Gene": <div value={operon.firstGene.name}>
-                <Link to={"/gene/" + operon.firstGene._id}>
+                <Link to={`/gene/${operon.firstGene._id}?organism=${encodeURIComponent(organismId)}`}>
                     <p>{`${operon.firstGene.name}`}</p>
                 </Link>
             </div>
@@ -31,8 +31,8 @@ function formatTable(operons = []) {
     return data
 }
 
-function Operon({ operons, idPanel = "regulates_operon" }) {
-    const operonList = React.useMemo(() => { return formatTable(operons) }, [operons])
+function Operon({ operons, idPanel = "regulates_operon", organismId }) {
+    const operonList = React.useMemo(() => { return formatTable(operons, organismId) }, [operons, organismId])
 
     return (
         <div>

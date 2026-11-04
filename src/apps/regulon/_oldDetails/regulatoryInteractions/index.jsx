@@ -10,13 +10,15 @@ import {
   CITATION_SIZE,
 } from "../../../../components/datamartSchema";
 import { LinealSequence } from "../../../../components/sequence";
+import {useSearchParams} from "react-router-dom";
+import {getSelectedOrganismId} from "../../../../utils/organismUtils";
 //import InputLabel from "@mui/material/InputLabel";
 //import MenuItem from "@mui/material/MenuItem";
 //import FormControl from "@mui/material/FormControl";
 //import Select from "@mui/material/Select";
 //import Map from "../../../FeatureMaps/Map";
 
-const COLUMNS = [
+const COLUMNS = (organismId) => [
   {
     id: "activeConformation_name",
     header: "Active Conformation Name",
@@ -69,7 +71,7 @@ const COLUMNS = [
             <div style={{marginLeft: "5px"}} key={
               "ri_" + info.row.original.id + "_regulatedGene_" + gene._id
             }>
-              <Link to={"/gene/" + gene._id}>
+              <Link to={"/gene/" + gene._id + "?organism=" + encodeURIComponent(organismId)} >
               <p dangerouslySetInnerHTML={{ __html: gene.name }} />
             </Link>
             </div>
@@ -331,8 +333,11 @@ function RITable({ regulatoryInteractions, allCitations, tfName}) {
   const data = useMemo(() => {
     return formatData(regulatoryInteractions, allCitations);
   }, [regulatoryInteractions, allCitations]);
+  const [searchParams] = useSearchParams();
+  const organismId = searchParams.get("organism");
+  const columns = COLUMNS(organismId);
   //console.log(regulatoryInteractions);
-  return  <FilterTable data={data} columns={COLUMNS} fileName={tfName} />;
+  return  <FilterTable data={data} columns={columns} fileName={tfName} />;
 }
 
 export default RegulatoryInteractions;

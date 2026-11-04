@@ -24,7 +24,7 @@ export const QUERY_getCoexpressionRank = gql`
   }
 `;
 
-export default function GeneCoexpression({ genes }) {
+export default function GeneCoexpression({ genes, organismId }) {
   //console.log(genes);
   const [value, setValue] = React.useState(genes[0]._id);
   const gene = genes.find((gn) => gn._id === value);
@@ -74,12 +74,12 @@ For more details of the coexpression method see the <a target="_blank" rel="nore
           );
         })}
       </Tabs>
-      {gene && <Info gene={gene} />}
+      {gene && <Info gene={gene} organismId={organismId} />}
     </Box>
   );
 }
 
-function Info({ gene }) {
+function Info({ gene, organismId }) {
   //console.log(gene);
   const { loading, error, data } = useQuery(QUERY_getCoexpressionRank, {
     variables: { name: gene.gene.name },
@@ -87,14 +87,14 @@ function Info({ gene }) {
   return (
     <div>
       <h2>{`Gene ${gene.gene.name}`}</h2>
-      <GeneTable gene={gene} />
+      <GeneTable gene={gene} organismId={organismId} />
       <div>
         {loading && (
           <Box sx={{ width: "100%" }}>
             <LinearProgress />
           </Box>
         )}
-        {DataVerifier.isValidArray(data?.getTopCoexpressionRanking) && <CoexpressionTable rankings={data.getTopCoexpressionRanking}  />}
+        {DataVerifier.isValidArray(data?.getTopCoexpressionRanking) && <CoexpressionTable rankings={data.getTopCoexpressionRanking} organismId={organismId} />}
       </div>
     </div>
   );

@@ -76,12 +76,12 @@ import { DataVerifier } from "../../../../ui-components";
 }
  * @returns {React.JSX}
  */
-export default function Operon({ _id, arrangement, name }) {
+export default function Operon({ _id, arrangement, name, organismId }) {
   return (
     <div>
       <div style={{display: "flex"}}>
       <p><b>Operon: </b></p>
-      <Link to={"/operon/" + _id}>
+      <Link to={"/operon/" + _id + "?organism=" + encodeURIComponent(organismId)}>
         <p style={{marginLeft: "5px"}} >
           <b>{`${name}`}</b>
         </p>

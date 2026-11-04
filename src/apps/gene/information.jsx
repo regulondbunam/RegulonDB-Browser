@@ -10,8 +10,12 @@ import {
   MultifunTerms,
 } from "../../components/datamartSchema";
 import RelatedTool from "./components/relatedTool";
+import { useSearchParams } from "react-router-dom";
+import { getSelectedOrganismId } from "../../utils/organismUtils";
 
 export default function Information({ geneData }) {
+  const [searchParams] = useSearchParams();
+  const organismId = getSelectedOrganismId(searchParams);
   const isDefaultOrganism = geneData.organism._id === "RDBECOLIORC00001";
 
   const citations = useIndexedCitation(geneData.allCitations);
@@ -82,7 +86,7 @@ export default function Information({ geneData }) {
         title: "Regulation",
         component: (
           <div style={{ margin: "0% 1% 1% 2%" }}>
-            <Regulation {...geneData.regulation} />
+            <Regulation {...geneData.regulation} organismId={organismId} />
           </div>
         ),
       });

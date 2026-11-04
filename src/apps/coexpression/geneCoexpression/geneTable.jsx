@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { DataVerifier, FilterTable } from "../../../components/ui-components";
 import OTModal from "../ontologyTermsModal";
 
-const COLUMNS = [
+const COLUMNS = (organismId) => [
   {
     id: "gene_products",
     header: "products",
@@ -15,7 +15,7 @@ const COLUMNS = [
     header: "Operon",
     accessorKey: "_operon",
     cell: (info) => (
-      <Link to={"/operon/" + info.row.original.operonId}>
+      <Link to={"/operon/" + info.row.original.operonId + "?organism=" + encodeURIComponent(organismId)}>
        <p> {info.getValue()}</p>
       </Link>
     ),
@@ -30,7 +30,7 @@ const COLUMNS = [
         <div>
           {regulators.map((regulator, index) => {
             return (
-              <Link to={"/regulon/" + regulator._id}><p style={{marginRight: "10px"}} dangerouslySetInnerHTML={{__html: regulator.name}}/></Link>
+              <Link to={"/regulon/" + regulator._id + "?organism=" + encodeURIComponent(organismId)}><p style={{marginRight: "10px"}} dangerouslySetInnerHTML={{__html: regulator.name}}/></Link>
             );
           })}
         </div>
@@ -76,14 +76,14 @@ function formatData(gene) {
   return data;
 }
 
-export default function GeneTable({ gene }) {
+export default function GeneTable({ gene , organismId}) {
   const data = useMemo(() => {
     return formatData(gene);
   }, [gene]);
   return (
     <div>
       {DataVerifier.isValidArray(data) && (
-        <FilterTable disableOptions columns={COLUMNS} data={data} />
+        <FilterTable disableOptions columns={COLUMNS(organismId)} data={data} />
       )}
     </div>
   );

@@ -266,7 +266,7 @@ query GetGeneInfo(
 
   export const query_getMainGeneBySearch = gql`
   query getGeneById($search: String!) {
-    getGenesBy(search: $search) {
+    getGenesBy(search: $search organismId: "RDBECOLIORC00001") {
       data {
         _id
         gene {

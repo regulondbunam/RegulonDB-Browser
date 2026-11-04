@@ -13,7 +13,8 @@ export default function GeneQuery({
   loadGeneState,
   selectGene,
   setDemo,
-  reset
+  reset,
+  organismId
 }) {
   //console.log(genes);
   return (
@@ -38,7 +39,7 @@ export default function GeneQuery({
       </Accordion>
       <Accordion title={"Gene Information"}>
         {!loadGeneState.loading ? (
-          <Information genes={genes} />
+          <Information genes={genes} organismId={organismId} />
         ) : (
           <LinearProgress
             variant="determinate"

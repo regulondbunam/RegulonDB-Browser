@@ -8,20 +8,20 @@ const COLUMNS = [
     { label: "First Gene",  width: 50 }
 ]
 
-function formatTable(transcriptionUnits = []) {
+function formatTable(transcriptionUnits = [], organismId) {
     let data = []
 
     transcriptionUnits.forEach((tu) => {
         //console.log(tu.firstGene.name)
         data.push({
                     "TU": <div value={tu.name}>
-                        <Link to={"/tu/" + tu._id}>
+                        <Link to={`/tu/${tu._id}?organism=${encodeURIComponent(organismId)}`}>
                             <p>{`${tu.name}`}</p>
                         </Link>
                     </div>,
                     "Function": tu.function,
                     "First Gene": <div value={tu.firstGene.name}>
-                        <Link to={"/gene/" + tu.firstGene._id}>
+                        <Link to={`/gene/${tu.firstGene._id}?organism=${encodeURIComponent(organismId)}`}>
                             <p>{`${tu.firstGene.name}`}</p>
                         </Link>
                     </div>
@@ -30,8 +30,8 @@ function formatTable(transcriptionUnits = []) {
     return data
 }
 
-function TranscriptionUnit({ transcriptionUnits, idPanel = "regulates_tu" }) {
-    const tuList = React.useMemo(() => { return formatTable(transcriptionUnits) }, [transcriptionUnits])
+function TranscriptionUnit({ transcriptionUnits, idPanel = "regulates_tu", organismId }) {
+    const tuList = React.useMemo(() => { return formatTable(transcriptionUnits, organismId) }, [transcriptionUnits, organismId])
     return (
         <div>
             <h3>{`Regulated transcription units: ${transcriptionUnits.length}`}</h3>

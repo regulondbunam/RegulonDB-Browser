@@ -11,6 +11,8 @@ import Collapse from "@mui/material/Collapse";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
+import { useSearchParams } from "react-router-dom";
+import { getSelectedOrganismId } from "../../utils/organismUtils";
 
 const style = {
   position: "absolute",
@@ -34,6 +36,8 @@ export default function Navigation({
 }) {
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const organismId = getSelectedOrganismId(searchParams);
 
   return (
     <List dense>
@@ -50,12 +54,12 @@ export default function Navigation({
           {DataVerifier.isValidArray(genes) && (
             <>
               {genes.length > 1 ? (
-                <Genes type="gene" elements={genes} />
+                <Genes type="gene" elements={genes} organismId={organismId} />
               ) : (
                 <ListItemButton
                   sx={{ pl: 4 }}
                   onClick={() => {
-                    navigate("/gene/" + genes[0]._id);
+                    navigate(`/gene/${genes[0]._id}?organism=${encodeURIComponent(organismId)}`);
                   }}
                 >
                   <p>gene</p>
@@ -71,7 +75,7 @@ export default function Navigation({
                 <ListItemButton
                   sx={{ pl: 4 }}
                   onClick={() => {
-                    navigate("/operon/" + operons[0]._id);
+                    navigate(`/operon/${operons[0]._id}?organism=${encodeURIComponent(organismId)}`);
                   }}
                 >
                   <p>operon</p>
@@ -107,7 +111,7 @@ export default function Navigation({
   );
 }
 
-function Genes({ elements, type = "" }) {
+function Genes({ elements, type = "" , organismId = "" }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -142,7 +146,7 @@ function Genes({ elements, type = "" }) {
             {elements.map((element) => {
               return (
                 <div key={element._id} style={{ margin: "5px" }}>
-                  <Link to={"/" + type + "/" + element._id}>
+                  <Link to={"/" + type + "/" + element._id + "?organism=" + encodeURIComponent(organismId)}>
                     <p dangerouslySetInnerHTML={{ __html: element.name }} />
                   </Link>
                 </div>

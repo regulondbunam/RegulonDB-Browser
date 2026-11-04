@@ -1,9 +1,13 @@
 import { useQuery, useLazyQuery } from "@apollo/client";
 import { query_getAllGenes, query_getRankFromGeneList } from "./queries";
+import {useSearchParams} from "react-router-dom";
+import { getSelectedOrganismId } from "../../../utils/organismUtils";
 
 
 export function useGetAllGenes() {
-    const { loading, error, data } = useQuery(query_getAllGenes);
+    const [searchParams] = useSearchParams();
+    const organismId = getSelectedOrganismId(searchParams);
+    const { loading, error, data } = useQuery(query_getAllGenes(organismId));
     let geneList = []
     try {
         if (data) {

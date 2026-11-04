@@ -3,6 +3,8 @@ import {DataVerifier } from "../../../ui-components"
 import { ParagraphCitations, NoteCitations } from "../../citations";
 import { Divider } from "@mui/material";
 import IsPropertyPhrases from "../../phrases";
+import {useSearchParams} from "react-router-dom";
+import {getSelectedOrganismId} from "../../../../utils/organismUtils";
 
 export default function Genes({
     allCitations,
@@ -24,6 +26,8 @@ ordenados desde el primer gene
         return a.leftEndPosition - b.rightEndPosition
     })
 */
+const [searchParams] = useSearchParams();
+const organismId = getSelectedOrganismId(searchParams);
 let _confidenceLevel
     if (DataVerifier.isValidString(confidenceLevel)) {
         switch (confidenceLevel) {
@@ -62,7 +66,7 @@ let _confidenceLevel
                         data-phrase-associated-property="strand"
                         data-phrase-object-id={tuId}
                     ><b>Genes:</b>{" "}
-                        {genes.map(gene => <Link key={"link_gene_tu_" + gene._id} style={{ marginRight: "5px" }} to={"/gene/" + gene._id} ><b>{gene.name}</b></Link>)}
+                        {genes.map(gene => <Link key={"link_gene_tu_" + gene._id} style={{ marginRight: "5px" }} to={"/gene/" + gene._id + "?organism=" + encodeURIComponent(organismId)} ><b>{gene.name}</b></Link>)}
                     </p>
                 )}
                 </div>

@@ -19,7 +19,7 @@ const OntologyView = ({value="",terms = []})=>{
     </div>)
 }
 
-function formatTable(genes = []) {
+function formatTable(genes = [], organismId) {
     let data = []
     // console.log(genes[0]);
     genes.forEach((gene) => {
@@ -30,7 +30,7 @@ function formatTable(genes = []) {
         const strMolecularFunction = terms?.geneOntology ? terms.geneOntology.molecularFunction.map((multi) => { return multi.name }).join("; ") : ""
         data.push({
             "Gene": <div value={gene.name}>
-                <Link to={"/gene/" + gene._id}>
+                <Link to={`/gene/${gene._id}?organism=${encodeURIComponent(organismId)}`}>
                     <p>{`${gene.name}`}</p>
                 </Link>
             </div>,
@@ -48,8 +48,8 @@ function formatTable(genes = []) {
     return data
 }
 
-function Genes({ genes, idPanel = "regulates_genes" }) {
-    const geneData = React.useMemo(() => { return formatTable(genes) }, [genes])
+function Genes({ genes, idPanel = "regulates_genes", organismId }) {
+    const geneData = React.useMemo(() => { return formatTable(genes, organismId) }, [genes, organismId])
 
 
     return (

@@ -5,12 +5,16 @@ import Conformations from "./conformations";
 import EncodedFrom from "./encode";
 //import Products from "./products";
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { getSelectedOrganismId } from "../../../../utils/organismUtils";
 export default function Regulator({
   regulator,
   allCitations,
   isEmbed = false,
 }) {
-  console.log(regulator);
+  //console.log(regulator);
+  const [searchParams] = useSearchParams();
+  const organismId = getSelectedOrganismId(searchParams);
   const {
     _id,
     citations,
@@ -102,8 +106,8 @@ export default function Regulator({
             <b>Confidence Level:</b> {_confidenceLevel}
           </p>
         )*/}
-        {encodedFrom && <EncodedFrom encodedFrom={encodedFrom} />}
-        {encodedBy && <EncodedFrom encodedFrom={encodedBy} />}
+        {encodedFrom && <EncodedFrom encodedFrom={encodedFrom} organismId={organismId} />}
+        {encodedBy && <EncodedFrom encodedFrom={encodedBy} organismId={organismId} />}
         
       </div>
 

@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
-export const query_getAllGenes = gql`
+export const query_getAllGenes = (organismId) => gql`
   query GetGeneList {
-    getObjectList(datamartType: "gene") {
+    getObjectList(datamartType: "gene" organismId: "${organismId}") {
       _id
       name
       synonyms

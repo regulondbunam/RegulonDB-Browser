@@ -4,13 +4,13 @@ import { DataVerifier, FilterTable } from "../../../components/ui-components";
 import OTModal from "../ontologyTermsModal";
 
 
-const COLUMNS = [
+const COLUMNS = (organismId) => [
   {
     id: "gene_name",
     header: "Gene Name",
     accessorKey: "_geneName",
     cell: (info) => (
-      <Link to={"/gene/" + info.row.original.id}>
+      <Link to={"/gene/" + info.row.original.id + "?organism=" + encodeURIComponent(organismId)}>
         <p dangerouslySetInnerHTML={{ __html: info.getValue() }} />
       </Link>
     ),
@@ -26,7 +26,7 @@ const COLUMNS = [
     header: "Operon",
     accessorKey: "_operon",
     cell: (info) => (
-      <Link to={"/operon/" + info.row.original.operonId}>
+      <Link to={"/operon/" + info.row.original.operonId + "?organism=" + encodeURIComponent(organismId)}>
         {info.getValue()}
       </Link>
     ),
@@ -41,7 +41,7 @@ const COLUMNS = [
         <div>
           {regulators.map((regulator, index) => {
             return (
-              <Link to={"/regulon/" + regulator._id}><span style={{marginRight: "10px"}} dangerouslySetInnerHTML={{__html: regulator.name}}/></Link>
+              <Link to={"/regulon/" + regulator._id + "?organism=" + encodeURIComponent(organismId)}><span style={{marginRight: "10px"}} dangerouslySetInnerHTML={{__html: regulator.name}}/></Link>
             );
           })}
         </div>
@@ -92,14 +92,16 @@ function formatData(geneData = []) {
 }
 
 export default function Information({
-  genes
+  genes,
+  organismId
 }) {
   const data = useMemo(() => {
     return formatData(genes);
   }, [genes]);
+  const columns = COLUMNS(organismId);
   return (
     <div>
-      {DataVerifier.isValidArray(data) && <FilterTable columns={COLUMNS} data={data} />}
+      {DataVerifier.isValidArray(data) && <FilterTable columns={columns} data={data} />}
     </div>
   );
 }

@@ -6,7 +6,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import { useGetMainGenesBySearch } from "../../../components/webservices";
 import { DataVerifier, FilterTable } from "../../../components/ui-components";
 
-const COLUMNS = [
+const COLUMNS = (organismId) => [
   {
     id: "coexpression_rank",
     filter: "fuzzyText",
@@ -31,7 +31,7 @@ const COLUMNS = [
     header: "Gene name",
     accessorKey: "_geneName",
     cell: (info) => (
-      <Link to={"/gene/" + info.row.original.geneId}>
+      <Link to={"/gene/" + info.row.original.geneId+"?organism=" + encodeURIComponent(organismId)}>
         <p dangerouslySetInnerHTML={{ __html: info.getValue() }} />
       </Link>
     ),
@@ -51,7 +51,7 @@ const COLUMNS = [
     header: "Operon",
     accessorKey: "_operon",
     cell: (info) => (
-      <Link to={"/operon/" + info.row.original.operonId}>
+      <Link to={"/operon/" + info.row.original.operonId + "?organism=" + encodeURIComponent(organismId)}>
         {info.getValue()}
       </Link>
     ),
@@ -67,7 +67,9 @@ const COLUMNS = [
         <div>
           {regulators.map((regulator, index) => {
             return (
-              <Link to={"/regulon/" + regulator._id}><span style={{marginRight: "10px"}} dangerouslySetInnerHTML={{__html: regulator.name}}/></Link>
+              <Link to={"/regulon/" + regulator._id + "?organism=" + encodeURIComponent(organismId)}>
+                <span style={{marginRight: "10px"}} dangerouslySetInnerHTML={{__html: regulator.name}}/>
+              </Link>
             );
           })}
         </div>
@@ -123,7 +125,7 @@ function formatData(rankings, genesData) {
   return data;
 }
 
-export default function CoexpressionTable({ rankings }) {
+export default function CoexpressionTable({ rankings, organismId }) {
   const { genesData, loading,  /*error*/ } = useGetMainGenesBySearch(
     rankings.map((rank) => rank.gene[0]._id).join(" ")
   );
@@ -136,13 +138,14 @@ export default function CoexpressionTable({ rankings }) {
         </Box>
       )}
       {DataVerifier.isValidArray(genesData) && (
-        Table(rankings,genesData)
+        Table(rankings, genesData, organismId)
       )}
     </div>
   );
 }
 
-function Table(rankings,genesData) {
+function Table(rankings, genesData, organismId) {
+    const columns = COLUMNS(organismId);
     const data = formatData(rankings,genesData)
-    return <FilterTable columns={COLUMNS} data={data} />
+    return <FilterTable columns={columns} data={data} />
 }

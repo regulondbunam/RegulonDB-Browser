@@ -11,6 +11,8 @@ import Collapse from "@mui/material/Collapse";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
+import { useSearchParams } from "react-router-dom";
+import { getSelectedOrganismId } from "../../../utils/organismUtils";
 
 const style = {
   position: "absolute",
@@ -26,6 +28,8 @@ const style = {
 export default function Navigation({ idValue }) {
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const organismId = getSelectedOrganismId(searchParams);
   let regulons = [];
   let genes = [];
   Object.keys(idValue).forEach((id) => {
@@ -59,12 +63,12 @@ export default function Navigation({ idValue }) {
           {genes.length > 0 && (
             <>
               {genes.length > 1 ? (
-                <OpenModal type="gene" elements={genes} />
+                <OpenModal type="gene" elements={genes} organismId={organismId} />
               ) : (
                 <ListItemButton
                   sx={{ pl: 4 }}
                   onClick={() => {
-                    navigate("/gene/" + genes[0]._id);
+                    navigate(`/gene/${genes[0]._id}?organism=${encodeURIComponent(organismId)}`);
                   }}
                 >
                   <p>gene</p>
@@ -75,12 +79,12 @@ export default function Navigation({ idValue }) {
           {regulons.length > 0 && (
             <>
               {regulons.length > 1 ? (
-                <OpenModal type="regulon" elements={regulons} />
+                <OpenModal type="regulon" elements={regulons} organismId={organismId} />
               ) : (
                 <ListItemButton
                   sx={{ pl: 4 }}
                   onClick={() => {
-                    navigate("/regulon/" + regulons[0]._id);
+                    navigate(`/regulon/${regulons[0]._id}?organism=${encodeURIComponent(organismId)}`);
                   }}
                 >
                   <p>regulon</p>
@@ -94,7 +98,7 @@ export default function Navigation({ idValue }) {
   );
 }
 
-function OpenModal({ elements, type = "" }) {
+function OpenModal({ elements, type = "", organismId = "" }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -129,7 +133,7 @@ function OpenModal({ elements, type = "" }) {
             {elements.map((element) => {
               return (
                 <div key={element._id} style={{ margin: "5px" }}>
-                  <Link to={"/" + type + "/" + element._id}>
+                  <Link to={"/" + type + "/" + element._id + "?organism=" + encodeURIComponent(organismId)}>
                     <p dangerouslySetInnerHTML={{ __html: element.name }} />
                   </Link>
                 </div>

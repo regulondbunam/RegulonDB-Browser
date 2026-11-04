@@ -114,7 +114,7 @@ The function returns a new state object based on the action type. The structure 
 
  
 **/
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import { DataVerifier, NavigationTabs } from "../../components/ui-components";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -132,6 +132,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { getSelectedOrganismId } from "../../utils/organismUtils";
 
 
 /**
@@ -142,6 +143,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 function Coexpression() {
   const { geneList, loading /*error*/ } = useGetAllGenes();
   let { genesId } = useParams();
+  const [searchParams] = useSearchParams();
+  const organismId = getSelectedOrganismId(searchParams);
 
   
   /**
@@ -171,7 +174,7 @@ function Coexpression() {
         </div>
       )}
       {DataVerifier.isValidArray(geneList) && (
-        <IntCoexpression selectedGenes={selectedGenes} geneList={geneList} />
+        <IntCoexpression selectedGenes={selectedGenes} geneList={geneList} organismId={organismId} />
       )}
     </div>
   );
@@ -184,7 +187,7 @@ function Coexpression() {
  * @param {{ selectedGenes?: {}; geneList: any; }} { selectedGenes = [], geneList }
  * @returns {HTMLElement}
  */
-function IntCoexpression({ selectedGenes = [], geneList }) {
+function IntCoexpression({ selectedGenes = [], geneList, organismId }) {
   const [genesId, setGenesId] = useState([...selectedGenes]);
   const [unload, setUnload] = useState([...selectedGenes]);
   const [genes, setGenes] = useState([]);
@@ -312,7 +315,7 @@ function IntCoexpression({ selectedGenes = [], geneList }) {
    *
    * @type {array}
    */
-  const tabs = [
+  const tabs = (organismId) => [
     {
       id: "tab_01_geneQuery",
       name: "Query",
@@ -326,6 +329,7 @@ function IntCoexpression({ selectedGenes = [], geneList }) {
           selectGene={selectGene}
           setDemo={setDemo}
           reset={reset}
+          organismId={organismId}
         />
       ),
     },
@@ -333,7 +337,7 @@ function IntCoexpression({ selectedGenes = [], geneList }) {
       id: "tab_02_geneCoexpression",
       name: "Coexpression",
       disabled: !DataVerifier.isValidArray(genes),
-      component: <GeneCoexpression genes={genes} />,
+      component: <GeneCoexpression genes={genes} organismId={organismId} />,
     },
     {
       id: "tab_03_Matrix",
@@ -346,12 +350,13 @@ function IntCoexpression({ selectedGenes = [], geneList }) {
   ];
 
   if (geneList) {
+    const TABS = tabs(organismId);
     return (
       <div>
         {genesId.length > 50 && loadGeneState.loading && (
           <ModalLoad loadState={loadGeneState.loadState} />
         )}
-        <NavigationTabs tabs={tabs} tabSelect="tab_01_geneQuery" />
+        <NavigationTabs tabs={TABS} tabSelect="tab_01_geneQuery" />
       </div>
     );
   }

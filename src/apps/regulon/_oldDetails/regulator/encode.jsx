@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function EncodedFrom({ encodedFrom }) {
+function EncodedFrom({ encodedFrom, organismId }) {
     return (
         <div>
             {encodedFrom.genes.length > 0 || encodedFrom.operon.length > 0 ? (
@@ -12,7 +12,7 @@ function EncodedFrom({ encodedFrom }) {
                         <p><b>{encodedFrom.genes.length > 1 ? "Genes:" : "Gene:"}</b>{" "}
                             {encodedFrom.genes.map(gene => {
                                 return (
-                                    <Link key={gene.gene_id} to={"/gene/" + gene._id} style={{marginRight: "9px"}}  >
+                                    <Link key={gene.gene_id} to={`/gene/${gene._id}?organism=${encodeURIComponent(organismId)}`} style={{marginRight: "9px"}}  >
                                         <span dangerouslySetInnerHTML={{ __html: gene.name }} />
                                     </Link>
                                 )
@@ -25,7 +25,7 @@ function EncodedFrom({ encodedFrom }) {
                         <p><b>{encodedFrom.operon.length > 1 ? "Operons:": "Operon:"}</b>{" "}
                         {encodedFrom.operon.map(operon => {
                                 return (
-                                    <Link key={operon.operon_id} to={"/operon/" + operon._id} style={{marginRight: "9px"}} >
+                                    <Link key={operon.operon_id} to={`/operon/${operon._id}?organism=${encodeURIComponent(organismId)}`} style={{marginRight: "9px"}} >
                                         <span dangerouslySetInnerHTML={{ __html: operon.name }} />
                                     </Link>
                                 )

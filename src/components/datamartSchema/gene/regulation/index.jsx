@@ -84,12 +84,13 @@ export function Regulation({
     operon,
     regulators,
     statistics,
+    organismId
 }) {
 
     return (
         <div style={{ display: 'flex', justifyContent: "space-around" }} >
             <div>
-                <Operon {...operon} />
+                <Operon {...operon} organismId={organismId} />
             </div>
             <div>
                 <p style={{ fontSize: "18px" }} ><b>{`Regulators`}</b></p>

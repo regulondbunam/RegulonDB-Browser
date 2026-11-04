@@ -8,6 +8,8 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
+import { useSearchParams } from "react-router-dom";
+import { getSelectedOrganismId } from "../../../utils/organismUtils";
 
 
 export default function Navigation({
@@ -19,6 +21,8 @@ export default function Navigation({
 }) {
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const organismId = getSelectedOrganismId(searchParams);
 
   return (
     <List dense>
@@ -37,7 +41,7 @@ export default function Navigation({
               key={operon._id}
               sx={{ pl: 4 }}
               onClick={() => {
-                navigate("/operon/" + operon._id);
+                navigate("/operon/" + operon._id + "?organism=" + encodeURIComponent(organismId));
               }}
             >
               <p>Operon </p>
