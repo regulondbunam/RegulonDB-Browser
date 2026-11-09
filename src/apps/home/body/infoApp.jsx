@@ -18,6 +18,7 @@ const query_GetDataBaseInfo = gql`
       lcVersion
       releaseDate
       note
+      genomeVersion
     }
   }
 `;
@@ -61,14 +62,14 @@ export function Summary(params) {
   }
   if (data) {
     const statistics = data.getDatabaseInfo[0].statistics;
-    let allRegulons = 0
-    Object.keys(statistics.regulons).forEach((key)=>{
+    let allRegulons = 0;
+    Object.keys(statistics.regulons).forEach((key) => {
       if (Number.isInteger(statistics.regulons[key].total)) {
-        allRegulons += statistics.regulons[key].total
+        allRegulons += statistics.regulons[key].total;
       }
-    })
+    });
     return (
-      <Box >
+      <Box>
         <div style={{ display: "flex", alignItems: "center" }}>
           <BarChartIcon />
           <p>
@@ -78,27 +79,27 @@ export function Summary(params) {
         <div style={{ marginLeft: "10px" }}>
           {statistics.genes?.total && (
             <p>
-              <b>{statistics.genes.total}</b>{" "}Genes
+              <b>{statistics.genes.total}</b> Genes
             </p>
           )}
           {statistics.operon?.total && (
-              <p>
-                <b>{statistics.operon.total}{" "}</b>Operons
-              </p>
-            )}
-              <p>
-                <b>{allRegulons}</b>{" "}Regulons
-              </p>
+            <p>
+              <b>{statistics.operon.total} </b>Operons
+            </p>
+          )}
+          <p>
+            <b>{allRegulons}</b> Regulons
+          </p>
           {statistics.transcriptionUnits?.total && (
-              <p>
-                <b>{statistics.transcriptionUnits.total}</b>{" "}Transcription Units
-              </p>
-            )}
-            {statistics.promoters?.total && (
-              <p>
-                <b>{statistics.promoters.total}</b>{" "}Promoters
-              </p>
-            )}
+            <p>
+              <b>{statistics.transcriptionUnits.total}</b> Transcription Units
+            </p>
+          )}
+          {statistics.promoters?.total && (
+            <p>
+              <b>{statistics.promoters.total}</b> Promoters
+            </p>
+          )}
         </div>
       </Box>
     );
@@ -117,7 +118,7 @@ export function ReleaseInfo() {
   if (data) {
     const dbInfo = data.getDatabaseInfo[0];
     return (
-      <Box >
+      <Box>
         <div style={{ display: "flex", alignItems: "center" }}>
           <NewspaperIcon />
           <p>
@@ -127,6 +128,7 @@ export function ReleaseInfo() {
         <div style={{ marginLeft: "10px" }}>
           <p>{"Date: " + dbInfo.releaseDate} </p>
           <p>{"RegulonDB version: " + dbInfo.regulonDBVersion} </p>
+          <p>{"Genome Version: " + dbInfo.genomeVersion} </p>
           <p>Synchronized with:</p>
           <p>{"- Ecocyc version: " + dbInfo.ecocycVersion}</p>
           <p>{"- Lisen&Curate version: " + dbInfo.lcVersion}</p>
