@@ -21,16 +21,8 @@ export default function Information({ geneData }) {
   const citations = useIndexedCitation(geneData.allCitations);
   let relationTool = null;
   let dtt = null;
-  relationTool = <RelatedTool {...geneData } organismId={organismId} />;
-  if (
-    isDefaultOrganism &&
-    (
-      geneData.gene.leftEndPosition ||
-      DataVerifier.isValidArray(
-        geneData.gene.fragments
-      )
-    )
-  ) {
+  relationTool = <RelatedTool {...geneData} organismId={organismId} />;
+  if (geneData.gene.leftEndPosition || DataVerifier.isValidArray(geneData.gene.fragments) ) {
     dtt = (
       <DrawingTracesTool
         context="gene"
@@ -39,9 +31,10 @@ export default function Information({ geneData }) {
         leftEndPosition={geneData.gene.leftEndPosition}
         rightEndPosition={geneData.gene.rightEndPosition}
         fragments={geneData.gene.fragments}
+        organismId={organismId}
       />
     );
-  } 
+  }
   const sections = useMemo(() => {
     let tabsInfo = [];
     if (geneData?.gene) {

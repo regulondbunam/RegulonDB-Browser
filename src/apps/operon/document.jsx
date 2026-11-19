@@ -27,6 +27,7 @@ export default function Document({ operonData, section, organismId }) {
         leftEndPosition={operonData.operon.regulationPositions.leftEndPosition - 1000}
         rightEndPosition={operonData.operon.regulationPositions.rightEndPosition + 1000}
         labelTitle={`Operon ${operonData.operon.name} general context`}
+        organismId={organismId}
     />
     
     const sections = useMemo(() => {
@@ -61,29 +62,10 @@ export default function Document({ operonData, section, organismId }) {
         }
         return _sections
     }, [operonData, relatedIds, citations])
-
-    if (organismId && organismId == DEFAULT_ORGANISM_ID) {
     return (
         <div>
             <AnchorNav sections={sections} cardOptions={cardOptions} aside={relationTool}
                 title={`Operon ${operonData.operon.name}`} header={dtt} />
         </div>
     )
-    } else {
-        return (
-            <div>
-                <AnchorNav sections={sections} cardOptions={cardOptions}
-                    title={`Operon ${operonData.operon.name}`} header={<div
-                        style={{
-                        height: 200,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        }}
-                    >
-                        The DTT visualization is currently unavailable for this organism.
-                    </div>} />
-            </div>
-        )
-    }
 }

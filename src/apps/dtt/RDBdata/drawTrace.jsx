@@ -38,6 +38,7 @@ function DrawTrace({
           getStatus={(status) => {
             setLoad(status === "loading");
           }}
+          organismId={state.organismId}
         />
       </div>
       <div>

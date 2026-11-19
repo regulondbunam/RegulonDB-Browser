@@ -18,6 +18,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import { HELP } from "./definitions";
+import { useSearchParams } from "react-router-dom";
 
 import {
   RANGE,
@@ -34,6 +35,9 @@ export default function Form({ state = { ...STATE_FORM }, dispatch }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isAll, setIsAll] = useState(false);
   const geMenu = Boolean(anchorEl);
+  const [searchParams] = useSearchParams();
+  const organismId = searchParams.get("organism");
+  state.organismId = organismId;
   const handleGEMenu = (event) => {
     if (anchorEl === null) {
       setAnchorEl(event.currentTarget);

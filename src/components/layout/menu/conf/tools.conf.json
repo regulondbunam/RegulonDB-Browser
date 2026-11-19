@@ -11,7 +11,7 @@
                     "id": "dtt-browsing",
                     "label": "Drawing Traces Tool",
                     "link" : "/dtt",
-                    "requiresDefaultOrganism": true
+                    "requiresDefaultOrganism": false
                 },
                 {
                     "id": "igv-browsing",

@@ -6,8 +6,6 @@ import WebServices from "../webservices/WebServices";
 import { Track } from "../GeneticElementsGraphicLibrary";
 import DttContext from "./context";
 
-
-
 class DrawingTracesTool extends Component {
   drawPlaceId = `divCanvas_${this.props.context}Context${this.props.id}`;
   drawPlaceName = `${this.props.context}_${this.props.id}`;
@@ -15,14 +13,18 @@ class DrawingTracesTool extends Component {
 
   constructor(props) {
     super(props);
-    this.dttContext = new DttContext(this.props.context, this.props, this.props.id)
+    this.dttContext = new DttContext(
+      this.props.context,
+      this.props,
+      this.props.id,
+    );
 
-    if(this.dttContext.getRegulator()){
-      this.Regulator = this.dttContext.getRegulator()
-      this.regulatoryRegion = this.dttContext.getRegulatoryRegion()
+    if (this.dttContext.getRegulator()) {
+      this.Regulator = this.dttContext.getRegulator();
+      this.regulatoryRegion = this.dttContext.getRegulatoryRegion();
     }
-    this.leftEndPosition = this.dttContext.getLeftEndPosition()
-    this.rightEndPosition = this.dttContext.getRightEndPosition()
+    this.leftEndPosition = this.dttContext.getLeftEndPosition();
+    this.rightEndPosition = this.dttContext.getRightEndPosition();
     this.state = {
       zoom: 0.25,
       move: 0.15,
@@ -31,10 +33,15 @@ class DrawingTracesTool extends Component {
       geneticElements: undefined,
       expand: false,
     };
-    this.draw = this.draw.bind(this)
+    this.draw = this.draw.bind(this);
   }
 
-  draw (currentLeftEndPosition, currentRightEndPosition, geneticElements, dttContext) {
+  draw(
+    currentLeftEndPosition,
+    currentRightEndPosition,
+    geneticElements,
+    dttContext,
+  ) {
     let drawPlace = document.getElementById(this.drawPlaceId);
     if (drawPlace) {
       if (geneticElements) {
@@ -45,16 +52,17 @@ class DrawingTracesTool extends Component {
           canva_id: this.canvaId,
           width: width,
           height: height,
-          labelTitle: this.props.labelTitle
+          labelTitle: this.props.labelTitle,
         });
         //console.log(this.props.id);
         //
-        let _geneticElements = dttContext.geneticElementsOnContext(geneticElements)
+        let _geneticElements =
+          dttContext.geneticElementsOnContext(geneticElements);
         //console.log(_geneticElements)
         drawGenes.draw(
           _geneticElements,
           currentLeftEndPosition,
-          currentRightEndPosition
+          currentRightEndPosition,
         );
         //
         /*setTimeout(function () {
@@ -80,48 +88,51 @@ class DrawingTracesTool extends Component {
               rightEndPosition: currentRightEndPosition,
               covered: this.props.covered,
               objectType: this.props.objectType,
-              strand: this.props.strand
+              strand: this.props.strand,
+              organismId: this.props.organismId,
             }}
             getData={(data) => {
-              this.props.getGeneticElements(data.GE)
+              this.props.getGeneticElements(data.GE);
               this.setState({ geneticElements: data.GE });
               this.draw(
                 currentLeftEndPosition,
                 currentRightEndPosition,
                 data.GE,
-                this.dttContext
+                this.dttContext,
               );
-              
             }}
-            getState={(status)=>{this.props.getStatus(status)}}
+            getState={(status) => {
+              this.props.getStatus(status);
+            }}
           />
         )}
         <div>
-          {this.props.controls && Controls({
-            variant: this.props.variant,
-            leftEndPosition: this.leftEndPosition,
-            rightEndPosition: this.rightEndPosition,
-            strand: this.props.strand,
-            context: this.props.context,
-            ...this.state,
-            drawPlaceId: this.drawPlaceId,
-            geneticElements: this.state.geneticElements,
-            canvaId: this.canvaId,
-            drawPlaceName: this.drawPlaceName,
-            regulatoryRegion: this.regulatoryRegion,
-            set_expand: (expand) => {
-              this.setState({ expand: expand });
-            },
-            setGeneticElements: (ge) => {
-              this.setState({ geneticElements: ge });
-            },
-            setPosLeft: (left) => {
-              this.setState({ currentLeftEndPosition: left });
-            },
-            setPosRight: (right) => {
-              this.setState({ currentRightEndPosition: right });
-            },
-          })}
+          {this.props.controls &&
+            Controls({
+              variant: this.props.variant,
+              leftEndPosition: this.leftEndPosition,
+              rightEndPosition: this.rightEndPosition,
+              strand: this.props.strand,
+              context: this.props.context,
+              ...this.state,
+              drawPlaceId: this.drawPlaceId,
+              geneticElements: this.state.geneticElements,
+              canvaId: this.canvaId,
+              drawPlaceName: this.drawPlaceName,
+              regulatoryRegion: this.regulatoryRegion,
+              set_expand: (expand) => {
+                this.setState({ expand: expand });
+              },
+              setGeneticElements: (ge) => {
+                this.setState({ geneticElements: ge });
+              },
+              setPosLeft: (left) => {
+                this.setState({ currentLeftEndPosition: left });
+              },
+              setPosRight: (right) => {
+                this.setState({ currentRightEndPosition: right });
+              },
+            })}
         </div>
         <div>
           <div
@@ -135,7 +146,7 @@ class DrawingTracesTool extends Component {
 }
 
 const isContext = (props, propName, componentName) => {
-  const validContext = ["gene", "operon","dti", undefined];
+  const validContext = ["gene", "operon", "dti", undefined];
   if (!validContext.find((e) => e === props[propName])) {
     return new Error(
       "Invalid prop `" +
@@ -145,7 +156,7 @@ const isContext = (props, propName, componentName) => {
         componentName +
         "`. Validation failed," +
         "valid elements: " +
-        validContext.join(",")
+        validContext.join(","),
     );
   }
 };
@@ -161,19 +172,19 @@ const isStrand = (props, propName, componentName) => {
         componentName +
         "`. Validation failed," +
         "valid elements: " +
-        validContext.join(",")
+        validContext.join(","),
     );
   }
 };
 
-DrawingTracesTool.defaultProps = {  
-  getGeneticElements: ()=>{},
+DrawingTracesTool.defaultProps = {
+  getGeneticElements: () => {},
   controls: true,
   height: 200,
-  getStatus: ()=>{},
+  getStatus: () => {},
   labelTitle: "",
-  strand: "both"
-} 
+  strand: "both",
+};
 
 DrawingTracesTool.propTypes = {
   id: PropTypes.string.isRequired,
@@ -183,14 +194,14 @@ DrawingTracesTool.propTypes = {
   context: isContext,
   leftEndPosition: PropTypes.number,
   rightEndPosition: PropTypes.number,
-  covered:PropTypes.bool,
-  objectType:PropTypes.array,
+  covered: PropTypes.bool,
+  objectType: PropTypes.array,
   //fragments: PropTypes.array,
   strand: isStrand,
   custom_geneticElements: PropTypes.array,
   getGeneticElements: PropTypes.func,
   getStatus: PropTypes.func,
-  controls: PropTypes.bool
+  controls: PropTypes.bool,
 };
 
 export default DrawingTracesTool;

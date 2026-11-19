@@ -2,39 +2,5 @@
     "id":"menuHelp",
     "label": "Help",
     "icon": "help",
-    "options": [
-        {
-            "id": "subMenuAboutUs",
-            "label": "About Us and Policies",
-            "options": [
-                {
-                    "id": "about-policies",
-                    "label": "About Policies",
-                    "link" : "/manual/aboutUs/about-policies"
-                },
-                {
-                    "id": "search-and-browse",
-                    "label": "Search and Browse",
-                    "disabled": true,
-                    "link" : "/manual/aboutUs/search-and-browse"
-                }
-            ]
-        },
-        {
-            "id": "apiHelp",
-            "label": "Api & Software",
-            "options": [
-                {
-                    "id":"menu_docker_02",
-                    "label":"Docker Install",
-                    "link":"/manual/apiSoftware/docker"
-                },
-                {
-                    "id":"menu_webService_03",
-                    "label":"GraphQL Web Services",
-                    "link":"/doc_datamarts"
-                }
-            ]
-        }
-    ]
+    "link": "/manual/README.md"
 }

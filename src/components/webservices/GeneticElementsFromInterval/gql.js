@@ -6,6 +6,7 @@ export const query_GET_GE_Interval = gql`query GET_GE(
     $objectType: [String]
     $rightEndPosition: Int
     $strand: String
+    $organismId: String
   ) {
     getGeneticElementsFromInterval(
       covered: $covered
@@ -13,6 +14,7 @@ export const query_GET_GE_Interval = gql`query GET_GE(
       objectType: $objectType
       rightEndPosition: $rightEndPosition
       strand: $strand
+      organismId: $organismId
     ) {
       _id
       labelFont

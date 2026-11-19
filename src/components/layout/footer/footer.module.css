@@ -1,51 +1,107 @@
+
 .footer {
     width: 100%;
+    min-height: 100px;
+    box-sizing: border-box;
     background-color: #32617d;
     color: white;
+
     display: flex;
-    flex-direction: column;
-    max-height: 10vh;
-    height: 100vh;
+    flex-direction: row;
+    align-items: center;
+
+    padding: 8px 12px;
 }
 
-@media (max-width: 400px) {
-    .footer {
-        max-height: 30vh;
-    }
+/* Logos UNAM y CCG */
+.institutional {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
 }
 
-.footerHeight {
+.institutionLogo {
+    max-width: 120px;
+    max-height: 65px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(5px 5px 6px rgba(0, 0, 0, 0.4));
+}
+
+/* Sección de financiamiento */
+.funding {
     display: grid;
-    grid-template-columns: 50% 50%;
-    /*margin-top: 10px;*/
-}
-
-.imageLogo {
-    height: 8vh;
-    margin-left: 1vh;
-    margin-top: 1vh;
-    filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.9));
-    padding-inline: 0.5vh;
-}
-
-.logos {
-    max-width: 50vh;
-    max-height: 10vh;
-    display: grid;
+    grid-template-rows: auto auto;
+    justify-items: center;
+    align-items: center;
+    gap: 8px;
+    margin-left: 20px;
+    flex-shrink: 0;
 }
 
 .text {
+    color: white;
+    font-size: 15px;
+    text-align: center;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.fundingLogos {
     display: flex;
+    flex-direction: row;
+    align-items: center;
     justify-content: center;
+    gap: 20px;
 }
 
-.links{
-    display: flex;
-    flex-direction: row-reverse;
-    margin-right: 25px;
+.fundingLogo {
+    max-width: 150px;
+    max-height: 45px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
 }
 
-.link{
+/* Links */
+.link {
     color: white;
     font-size: 16px;
+}
+
+/* Pantallas pequeñas */
+@media (max-width: 600px) {
+    .footer {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .institutional {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .institutionLogo {
+        max-width: 90px;
+        max-height: 45px;
+    }
+
+    .funding {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .fundingLogo {
+        max-width: 100px;
+        max-height: 32px;
+    }
+
+    .link {
+        font-size: 12px;
+    }
 }

@@ -319,6 +319,11 @@ export default function Desktop() {
                   <Button
                     key={menu.id}
                     onClick={() => {
+                      if (menu.link) {
+                        window.location.href = menu.link;
+                        return;
+                      }
+
                       setMenu(isActive ? {} : menu);
                     }}
                     sx={{

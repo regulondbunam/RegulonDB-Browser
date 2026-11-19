@@ -136,7 +136,7 @@ import Topic from "./topic";
 const downloadConf = async (setRawConf) => {
   try {
     const response = await fetch(
-      "https://raw.githubusercontent.com/regulondbunam/regulondb-docs/main/docs.config.json"
+      "https://raw.githubusercontent.com/regulondbunam/regulondb-docs/main/docs.config.json",
     );
     try {
       const jsonData = await response.json();
@@ -167,20 +167,49 @@ const downloadConf = async (setRawConf) => {
  * @export
  * @returns {React.JSX}
  */
+
 export default function Manual() {
   const { site, section } = useParams();
   const [rawConf, setRawConf] = useState();
-  //console.log(section);
+
   useEffect(() => {
     window.scrollTo(0, 0);
-    return ()=>{
-      setRawConf(undefined)
-    }
-  }, [site,section]);
+  }, [site, section]);
 
-  if (!rawConf) {
-    downloadConf(setRawConf);
-  }
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const loadConfig = async () => {
+      try {
+        const response = await fetch(
+          "https://raw.githubusercontent.com/regulondbunam/regulondb-docs/main/docs.config.json",
+          { signal: controller.signal },
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        const jsonData = await response.json();
+        setRawConf(jsonData);
+      } catch (error) {
+        if (error.name === "AbortError") return;
+
+        console.error("Configuration fetch error:", error);
+
+        setRawConf({
+          error: {
+            type: "fetch",
+            log: error.message,
+          },
+        });
+      }
+    };
+
+    loadConfig();
+
+    return () => controller.abort();
+  }, []);
 
   if (!rawConf) {
     return (
@@ -189,30 +218,36 @@ export default function Manual() {
       </div>
     );
   }
+
   if (rawConf?.error) {
     return (
       <div>
-        <h2>{rawConf.error.type + " "}error</h2>
+        <h2>{rawConf.error.type} error</h2>
         <p>{rawConf.error.log}</p>
       </div>
     );
   }
-  /**
-   * Description placeholder
-   * @date 9/26/2023 - 8:24:57 AM
-   *
-   * @type {array}
-   */
-  let sites = DataVerifier.isValidArray(rawConf.sites) ? rawConf.sites : [];
 
-  if (sites.length > 0 && section) {
-    const _site = sites.find((s) => s._url === site);
-    if (_site) {
-      const _section = _site.sections.find((ss) => ss._url === section);
-      if (_section) {
-        return <Topic {..._section} />;
-      }
+  const sites = DataVerifier.isValidArray(rawConf.sites) ? rawConf.sites : [];
+
+  let currentSite;
+  let currentSection;
+
+  if (section) {
+    if (site) {
+      // Standard route: /manual/:site/:section
+      currentSite = sites.find((s) => s._url === site);
+    } else {
+      // Main document route: /manual/:section
+      // Resolve the document using the Help site's index.
+      currentSite = sites.find((s) => s._url === "help");
     }
+
+    currentSection = currentSite?.sections?.find((s) => s._url === section);
+  }
+
+  if (currentSection) {
+    return <Topic {...currentSection} sites={sites} />;
   }
 
   return (
@@ -222,6 +257,7 @@ export default function Manual() {
         <h1>Manual topics</h1>
         <br />
       </Cover>
+
       <ManualNav sites={sites} site={site} />
     </div>
   );
@@ -237,8 +273,8 @@ function ManualNav({ sites = [], site }) {
 
   const sections = useMemo(() => {
     let sections = sites.map((section, i) => {
-      if(!DataVerifier.isValidArray(section.sections)){
-        return null
+      if (!DataVerifier.isValidArray(section.sections)) {
+        return null;
       }
       return {
         id: "section_" + i,
@@ -259,11 +295,7 @@ function ManualNav({ sites = [], site }) {
   }, [sites]);
   return (
     <div>
-      <AnchorNav
-        title={"Manual"}
-        sections={sections}
-        idSelectSection={site}
-      />
+      <AnchorNav title={"Manual"} sections={sections} idSelectSection={site} />
     </div>
   );
 }
@@ -275,9 +307,9 @@ function Topics({ section, sections, img }) {
     <div>
       <p>{section.description}</p>
       {sections.map((site, i) => (
-        <div style={{marginLeft: "10px"}} key={"site_n_" + i}>
+        <div style={{ marginLeft: "10px" }} key={"site_n_" + i}>
           <Link to={"/manual/" + section._url + "/" + site._url}>
-            <h3 style={{color: "#72a7c7"}} >{site.title}</h3>
+            <h3 style={{ color: "#72a7c7" }}>{site.title}</h3>
           </Link>
           <p>{site.description}</p>
         </div>

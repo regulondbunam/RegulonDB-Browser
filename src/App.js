@@ -21,14 +21,14 @@ import { EmbeddedSandbox } from "./apps/wsSandbox";
 import Manual from "./apps/manual";
 import ExperimentalDatasets from "./apps/experimentalDatasets";
 import MCO from "./apps/mco";
-import EvidenceTree from './apps/evidences'
+import EvidenceTree from "./apps/evidences";
 import TFPSSMs, { TFPSSMsTest } from "./apps/TF-PSSMs";
 import Notebooks from "./apps/Notebooks";
 import IGVBrowser from "./apps/IGVBrowser";
 import GeneOntology from "./apps/GeneOntology";
 import UiDocs from "./UiComponents/UiDocs";
 import { PATH_HT } from "./apps/HighThroughput2";
-import {FeatureMap_PATH} from "./apps/FeatureMaps"
+import { FeatureMap_PATH } from "./apps/FeatureMaps";
 import Phrases from "./components/Phrases";
 
 //wsSandbox
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
         path: "*",
         element: <>site no found</>,
       },
-        FeatureMap_PATH,
+      FeatureMap_PATH,
       {
         index: true,
         element: <Home />,
@@ -185,6 +185,9 @@ const router = createBrowserRouter([
         element: <Manual />,
         children: [
           {
+            path: ":section",
+          },
+          {
             path: ":site",
             children: [
               {
@@ -260,7 +263,7 @@ const THEME = createTheme({
 function App() {
   return (
     <ThemeProvider theme={THEME}>
-      <Phrases/>
+      <Phrases />
       <RouterProvider router={router} />
     </ThemeProvider>
   );

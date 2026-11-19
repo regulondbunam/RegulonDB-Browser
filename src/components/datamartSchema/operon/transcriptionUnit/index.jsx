@@ -58,7 +58,7 @@ export default function TranscriptionUnit({
           MozBoxShadow: "0px 2px 2px 0px rgba(0,0,0,0.43)",
         }}
       >
-        {organismId === DEFAULT_ORGANISM_ID ? (
+        
           <DrawingTracesTool
             variant="outlined"
             relatedIds={relatedIds}
@@ -68,19 +68,8 @@ export default function TranscriptionUnit({
             leftEndPosition={regulationPositions.leftEndPosition}
             rightEndPosition={regulationPositions.rightEndPosition}
             strand={strand}
+            organismId={organismId}
           />
-        ) : (
-          <div
-            style={{
-              height: 200,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            The DTT visualization is currently unavailable for this organism.
-          </div>
-        )}
       </div>
       <div>
         <Accordion>
