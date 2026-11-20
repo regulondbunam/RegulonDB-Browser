@@ -1,0 +1,62 @@
+
+{
+  "@context": "https://schema.org/",
+  "@graph": [
+    {
+      "@type": "DataCatalog",
+      "@id": "https://regulondb.ccg.unam.mx/#catalog",
+      "identifier": "https://regulondb.ccg.unam.mx/#catalog",
+      "name": "RegulonDB",
+      "alternateName": "RegulonDB Knowledgebase",
+      "description": "A curated knowledgebase of transcriptional regulation in Escherichia coli K-12, including genes, promoters, transcription units, operons, regulatory interactions and experimental evidence.",
+      "url": "https://regulondb.ccg.unam.mx/",
+      "keywords": [
+        "RegulonDB",
+        "Escherichia coli K-12",
+        "transcriptional regulation",
+        "gene regulatory networks",
+        "promoters",
+        "operons",
+        "transcription factors",
+        "experimental evidence"
+      ],
+      "provider": {
+        "@type": "Organization",
+        "@id": "https://regulondb.ccg.unam.mx/#organization",
+        "name": "Centro de Ciencias Genómicas, Universidad Nacional Autónoma de México",
+        "url": "https://www.ccg.unam.mx/"
+      },
+      "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "http://purl.org/dc/terms/conformsTo": {
+        "@type": "CreativeWork",
+        "@id": "https://bioschemas.org/profiles/DataCatalog/0.3-RELEASE-2019_07_01"
+      },
+      "citation": "https://doi.org/10.1093/nar/gkad1072",
+      "subjectOf": {
+        "@id": "https://regulondbunam.github.io/regulondb-docs/#documentation"
+      },
+      "dataset": {
+        "@id": "https://regulondb.ccg.unam.mx/#dataset-14.5.1"
+      }
+    },
+    {
+      "@type": "Dataset",
+      "@id": "https://regulondb.ccg.unam.mx/#dataset-14.5.1",
+      "identifier": "https://regulondb.ccg.unam.mx/#dataset-14.5.1",
+      "name": "RegulonDB Curated Data Release 14.5.1",
+      "description": "Version 14.5.1 of the curated transcriptional regulatory data distributed by RegulonDB.",
+      "version": "14.5.1",
+      "url": "https://regulondb.ccg.unam.mx/datasets",
+      "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "includedInDataCatalog": {
+        "@id": "https://regulondb.ccg.unam.mx/#catalog"
+      },
+      "subjectOf": {
+        "@type": "WebPage",
+        "url": "https://regulondb.ccg.unam.mx/releasesNote/date=2026-11-11&version=14.5.1",
+        "name": "RegulonDB 14.5.1 Release Notes"
+      }
+    }
+  ]
+}
+
