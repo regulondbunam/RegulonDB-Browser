@@ -169,6 +169,21 @@ const downloadConf = async (setRawConf) => {
  */
 
 export default function Manual() {
+  return (
+    <iframe
+      src="https://regulondbunam.github.io/regulondb-docs/"
+      title="RegulonDB Documentation"
+      width="100%"
+      height="100%"
+      style={{
+        border: "none",
+        minHeight: "100vh",
+      }}
+    />
+  );
+}
+
+/*export default function Manual() {
   const { site, section } = useParams();
   const [rawConf, setRawConf] = useState();
 
@@ -316,4 +331,4 @@ function Topics({ section, sections, img }) {
       ))}
     </div>
   );
-}
+}*/

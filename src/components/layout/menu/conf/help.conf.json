@@ -2,5 +2,5 @@
     "id":"menuHelp",
     "label": "Help",
     "icon": "help",
-    "link": "/manual/README.md"
+    "link": "/manual/help"
 }
